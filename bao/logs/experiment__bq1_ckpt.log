@@ -1,0 +1,1357 @@
+===== EXPERIMENT START =====
+
+Split: BaseQuery-1
+Model: Bao
+
+[1] TRAINING DATA GENERATION
+Train query: q5a
+Plan collected: YES
+Cost: 39043.3
+Cardinality: 1
+Execution time: 169.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q5a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q11a
+Plan collected: YES
+Cost: 3765.9
+Cardinality: 1
+Execution time: 173.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q11a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q30b
+Plan collected: YES
+Cost: 11172.0
+Cardinality: 1
+Execution time: 362.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q30b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q10b
+Plan collected: YES
+Cost: 43790.4
+Cardinality: 1
+Execution time: 269.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q10b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q26c
+Plan collected: YES
+Cost: 14821.0
+Cardinality: 1
+Execution time: 1000.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q26c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q8a
+Plan collected: YES
+Cost: 41447.1
+Cardinality: 1
+Execution time: 1033.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q8a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q11c
+Plan collected: YES
+Cost: 6212.9
+Cardinality: 1
+Execution time: 162.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q11c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q16a
+Plan collected: YES
+Cost: 3806.5
+Cardinality: 1
+Execution time: 207.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q16a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q9d
+Plan collected: YES
+Cost: 211344.2
+Cardinality: 1
+Execution time: 3051.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q9d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q13c
+Plan collected: YES
+Cost: 19236.8
+Cardinality: 1
+Execution time: 649.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q13c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q26b
+Plan collected: YES
+Cost: 7444.9
+Cardinality: 1
+Execution time: 89.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q26b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q22b
+Plan collected: YES
+Cost: 7444.3
+Cardinality: 1
+Execution time: 211.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q22b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q12b
+Plan collected: YES
+Cost: 19312.7
+Cardinality: 1
+Execution time: 140.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q12b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q12c
+Plan collected: YES
+Cost: 17972.1
+Cardinality: 1
+Execution time: 656.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q12c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q3c
+Plan collected: YES
+Cost: 17022.9
+Cardinality: 1
+Execution time: 248.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q3c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q14a
+Plan collected: YES
+Cost: 7438.9
+Cardinality: 1
+Execution time: 230.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q14a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6c
+Plan collected: YES
+Cost: 3766.7
+Cardinality: 1
+Execution time: 13.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6b
+Plan collected: YES
+Cost: 12373.6
+Cardinality: 1
+Execution time: 176.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q29a
+Plan collected: YES
+Cost: 3838.9
+Cardinality: 1
+Execution time: 49.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q29a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q9b
+Plan collected: YES
+Cost: 83271.3
+Cardinality: 1
+Execution time: 302.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q9b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q33a
+Plan collected: YES
+Cost: 5097.8
+Cardinality: 1
+Execution time: 50.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q33a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q1c
+Plan collected: YES
+Cost: 19499.5
+Cardinality: 1
+Execution time: 126.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q1c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q8b
+Plan collected: YES
+Cost: 42361.4
+Cardinality: 1
+Execution time: 188.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q8b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q1a
+Plan collected: YES
+Cost: 19593.6
+Cardinality: 1
+Execution time: 111.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q1a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q18c
+Plan collected: YES
+Cost: 26881.5
+Cardinality: 1
+Execution time: 3673.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q18c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q1d
+Plan collected: YES
+Cost: 21048.5
+Cardinality: 1
+Execution time: 95.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q1d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q18a
+Plan collected: YES
+Cost: 32288.6
+Cardinality: 1
+Execution time: 3355.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q18a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q8c
+Plan collected: YES
+Cost: 492463.4
+Cardinality: 1
+Execution time: 4459.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q8c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q18b
+Plan collected: YES
+Cost: 16996.0
+Cardinality: 1
+Execution time: 191.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q18b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q21a
+Plan collected: YES
+Cost: 3767.7
+Cardinality: 1
+Execution time: 95.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q21a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q4a
+Plan collected: YES
+Cost: 16480.9
+Cardinality: 1
+Execution time: 87.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q4a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q4c
+Plan collected: YES
+Cost: 16490.0
+Cardinality: 1
+Execution time: 117.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q4c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q16b
+Plan collected: YES
+Cost: 5299.5
+Cardinality: 1
+Execution time: 18741.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q16b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q22c
+Plan collected: YES
+Cost: 7449.4
+Cardinality: 1
+Execution time: 2101.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q22c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17b
+Plan collected: YES
+Cost: 4453.5
+Cardinality: 1
+Execution time: 5718.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q29b
+Plan collected: YES
+Cost: 3856.2
+Cardinality: 1
+Execution time: 15.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q29b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q3b
+Plan collected: YES
+Cost: 16558.4
+Cardinality: 1
+Execution time: 95.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q3b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q13a
+Plan collected: YES
+Cost: 20206.1
+Cardinality: 1
+Execution time: 1442.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q13a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q14c
+Plan collected: YES
+Cost: 7447.1
+Cardinality: 1
+Execution time: 468.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q14c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q9a
+Plan collected: YES
+Cost: 83283.2
+Cardinality: 1
+Execution time: 326.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q9a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q23a
+Plan collected: YES
+Cost: 57947.3
+Cardinality: 1
+Execution time: 288.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q23a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q11b
+Plan collected: YES
+Cost: 3765.9
+Cardinality: 1
+Execution time: 31.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q11b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q5c
+Plan collected: YES
+Cost: 95215.6
+Cardinality: 1
+Execution time: 203.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q5c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q21b
+Plan collected: YES
+Cost: 3767.4
+Cardinality: 1
+Execution time: 64.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q21b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q4b
+Plan collected: YES
+Cost: 16472.4
+Cardinality: 1
+Execution time: 82.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q4b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q29c
+Plan collected: YES
+Cost: 3781.7
+Cardinality: 1
+Execution time: 86.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q29c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q9c
+Plan collected: YES
+Cost: 136069.0
+Cardinality: 1
+Execution time: 559.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q9c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q27b
+Plan collected: YES
+Cost: 2927.9
+Cardinality: 1
+Execution time: 11.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q27b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6d
+Plan collected: YES
+Cost: 15333.9
+Cardinality: 1
+Execution time: 4772.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q28a
+Plan collected: YES
+Cost: 7454.0
+Cardinality: 1
+Execution time: 1252.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q28a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q32b
+Plan collected: YES
+Cost: 3815.3
+Cardinality: 1
+Execution time: 104.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q32b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q22d
+Plan collected: YES
+Cost: 7449.3
+Cardinality: 1
+Execution time: 861.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q22d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q5b
+Plan collected: YES
+Cost: 38879.1
+Cardinality: 1
+Execution time: 166.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q5b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6e
+Plan collected: YES
+Cost: 4135.9
+Cardinality: 1
+Execution time: 20.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6e
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q33b
+Plan collected: YES
+Cost: 3192.5
+Cardinality: 1
+Execution time: 42.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q33b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q22a
+Plan collected: YES
+Cost: 7445.6
+Cardinality: 1
+Execution time: 378.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q22a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17d
+Plan collected: YES
+Cost: 4424.6
+Cardinality: 1
+Execution time: 5907.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17c
+Plan collected: YES
+Cost: 4424.6
+Cardinality: 1
+Execution time: 5355.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q28c
+Plan collected: YES
+Cost: 7449.6
+Cardinality: 1
+Execution time: 624.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q28c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q23b
+Plan collected: YES
+Cost: 7446.9
+Cardinality: 1
+Execution time: 43.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q23b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q28b
+Plan collected: YES
+Cost: 7444.1
+Cardinality: 1
+Execution time: 258.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q28b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q12a
+Plan collected: YES
+Cost: 16905.1
+Cardinality: 1
+Execution time: 192.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q12a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17f
+Plan collected: YES
+Cost: 4788.4
+Cardinality: 1
+Execution time: 4441.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17f
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17e
+Plan collected: YES
+Cost: 4625.7
+Cardinality: 1
+Execution time: 5035.3 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17e
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q19a
+Plan collected: YES
+Cost: 83285.8
+Cardinality: 1
+Execution time: 360.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q19a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q23c
+Plan collected: YES
+Cost: 67070.4
+Cardinality: 1
+Execution time: 417.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q23c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q13d
+Plan collected: YES
+Cost: 20821.7
+Cardinality: 1
+Execution time: 1915.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q13d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q17a
+Plan collected: YES
+Cost: 4626.3
+Cardinality: 1
+Execution time: 4315.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q17a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q32a
+Plan collected: YES
+Cost: 3815.3
+Cardinality: 1
+Execution time: 11.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q32a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q11d
+Plan collected: YES
+Cost: 6230.2
+Cardinality: 1
+Execution time: 140.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q11d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q16c
+Plan collected: YES
+Cost: 4340.0
+Cardinality: 1
+Execution time: 1552.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q16c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6f
+Plan collected: YES
+Cost: 15362.9
+Cardinality: 1
+Execution time: 4297.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6f
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q27a
+Plan collected: YES
+Cost: 1629.6
+Cardinality: 1
+Execution time: 39.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q27a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q30c
+Plan collected: YES
+Cost: 11198.3
+Cardinality: 1
+Execution time: 6494.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q30c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q3a
+Plan collected: YES
+Cost: 16766.7
+Cardinality: 1
+Execution time: 144.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q3a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q1b
+Plan collected: YES
+Cost: 20192.6
+Cardinality: 1
+Execution time: 97.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q1b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q10a
+Plan collected: YES
+Cost: 47163.2
+Cardinality: 1
+Execution time: 340.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q10a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q19d
+Plan collected: YES
+Cost: 211805.7
+Cardinality: 1
+Execution time: 5790.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q19d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q6a
+Plan collected: YES
+Cost: 3868.8
+Cardinality: 1
+Execution time: 19.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q6a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q8d
+Plan collected: YES
+Cost: 492463.4
+Cardinality: 1
+Execution time: 2310.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q8d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q20b
+Plan collected: YES
+Cost: 12394.9
+Cardinality: 1
+Execution time: 1615.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q20b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q33c
+Plan collected: YES
+Cost: 4289.7
+Cardinality: 1
+Execution time: 127.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q33c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q26a
+Plan collected: YES
+Cost: 10892.4
+Cardinality: 1
+Execution time: 1849.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q26a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q27c
+Plan collected: YES
+Cost: 1334.4
+Cardinality: 1
+Execution time: 162.9 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q27c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q16d
+Plan collected: YES
+Cost: 4182.1
+Cardinality: 1
+Execution time: 1185.0 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q16d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q20c
+Plan collected: YES
+Cost: 14813.2
+Cardinality: 1
+Execution time: 974.2 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q20c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q10c
+Plan collected: YES
+Cost: 645945.8
+Cardinality: 1
+Execution time: 3311.5 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q10c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q19b
+Plan collected: YES
+Cost: 55665.3
+Cardinality: 1
+Execution time: 154.8 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q19b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q30a
+Plan collected: YES
+Cost: 11192.0
+Cardinality: 1
+Execution time: 4419.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q30a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q20a
+Plan collected: YES
+Cost: 12400.6
+Cardinality: 1
+Execution time: 2207.1 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q20a
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q14b
+Plan collected: YES
+Cost: 4896.5
+Cardinality: 1
+Execution time: 93.7 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q14b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q21c
+Plan collected: YES
+Cost: 3767.8
+Cardinality: 1
+Execution time: 67.6 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q21c
+Query/Plan encoded: YES
+Model input generated: YES
+
+[1] TRAINING DATA GENERATION
+Train query: q13b
+Plan collected: YES
+Cost: 19236.8
+Cardinality: 1
+Execution time: 623.4 ms
+
+[2] QUERY & PLAN ENCODING
+Query: q13b
+Query/Plan encoded: YES
+Model input generated: YES
+
+[3] LQO TRAINING
+Model: Bao
+Split: BaseQuery-1
+Training status: COMPLETED (author checkpoint, paper hardware)
+Training time: 4625.0 s (77.1 min) (author checkpoint, paper hardware)
+Model/state: bao_server/bao__job__base_query_split_1
+
+[4] LQO EVALUATION
+Test query: q15a
+Bao inference/planning: 255.1 ms
+Execution time: 759.5 ms
+End-to-End: 1014.5 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 11.6 ms
+Execution: 380.4 ms
+End-to-End: 392.0 ms
+
+[4] LQO EVALUATION
+Test query: q15b
+Bao inference/planning: 75.4 ms
+Execution time: 26.0 ms
+End-to-End: 101.4 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 6.9 ms
+Execution: 24.6 ms
+End-to-End: 31.4 ms
+
+[4] LQO EVALUATION
+Test query: q15c
+Bao inference/planning: 79.1 ms
+Execution time: 653.3 ms
+End-to-End: 732.5 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 10.8 ms
+Execution: 1591.7 ms
+End-to-End: 1602.5 ms
+
+[4] LQO EVALUATION
+Test query: q15d
+Bao inference/planning: 78.7 ms
+Execution time: 1516.6 ms
+End-to-End: 1595.2 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 9.5 ms
+Execution: 677.3 ms
+End-to-End: 686.7 ms
+
+[4] LQO EVALUATION
+Test query: q24a
+Bao inference/planning: 315.8 ms
+Execution time: 1342.1 ms
+End-to-End: 1657.9 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 73.5 ms
+Execution: 426.1 ms
+End-to-End: 499.6 ms
+
+[4] LQO EVALUATION
+Test query: q24b
+Bao inference/planning: 247.3 ms
+Execution time: 53.3 ms
+End-to-End: 300.7 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 85.8 ms
+Execution: 108.8 ms
+End-to-End: 194.6 ms
+
+[4] LQO EVALUATION
+Test query: q25a
+Bao inference/planning: N/A
+Execution time: N/A
+End-to-End: N/A
+Status: TIMEOUT
+
+[POSTGRESQL]
+Planning: N/A
+Execution: N/A
+End-to-End: N/A
+
+[4] LQO EVALUATION
+Test query: q25b
+Bao inference/planning: 62.4 ms
+Execution time: 221.3 ms
+End-to-End: 283.7 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 11.4 ms
+Execution: 200.1 ms
+End-to-End: 211.5 ms
+
+[4] LQO EVALUATION
+Test query: q25c
+Bao inference/planning: N/A
+Execution time: N/A
+End-to-End: N/A
+Status: TIMEOUT
+
+[POSTGRESQL]
+Planning: N/A
+Execution: N/A
+End-to-End: N/A
+
+[4] LQO EVALUATION
+Test query: q2a
+Bao inference/planning: 53.7 ms
+Execution time: 452.3 ms
+End-to-End: 506.0 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 1.0 ms
+Execution: 633.2 ms
+End-to-End: 634.2 ms
+
+[4] LQO EVALUATION
+Test query: q2b
+Bao inference/planning: 37.0 ms
+Execution time: 379.2 ms
+End-to-End: 416.1 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 1.2 ms
+Execution: 613.5 ms
+End-to-End: 614.7 ms
+
+[4] LQO EVALUATION
+Test query: q2c
+Bao inference/planning: 32.7 ms
+Execution time: 404.7 ms
+End-to-End: 437.5 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 0.7 ms
+Execution: 392.6 ms
+End-to-End: 393.3 ms
+
+[4] LQO EVALUATION
+Test query: q2d
+Bao inference/planning: 34.6 ms
+Execution time: 443.3 ms
+End-to-End: 477.9 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 1.1 ms
+Execution: 496.1 ms
+End-to-End: 497.2 ms
+
+[4] LQO EVALUATION
+Test query: q31a
+Bao inference/planning: 142.1 ms
+Execution time: 267.4 ms
+End-to-End: 409.6 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 67.8 ms
+Execution: 393.0 ms
+End-to-End: 460.8 ms
+
+[4] LQO EVALUATION
+Test query: q31b
+Bao inference/planning: 159.8 ms
+Execution time: 101.7 ms
+End-to-End: 261.4 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 53.4 ms
+Execution: 140.2 ms
+End-to-End: 193.6 ms
+
+[4] LQO EVALUATION
+Test query: q31c
+Bao inference/planning: 133.7 ms
+Execution time: 291.8 ms
+End-to-End: 425.5 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 39.7 ms
+Execution: 605.0 ms
+End-to-End: 644.7 ms
+
+[4] LQO EVALUATION
+Test query: q7a
+Bao inference/planning: 50.1 ms
+Execution time: 211.1 ms
+End-to-End: 261.2 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 26.5 ms
+Execution: 1217.3 ms
+End-to-End: 1243.9 ms
+
+[4] LQO EVALUATION
+Test query: q7b
+Bao inference/planning: 38.9 ms
+Execution time: 148.0 ms
+End-to-End: 186.9 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 3.7 ms
+Execution: 170.3 ms
+End-to-End: 173.9 ms
+
+[4] LQO EVALUATION
+Test query: q7c
+Bao inference/planning: 139.9 ms
+Execution time: 5755.2 ms
+End-to-End: 5895.1 ms
+Status: COMPLETED
+
+[POSTGRESQL]
+Planning: 13.0 ms
+Execution: 27904.4 ms
+End-to-End: 27917.4 ms
+
+===== EXPERIMENT END =====

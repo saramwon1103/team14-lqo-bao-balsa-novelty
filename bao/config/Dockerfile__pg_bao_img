@@ -1,0 +1,30 @@
+FROM postgres:12.5
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Cau hinh kho Debian Buster.
+RUN printf '%s\n' \
+      'deb http://archive.debian.org/debian buster main' \
+      'deb http://archive.debian.org/debian-security buster/updates main' \
+      > /etc/apt/sources.list
+
+# Chi dung kho Debian de cai chung chi truoc.
+RUN mkdir -p /tmp/apt-empty-sources \
+    && apt-get \
+      -o Dir::Etc::sourceparts=/tmp/apt-empty-sources \
+      -o Acquire::Check-Valid-Until=false update \
+    && apt-get \
+      -o Dir::Etc::sourceparts=/tmp/apt-empty-sources \
+      install -y ca-certificates
+
+# Sau khi co chung chi, truy cap kho PostgreSQL.
+RUN sed -i \
+      's|apt.postgresql.org/pub/repos/apt|apt-archive.postgresql.org/pub/repos/apt|g' \
+      /etc/apt/sources.list.d/*.list \
+    && apt-get -o Acquire::Check-Valid-Until=false update \
+    && apt-get install -y \
+      sudo gcc make wget curl git nano postgresql-server-dev-12 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN echo 'postgres:postgres' | chpasswd
+RUN usermod -aG sudo postgres

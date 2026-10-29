@@ -1,0 +1,4 @@
+[LOO-1] bao_loo1_run01: train/test=80/33 | eval rows=33 (Bao OK=33, TIMEOUT=0; PG OK=32, TIMEOUT=1) | trace rows=519 | checkpoint=OK
+[Random-1] bao_rnd1_run01: train/test=91/22 | eval rows=22 (Bao OK=21, TIMEOUT=1; PG OK=20, TIMEOUT=2) | trace rows=519 | checkpoint=OK
+[BaseQuery-1] bao_bq1_run01: train/test=94/19 | eval rows=19 (Bao OK=17, TIMEOUT=2; PG OK=17, TIMEOUT=2) | trace rows=519 | checkpoint=OK
+TOTAL evaluation rows = 74 (mong đợi 74)

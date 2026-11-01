@@ -1,0 +1,13 @@
+{
+  "checkpoint_sha256": "9ada2c2114e76ac78c05b5b881dd421291bc3919d386506f0b8bac6fe32f3583",
+  "weight_sha256": "03f1df6f7ca58f5e9c91c180847a7ff41c5eeafd04ce9b0a5938a9bc6ee84abf",
+  "value_iter": 2,
+  "seed": 0,
+  "upstream_commit": "a0b45f2371c8c569bb90ad611f39911e5b850852",
+  "local_code_commit": "c6826be4ac2e4cbea860851ea2d0a54bbdfd8382",
+  "model_source": "team_trained",
+  "simulator_source": "fresh_split_local_simulator",
+  "run_py_sha256": "522a3a9983113b1b20a6516899a2abaddde8713e91b6f4de4508b5e85bf072f8",
+  "type": "evaluation only; not an exact resume checkpoint",
+  "split_sha256": "6cc7dadb036e85db609ebda0a25931f89c4e838101ea381245a19a218a4b94a7"
+}

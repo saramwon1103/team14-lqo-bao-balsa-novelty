@@ -1,6 +1,6 @@
 # Balsa: checkpoint và nghiệm thu logging LOO / Random
 
-## Balsa V2 theo protocol chung (đang chuẩn bị, chưa chạy)
+## Balsa V2 theo protocol chung (đã chạy)
 
 Các artifact LOO-template Fold 02/Random-52 bên dưới là evidence kỹ thuật cũ,
 không phải kết quả RQ2. Nguồn split V2 duy nhất là
@@ -21,9 +21,13 @@ hinted Planning Time, và E2E là tổng ba thành phần. Bao README cũ dùng
 `planning_ms` đã gồm inference và để `inference_ms` trống. Đối với Balsa V2,
 chúng tôi giữ contract rõ ràng của TODO V2 (không diễn giải lại dữ liệu Bao).
 
-Chưa có run budget V2 phê duyệt hoặc kết quả train/eval V2. **Không dùng các
-lệnh dưới đây trước khi nhóm chốt ngân sách/guard**; mỗi split phải train mới,
-không dùng Random-52/LOO-template/BaseQuery cũ làm model/cache/checkpoint.
+Ngân sách pilot đã được duyệt và ba split đã train/eval tuần tự, mỗi split
+tạo agent/simulator/checkpoint riêng; không dùng Random-52, LOO-template,
+cache/replay hoặc checkpoint chéo split. Lệnh supervisor có giới hạn 2 giờ/run,
+6 giờ tổng, simulator mới train-only tối đa một epoch, 3 value iterations,
+eval một repeat/query và timeout 30 giây. Guard RAM 24/23 GiB, MemAvailable tối
+thiểu 3 GiB, PostgreSQL growth dưới 20 GiB, live temp dưới 16 GiB và artifact
+mới dưới 20 GiB đều được ghi trong resource evidence cục bộ.
 
 ### Cập nhật nguồn và validate/generate manifest
 
@@ -44,67 +48,33 @@ split-file commit `5c9d6403089289a3188aa05ea75ef33c62b50177`, SHA-256
 `804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880`. Output
 được xác minh với toàn bộ 113 SQL JOB của source tree Balsa.
 
-### Train/eval riêng từng split (chỉ sau khi budget được duyệt)
+### Common outputs và kết quả V2
 
-Mỗi output tạm phải là thư mục mới. Sau train, dùng đúng checkpoint vừa tạo
-cho evaluator mới; không truyền checkpoint/replay/simulator từ split khác:
+Mỗi thư mục run có `run_manifest.json`, split snapshot 113 hàng, training trace,
+checkpoint + SHA-256, một observation/query, PostgreSQL baseline, raw logs,
+hinted SQL và EXPLAIN. Checkpoint trong mỗi thư mục là checkpoint riêng của
+split đó; training `git_commit` phản ánh chính xác code commit đã dùng.
 
-```bash
-PY=/path/to/verified-balsa-python
-SPLIT=analysis/data/split_master.csv
-SQL=balsa/source/queries/join-order-benchmark
-RUN_ID="loo1_$(date -u +%Y%m%dT%H%M%SZ)"
-"$PY" balsa/source/scripts/train_split.py --split-master "$SPLIT" --split-type LOO-1 \
-  --output-dir "/tmp/$RUN_ID/training" --allow-full --iterations 3 --seed 0 \
-  --initial-timeout-ms 10000 --isolated-runtime --independent-eval-only \
-  --simulator-integration-epochs 1
-"$PY" balsa/source/scripts/evaluate_checkpoint.py \
-  --checkpoint "/tmp/$RUN_ID/training/<wandb-run>/checkpoints/evaluation.pt" \
-  --output-dir "/tmp/$RUN_ID/evaluation" --seed 0 --repeats 1 --timeout-ms 30000
-"$PY" balsa/source/scripts/export_common_results.py \
-  --training-dir "/tmp/$RUN_ID/training" --evaluation-dir "/tmp/$RUN_ID/evaluation" \
-  --split-master "$SPLIT" --sql-dir "$SQL" --novelty-csv analysis/data/novelty.csv \
-  --output-dir "balsa/runs/LOO-1/$RUN_ID" --run-id "$RUN_ID" --code-commit "$(git rev-parse HEAD)"
-```
+| Split | Run ID | Train/Test | Agent optimizer steps | Eval status | Train code commit |
+|---|---|---:|---:|---|---|
+| LOO-1 | `balsa-v2-run-51121` | 80/33 | 170 | 31 OK, 2 TIMEOUT | `1335ff20fd20a84f2101c5284dfb2a7e8b0e8efd` |
+| Random-1 | `balsa-v2-run-698900` | 91/22 | 200 | 22 OK | `1335ff20fd20a84f2101c5284dfb2a7e8b0e8efd` |
+| BaseQuery-1 | `balsa-v2-run-1308903` | 94/19 | 200 | 19 OK | `c6826be4ac2e4cbea860851ea2d0a54bbdfd8382` |
 
-Lặp nguyên mẫu với `SPLIT_TYPE=Random-1` hoặc `BaseQuery-1` và đúng thư mục
-đích tương ứng. Ví dụ command dùng biến có thể chạy tuần tự cho cả ba:
+Common files are under `balsa/runs/<split>/<run_id>/`. Every split passed
+113-row snapshot and exact test/baseline coverage validation. All 74 evaluation
+rows join `novelty.csv` one-to-one. Timeout timings are empty; no Novelty Score
+was recomputed because `analysis/src/merge_results.py` and
+`analysis/src/analyze_novelty.py` are empty. LOO/Random exports were recovered
+from retained run artifacts after the supervisor/exporter initially exited;
+their manifests record the actual training commits and evaluator evidence.
 
-```bash
-declare -A RUN_IDS
-set -o pipefail
-for SPLIT_TYPE in LOO-1 Random-1 BaseQuery-1; do
-  RUN_ID="${SPLIT_TYPE//-/_}_$(date -u +%Y%m%dT%H%M%SZ)"
-  RUN_DIR="/tmp/$RUN_ID"; mkdir "$RUN_DIR"
-  "$PY" balsa/source/scripts/train_split.py --split-master "$SPLIT" --split-type "$SPLIT_TYPE" \
-    --output-dir "$RUN_DIR/training" --allow-full --iterations 3 --seed 0 \
-    --initial-timeout-ms 10000 --isolated-runtime --independent-eval-only \
-    --simulator-integration-epochs 1 2>&1 | tee "$RUN_DIR/raw_training_stdout.log"
-  CKPT="$(find "$RUN_DIR/training" -path '*/checkpoints/evaluation.pt' -print -quit)"
-  test -n "$CKPT"
-  "$PY" balsa/source/scripts/evaluate_checkpoint.py --checkpoint "$CKPT" \
-    --output-dir "$RUN_DIR/evaluation" --seed 0 --repeats 1 --timeout-ms 30000 \
-    --run-id "$RUN_ID" \
-    2>&1 | tee "$RUN_DIR/raw_eval_stdout.log"
-  RUN_IDS[$SPLIT_TYPE]="$RUN_ID"
-done
-# Export only after all three clean-tree training invocations have finished.
-for SPLIT_TYPE in LOO-1 Random-1 BaseQuery-1; do
-  RUN_ID="${RUN_IDS[$SPLIT_TYPE]}"; RUN_DIR="/tmp/$RUN_ID"
-  "$PY" balsa/source/scripts/export_common_results.py --training-dir "$RUN_DIR/training" \
-    --evaluation-dir "$RUN_DIR/evaluation" --split-master "$SPLIT" --sql-dir "$SQL" \
-    --novelty-csv analysis/data/novelty.csv --output-dir "balsa/runs/$SPLIT_TYPE/$RUN_ID" \
-    --raw-training-log "$RUN_DIR/raw_training_stdout.log" --raw-eval-log "$RUN_DIR/raw_eval_stdout.log" \
-    --run-id "$RUN_ID" --code-commit "$(git rev-parse HEAD)"
-done
-```
-
-`split_id=1` không phải random seed. Đây là cấu hình **đề xuất, chưa được
-chạy/chưa có V2 budget phê duyệt**: 3 value iterations; tối đa 1 epoch
-simulator mới trên train của chính split; max 100 epochs/agent iteration với
-early stopping gốc; beam 20/10 complete plans; 10s initial execution guard,
-30s eval/query, 1 repeat. Lệnh trực tiếp không tự tạo cgroup guard. Cần duyệt
-tổng wall-clock/storage/RAM/PostgreSQL trước khi chạy.
+Sanitized `resource_evidence.json` is included in each common run. Full
+machine-local supervisor artifacts are retained outside the repository; they
+contain host-specific information and are not part of the portable bundle.
+The recorded per-run peaks remained under the
+approved RAM/PG/temp/artifact guards. These are bounded pilot results, not a
+full-scale paper reproduction or a claim that Balsa is faster.
 
 ### Tests và kiểm tra analysis contract
 
@@ -115,9 +85,8 @@ tổng wall-clock/storage/RAM/PostgreSQL trước khi chạy.
 Exporter bắt buộc one row/test, baseline cùng đúng Test IDs, no fabricated
 timeout timing, `E2E=inference+planning+execution`, checkpoint path thật, ít
 nhất một optimizer update, eval `train_called=false`/weights unchanged, và
-one-to-one match với Novelty composite key. Lần kiểm tra hiện tại chỉ xác nhận
-contract/keys trên `novelty.csv`, chưa có phép merge từ ba Balsa V2 run vì chưa
-train.
+one-to-one match với Novelty composite key. Cả ba common run đã qua kiểm tra
+contract; Novelty được join/kiểm tra cardinality, không tính lại score.
 
 Đã chạy **agent train thật → checkpoint → evaluator tiến trình mới → PostgreSQL
 thực thi hinted SQL → CSV và EXPLAIN ANALYZE** cho hai giao thức dưới đây.
@@ -250,5 +219,5 @@ công/3 timeout**, không đổi thành 113 thành công hoặc gọi là thực
 
 Nguồn upstream: `balsa-project/balsa`, commit
 `a0b45f2371c8c569bb90ad611f39911e5b850852`, Apache-2.0 (LICENSE trong source).
-25 unit tests của gói nghiệm thu PASS; suite trên repository sau ghép được
+31 unit tests của suite nghiệm thu PASS; suite trên repository sau ghép được
 ghi thêm trong `published_tests.log`. Không có kết luận full benchmark.

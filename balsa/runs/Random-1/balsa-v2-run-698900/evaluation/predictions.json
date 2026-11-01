@@ -1,0 +1,134 @@
+[
+  {
+    "query_id": "11d",
+    "repeat_id": 0,
+    "predicted_latency_ms": 581.0415649414062,
+    "hint": "/*+ HashJoin(k cn ct ml mc t lt mk)\n NestLoop(cn ct ml mc t lt mk)\n NestLoop(cn ct ml mc t lt)\n HashJoin(cn ct ml mc t)\n MergeJoin(ct ml mc t)\n NestLoop(ct ml mc)\n NestLoop(ml mc)\n IndexScan(k)\n IndexScan(cn)\n SeqScan(ct)\n SeqScan(ml)\n IndexScan(mc)\n SeqScan(t)\n IndexScan(lt)\n IndexScan(mk)\n Leading((k (((cn ((ct (ml mc)) t)) lt) mk))) */"
+  },
+  {
+    "query_id": "15a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 558.5237426757812,
+    "hint": "/*+ NestLoop(k mi ct cn mc aka_t mk t it1)\n NestLoop(k mi ct cn mc aka_t mk t)\n HashJoin(k mi ct cn mc aka_t mk)\n NestLoop(mi ct cn mc aka_t mk)\n HashJoin(mi ct cn mc aka_t)\n NestLoop(ct cn mc aka_t)\n NestLoop(ct cn mc)\n NestLoop(cn mc)\n IndexScan(k)\n IndexScan(mi)\n SeqScan(ct)\n SeqScan(cn)\n IndexScan(mc)\n IndexScan(aka_t)\n IndexScan(mk)\n IndexScan(t)\n IndexScan(it1)\n Leading((((k ((mi ((ct (cn mc)) aka_t)) mk)) t) it1)) */"
+  },
+  {
+    "query_id": "17b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2343.047607421875,
+    "hint": "/*+ HashJoin(n mc t k mk cn ci)\n NestLoop(mc t k mk cn ci)\n MergeJoin(mc t k mk cn)\n HashJoin(mc t k mk)\n MergeJoin(t k mk)\n NestLoop(k mk)\n SeqScan(n)\n SeqScan(mc)\n IndexScan(t)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(cn)\n IndexScan(ci)\n Leading((n (((mc (t (k mk))) cn) ci))) */"
+  },
+  {
+    "query_id": "17e",
+    "repeat_id": 0,
+    "predicted_latency_ms": 4012.272705078125,
+    "hint": "/*+ HashJoin(ci t k mk n mc cn)\n MergeJoin(ci t k mk n mc)\n HashJoin(ci t k mk n)\n HashJoin(ci t k mk)\n HashJoin(t k mk)\n NestLoop(k mk)\n SeqScan(ci)\n IndexScan(t)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(n)\n SeqScan(mc)\n SeqScan(cn)\n Leading(((((ci (t (k mk))) n) mc) cn)) */"
+  },
+  {
+    "query_id": "18b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 655.5927124023438,
+    "hint": "/*+ HashJoin(ci mi t it2 mi_idx it1 n)\n HashJoin(ci mi t it2 mi_idx it1)\n MergeJoin(mi t it2 mi_idx it1)\n MergeJoin(mi t it2 mi_idx)\n HashJoin(t it2 mi_idx)\n HashJoin(it2 mi_idx)\n IndexScan(ci)\n IndexScan(mi)\n SeqScan(t)\n IndexScan(it2)\n IndexScan(mi_idx)\n IndexScan(it1)\n IndexScan(n)\n Leading(((ci ((mi (t (it2 mi_idx))) it1)) n)) */"
+  },
+  {
+    "query_id": "1c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 574.2021484375,
+    "hint": "/*+ HashJoin(mi_idx ct t mc it)\n HashJoin(mi_idx ct t mc)\n HashJoin(ct t mc)\n HashJoin(t mc)\n SeqScan(mi_idx)\n SeqScan(ct)\n SeqScan(t)\n IndexScan(mc)\n IndexScan(it)\n Leading(((mi_idx (ct (t mc))) it)) */"
+  },
+  {
+    "query_id": "20a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 3493.80810546875,
+    "hint": "/*+ HashJoin(ci cct2 kt t k mk cc n chn cct1)\n NestLoop(ci cct2 kt t k mk cc n chn)\n HashJoin(ci cct2 kt t k mk cc n)\n HashJoin(ci cct2 kt t k mk cc)\n NestLoop(cct2 kt t k mk cc)\n NestLoop(kt t k mk cc)\n HashJoin(kt t k mk)\n HashJoin(t k mk)\n NestLoop(k mk)\n SeqScan(ci)\n SeqScan(cct2)\n IndexScan(kt)\n IndexScan(t)\n IndexScan(k)\n IndexScan(mk)\n IndexScan(cc)\n SeqScan(n)\n IndexScan(chn)\n IndexScan(cct1)\n Leading(((((ci (cct2 ((kt (t (k mk))) cc))) n) chn) cct1)) */"
+  },
+  {
+    "query_id": "21a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 422.4284973144531,
+    "hint": "/*+ HashJoin(k ct ml mc mi cn t lt mk)\n NestLoop(ct ml mc mi cn t lt mk)\n NestLoop(ct ml mc mi cn t lt)\n NestLoop(ct ml mc mi cn t)\n HashJoin(ct ml mc mi cn)\n NestLoop(ct ml mc mi)\n NestLoop(ct ml mc)\n NestLoop(ml mc)\n IndexScan(k)\n SeqScan(ct)\n SeqScan(ml)\n IndexScan(mc)\n IndexScan(mi)\n IndexScan(cn)\n IndexScan(t)\n IndexScan(lt)\n IndexScan(mk)\n Leading((k ((((((ct (ml mc)) mi) cn) t) lt) mk))) */"
+  },
+  {
+    "query_id": "25c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2035.2982177734375,
+    "hint": "/*+ HashJoin(mi_idx k mk it2 t ci n mi it1)\n MergeJoin(mi_idx k mk it2 t ci n mi)\n NestLoop(mi_idx k mk it2 t ci n)\n MergeJoin(mi_idx k mk it2 t ci)\n NestLoop(mi_idx k mk it2 t)\n HashJoin(mi_idx k mk it2)\n HashJoin(mi_idx k mk)\n HashJoin(k mk)\n SeqScan(mi_idx)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(it2)\n IndexScan(t)\n IndexScan(ci)\n IndexScan(n)\n SeqScan(mi)\n SeqScan(it1)\n Leading((((((((mi_idx (k mk)) it2) t) ci) n) mi) it1)) */"
+  },
+  {
+    "query_id": "28b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1013.059326171875,
+    "hint": "/*+ NestLoop(it1 k kt t ct cn mc cc cct2 mi cct1 mk mi_idx it2)\n NestLoop(it1 k kt t ct cn mc cc cct2 mi cct1 mk mi_idx)\n NestLoop(k kt t ct cn mc cc cct2 mi cct1 mk mi_idx)\n HashJoin(k kt t ct cn mc cc cct2 mi cct1 mk)\n NestLoop(kt t ct cn mc cc cct2 mi cct1 mk)\n NestLoop(kt t ct cn mc cc cct2 mi cct1)\n HashJoin(kt t ct cn mc cc cct2 mi)\n NestLoop(t ct cn mc cc cct2 mi)\n HashJoin(t ct cn mc cc cct2)\n NestLoop(ct cn mc cc cct2)\n NestLoop(ct cn mc cc)\n HashJoin(ct cn mc)\n HashJoin(cn mc)\n SeqScan(it1)\n IndexScan(k)\n IndexScan(kt)\n IndexScan(t)\n SeqScan(ct)\n SeqScan(cn)\n IndexScan(mc)\n IndexScan(cc)\n SeqScan(cct2)\n IndexScan(mi)\n IndexScan(cct1)\n IndexScan(mk)\n IndexScan(mi_idx)\n SeqScan(it2)\n Leading(((it1 ((k (((kt ((t (((ct (cn mc)) cc) cct2)) mi)) cct1) mk)) mi_idx)) it2)) */"
+  },
+  {
+    "query_id": "2c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 563.9739379882812,
+    "hint": "/*+ HashJoin(k t cn mc mk)\n NestLoop(t cn mc mk)\n HashJoin(t cn mc)\n NestLoop(cn mc)\n IndexScan(k)\n SeqScan(t)\n SeqScan(cn)\n IndexScan(mc)\n IndexScan(mk)\n Leading((k ((t (cn mc)) mk))) */"
+  },
+  {
+    "query_id": "32b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 803.1063842773438,
+    "hint": "/*+ HashJoin(k t1 ml t2 lt mk)\n NestLoop(t1 ml t2 lt mk)\n NestLoop(t1 ml t2 lt)\n HashJoin(t1 ml t2)\n MergeJoin(ml t2)\n IndexScan(k)\n IndexScan(t1)\n SeqScan(ml)\n SeqScan(t2)\n IndexScan(lt)\n IndexScan(mk)\n Leading((k (((t1 (ml t2)) lt) mk))) */"
+  },
+  {
+    "query_id": "33a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1048.3857421875,
+    "hint": "/*+ HashJoin(it1 cn2 mi_idx1 mc2 it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml lt)\n MergeJoin(cn2 mi_idx1 mc2 it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml lt)\n MergeJoin(mi_idx1 mc2 it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml lt)\n HashJoin(mc2 it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml lt)\n HashJoin(it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml lt)\n HashJoin(it2 cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml)\n HashJoin(cn1 kt1 mi_idx2 mc1 kt2 t2 t1 ml)\n HashJoin(kt1 mi_idx2 mc1 kt2 t2 t1 ml)\n HashJoin(mi_idx2 mc1 kt2 t2 t1 ml)\n MergeJoin(mc1 kt2 t2 t1 ml)\n HashJoin(kt2 t2 t1 ml)\n HashJoin(t2 t1 ml)\n HashJoin(t1 ml)\n SeqScan(it1)\n IndexScan(cn2)\n SeqScan(mi_idx1)\n SeqScan(mc2)\n IndexScan(it2)\n SeqScan(cn1)\n IndexScan(kt1)\n IndexScan(mi_idx2)\n IndexScan(mc1)\n IndexScan(kt2)\n SeqScan(t2)\n IndexScan(t1)\n SeqScan(ml)\n IndexScan(lt)\n Leading((it1 (cn2 (mi_idx1 (mc2 ((it2 (cn1 (kt1 (mi_idx2 (mc1 (kt2 (t2 (t1 ml)))))))) lt)))))) */"
+  },
+  {
+    "query_id": "4b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 946.1233520507812,
+    "hint": "/*+ MergeJoin(k mk t it mi_idx)\n HashJoin(mk t it mi_idx)\n HashJoin(t it mi_idx)\n HashJoin(it mi_idx)\n IndexScan(k)\n SeqScan(mk)\n SeqScan(t)\n SeqScan(it)\n IndexScan(mi_idx)\n Leading((k (mk (t (it mi_idx))))) */"
+  },
+  {
+    "query_id": "4c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1212.5648193359375,
+    "hint": "/*+ MergeJoin(k mk t it mi_idx)\n HashJoin(mk t it mi_idx)\n HashJoin(t it mi_idx)\n HashJoin(it mi_idx)\n IndexScan(k)\n SeqScan(mk)\n SeqScan(t)\n SeqScan(it)\n IndexScan(mi_idx)\n Leading((k (mk (t (it mi_idx))))) */"
+  },
+  {
+    "query_id": "5c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 639.0216674804688,
+    "hint": "/*+ NestLoop(it t ct mc mi)\n NestLoop(t ct mc mi)\n HashJoin(t ct mc)\n HashJoin(ct mc)\n SeqScan(it)\n SeqScan(t)\n SeqScan(ct)\n IndexScan(mc)\n IndexScan(mi)\n Leading((it ((t (ct mc)) mi))) */"
+  },
+  {
+    "query_id": "6a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1239.8658447265625,
+    "hint": "/*+ HashJoin(ci t k mk n)\n HashJoin(ci t k mk)\n MergeJoin(t k mk)\n NestLoop(k mk)\n IndexScan(ci)\n SeqScan(t)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(n)\n Leading(((ci (t (k mk))) n)) */"
+  },
+  {
+    "query_id": "6c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1191.689697265625,
+    "hint": "/*+ HashJoin(ci t k mk n)\n HashJoin(ci t k mk)\n MergeJoin(t k mk)\n NestLoop(k mk)\n IndexScan(ci)\n SeqScan(t)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(n)\n Leading(((ci (t (k mk))) n)) */"
+  },
+  {
+    "query_id": "6e",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1422.4815673828125,
+    "hint": "/*+ HashJoin(ci t k mk n)\n HashJoin(ci t k mk)\n MergeJoin(t k mk)\n NestLoop(k mk)\n SeqScan(ci)\n SeqScan(t)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(n)\n Leading(((ci (t (k mk))) n)) */"
+  },
+  {
+    "query_id": "8b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 455.9871520996094,
+    "hint": "/*+ HashJoin(n rt t cn mc ci an)\n HashJoin(n rt t cn mc ci)\n HashJoin(rt t cn mc ci)\n HashJoin(t cn mc ci)\n HashJoin(t cn mc)\n HashJoin(cn mc)\n SeqScan(n)\n SeqScan(rt)\n SeqScan(t)\n SeqScan(cn)\n IndexScan(mc)\n IndexScan(ci)\n SeqScan(an)\n Leading(((n (rt ((t (cn mc)) ci))) an)) */"
+  },
+  {
+    "query_id": "8c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 6148.28759765625,
+    "hint": "/*+ HashJoin(a1 mc t ci rt cn n1)\n NestLoop(mc t ci rt cn n1)\n HashJoin(mc t ci rt cn)\n HashJoin(mc t ci rt)\n HashJoin(t ci rt)\n NestLoop(ci rt)\n SeqScan(a1)\n SeqScan(mc)\n IndexScan(t)\n SeqScan(ci)\n IndexScan(rt)\n SeqScan(cn)\n IndexScan(n1)\n Leading((a1 (((mc (t (ci rt))) cn) n1))) */"
+  },
+  {
+    "query_id": "9c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 1728.921875,
+    "hint": "/*+ HashJoin(mc n ci rt chn cn an t)\n NestLoop(mc n ci rt chn cn an)\n HashJoin(mc n ci rt chn cn)\n HashJoin(mc n ci rt chn)\n HashJoin(n ci rt chn)\n HashJoin(n ci rt)\n HashJoin(ci rt)\n SeqScan(mc)\n SeqScan(n)\n SeqScan(ci)\n IndexScan(rt)\n SeqScan(chn)\n SeqScan(cn)\n IndexScan(an)\n IndexScan(t)\n Leading(((((mc ((n (ci rt)) chn)) cn) an) t)) */"
+  }
+]

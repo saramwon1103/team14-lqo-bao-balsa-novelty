@@ -1,0 +1,15 @@
+{
+  "connection": [
+    "imdbload",
+    "wings",
+    "PostgreSQL 12.5 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit",
+    null,
+    null,
+    "<redacted-machine-local-path>"
+  ],
+  "cache_policy": "uncontrolled warm; no cache drop",
+  "seed": 0,
+  "process_id": 1749315,
+  "boundary": "Balsa encoding/search/selection + PG Planning Time + Execution Time; wall clock separately; baseline same session settings",
+  "server_data_directory_recorded": true
+}

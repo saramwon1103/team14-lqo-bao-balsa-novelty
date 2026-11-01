@@ -1,0 +1,61 @@
+run_id,model,split_type,split_id,phase,step,current,total,metric_name,metric_value,metric_unit,status,message,timestamp
+balsa-v2-run-1308903,Balsa,BaseQuery,1,baseline_initialization,1,,,duration,,s,START,START,1793546622.6239674
+balsa-v2-run-1308903,Balsa,BaseQuery,1,baseline_initialization,2,,,duration,5.808114679999562,s,OK,END,1793546628.4320881
+balsa-v2-run-1308903,Balsa,BaseQuery,1,postgres_expert_baseline,3,,,duration,,s,START,START,1793546628.432231
+balsa-v2-run-1308903,Balsa,BaseQuery,1,postgres_expert_baseline,4,,,duration,78.48458438200032,s,OK,END,1793546706.91682
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_and_simulator_initialization,5,,,duration,,s,START,START,1793546709.415664
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_data_collection,6,,,duration,,s,START,START,1793546714.6718686
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_data_collection,7,,,duration,184.349706125,s,OK,END,1793546899.0215793
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_training_and_featurization,8,,,duration,,s,START,START,1793546899.0219781
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_featurization,9,,,duration,,s,START,START,1793546904.7067974
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_featurization,10,,,duration,64.03209949899974,s,OK,END,1793546968.7388985
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_neural_training,11,,,duration,,s,START,START,1793546983.4628913
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_epoch,12,,,duration,,s,OK,END,1793547312.6370895
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_neural_training,13,,,duration,329.18030259400075,s,OK,END,1793547312.6431992
+balsa-v2-run-1308903,Balsa,BaseQuery,1,simulator_training_and_featurization,14,,,duration,413.7777133239997,s,OK,END,1793547312.7996998
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_and_simulator_initialization,15,,,duration,603.7267432329991,s,OK,END,1793547313.1424005
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,16,0,,duration,,s,START,START,1793547313.1955845
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,17,,,duration,,s,START,START,1793547313.1963804
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,18,,,duration,0.09143948554992676,s,OK,END,1793547313.2878244
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,19,,,duration,,s,START,START,1793547313.2883432
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,20,,,duration,17.834861040115356,s,OK,END,1793547331.1232061
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,21,,,duration,,s,START,START,1793547331.1234367
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,22,,,duration,203.43398785591125,s,OK,END,1793547534.55743
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,23,,,duration,,s,START,START,1793547535.330897
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,24,,,duration,3.7079391479492188,s,OK,END,1793547539.0388362
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,25,,,duration,,s,START,START,1793547539.038957
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,26,,,duration,43.751392126083374,s,OK,END,1793547582.7903538
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,27,0,,duration,,s,OK,END,1793547582.8417819
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,28,1,,duration,,s,START,START,1793547582.8498936
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,29,,,duration,,s,START,START,1793547582.85016
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,30,,,duration,75.4645471572876,s,OK,END,1793547658.3147142
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,31,,,duration,,s,START,START,1793547658.315258
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,32,,,duration,26.82499074935913,s,OK,END,1793547685.1402516
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,33,,,duration,,s,START,START,1793547685.1403801
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,34,,,duration,191.05765962600708,s,OK,END,1793547876.1980436
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,35,,,duration,,s,START,START,1793547876.5673199
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,36,,,duration,3.601550340652466,s,OK,END,1793547880.168867
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,37,,,duration,,s,START,START,1793547880.1690385
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,38,,,duration,33.38998365402222,s,OK,END,1793547913.559026
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,39,1,,duration,,s,OK,END,1793547913.6063926
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,40,2,,duration,,s,START,START,1793547913.6172626
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,41,,,duration,,s,START,START,1793547913.6176407
+balsa-v2-run-1308903,Balsa,BaseQuery,1,train,42,,,duration,76.30630683898926,s,OK,END,1793547989.9239514
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,43,,,duration,,s,START,START,1793547989.9244926
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan,44,,,duration,16.451241493225098,s,OK,END,1793548006.3757358
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,45,,,duration,,s,START,START,1793548006.3758812
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions,46,,,duration,164.7522463798523,s,OK,END,1793548171.1281316
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,47,,,duration,,s,START,START,1793548171.7718236
+balsa-v2-run-1308903,Balsa,BaseQuery,1,plan_test_set,48,,,duration,3.657036304473877,s,OK,END,1793548175.428861
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,49,,,duration,,s,START,START,1793548175.4291632
+balsa-v2-run-1308903,Balsa,BaseQuery,1,wait_for_executions_test_set,50,,,duration,33.92108082771301,s,OK,END,1793548209.3502467
+balsa-v2-run-1308903,Balsa,BaseQuery,1,value_iteration,51,2,,duration,,s,OK,END,1793548209.3970156
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,52,0,,optimizer_steps,0,steps,SKIPPED_EXPERT_INIT,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,53,0,,training_batches,0,batches,SKIPPED_EXPERT_INIT,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,54,0,,changed_tensors,0,tensors,SKIPPED_EXPERT_INIT,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,55,1,,optimizer_steps,100,steps,COMPLETED,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,56,1,,training_batches,100,batches,COMPLETED,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,57,1,,changed_tensors,26,tensors,COMPLETED,weights_before=ad9a298936b4a148c79e79218758b85e7d81712dfc9c1e724c8259944085917a weights_after=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,58,2,,optimizer_steps,100,steps,COMPLETED,weights_before=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178 weights_after=d8138562c32a20507a1d42d10b4285f1449acaf6bbd206cb33874ab295fe87ea,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,59,2,,training_batches,100,batches,COMPLETED,weights_before=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178 weights_after=d8138562c32a20507a1d42d10b4285f1449acaf6bbd206cb33874ab295fe87ea,
+balsa-v2-run-1308903,Balsa,BaseQuery,1,agent_fit,60,2,,changed_tensors,26,tensors,COMPLETED,weights_before=9dd01209f31042c9f1747e8ccb836047733b89a6a43b80a3eef563e7a0b29178 weights_after=d8138562c32a20507a1d42d10b4285f1449acaf6bbd206cb33874ab295fe87ea,

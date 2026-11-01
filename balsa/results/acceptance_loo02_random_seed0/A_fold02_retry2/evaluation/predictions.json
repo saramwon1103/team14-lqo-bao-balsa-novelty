@@ -1,0 +1,26 @@
+[
+  {
+    "query_id": "2a",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2419.704345703125,
+    "hint": "/*+ HashJoin(k mk mc cn t)\n MergeJoin(k mk mc cn)\n HashJoin(k mk mc)\n HashJoin(k mk)\n IndexScan(k)\n IndexScan(mk)\n IndexScan(mc)\n IndexScan(cn)\n SeqScan(t)\n Leading(((((k mk) mc) cn) t)) */"
+  },
+  {
+    "query_id": "2b",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2322.192626953125,
+    "hint": "/*+ MergeJoin(k mk t mc cn)\n MergeJoin(t mc cn)\n HashJoin(mc cn)\n HashJoin(k mk)\n IndexScan(k)\n IndexScan(mk)\n IndexScan(t)\n IndexScan(mc)\n SeqScan(cn)\n Leading(((k mk) (t (mc cn)))) */"
+  },
+  {
+    "query_id": "2c",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2318.485595703125,
+    "hint": "/*+ MergeJoin(k mk t mc cn)\n MergeJoin(t mc cn)\n HashJoin(mc cn)\n HashJoin(k mk)\n IndexScan(k)\n IndexScan(mk)\n IndexScan(t)\n IndexScan(mc)\n SeqScan(cn)\n Leading(((k mk) (t (mc cn)))) */"
+  },
+  {
+    "query_id": "2d",
+    "repeat_id": 0,
+    "predicted_latency_ms": 2277.064453125,
+    "hint": "/*+ MergeJoin(cn mc k mk t)\n HashJoin(cn mc k mk)\n HashJoin(mc k mk)\n HashJoin(k mk)\n SeqScan(cn)\n SeqScan(mc)\n IndexScan(k)\n IndexScan(mk)\n SeqScan(t)\n Leading(((cn (mc (k mk))) t)) */"
+  }
+]

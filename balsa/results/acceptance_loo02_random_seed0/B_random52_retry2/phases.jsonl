@@ -1,0 +1,39 @@
+{"stage": "baseline_initialization", "event": "START", "monotonic": 45201.621560932, "timestamp": 1793465906.66715, "pid": 2141263}
+{"stage": "baseline_initialization", "event": "END", "monotonic": 45207.221939998, "timestamp": 1793465912.267529, "pid": 2141263, "seconds": 5.60037339200062, "completed": true}
+{"stage": "postgres_expert_baseline", "event": "START", "monotonic": 45207.222082031, "timestamp": 1793465912.267671, "pid": 2141263}
+{"stage": "postgres_expert_baseline", "event": "END", "monotonic": 45286.809897709, "timestamp": 1793465991.8554866, "pid": 2141263, "seconds": 79.58780689300329, "completed": true}
+{"stage": "agent_and_simulator_initialization", "event": "START", "monotonic": 45289.506379433, "timestamp": 1793465994.5519693, "pid": 2141263}
+{"stage": "simulator_data_collection", "event": "START", "monotonic": 45294.607295641, "timestamp": 1793465999.6528847, "pid": 2141263}
+{"stage": "simulator_data_collection", "event": "END", "monotonic": 45519.954611638, "timestamp": 1793466225.0002007, "pid": 2141263, "seconds": 225.34730989300442, "completed": true}
+{"stage": "simulator_training_and_featurization", "event": "START", "monotonic": 45519.954871872, "timestamp": 1793466225.0004609, "pid": 2141263}
+{"stage": "simulator_featurization", "event": "START", "monotonic": 45526.850719276, "timestamp": 1793466231.8963084, "pid": 2141263, "num_points": 516759}
+{"stage": "simulator_featurization", "event": "END", "monotonic": 45611.029724804, "timestamp": 1793466316.0753138, "pid": 2141263, "seconds": 84.17900413100142, "completed": true, "num_points": 516759}
+{"stage": "simulator_neural_training", "event": "START", "monotonic": 45628.063831148, "timestamp": 1793466333.1094203, "pid": 2141263}
+{"stage": "simulator_epoch", "event": "END", "monotonic": 46015.306801911, "timestamp": 1793466720.3523912, "pid": 2141263, "epoch": 0, "global_step": 454, "training_batches": 455, "completed": true}
+{"stage": "simulator_neural_training", "event": "END", "monotonic": 46015.315928473, "timestamp": 1793466720.3615177, "pid": 2141263, "seconds": 387.25209491400165, "completed": true}
+{"stage": "simulator_training_and_featurization", "event": "END", "monotonic": 46015.508967469, "timestamp": 1793466720.5545566, "pid": 2141263, "seconds": 495.5540868149983, "completed": true}
+{"stage": "agent_and_simulator_initialization", "event": "END", "monotonic": 46015.878120484, "timestamp": 1793466720.9237096, "pid": 2141263, "seconds": 726.3717543259991, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 46015.930276679, "timestamp": 1793466720.9758658, "pid": 2141263, "value_iter": 0}
+{"stage": "train", "event": "START", "monotonic": 46015.930482355, "timestamp": 1793466720.9760711, "pid": 2141263}
+{"stage": "train", "event": "END", "monotonic": 46016.010673474, "timestamp": 1793466721.0562625, "pid": 2141263, "seconds": 0.08018302917480469, "completed": true, "sample": 0}
+{"stage": "plan", "event": "START", "monotonic": 46016.011162514, "timestamp": 1793466721.0567513, "pid": 2141263}
+{"stage": "plan", "event": "END", "monotonic": 46044.865896046, "timestamp": 1793466749.911485, "pid": 2141263, "seconds": 28.85473132133484, "completed": true, "sample": 0}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 46044.866018612, "timestamp": 1793466749.9116075, "pid": 2141263}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 46298.311601023, "timestamp": 1793467003.35719, "pid": 2141263, "seconds": 253.44557809829712, "completed": true, "sample": 0}
+{"stage": "value_iteration", "event": "END", "monotonic": 46298.908329971, "timestamp": 1793467003.953919, "pid": 2141263, "value_iter": 0, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 46298.915497775, "timestamp": 1793467003.9610868, "pid": 2141263, "value_iter": 1}
+{"stage": "train", "event": "START", "monotonic": 46298.915648253, "timestamp": 1793467003.9612372, "pid": 2141263}
+{"stage": "train", "event": "END", "monotonic": 46375.66653337, "timestamp": 1793467080.7121224, "pid": 2141263, "seconds": 76.75087833404541, "completed": true, "sample": 1}
+{"stage": "plan", "event": "START", "monotonic": 46375.667395221, "timestamp": 1793467080.712984, "pid": 2141263}
+{"stage": "plan", "event": "END", "monotonic": 46406.256593681, "timestamp": 1793467111.3021827, "pid": 2141263, "seconds": 30.589197397232056, "completed": true, "sample": 1}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 46406.256702687, "timestamp": 1793467111.3022916, "pid": 2141263}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 46598.622348808, "timestamp": 1793467303.6679378, "pid": 2141263, "seconds": 192.3656415939331, "completed": true, "sample": 1}
+{"stage": "value_iteration", "event": "END", "monotonic": 46599.506590512, "timestamp": 1793467304.5521798, "pid": 2141263, "value_iter": 1, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 46599.514147526, "timestamp": 1793467304.5597365, "pid": 2141263, "value_iter": 2}
+{"stage": "train", "event": "START", "monotonic": 46599.514297062, "timestamp": 1793467304.559886, "pid": 2141263}
+{"stage": "train", "event": "END", "monotonic": 46676.155357683, "timestamp": 1793467381.2009466, "pid": 2141263, "seconds": 76.64105367660522, "completed": true, "sample": 2}
+{"stage": "plan", "event": "START", "monotonic": 46676.155933779, "timestamp": 1793467381.2015226, "pid": 2141263}
+{"stage": "plan", "event": "END", "monotonic": 46703.678420523, "timestamp": 1793467408.7240095, "pid": 2141263, "seconds": 27.522484302520752, "completed": true, "sample": 2}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 46703.678565729, "timestamp": 1793467408.7241547, "pid": 2141263}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 46926.554117069, "timestamp": 1793467631.5997062, "pid": 2141263, "seconds": 222.87554740905762, "completed": true, "sample": 2}
+{"stage": "value_iteration", "event": "END", "monotonic": 46927.052648347, "timestamp": 1793467632.0982375, "pid": 2141263, "value_iter": 2, "completed": true}

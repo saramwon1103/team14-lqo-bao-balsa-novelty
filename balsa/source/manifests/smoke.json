@@ -1,0 +1,22 @@
+{
+  "protocol": "Smoke",
+  "split_id": "Smoke",
+  "fold_id": null,
+  "seed": null,
+  "source": {
+    "path": "experiments.py",
+    "sha256": "d47d20a704b4cd9510e791d959056f96653066d4ad941a926aab611670512afd",
+    "status": "custom assignment split, not official Balsa"
+  },
+  "train_queries": [
+    "1a.sql",
+    "1b.sql",
+    "3a.sql",
+    "16b.sql"
+  ],
+  "test_queries": [
+    "2a.sql",
+    "2b.sql"
+  ],
+  "sha256": "0b65fe8192675f304cff513e19e5f9d98759ade9ad553864dcfd174111e76a8e"
+}

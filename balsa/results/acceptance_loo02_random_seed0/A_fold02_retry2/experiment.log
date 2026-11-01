@@ -1,0 +1,4088 @@
+===== EXPERIMENT START =====
+
+Split: LOO-template
+Model: Balsa
+Fold: 2
+Seed: 0
+Value iteration: 0
+
+[1] TRAINING DATA GENERATION
+Train query: q10a
+Plan collected: YES
+Cost: 1167003.320
+Cardinality: 1
+Execution time: 4437.623 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10b
+Plan collected: YES
+Cost: 2287059.670
+Cardinality: 1
+Execution time: 4316.547 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10c
+Plan collected: YES
+Cost: 8321998.020
+Cardinality: 1
+Execution time: 5361.626 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11a
+Plan collected: YES
+Cost: 37023.340
+Cardinality: 1
+Execution time: 119.373 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11b
+Plan collected: YES
+Cost: 40857.350
+Cardinality: 1
+Execution time: 180.983 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11c
+Plan collected: YES
+Cost: 1023082.590
+Cardinality: 1
+Execution time: 2085.391 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11d
+Plan collected: YES
+Cost: 822410.910
+Cardinality: 1
+Execution time: 1899.457 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12a
+Plan collected: YES
+Cost: 1949082.310
+Cardinality: 1
+Execution time: 2541.226 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12b
+Plan collected: YES
+Cost: 1045124.750
+Cardinality: 1
+Execution time: 3449.882 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12c
+Plan collected: YES
+Cost: 1182513.890
+Cardinality: 1
+Execution time: 1675.141 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13a
+Plan collected: YES
+Cost: 1810963.660
+Cardinality: 1
+Execution time: 5092.608 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13b
+Plan collected: YES
+Cost: 1660262.920
+Cardinality: 1
+Execution time: 3003.123 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13c
+Plan collected: YES
+Cost: 1801674.580
+Cardinality: 1
+Execution time: 2862.491 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13d
+Plan collected: YES
+Cost: 1601755.190
+Cardinality: 1
+Execution time: 9160.629 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14a
+Plan collected: YES
+Cost: 782462.800
+Cardinality: 1
+Execution time: 1949.905 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14b
+Plan collected: YES
+Cost: 1461843.390
+Cardinality: 1
+Execution time: 1658.225 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14c
+Plan collected: YES
+Cost: 774280.350
+Cardinality: 1
+Execution time: 2059.691 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15a
+Plan collected: YES
+Cost: 1887102.700
+Cardinality: 1
+Execution time: 2342.673 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15b
+Plan collected: YES
+Cost: 1893605.400
+Cardinality: 1
+Execution time: 2175.805 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15c
+Plan collected: YES
+Cost: 1401910.340
+Cardinality: 1
+Execution time: 1180.815 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15d
+Plan collected: YES
+Cost: 3152188.430
+Cardinality: 1
+Execution time: 1129.684 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16a
+Plan collected: YES
+Cost: 1219041.350
+Cardinality: 1
+Execution time: 5204.041 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16b
+Plan collected: YES
+Cost: 1292071.430
+Cardinality: 1
+Execution time: 5518.994 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16c
+Plan collected: YES
+Cost: 1533523.620
+Cardinality: 1
+Execution time: 4915.619 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16d
+Plan collected: YES
+Cost: 1159417.740
+Cardinality: 1
+Execution time: 3417.484 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17a
+Plan collected: YES
+Cost: 1184601.820
+Cardinality: 1
+Execution time: 3552.927 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17b
+Plan collected: YES
+Cost: 2255203.940
+Cardinality: 1
+Execution time: 6992.118 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17c
+Plan collected: YES
+Cost: 2179199.870
+Cardinality: 1
+Execution time: 3049.167 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17d
+Plan collected: YES
+Cost: 2179199.860
+Cardinality: 1
+Execution time: 3327.582 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17e
+Plan collected: YES
+Cost: 1486696.280
+Cardinality: 1
+Execution time: 8555.609 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17f
+Plan collected: YES
+Cost: 1148151.320
+Cardinality: 1
+Execution time: 3378.522 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18a
+Plan collected: YES
+Cost: 20845460.330
+Cardinality: 1
+Execution time: 3999.039 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18b
+Plan collected: YES
+Cost: 1090211.530
+Cardinality: 1
+Execution time: 1908.049 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18c
+Plan collected: YES
+Cost: 5166289.900
+Cardinality: 1
+Execution time: 3686.034 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19a
+Plan collected: YES
+Cost: 3514825.210
+Cardinality: 1
+Execution time: 2242.580 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19b
+Plan collected: YES
+Cost: 2452263.440
+Cardinality: 1
+Execution time: 2391.255 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19c
+Plan collected: YES
+Cost: 11840863.670
+Cardinality: 1
+Execution time: 3997.720 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19d
+Plan collected: YES
+Cost: 3590930.950
+Cardinality: 1
+Execution time: 7608.207 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1a
+Plan collected: YES
+Cost: 313652.290
+Cardinality: 1
+Execution time: 732.217 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1b
+Plan collected: YES
+Cost: 234485.150
+Cardinality: 1
+Execution time: 454.699 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1c
+Plan collected: YES
+Cost: 211821.820
+Cardinality: 1
+Execution time: 424.103 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1d
+Plan collected: YES
+Cost: 332208.180
+Cardinality: 1
+Execution time: 691.292 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20a
+Plan collected: YES
+Cost: 2823900.540
+Cardinality: 1
+Execution time: 8297.232 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20b
+Plan collected: YES
+Cost: 2075221.120
+Cardinality: 1
+Execution time: 2659.750 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20c
+Plan collected: YES
+Cost: 2843243.140
+Cardinality: 1
+Execution time: 4881.594 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21a
+Plan collected: YES
+Cost: 327992.040
+Cardinality: 1
+Execution time: 507.715 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21b
+Plan collected: YES
+Cost: 281419.690
+Cardinality: 1
+Execution time: 346.114 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21c
+Plan collected: YES
+Cost: 900751.660
+Cardinality: 1
+Execution time: 1851.919 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22a
+Plan collected: YES
+Cost: 871951.710
+Cardinality: 1
+Execution time: 1801.653 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22b
+Plan collected: YES
+Cost: 1484383.950
+Cardinality: 1
+Execution time: 2338.974 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22c
+Plan collected: YES
+Cost: 791237.990
+Cardinality: 1
+Execution time: 1592.197 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22d
+Plan collected: YES
+Cost: 1899784.500
+Cardinality: 1
+Execution time: 3060.341 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23a
+Plan collected: YES
+Cost: 1876375.620
+Cardinality: 1
+Execution time: 1718.811 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23b
+Plan collected: YES
+Cost: 1764741.720
+Cardinality: 1
+Execution time: 1436.875 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23c
+Plan collected: YES
+Cost: 1999126.230
+Cardinality: 1
+Execution time: 1606.915 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24a
+Plan collected: YES
+Cost: 2514596.280
+Cardinality: 1
+Execution time: 3105.838 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24b
+Plan collected: YES
+Cost: 3449627.930
+Cardinality: 1
+Execution time: 2542.660 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25a
+Plan collected: YES
+Cost: 24330632.110
+Cardinality: 1
+Execution time: 4826.517 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25b
+Plan collected: YES
+Cost: 19006197.840
+Cardinality: 1
+Execution time: 3125.636 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25c
+Plan collected: YES
+Cost: 24392845.250
+Cardinality: 1
+Execution time: 5672.897 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26a
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q26b
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q26c
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q27a
+Plan collected: YES
+Cost: 398443.920
+Cardinality: 1
+Execution time: 760.344 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27b
+Plan collected: YES
+Cost: 482105.040
+Cardinality: 1
+Execution time: 688.030 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27c
+Plan collected: YES
+Cost: 798247.130
+Cardinality: 1
+Execution time: 1506.482 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28a
+Plan collected: YES
+Cost: 1764105.310
+Cardinality: 1
+Execution time: 3279.958 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28b
+Plan collected: YES
+Cost: 1525545.170
+Cardinality: 1
+Execution time: 1661.205 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28c
+Plan collected: YES
+Cost: 1644302.090
+Cardinality: 1
+Execution time: 2440.969 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29a
+Plan collected: YES
+Cost: 19346837.770
+Cardinality: 1
+Execution time: 4876.338 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29b
+Plan collected: YES
+Cost: 18576380.710
+Cardinality: 1
+Execution time: 4537.575 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29c
+Plan collected: YES
+Cost: 18997147.150
+Cardinality: 1
+Execution time: 4842.463 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30a
+Plan collected: YES
+Cost: 935022.880
+Cardinality: 1
+Execution time: 3319.310 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30b
+Plan collected: YES
+Cost: 24089636.830
+Cardinality: 1
+Execution time: 3132.867 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30c
+Plan collected: YES
+Cost: 18202649.320
+Cardinality: 1
+Execution time: 3111.485 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31a
+Plan collected: YES
+Cost: 29034095.190
+Cardinality: 1
+Execution time: 5056.395 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31b
+Plan collected: YES
+Cost: 28532659.740
+Cardinality: 1
+Execution time: 4160.717 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31c
+Plan collected: YES
+Cost: 21230992.100
+Cardinality: 1
+Execution time: 4227.850 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32a
+Plan collected: YES
+Cost: 875264.070
+Cardinality: 1
+Execution time: 1001.129 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32b
+Plan collected: YES
+Cost: 875264.070
+Cardinality: 1
+Execution time: 961.527 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33a
+Plan collected: YES
+Cost: 1243674.650
+Cardinality: 1
+Execution time: 2082.733 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33b
+Plan collected: YES
+Cost: 925487.010
+Cardinality: 1
+Execution time: 2151.488 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33c
+Plan collected: YES
+Cost: 1593626.930
+Cardinality: 1
+Execution time: 3140.689 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3a
+Plan collected: YES
+Cost: 414025.350
+Cardinality: 1
+Execution time: 1161.795 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3b
+Plan collected: YES
+Cost: 1025626.320
+Cardinality: 1
+Execution time: 1790.778 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3c
+Plan collected: YES
+Cost: 807759.480
+Cardinality: 1
+Execution time: 1494.800 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4a
+Plan collected: YES
+Cost: 339514.050
+Cardinality: 1
+Execution time: 898.816 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4b
+Plan collected: YES
+Cost: 766289.050
+Cardinality: 1
+Execution time: 1116.152 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4c
+Plan collected: YES
+Cost: 416155.540
+Cardinality: 1
+Execution time: 1105.467 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5a
+Plan collected: YES
+Cost: 403401.680
+Cardinality: 1
+Execution time: 702.947 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5b
+Plan collected: YES
+Cost: 432938.530
+Cardinality: 1
+Execution time: 682.297 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5c
+Plan collected: YES
+Cost: 774694.670
+Cardinality: 1
+Execution time: 1569.368 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6a
+Plan collected: YES
+Cost: 1934204.960
+Cardinality: 1
+Execution time: 2605.641 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6b
+Plan collected: YES
+Cost: 1838643.200
+Cardinality: 1
+Execution time: 1932.119 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6c
+Plan collected: YES
+Cost: 1837636.780
+Cardinality: 1
+Execution time: 1795.778 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6d
+Plan collected: YES
+Cost: 1930819.260
+Cardinality: 1
+Execution time: 1838.078 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6e
+Plan collected: YES
+Cost: 1929812.840
+Cardinality: 1
+Execution time: 1910.914 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6f
+Plan collected: YES
+Cost: 1590148.200
+Cardinality: 1
+Execution time: 4192.345 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7a
+Plan collected: YES
+Cost: 4117302.950
+Cardinality: 1
+Execution time: 3860.482 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7b
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q7c
+Plan collected: YES
+Cost: 1601305.010
+Cardinality: 1
+Execution time: 4913.460 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8a
+Plan collected: YES
+Cost: 826712.980
+Cardinality: 1
+Execution time: 1476.320 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8b
+Plan collected: YES
+Cost: 849275.860
+Cardinality: 1
+Execution time: 883.220 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8c
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q8d
+Plan collected: YES
+Cost: 3934709.690
+Cardinality: 1
+Execution time: 7638.547 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9a
+Plan collected: YES
+Cost: 1580542.590
+Cardinality: 1
+Execution time: 1989.525 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9b
+Plan collected: YES
+Cost: 1928288.060
+Cardinality: 1
+Execution time: 2286.282 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9c
+Plan collected: YES
+Cost: 12987091.080
+Cardinality: 1
+Execution time: 1742.835 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9d
+Plan collected: YES
+Cost: 143713296.870
+Cardinality: 1
+Execution time: 3414.608 ms
+Status: COMPLETED
+Result source: MEASURED
+
+[2] QUERY & PLAN ENCODING
+Query: q10a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[3] LQO TRAINING
+Model: Balsa
+Split: LOO-template
+Training status: SKIPPED_EXPERT_INIT
+Training time: 78.474 ms
+Model/state: in-memory value_iter=0; periodic checkpoint=/tmp/opencode/ac1366378/A_fold02_retry2/training/wandb/offline-run-20261031_234025-7qkbbqub/files/checkpoint.pt
+
+[4] LQO EVALUATION
+Test query: N/A
+Balsa inference/planning: N/A ms
+Execution time: N/A ms
+End-to-End: N/A ms
+Status: SKIPPED
+
+[POSTGRESQL]
+Planning: N/A ms
+Execution: N/A ms
+End-to-End: N/A ms
+
+===== EXPERIMENT END =====
+===== EXPERIMENT START =====
+
+Split: LOO-template
+Model: Balsa
+Fold: 2
+Seed: 0
+Value iteration: 1
+
+[1] TRAINING DATA GENERATION
+Train query: q10a
+Plan collected: YES
+Cost: 1299742.570
+Cardinality: 1
+Execution time: 2864.757 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10b
+Plan collected: YES
+Cost: 1475243.430
+Cardinality: 1
+Execution time: 1371.159 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10c
+Plan collected: YES
+Cost: 1356544.060
+Cardinality: 1
+Execution time: 2217.936 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11a
+Plan collected: YES
+Cost: 206001.650
+Cardinality: 1
+Execution time: 450.387 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11b
+Plan collected: YES
+Cost: 150101.050
+Cardinality: 1
+Execution time: 450.991 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11c
+Plan collected: YES
+Cost: 248786.760
+Cardinality: 1
+Execution time: 735.203 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11d
+Plan collected: YES
+Cost: 618977.160
+Cardinality: 1
+Execution time: 1328.907 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12a
+Plan collected: YES
+Cost: 487984.180
+Cardinality: 1
+Execution time: 852.663 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12b
+Plan collected: YES
+Cost: 1627599.580
+Cardinality: 1
+Execution time: 2357.627 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12c
+Plan collected: YES
+Cost: 485498.420
+Cardinality: 1
+Execution time: 749.822 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13a
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q13b
+Plan collected: YES
+Cost: 2946904.090
+Cardinality: 1
+Execution time: 4362.492 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13c
+Plan collected: YES
+Cost: 2911599.650
+Cardinality: 1
+Execution time: 4061.978 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13d
+Plan collected: YES
+Cost: 2798902.420
+Cardinality: 1
+Execution time: 5213.875 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14a
+Plan collected: YES
+Cost: 706000.040
+Cardinality: 1
+Execution time: 1801.523 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14b
+Plan collected: YES
+Cost: 803588.070
+Cardinality: 1
+Execution time: 1380.922 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14c
+Plan collected: YES
+Cost: 812284.500
+Cardinality: 1
+Execution time: 2141.826 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15a
+Plan collected: YES
+Cost: 1849961.000
+Cardinality: 1
+Execution time: 2321.267 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15b
+Plan collected: YES
+Cost: 688071.030
+Cardinality: 1
+Execution time: 1409.645 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15c
+Plan collected: YES
+Cost: 1305185.600
+Cardinality: 1
+Execution time: 1904.078 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15d
+Plan collected: YES
+Cost: 1292808.130
+Cardinality: 1
+Execution time: 1909.640 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16a
+Plan collected: YES
+Cost: 1201585.690
+Cardinality: 1
+Execution time: 8614.788 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16b
+Plan collected: YES
+Cost: 1307863.860
+Cardinality: 1
+Execution time: 5436.322 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16c
+Plan collected: YES
+Cost: 1079314.080
+Cardinality: 1
+Execution time: 4903.272 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16d
+Plan collected: YES
+Cost: 1064971.380
+Cardinality: 1
+Execution time: 5245.236 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17a
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q17b
+Plan collected: YES
+Cost: 2803433.310
+Cardinality: 1
+Execution time: 4566.954 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17c
+Plan collected: YES
+Cost: 2259350.540
+Cardinality: 1
+Execution time: 2627.345 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17d
+Plan collected: YES
+Cost: 2259350.540
+Cardinality: 1
+Execution time: 2889.411 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17e
+Plan collected: YES
+Cost: 1216131.400
+Cardinality: 1
+Execution time: 4078.530 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17f
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q18a
+Plan collected: YES
+Cost: 15538587.730
+Cardinality: 1
+Execution time: 2765.149 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18b
+Plan collected: YES
+Cost: 15552825.150
+Cardinality: 1
+Execution time: 2260.184 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18c
+Plan collected: YES
+Cost: 19263969.470
+Cardinality: 1
+Execution time: 2622.920 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19a
+Plan collected: YES
+Cost: 13814288.510
+Cardinality: 1
+Execution time: 3887.499 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19b
+Plan collected: YES
+Cost: 13258953.000
+Cardinality: 1
+Execution time: 2809.491 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19c
+Plan collected: YES
+Cost: 2339870.470
+Cardinality: 1
+Execution time: 3524.368 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19d
+Plan collected: YES
+Cost: 4267708.220
+Cardinality: 1
+Execution time: 7301.756 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1a
+Plan collected: YES
+Cost: 273491.730
+Cardinality: 1
+Execution time: 609.867 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1b
+Plan collected: YES
+Cost: 301775.780
+Cardinality: 1
+Execution time: 605.103 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1c
+Plan collected: YES
+Cost: 209867.380
+Cardinality: 1
+Execution time: 431.485 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1d
+Plan collected: YES
+Cost: 218970.440
+Cardinality: 1
+Execution time: 452.317 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20a
+Plan collected: YES
+Cost: 2291666.110
+Cardinality: 1
+Execution time: 3582.802 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20b
+Plan collected: YES
+Cost: 3755654.160
+Cardinality: 1
+Execution time: 1503.593 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20c
+Plan collected: YES
+Cost: 2179969.640
+Cardinality: 1
+Execution time: 3661.837 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21a
+Plan collected: YES
+Cost: 517664.440
+Cardinality: 1
+Execution time: 832.317 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21b
+Plan collected: YES
+Cost: 442404.420
+Cardinality: 1
+Execution time: 667.989 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21c
+Plan collected: YES
+Cost: 831247.280
+Cardinality: 1
+Execution time: 1401.466 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22a
+Plan collected: YES
+Cost: 890683.980
+Cardinality: 1
+Execution time: 3229.222 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22b
+Plan collected: YES
+Cost: 877080.890
+Cardinality: 1
+Execution time: 3083.964 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22c
+Plan collected: YES
+Cost: 926476.180
+Cardinality: 1
+Execution time: 4239.429 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22d
+Plan collected: YES
+Cost: 953017.560
+Cardinality: 1
+Execution time: 4222.028 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23a
+Plan collected: YES
+Cost: 13918822.980
+Cardinality: 1
+Execution time: 3173.101 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23b
+Plan collected: YES
+Cost: 1344824.850
+Cardinality: 1
+Execution time: 1301.965 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23c
+Plan collected: YES
+Cost: 1257344.380
+Cardinality: 1
+Execution time: 1321.639 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24a
+Plan collected: YES
+Cost: 13580419.450
+Cardinality: 1
+Execution time: 4111.982 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24b
+Plan collected: YES
+Cost: 2876975.010
+Cardinality: 1
+Execution time: 4259.277 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25a
+Plan collected: YES
+Cost: 7405764.990
+Cardinality: 1
+Execution time: 2892.419 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25b
+Plan collected: YES
+Cost: 18326109.980
+Cardinality: 1
+Execution time: 3343.991 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25c
+Plan collected: YES
+Cost: 17969957.050
+Cardinality: 1
+Execution time: 3456.003 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26a
+Plan collected: YES
+Cost: 3439890.300
+Cardinality: 1
+Execution time: 8654.730 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26b
+Plan collected: YES
+Cost: 3564897.720
+Cardinality: 1
+Execution time: 5451.918 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26c
+Plan collected: YES
+Cost: 3598567.230
+Cardinality: 1
+Execution time: 9041.119 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27a
+Plan collected: YES
+Cost: 494845.070
+Cardinality: 1
+Execution time: 784.571 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27b
+Plan collected: YES
+Cost: 497016.450
+Cardinality: 1
+Execution time: 703.676 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27c
+Plan collected: YES
+Cost: 685194.890
+Cardinality: 1
+Execution time: 962.669 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28a
+Plan collected: YES
+Cost: 1758592.700
+Cardinality: 1
+Execution time: 2589.249 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28b
+Plan collected: YES
+Cost: 1519874.550
+Cardinality: 1
+Execution time: 4294.463 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28c
+Plan collected: YES
+Cost: 1582500.260
+Cardinality: 1
+Execution time: 2482.842 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29a
+Plan collected: YES
+Cost: 20094550.420
+Cardinality: 1
+Execution time: 5144.386 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29b
+Plan collected: YES
+Cost: 20057386.160
+Cardinality: 1
+Execution time: 4419.124 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29c
+Plan collected: YES
+Cost: 4486578.190
+Cardinality: 1
+Execution time: 3863.633 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30a
+Plan collected: YES
+Cost: 17976145.500
+Cardinality: 1
+Execution time: 3180.165 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30b
+Plan collected: YES
+Cost: 7400478.290
+Cardinality: 1
+Execution time: 2707.743 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30c
+Plan collected: YES
+Cost: 18212997.190
+Cardinality: 1
+Execution time: 3114.005 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31a
+Plan collected: YES
+Cost: 28337892.710
+Cardinality: 1
+Execution time: 3370.080 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31b
+Plan collected: YES
+Cost: 20850591.750
+Cardinality: 1
+Execution time: 3198.000 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31c
+Plan collected: YES
+Cost: 28567552.890
+Cardinality: 1
+Execution time: 3988.168 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32a
+Plan collected: YES
+Cost: 1142544.270
+Cardinality: 1
+Execution time: 2217.452 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32b
+Plan collected: YES
+Cost: 1142544.270
+Cardinality: 1
+Execution time: 2078.252 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33a
+Plan collected: YES
+Cost: 1556976.390
+Cardinality: 1
+Execution time: 2461.654 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33b
+Plan collected: YES
+Cost: 1553499.090
+Cardinality: 1
+Execution time: 2377.220 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33c
+Plan collected: YES
+Cost: 1558998.140
+Cardinality: 1
+Execution time: 2284.778 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3a
+Plan collected: YES
+Cost: 625534.750
+Cardinality: 1
+Execution time: 1436.148 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3b
+Plan collected: YES
+Cost: 578574.270
+Cardinality: 1
+Execution time: 1190.313 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3c
+Plan collected: YES
+Cost: 602673.390
+Cardinality: 1
+Execution time: 1346.333 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4a
+Plan collected: YES
+Cost: 339217.820
+Cardinality: 1
+Execution time: 928.470 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4b
+Plan collected: YES
+Cost: 358311.270
+Cardinality: 1
+Execution time: 882.057 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4c
+Plan collected: YES
+Cost: 382537.660
+Cardinality: 1
+Execution time: 1447.122 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5a
+Plan collected: YES
+Cost: 543170.460
+Cardinality: 1
+Execution time: 835.209 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5b
+Plan collected: YES
+Cost: 451517.420
+Cardinality: 1
+Execution time: 569.652 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5c
+Plan collected: YES
+Cost: 922217.550
+Cardinality: 1
+Execution time: 1228.396 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6a
+Plan collected: YES
+Cost: 1935162.440
+Cardinality: 1
+Execution time: 1931.174 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6b
+Plan collected: YES
+Cost: 1993330.090
+Cardinality: 1
+Execution time: 2465.430 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6c
+Plan collected: YES
+Cost: 1991695.340
+Cardinality: 1
+Execution time: 2417.448 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6d
+Plan collected: YES
+Cost: 1963826.120
+Cardinality: 1
+Execution time: 1409.695 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6e
+Plan collected: YES
+Cost: 1962817.600
+Cardinality: 1
+Execution time: 1350.384 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6f
+Plan collected: YES
+Cost: 1524680.170
+Cardinality: 1
+Execution time: 3381.995 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7a
+Plan collected: YES
+Cost: 4140652.620
+Cardinality: 1
+Execution time: 2873.245 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7b
+Plan collected: YES
+Cost: 4087572.260
+Cardinality: 1
+Execution time: 1347.094 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7c
+Plan collected: YES
+Cost: 4214185.750
+Cardinality: 1
+Execution time: 6738.662 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8a
+Plan collected: YES
+Cost: 1365993.770
+Cardinality: 1
+Execution time: 3164.766 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8b
+Plan collected: YES
+Cost: 1338234.020
+Cardinality: 1
+Execution time: 2529.327 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8c
+Plan collected: YES
+Cost: 5324053.530
+Cardinality: 1
+Execution time: 5123.370 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8d
+Plan collected: YES
+Cost: 2933975.550
+Cardinality: 1
+Execution time: 3209.861 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9a
+Plan collected: YES
+Cost: 1547437.140
+Cardinality: 1
+Execution time: 2149.758 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9b
+Plan collected: YES
+Cost: 3439280.420
+Cardinality: 1
+Execution time: 2622.632 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9c
+Plan collected: YES
+Cost: 1492115.140
+Cardinality: 1
+Execution time: 2286.403 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9d
+Plan collected: YES
+Cost: 1864889.750
+Cardinality: 1
+Execution time: 3646.668 ms
+Status: COMPLETED
+Result source: MEASURED
+
+[2] QUERY & PLAN ENCODING
+Query: q10a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[3] LQO TRAINING
+Model: Balsa
+Split: LOO-template
+Training status: COMPLETED
+Training time: 40248.143 ms
+Model/state: in-memory value_iter=1; periodic checkpoint=/tmp/opencode/ac1366378/A_fold02_retry2/training/wandb/offline-run-20261031_234025-7qkbbqub/files/checkpoint.pt
+
+[4] LQO EVALUATION
+Test query: N/A
+Balsa inference/planning: N/A ms
+Execution time: N/A ms
+End-to-End: N/A ms
+Status: SKIPPED
+
+[POSTGRESQL]
+Planning: N/A ms
+Execution: N/A ms
+End-to-End: N/A ms
+
+===== EXPERIMENT END =====
+===== EXPERIMENT START =====
+
+Split: LOO-template
+Model: Balsa
+Fold: 2
+Seed: 0
+Value iteration: 2
+
+[1] TRAINING DATA GENERATION
+Train query: q10a
+Plan collected: YES
+Cost: 743185.850
+Cardinality: 1
+Execution time: 1285.376 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10b
+Plan collected: YES
+Cost: 1475203.560
+Cardinality: 1
+Execution time: 1368.428 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q10c
+Plan collected: YES
+Cost: 1201392.540
+Cardinality: 1
+Execution time: 2291.229 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11a
+Plan collected: YES
+Cost: 28992.970
+Cardinality: 1
+Execution time: 75.000 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11b
+Plan collected: YES
+Cost: 736009.620
+Cardinality: 1
+Execution time: 1122.522 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11c
+Plan collected: YES
+Cost: 248772.150
+Cardinality: 1
+Execution time: 616.740 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q11d
+Plan collected: YES
+Cost: 427035.100
+Cardinality: 1
+Execution time: 996.797 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12a
+Plan collected: YES
+Cost: 490480.140
+Cardinality: 1
+Execution time: 843.981 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12b
+Plan collected: YES
+Cost: 657191.140
+Cardinality: 1
+Execution time: 2950.102 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q12c
+Plan collected: YES
+Cost: 556363.990
+Cardinality: 1
+Execution time: 888.281 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13a
+Plan collected: YES
+Cost: 1234139.250
+Cardinality: 1
+Execution time: 2409.218 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13b
+Plan collected: YES
+Cost: 1366103.690
+Cardinality: 1
+Execution time: 2876.501 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13c
+Plan collected: YES
+Cost: 1363414.560
+Cardinality: 1
+Execution time: 2065.368 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q13d
+Plan collected: YES
+Cost: 723405.040
+Cardinality: 1
+Execution time: 3686.389 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14a
+Plan collected: YES
+Cost: 779416.570
+Cardinality: 1
+Execution time: 1915.176 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14b
+Plan collected: YES
+Cost: 763703.140
+Cardinality: 1
+Execution time: 1316.252 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q14c
+Plan collected: YES
+Cost: 730417.420
+Cardinality: 1
+Execution time: 1872.401 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15a
+Plan collected: YES
+Cost: 14872929.540
+Cardinality: 1
+Execution time: 2600.191 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15b
+Plan collected: YES
+Cost: 1430934.610
+Cardinality: 1
+Execution time: 2066.978 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15c
+Plan collected: YES
+Cost: 1719625.260
+Cardinality: 1
+Execution time: 2376.021 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q15d
+Plan collected: YES
+Cost: 1366668.500
+Cardinality: 1
+Execution time: 1788.464 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16a
+Plan collected: YES
+Cost: 1262857.820
+Cardinality: 1
+Execution time: 7667.086 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16b
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q16c
+Plan collected: YES
+Cost: 1164410.870
+Cardinality: 1
+Execution time: 6929.596 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q16d
+Plan collected: YES
+Cost: 1142034.360
+Cardinality: 1
+Execution time: 6708.701 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17a
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q17b
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q17c
+Plan collected: YES
+Cost: 2378519.390
+Cardinality: 1
+Execution time: 3558.364 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17d
+Plan collected: YES
+Cost: 2378519.390
+Cardinality: 1
+Execution time: 3661.108 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17e
+Plan collected: YES
+Cost: 1310487.030
+Cardinality: 1
+Execution time: 6682.868 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q17f
+Plan collected: YES
+Cost: 2705404.510
+Cardinality: 1
+Execution time: 4911.530 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18a
+Plan collected: YES
+Cost: 15507056.910
+Cardinality: 1
+Execution time: 2948.432 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18b
+Plan collected: YES
+Cost: 15767749.720
+Cardinality: 1
+Execution time: 2451.893 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q18c
+Plan collected: YES
+Cost: 15615939.660
+Cardinality: 1
+Execution time: 2370.576 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19a
+Plan collected: YES
+Cost: 12128933.940
+Cardinality: 1
+Execution time: 5185.043 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19b
+Plan collected: YES
+Cost: 3310854.810
+Cardinality: 1
+Execution time: 3084.268 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19c
+Plan collected: YES
+Cost: 2925545.440
+Cardinality: 1
+Execution time: 4213.395 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q19d
+Plan collected: YES
+Cost: 4636389.400
+Cardinality: 1
+Execution time: 8726.134 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1a
+Plan collected: YES
+Cost: 269783.950
+Cardinality: 1
+Execution time: 565.529 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1b
+Plan collected: YES
+Cost: 381338.840
+Cardinality: 1
+Execution time: 767.620 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1c
+Plan collected: YES
+Cost: 172125.290
+Cardinality: 1
+Execution time: 327.485 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q1d
+Plan collected: YES
+Cost: 409064.260
+Cardinality: 1
+Execution time: 784.288 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20a
+Plan collected: YES
+Cost: 2107796.100
+Cardinality: 1
+Execution time: 2949.245 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20b
+Plan collected: YES
+Cost: 2289190.560
+Cardinality: 1
+Execution time: 3358.287 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q20c
+Plan collected: YES
+Cost: 2254269.490
+Cardinality: 1
+Execution time: 4217.894 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21a
+Plan collected: YES
+Cost: 511589.380
+Cardinality: 1
+Execution time: 865.923 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21b
+Plan collected: YES
+Cost: 462879.420
+Cardinality: 1
+Execution time: 675.593 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q21c
+Plan collected: YES
+Cost: 835827.780
+Cardinality: 1
+Execution time: 1420.158 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22a
+Plan collected: YES
+Cost: 1538249.780
+Cardinality: 1
+Execution time: 2246.411 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22b
+Plan collected: YES
+Cost: 879759.550
+Cardinality: 1
+Execution time: 1713.456 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22c
+Plan collected: YES
+Cost: 923289.010
+Cardinality: 1
+Execution time: 1939.647 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q22d
+Plan collected: YES
+Cost: 820591.580
+Cardinality: 1
+Execution time: 3436.257 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23a
+Plan collected: YES
+Cost: 1360373.200
+Cardinality: 1
+Execution time: 1361.984 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23b
+Plan collected: YES
+Cost: 1796962.820
+Cardinality: 1
+Execution time: 1710.439 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q23c
+Plan collected: YES
+Cost: 1601917.420
+Cardinality: 1
+Execution time: 1752.709 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24a
+Plan collected: YES
+Cost: 12652165.760
+Cardinality: 1
+Execution time: 2769.171 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q24b
+Plan collected: YES
+Cost: 2576812.100
+Cardinality: 1
+Execution time: 3069.906 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25a
+Plan collected: YES
+Cost: 7013693.380
+Cardinality: 1
+Execution time: 3333.270 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25b
+Plan collected: YES
+Cost: 793415.350
+Cardinality: 1
+Execution time: 1334.778 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q25c
+Plan collected: YES
+Cost: 24424369.580
+Cardinality: 1
+Execution time: 3906.695 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26a
+Plan collected: YES
+Cost: 3556120.350
+Cardinality: 1
+Execution time: 4857.114 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26b
+Plan collected: YES
+Cost: 1142362.530
+Cardinality: 1
+Execution time: 3171.399 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q26c
+Plan collected: YES
+Cost: 3659198.110
+Cardinality: 1
+Execution time: 5386.204 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27a
+Plan collected: YES
+Cost: 478729.610
+Cardinality: 1
+Execution time: 805.542 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27b
+Plan collected: YES
+Cost: 483232.980
+Cardinality: 1
+Execution time: 698.262 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q27c
+Plan collected: YES
+Cost: 808658.810
+Cardinality: 1
+Execution time: 1437.724 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28a
+Plan collected: YES
+Cost: 803007.510
+Cardinality: 1
+Execution time: 2562.637 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28b
+Plan collected: YES
+Cost: 687895.710
+Cardinality: 1
+Execution time: 1568.886 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q28c
+Plan collected: YES
+Cost: 929295.920
+Cardinality: 1
+Execution time: 1943.929 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29a
+Plan collected: YES
+Cost: 17221009.880
+Cardinality: 1
+Execution time: 4172.890 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29b
+Plan collected: YES
+Cost: 17176037.010
+Cardinality: 1
+Execution time: 3960.376 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q29c
+Plan collected: YES
+Cost: 17337482.000
+Cardinality: 1
+Execution time: 4600.177 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30a
+Plan collected: YES
+Cost: 24304051.460
+Cardinality: 1
+Execution time: 4012.738 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30b
+Plan collected: YES
+Cost: 1472894.150
+Cardinality: 1
+Execution time: 2051.017 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q30c
+Plan collected: YES
+Cost: 26265158.140
+Cardinality: 1
+Execution time: 3227.069 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31a
+Plan collected: YES
+Cost: 9812781.630
+Cardinality: 1
+Execution time: 2613.007 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31b
+Plan collected: YES
+Cost: 20608016.910
+Cardinality: 1
+Execution time: 3416.681 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q31c
+Plan collected: YES
+Cost: 28737650.940
+Cardinality: 1
+Execution time: 4913.858 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32a
+Plan collected: YES
+Cost: 332932.890
+Cardinality: 1
+Execution time: 408.570 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q32b
+Plan collected: YES
+Cost: 332932.890
+Cardinality: 1
+Execution time: 372.569 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33a
+Plan collected: YES
+Cost: 1557180.740
+Cardinality: 1
+Execution time: 2445.064 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33b
+Plan collected: YES
+Cost: 1118280.140
+Cardinality: 1
+Execution time: 1520.054 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q33c
+Plan collected: YES
+Cost: 1559764.020
+Cardinality: 1
+Execution time: 2444.063 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3a
+Plan collected: YES
+Cost: 650116.110
+Cardinality: 1
+Execution time: 1955.143 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3b
+Plan collected: YES
+Cost: 564458.920
+Cardinality: 1
+Execution time: 1036.121 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q3c
+Plan collected: YES
+Cost: 663262.220
+Cardinality: 1
+Execution time: 1509.759 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4a
+Plan collected: YES
+Cost: 355378.880
+Cardinality: 1
+Execution time: 884.783 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4b
+Plan collected: YES
+Cost: 358306.870
+Cardinality: 1
+Execution time: 899.901 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q4c
+Plan collected: YES
+Cost: 376520.440
+Cardinality: 1
+Execution time: 1139.793 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5a
+Plan collected: YES
+Cost: 483315.050
+Cardinality: 1
+Execution time: 1030.359 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5b
+Plan collected: YES
+Cost: 438071.850
+Cardinality: 1
+Execution time: 854.241 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q5c
+Plan collected: YES
+Cost: 748392.980
+Cardinality: 1
+Execution time: 1239.805 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6a
+Plan collected: NO
+Cost: N/A
+Cardinality: N/A
+Execution time: N/A ms
+Status: TIMEOUT
+Result source: MEASURED
+
+Train query: q6b
+Plan collected: YES
+Cost: 2365910.340
+Cardinality: 1
+Execution time: 5987.431 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6c
+Plan collected: YES
+Cost: 2364283.610
+Cardinality: 1
+Execution time: 5204.734 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6d
+Plan collected: YES
+Cost: 1982069.490
+Cardinality: 1
+Execution time: 2404.030 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6e
+Plan collected: YES
+Cost: 1976860.490
+Cardinality: 1
+Execution time: 2334.366 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q6f
+Plan collected: YES
+Cost: 2292613.520
+Cardinality: 1
+Execution time: 6031.708 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7a
+Plan collected: YES
+Cost: 4183103.180
+Cardinality: 1
+Execution time: 4396.236 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7b
+Plan collected: YES
+Cost: 4036772.480
+Cardinality: 1
+Execution time: 1026.473 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q7c
+Plan collected: YES
+Cost: 4216338.570
+Cardinality: 1
+Execution time: 3344.175 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8a
+Plan collected: YES
+Cost: 998542.590
+Cardinality: 1
+Execution time: 1738.153 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8b
+Plan collected: YES
+Cost: 1456600.600
+Cardinality: 1
+Execution time: 2952.487 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8c
+Plan collected: YES
+Cost: 2584814.990
+Cardinality: 1
+Execution time: 3603.847 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q8d
+Plan collected: YES
+Cost: 2782428.450
+Cardinality: 1
+Execution time: 3061.188 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9a
+Plan collected: YES
+Cost: 2295151.450
+Cardinality: 1
+Execution time: 2380.443 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9b
+Plan collected: YES
+Cost: 3460092.980
+Cardinality: 1
+Execution time: 2695.727 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9c
+Plan collected: YES
+Cost: 1370774.570
+Cardinality: 1
+Execution time: 3205.495 ms
+Status: COMPLETED
+Result source: MEASURED
+
+Train query: q9d
+Plan collected: YES
+Cost: 1970288.740
+Cardinality: 1
+Execution time: 4087.644 ms
+Status: COMPLETED
+Result source: MEASURED
+
+[2] QUERY & PLAN ENCODING
+Query: q10a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q10c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q11d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q12c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q13d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q14c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q15d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q16d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q17f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q18c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q19d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q1d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q20c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q21c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q22d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q23c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q24b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q25c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q26c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q27c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q28c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q29c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q30c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q31c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q32b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q33c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q3c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q4c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q5c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6e
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q6f
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q7c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q8d
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9a
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9b
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9c
+Query/Plan encoded: YES
+Model input generated: YES
+
+Query: q9d
+Query/Plan encoded: YES
+Model input generated: YES
+
+[3] LQO TRAINING
+Model: Balsa
+Split: LOO-template
+Training status: COMPLETED
+Training time: 17931.171 ms
+Model/state: in-memory value_iter=2; periodic checkpoint=/tmp/opencode/ac1366378/A_fold02_retry2/training/wandb/offline-run-20261031_234025-7qkbbqub/files/checkpoint.pt
+
+[4] LQO EVALUATION
+Test query: N/A
+Balsa inference/planning: N/A ms
+Execution time: N/A ms
+End-to-End: N/A ms
+Status: SKIPPED
+
+[POSTGRESQL]
+Planning: N/A ms
+Execution: N/A ms
+End-to-End: N/A ms
+
+===== EXPERIMENT END =====
+
+===== EXPERIMENT START =====
+Model: Balsa
+Run: b85886ac37fb4eecb0c9d54a9a1057fe
+Split: LOO-template
+Fold: 2
+Seed: 0
+Training status: EVAL_ONLY
+
+[4] LQO EVALUATION
+Test query: 2a
+Repeat: 0
+Balsa inference/planning: 166.29545500472886
+PostgreSQL hinted planning: 1.376
+Execution time: 2124.44
+End-to-End: 2292.111455004729
+Wall clock: 2296.8689929984976
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/ac1366378/A_fold02_retry2/evaluation/plans/2a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.485
+Execution: 232.848
+End-to-End: 233.33300000000003
+
+[4] LQO EVALUATION
+Test query: 2b
+Repeat: 0
+Balsa inference/planning: 131.06782399700023
+PostgreSQL hinted planning: 1.346
+Execution time: 1850.432
+End-to-End: 1982.8458239970003
+Wall clock: 1985.831280995626
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/ac1366378/A_fold02_retry2/evaluation/plans/2b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.4
+Execution: 186.462
+End-to-End: 186.862
+
+[4] LQO EVALUATION
+Test query: 2c
+Repeat: 0
+Balsa inference/planning: 129.5303890001378
+PostgreSQL hinted planning: 1.337
+Execution time: 1851.541
+End-to-End: 1982.4083890001377
+Wall clock: 1985.5572680025944
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/ac1366378/A_fold02_retry2/evaluation/plans/2c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.41
+Execution: 180.822
+End-to-End: 181.232
+
+[4] LQO EVALUATION
+Test query: 2d
+Repeat: 0
+Balsa inference/planning: 69.49250700563425
+PostgreSQL hinted planning: 1.13
+Execution time: 1744.287
+End-to-End: 1814.9095070056342
+Wall clock: 1818.1339470029343
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/ac1366378/A_fold02_retry2/evaluation/plans/2d_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.429
+Execution: 239.865
+End-to-End: 240.294
+Weight hash unchanged: YES
+===== EXPERIMENT END =====

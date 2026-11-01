@@ -1,0 +1,10 @@
+{
+  "value_iter": 0,
+  "did_fit": false,
+  "training_batches": 0,
+  "global_step": 0,
+  "weights_before": "1d52d60d09b186b072b4f176c95a2b3283231f66e50af66ace64cee12c6df22c",
+  "weights_after": "1d52d60d09b186b072b4f176c95a2b3283231f66e50af66ace64cee12c6df22c",
+  "changed_tensors": 0,
+  "optimizer_steps": []
+}

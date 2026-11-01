@@ -75,6 +75,8 @@ class BalsaParams(object):
     def Params(cls):
         p = hyperparams.InstantiableParams(cls)
         p.Define('db', 'imdbload', 'Name of the Postgres database.')
+        p.Define('sim_cache_dir', None, 'Isolated simulator cache/checkpoint directory.')
+        p.Define('sim_skip_geq', 12, 'Skip simulator enumeration for this many relations or more.')
         p.Define('query_dir', 'queries/join-order-benchmark',
                  'Directory of the .sql queries.')
         p.Define(
@@ -515,6 +517,10 @@ class Balsa_BaseQuery1_Smoke(Balsa_BaseQuery1):
         p.search_until_n_complete_plans = 1
         p.beam = 1
         p.checkpoint_every_n_iters = 1
+        # Smoke must really go through at least one weight update; Balsa only
+        # skips expert training from iteration 0 onward, which would make this
+        # smoke run an invalid "no-fit" round.
+        p.skip_training_on_expert = False
         return p
 
 

@@ -240,6 +240,15 @@ def main():
                     (unit_base,))
         state.setdefault('controlled_query_cancellations', []).extend(cur.fetchall())
 
+    def stop_service(unit):
+        # A safety stop may already have unloaded the transient service. Do
+        # not turn that expected state into a supervisor exception.
+        result = subprocess.run(['systemctl', '--user', 'stop', unit],
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                universal_newlines=True)
+        if result.returncode and service_property(unit, 'LoadState') != 'not-found':
+            raise RuntimeError('Could not stop {}: {}'.format(unit, result.stdout.strip()))
+
     def postgres_pss():
         pids = [int((pg_dir / 'postmaster.pid').read_text().splitlines()[0])]
         total = 0
@@ -300,6 +309,8 @@ def main():
                 f.write(json.dumps(record) + '\n')
             samples += 1
             if active in ('inactive', 'failed') or substate == 'exited':
+                if active != 'inactive':
+                    stop_service(unit)
                 return service_property(unit, 'ExecMainStatus'), service_property(unit, 'Result'), reason
             if now >= deadline - 90:
                 reason = 'WALL_CLOCK_LIMIT'
@@ -317,7 +328,7 @@ def main():
                 reason = 'ARTIFACT_FILESYSTEM_NEAR_CAPACITY'
             if reason:
                 cancel_own_queries()
-                command(['systemctl', '--user', 'stop', unit])
+                stop_service(unit)
                 cancel_own_queries()
                 return service_property(unit, 'ExecMainStatus'), service_property(unit, 'Result'), reason
             time.sleep(1)
@@ -334,9 +345,9 @@ def main():
         start_service(train_unit, train, env, slice_name, str(mount / 'raw_train.log'), args.ml_memory_gib)
         train_end = observe(train_unit, 'TRAIN', stop_for_reserve=True)
         state['train_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), train_end))
-        command(['systemctl', '--user', 'stop', train_unit])
         checkpoint = list(mount.glob('training/*/checkpoints/evaluation.pt'))
-        if len(checkpoint) == 1 and deadline - time.monotonic() > 45 and available_memory() > 3 * GIB:
+        train_clean = train_end == ('0', 'success', None)
+        if train_clean and len(checkpoint) == 1 and deadline - time.monotonic() > 45 and available_memory() > 3 * GIB:
             state['checkpoint'] = str(checkpoint[0].relative_to(mount))
             eval_unit = unit_base + '-eval.service'
             evaluate = [PYTHON, '-u', str(SOURCE / 'scripts/evaluate_checkpoint.py'),
@@ -346,7 +357,6 @@ def main():
             start_service(eval_unit, evaluate, env, slice_name, str(mount / 'raw_test.log'), args.ml_memory_gib)
             eval_end = observe(eval_unit, 'INDEPENDENT_EVAL')
             state['eval_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), eval_end))
-            command(['systemctl', '--user', 'stop', eval_unit])
         else:
             state['eval_service'] = dict(status='NOT_RUN', reason='no complete bundle or insufficient safe time/headroom')
         if (state.get('eval_service', {}).get('exit_code') == '0'
@@ -362,7 +372,7 @@ def main():
                 '--sql-dir', str(SOURCE / 'queries/join-order-benchmark'), '--output-dir', str(common_dir),
                 '--run-id', run_id, '--code-commit', subprocess.check_output(
                     ['git', 'rev-parse', 'HEAD'], cwd=str(SOURCE.parents[1]), text=True).strip(),
-                '--raw-training-log', str(mount / 'raw_train.log'), '--raw-eval-log', str(mount / 'raw_test.log')]
+             '--raw-training-log', str(mount / 'raw_train.log'), '--raw-eval-log', str(mount / 'raw_test.log')]
             command(export)
             state['common_results'] = str(common_dir)
         events = []

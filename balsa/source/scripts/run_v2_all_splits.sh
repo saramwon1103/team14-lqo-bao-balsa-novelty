@@ -15,7 +15,9 @@ status=0
 # Aggregate hard stop and RAM envelope are installed before any ML process.
 systemctl --user set-property --runtime balsa-v2.slice \
   MemoryMax=24G MemoryHigh=23G MemorySwapMax=0 || exit 1
-systemd-run --user --unit="$timer" --on-active=6h --timer-property=AccuracySec=1s \
+# The earlier guarded attempts consumed about 30 minutes of the approved
+# aggregate six-hour allowance; cap this continuation at the remaining 5.5h.
+systemd-run --user --unit="$timer" --on-active=19800s --timer-property=AccuracySec=1s \
   /usr/bin/systemctl --user stop balsa-v2.slice || exit 1
 trap 'systemctl --user stop "$timer.timer" >/dev/null 2>&1 || true' EXIT
 
@@ -24,6 +26,7 @@ for split in LOO-1 Random-1 BaseQuery-1; do
   if ! /home/wings/miniconda3/envs/balsa/bin/python \
       "$(dirname "$0")/pilot_supervisor.py" \
       --output-dir "$run_root" --fuse2fs "$fuse2fs" --split-type "$split" \
+      --ml-memory-gib 24 \
       >"$root/$split.console.log" 2>&1; then
     status=1
     echo "Supervisor failed for $split; see $root/$split.console.log" >&2

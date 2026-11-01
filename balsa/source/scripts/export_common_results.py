@@ -109,6 +109,16 @@ def query_stem(value):
     return value[1:] if value.startswith('q') else value
 
 
+def extract_hint_sql(sql_text):
+    """Recover the complete Balsa hint, including multiline block hints."""
+    if sql_text.startswith('/*+'):
+        end=sql_text.find('*/')
+        if end < 0:
+            raise ValueError('Hinted SQL has an unterminated Balsa hint')
+        return sql_text[:end+2]
+    return sql_text.splitlines()[0] if sql_text.splitlines() else ''
+
+
 def export_run(training_dir, evaluation_dir, source_csv, sql_dir, output_dir,
                run_id, code_commit, pg_version=None, novelty_csv=None,
                raw_training_log=None, raw_eval_log=None):
@@ -179,7 +189,7 @@ def export_run(training_dir, evaluation_dir, source_csv, sql_dir, output_dir,
         if status=='OK':
             if not plan_id or not planpath or not Path(planpath).is_file():
                 raise ValueError('Successful query missing chosen plan artifact')
-            hint=Path(planpath).read_text().splitlines()[0]
+            hint=extract_hint_sql(Path(planpath).read_text())
             expected='plan_'+hashlib.sha256(hint.encode()).hexdigest()[:16]
             if plan_id!=expected: raise ValueError('chosen_plan_id does not identify hinted SQL')
         e2e=sum(vals[k] for k in vals) if complete else None

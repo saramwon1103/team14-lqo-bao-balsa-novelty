@@ -22,8 +22,12 @@ SOURCE = Path(__file__).resolve().parents[1]
 
 
 def command(args, **kwargs):
-    return subprocess.run(args, check=True, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT, universal_newlines=True, **kwargs).stdout.strip()
+    result = subprocess.run(args, check=False, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, universal_newlines=True, **kwargs)
+    if result.returncode:
+        raise RuntimeError('Command failed ({}): {}\n{}'.format(
+            result.returncode, ' '.join(args), result.stdout[-4000:]))
+    return result.stdout.strip()
 
 
 def atomic_json(path, data):
@@ -359,10 +363,15 @@ def main():
             state['eval_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), eval_end))
         else:
             state['eval_service'] = dict(status='NOT_RUN', reason='no complete bundle or insufficient safe time/headroom')
-        if (state.get('eval_service', {}).get('exit_code') == '0'
-                and state.get('eval_service', {}).get('result') == 'success'
-                and state.get('train_service', {}).get('exit_code') == '0'
-                and state.get('train_service', {}).get('result') == 'success'):
+        evaluation_summary_path = mount / 'evaluation' / 'evaluation_summary.json'
+        evaluation_valid = False
+        if evaluation_summary_path.is_file():
+            evaluation_summary = json.loads(evaluation_summary_path.read_text())
+            evaluation_valid = (evaluation_summary.get('unchanged') is True
+                                and evaluation_summary.get('train_called') is False)
+        if (evaluation_valid and state.get('train_service', {}).get('exit_code') == '0'
+                and state.get('train_service', {}).get('result') == 'success'
+                and not state.get('train_service', {}).get('stop_reason')):
             split_dir = args.split_type
             run_id = unit_base
             common_dir = SOURCE.parents[0] / 'runs' / split_dir / run_id
@@ -387,7 +396,7 @@ def main():
         state['phase_timings'] = [e for e in events if e['event'] == 'END']
         state['fit_evidence'] = [json.loads(p.read_text()) for p in mount.glob('training/*/fit_evidence_*.json')]
         state['status'] = ('COMPLETED_3_ITERATIONS_AND_EVAL' if len(state['completed_value_iterations']) == 3
-            and train_end == ('0', 'success', None) and eval_end == ('0', 'success', None)
+            and train_end == ('0', 'success', None) and state.get('common_results')
             else 'STOPPED_OR_FAILED_PARTIAL')
     except BaseException as exc:
         state.update(status='SUPERVISOR_ERROR', error=repr(exc))

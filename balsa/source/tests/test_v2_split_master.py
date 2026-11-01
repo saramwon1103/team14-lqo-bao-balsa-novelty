@@ -12,7 +12,8 @@ sys.path.insert(0,str(ROOT/'scripts'))
 from split_master_adapter import EXPECTED, load_and_validate
 from balsa.v2_split_safety import assert_train_test_membership, query_stems
 from export_common_results import (EVAL_FIELDS, PG_FIELDS, SNAPSHOT_FIELDS,
-    CHECKPOINT_FIELDS, TRACE_FIELDS, validate_exported_run, validate_novelty_join)
+    CHECKPOINT_FIELDS, TRACE_FIELDS, extract_hint_sql, validate_exported_run, validate_novelty_join)
+from train_split import has_uncommitted_code_changes
 
 
 class SplitMasterV2Tests(unittest.TestCase):
@@ -81,6 +82,14 @@ class SplitMasterV2Tests(unittest.TestCase):
             eval_rows.pop();self._write(root/'evaluation_results.csv',EVAL_FIELDS,eval_rows)
             with self.assertRaisesRegex(ValueError,'one observation per test'):
                 validate_exported_run(root,'LOO')
+
+    def test_multiline_hint_hash_uses_complete_hint_and_run_outputs_are_not_source_changes(self):
+        hint='/*+ HashJoin(a b)\n Leading((a b)) */'
+        self.assertEqual(extract_hint_sql(hint+'\nSELECT 1;'),hint)
+        self.assertEqual(extract_hint_sql('-- hint\nSELECT 1;'),'-- hint')
+        self.assertFalse(has_uncommitted_code_changes(['?? balsa/runs/LOO-1/run/summary.csv']))
+        self.assertTrue(has_uncommitted_code_changes(['?? balsa/source/new.py']))
+        self.assertTrue(has_uncommitted_code_changes([' M balsa/source/train.py']))
 
     @staticmethod
     def _write(path,fields,rows):

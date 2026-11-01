@@ -15,6 +15,12 @@ from make_splits import validate
 from verify_job_templates import signed, sha
 
 
+def has_uncommitted_code_changes(status_lines):
+    """Allow generated common results without treating them as source edits."""
+    return any(not (line.startswith('?? ') and line[3:].startswith('balsa/runs/'))
+               for line in status_lines)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     split_group = parser.add_mutually_exclusive_group(required=True)
@@ -58,9 +64,9 @@ def main():
             parser.error('Cannot identify split_master source commit')
         code_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo_root,
                                                text=True).strip()
-        dirty = subprocess.check_output(['git', 'status', '--porcelain'], cwd=repo_root,
-                                        text=True).strip()
-        if dirty:
+        dirty = subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=all'],
+                                        cwd=repo_root, text=True).splitlines()
+        if has_uncommitted_code_changes(dirty):
             parser.error('V2 training requires a committed clean code tree; commit hash would be ambiguous')
         os.environ['BALSA_CODE_COMMIT'] = code_commit
         os.environ['BALSA_SPLIT_SOURCE_COMMIT'] = source_commit_hash

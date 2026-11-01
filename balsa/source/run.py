@@ -378,6 +378,16 @@ def TrainSim(p, loggers=None):
 
     # Instantiate.
     sim = sim_lib.Sim(sim_p)
+    v2_manifest_path = os.environ.get('BALSA_SPLIT_MANIFEST_PATH')
+    if v2_manifest_path:
+        import json
+        from balsa.v2_split_safety import assert_train_test_membership, query_stems
+        with open(v2_manifest_path) as handle:
+            locked = json.load(handle)
+        assert_train_test_membership(
+            query_stems(locked['train_queries']), query_stems(locked['test_queries']),
+            [n.info['query_name'] for n in sim.train_nodes],
+            [n.info['query_name'] for n in sim.test_nodes])
     if p.sim_cache_dir:
         os.makedirs(p.sim_cache_dir, exist_ok=True)
         sim.isolated_cache_dir = p.sim_cache_dir
@@ -414,6 +424,11 @@ def TrainSim(p, loggers=None):
             sim, 'collected_query_paths',
             sorted(set(point.goal.info['path'] for point in (sim.simulation_data or []))))
         with open(os.path.join(p.sim_cache_dir, 'provenance.json'), 'w') as f:
+            if v2_manifest_path:
+                expected_train = query_stems(locked['train_queries'])
+                collected_names = query_stems(collected_paths)
+                if not collected_names <= expected_train:
+                    raise ValueError('Simulator collected labels from outside split_master train membership')
             json.dump(dict(train_queries=train_names, test_queries=test_names,
                 num_simulated_points=num_points,
                 collected_query_paths=collected_paths,

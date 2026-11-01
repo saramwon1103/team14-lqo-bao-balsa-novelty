@@ -13,7 +13,7 @@ import uuid
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-FIELDS = '''run_id protocol split_id fold_id seed query_id repeat_id checkpoint_sha256 split_sha256 balsa_planning_ms postgres_hinted_planning_ms execution_ms end_to_end_ms wall_clock_ms postgres_baseline_planning_ms postgres_baseline_execution_ms postgres_baseline_end_to_end_ms speedup_execution speedup_end_to_end status timeout_ms result_source hint_respected hinted_sql_path explain_json_path error_message baseline_status baseline_error'''.split()
+FIELDS = '''run_id protocol split_id fold_id seed query_id repeat_id checkpoint_sha256 split_sha256 chosen_plan_id balsa_planning_ms postgres_hinted_planning_ms execution_ms end_to_end_ms wall_clock_ms postgres_baseline_planning_ms postgres_baseline_execution_ms postgres_baseline_end_to_end_ms speedup_execution speedup_end_to_end status timeout_ms result_source hint_respected hinted_sql_path explain_json_path error_message baseline_status baseline_error'''.split()
 
 
 def main():
@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--repeats', type=int, default=1)
     parser.add_argument('--timeout-ms', type=int, default=60000)
+    parser.add_argument('--run-id', help='Stable common run ID; defaults to a fresh UUID')
     args = parser.parse_args()
     if args.repeats < 1 or args.timeout_ms < 1:
         parser.error('repeats and timeout must be positive')
@@ -85,7 +86,7 @@ def main():
                         search_until_n_complete_plans=p.search_until_n_complete_plans,
                         plan_physical=p.plan_physical,
                         use_plan_restrictions=p.real_use_plan_restrictions)
-    run_id = uuid.uuid4().hex
+    run_id = args.run_id or uuid.uuid4().hex
     logpath = os.path.join(args.output_dir, 'experiment.log')
     with open(logpath, 'w') as log:
         log.write('===== EXPERIMENT START =====\nModel: Balsa\nRun: {}\nSplit: {}\nFold: {}\nSeed: {}\nTraining status: EVAL_ONLY\n'.format(
@@ -120,6 +121,7 @@ def main():
                             avoid_eq_filters=p.avoid_eq_filters, epsilon_greedy=0)
                     row['balsa_planning_ms'] = (time.perf_counter() - start) * 1000
                     hint = plan.hint_str(with_physical_hints=p.plan_physical)
+                    row['chosen_plan_id'] = 'plan_' + hashlib.sha256(hint.encode('utf-8')).hexdigest()[:16]
                     predictions.append(dict(query_id=row['query_id'], repeat_id=repeat,
                                             predicted_latency_ms=float(prediction), hint=hint))
                     sql = node.info['sql_str']

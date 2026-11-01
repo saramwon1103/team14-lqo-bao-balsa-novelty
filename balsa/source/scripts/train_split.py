@@ -17,7 +17,11 @@ from verify_job_templates import signed, sha
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--manifest', type=Path, required=True)
+    split_group = parser.add_mutually_exclusive_group(required=True)
+    split_group.add_argument('--manifest', type=Path)
+    split_group.add_argument('--split-master', type=Path,
+                             help='Authoritative analysis/data/split_master.csv for V2 runs')
+    parser.add_argument('--split-type', choices=['LOO-1', 'Random-1', 'BaseQuery-1'])
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--smoke', action='store_true')
     parser.add_argument('--allow-full', action='store_true')
@@ -42,13 +46,40 @@ def main():
         parser.error('--iterations requires --allow-full and a positive count')
     if args.initial_timeout_ms is not None and args.initial_timeout_ms < 1:
         parser.error('Timeout must be positive')
-    manifest = validate(json.loads(args.manifest.read_text()))
+    if args.split_master:
+        if not args.split_type:
+            parser.error('--split-type is required with --split-master')
+        from split_master_adapter import load_and_validate, source_commit
+        repo_root = ROOT.parents[1]
+        source_commit_hash = source_commit(repo_root, args.split_master.resolve())
+        if not source_commit_hash:
+            parser.error('Cannot identify split_master source commit')
+        code_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo_root,
+                                               text=True).strip()
+        dirty = subprocess.check_output(['git', 'status', '--porcelain'], cwd=repo_root,
+                                        text=True).strip()
+        if dirty:
+            parser.error('V2 training requires a committed clean code tree; commit hash would be ambiguous')
+        os.environ['BALSA_CODE_COMMIT'] = code_commit
+        os.environ['BALSA_SPLIT_SOURCE_COMMIT'] = source_commit_hash
+        os.environ['BALSA_TRAINING_COMMAND'] = ' '.join(sys.argv)
+        manifest = load_and_validate(args.split_master, ROOT / 'queries/join-order-benchmark',
+                                     source_commit_hash)['splits'][args.split_type]['manifest']
+    else:
+        if args.split_type:
+            parser.error('--split-type is only valid with --split-master')
+        manifest = validate(json.loads(args.manifest.read_text()))
+    if args.split_master:
+        if args.iterations is None or args.initial_timeout_ms is None or args.simulator_integration_epochs is None:
+            parser.error('V2 runs require explicit --iterations, --initial-timeout-ms and fresh simulator epoch cap')
+        if args.expert_data or args.simulator_checkpoint or args.simulator_bundle or args.simulator_reuse:
+            parser.error('V2 runs cannot reuse expert, agent, or simulator artifacts across splits')
     os.environ['BALSA_SPLIT_SHA256'] = manifest['sha256']
     if args.simulator_reuse:
         os.environ['BALSA_SIM_REUSE'] = str(args.simulator_reuse.resolve())
     if args.simulator_bundle:
         os.environ['BALSA_SIM_BUNDLE'] = str(args.simulator_bundle.resolve())
-    if args.simulator_integration_epochs:
+    if args.simulator_integration_epochs is not None:
         if args.simulator_integration_epochs < 1:
             parser.error('Simulator epochs must be positive')
         os.environ['BALSA_SIM_INTEGRATION_EPOCHS'] = str(args.simulator_integration_epochs)
@@ -69,6 +100,16 @@ def main():
             parser.error('Missing/unsafe query: ' + q)
     output = args.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=False)
+    if args.split_master:
+        (output / 'run_provenance.json').write_text(json.dumps(dict(
+            training_command=sys.argv, code_commit=os.environ['BALSA_CODE_COMMIT'],
+            split_source='analysis/data/split_master.csv',
+            split_source_commit=os.environ['BALSA_SPLIT_SOURCE_COMMIT'],
+            split_source_sha256=manifest['source']['sha256'],
+            membership_sha256=manifest['source']['membership_sha256'],
+            split_manifest_sha256=manifest['sha256'], seed=args.seed,
+            model_source='team_trained', simulator_initialization='fresh per split; no cross-split checkpoint/cache'),
+            indent=2) + '\n')
     os.chdir(str(output if args.isolated_runtime else ROOT))
     started = time.perf_counter()
     os.environ.setdefault('WANDB_MODE', 'offline')
@@ -136,6 +177,8 @@ def main():
     # resources or be interrupted. Only val_iters differs from full training.
     (output / 'config.txt').write_text(p.ToText())
     (output / 'split.json').write_text(json.dumps(manifest, indent=2))
+    if args.split_master:
+        os.environ['BALSA_SPLIT_MANIFEST_PATH'] = str(output / 'split.json')
     if args.expert_data:
         import pickle
         from balsa.evaluation_artifacts import file_hash
@@ -160,10 +203,24 @@ def main():
         ray.shutdown()
     with phase('agent_and_simulator_initialization'):
         agent = BalsaAgent(p)
+    if args.split_master:
+        from balsa.v2_split_safety import assert_train_test_membership, query_stems
+        assert_train_test_membership(query_stems(manifest['train_queries']),
+            query_stems(manifest['test_queries']),
+            [n.info['query_name'] for n in agent.train_nodes],
+            [n.info['query_name'] for n in agent.test_nodes])
     agent.locked_manifest = manifest
     agent.run_seed = args.seed
+    agent.model_source = 'team_trained'
+    agent.simulator_source = ('fresh_split_local_simulator' if p.sim else
+        'same_split_verified_initialization' if args.simulator_bundle or args.simulator_checkpoint else
+        'none_or_configuration_default')
     agent.structured_logger.metadata.update(protocol=manifest['protocol'], fold_id=manifest['fold_id'],
         seed=args.seed, split_sha256=manifest['sha256'])
+    agent.structured_logger.metadata.update(model_source='team_trained',
+        simulator_source=('split_local_fresh' if p.sim else
+                          'split_local_verified_initialization' if args.simulator_bundle else
+                          'none_or_configured_default'))
     (output / 'config.txt').write_text(p.ToText())
     (output / 'split.json').write_text(json.dumps(manifest, indent=2))
     agent.Run()

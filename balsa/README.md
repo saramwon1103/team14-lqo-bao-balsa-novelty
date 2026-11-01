@@ -1,5 +1,124 @@
 # Balsa: checkpoint và nghiệm thu logging LOO / Random
 
+## Balsa V2 theo protocol chung (đang chuẩn bị, chưa chạy)
+
+Các artifact LOO-template Fold 02/Random-52 bên dưới là evidence kỹ thuật cũ,
+không phải kết quả RQ2. Nguồn split V2 duy nhất là
+`analysis/data/split_master.csv` trên repo gốc. Adapter từ chối sai counts,
+SQL JOB thiếu/thừa, query/family/sql_file bất nhất, duplicate hoặc train/test
+overlap; lưu hash CSV, source commit và membership hash. Ba manifest được sinh
+tại `balsa/source/manifests/v2/`.
+
+Đã khóa counts: LOO-1 80/33, Random-1 91/22, BaseQuery-1 94/19. `novelty.csv`
+có 74 unique keys `(query_id,family,split_type,split_id)` và coverage khớp
+33/22/19; exporter kiểm tra one-to-one theo từng split. `analysis/src/merge_results.py`
+hiện là file rỗng (0 byte), nên chưa có script merge chính thức để gọi; không
+ghi hay tái tính Novelty Score.
+
+TODO V2 và `analysis/data/novelty.csv` đặt join keys/coverage nhất quán. Thời
+gian: V2 chỉ định `inference_ms=balsa_planning_ms`, `planning_ms` là PostgreSQL
+hinted Planning Time, và E2E là tổng ba thành phần. Bao README cũ dùng
+`planning_ms` đã gồm inference và để `inference_ms` trống. Đối với Balsa V2,
+chúng tôi giữ contract rõ ràng của TODO V2 (không diễn giải lại dữ liệu Bao).
+
+Chưa có run budget V2 phê duyệt hoặc kết quả train/eval V2. **Không dùng các
+lệnh dưới đây trước khi nhóm chốt ngân sách/guard**; mỗi split phải train mới,
+không dùng Random-52/LOO-template/BaseQuery cũ làm model/cache/checkpoint.
+
+### Cập nhật nguồn và validate/generate manifest
+
+Trên clone mới nhất của repository nhóm:
+
+```bash
+git fetch origin
+git status --short
+python balsa/source/scripts/split_master_adapter.py \
+  --source-csv analysis/data/split_master.csv \
+  --sql-dir balsa/source/queries/join-order-benchmark \
+  --output-dir /tmp/balsa-v2-manifests \
+  --source-commit "$(git log -1 --format=%H -- analysis/data/split_master.csv)"
+```
+
+Adapter đã chạy trên analysis commit `70061bad5969e34b999dc0cf0364801d56060c45`,
+split-file commit `5c9d6403089289a3188aa05ea75ef33c62b50177`, SHA-256
+`804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880`. Output
+được xác minh với toàn bộ 113 SQL JOB của source tree Balsa.
+
+### Train/eval riêng từng split (chỉ sau khi budget được duyệt)
+
+Mỗi output tạm phải là thư mục mới. Sau train, dùng đúng checkpoint vừa tạo
+cho evaluator mới; không truyền checkpoint/replay/simulator từ split khác:
+
+```bash
+PY=/path/to/verified-balsa-python
+SPLIT=analysis/data/split_master.csv
+SQL=balsa/source/queries/join-order-benchmark
+RUN_ID="loo1_$(date -u +%Y%m%dT%H%M%SZ)"
+"$PY" balsa/source/scripts/train_split.py --split-master "$SPLIT" --split-type LOO-1 \
+  --output-dir "/tmp/$RUN_ID/training" --allow-full --iterations 3 --seed 0 \
+  --initial-timeout-ms 10000 --isolated-runtime --independent-eval-only \
+  --simulator-integration-epochs 1
+"$PY" balsa/source/scripts/evaluate_checkpoint.py \
+  --checkpoint "/tmp/$RUN_ID/training/<wandb-run>/checkpoints/evaluation.pt" \
+  --output-dir "/tmp/$RUN_ID/evaluation" --seed 0 --repeats 1 --timeout-ms 30000
+"$PY" balsa/source/scripts/export_common_results.py \
+  --training-dir "/tmp/$RUN_ID/training" --evaluation-dir "/tmp/$RUN_ID/evaluation" \
+  --split-master "$SPLIT" --sql-dir "$SQL" --novelty-csv analysis/data/novelty.csv \
+  --output-dir "balsa/runs/LOO-1/$RUN_ID" --run-id "$RUN_ID" --code-commit "$(git rev-parse HEAD)"
+```
+
+Lặp nguyên mẫu với `SPLIT_TYPE=Random-1` hoặc `BaseQuery-1` và đúng thư mục
+đích tương ứng. Ví dụ command dùng biến có thể chạy tuần tự cho cả ba:
+
+```bash
+declare -A RUN_IDS
+set -o pipefail
+for SPLIT_TYPE in LOO-1 Random-1 BaseQuery-1; do
+  RUN_ID="${SPLIT_TYPE//-/_}_$(date -u +%Y%m%dT%H%M%SZ)"
+  RUN_DIR="/tmp/$RUN_ID"; mkdir "$RUN_DIR"
+  "$PY" balsa/source/scripts/train_split.py --split-master "$SPLIT" --split-type "$SPLIT_TYPE" \
+    --output-dir "$RUN_DIR/training" --allow-full --iterations 3 --seed 0 \
+    --initial-timeout-ms 10000 --isolated-runtime --independent-eval-only \
+    --simulator-integration-epochs 1 2>&1 | tee "$RUN_DIR/raw_training_stdout.log"
+  CKPT="$(find "$RUN_DIR/training" -path '*/checkpoints/evaluation.pt' -print -quit)"
+  test -n "$CKPT"
+  "$PY" balsa/source/scripts/evaluate_checkpoint.py --checkpoint "$CKPT" \
+    --output-dir "$RUN_DIR/evaluation" --seed 0 --repeats 1 --timeout-ms 30000 \
+    --run-id "$RUN_ID" \
+    2>&1 | tee "$RUN_DIR/raw_eval_stdout.log"
+  RUN_IDS[$SPLIT_TYPE]="$RUN_ID"
+done
+# Export only after all three clean-tree training invocations have finished.
+for SPLIT_TYPE in LOO-1 Random-1 BaseQuery-1; do
+  RUN_ID="${RUN_IDS[$SPLIT_TYPE]}"; RUN_DIR="/tmp/$RUN_ID"
+  "$PY" balsa/source/scripts/export_common_results.py --training-dir "$RUN_DIR/training" \
+    --evaluation-dir "$RUN_DIR/evaluation" --split-master "$SPLIT" --sql-dir "$SQL" \
+    --novelty-csv analysis/data/novelty.csv --output-dir "balsa/runs/$SPLIT_TYPE/$RUN_ID" \
+    --raw-training-log "$RUN_DIR/raw_training_stdout.log" --raw-eval-log "$RUN_DIR/raw_eval_stdout.log" \
+    --run-id "$RUN_ID" --code-commit "$(git rev-parse HEAD)"
+done
+```
+
+`split_id=1` không phải random seed. Đây là cấu hình **đề xuất, chưa được
+chạy/chưa có V2 budget phê duyệt**: 3 value iterations; tối đa 1 epoch
+simulator mới trên train của chính split; max 100 epochs/agent iteration với
+early stopping gốc; beam 20/10 complete plans; 10s initial execution guard,
+30s eval/query, 1 repeat. Lệnh trực tiếp không tự tạo cgroup guard. Cần duyệt
+tổng wall-clock/storage/RAM/PostgreSQL trước khi chạy.
+
+### Tests và kiểm tra analysis contract
+
+```bash
+"$PY" -m unittest discover -s balsa/source/tests -v
+```
+
+Exporter bắt buộc one row/test, baseline cùng đúng Test IDs, no fabricated
+timeout timing, `E2E=inference+planning+execution`, checkpoint path thật, ít
+nhất một optimizer update, eval `train_called=false`/weights unchanged, và
+one-to-one match với Novelty composite key. Lần kiểm tra hiện tại chỉ xác nhận
+contract/keys trên `novelty.csv`, chưa có phép merge từ ba Balsa V2 run vì chưa
+train.
+
 Đã chạy **agent train thật → checkpoint → evaluator tiến trình mới → PostgreSQL
 thực thi hinted SQL → CSV và EXPLAIN ANALYZE** cho hai giao thức dưới đây.
 Đây là nghiệm thu pipeline, **không phải** benchmark 33 fold, 500 vòng hoặc

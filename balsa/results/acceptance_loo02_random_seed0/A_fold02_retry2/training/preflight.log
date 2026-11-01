@@ -1,0 +1,43 @@
+=== KIỂM TRA MÔI TRƯỜNG BALSA ===
+[OK]   Có run.py
+[OK]   Có experiments.py
+[OK]   Có requirements.txt
+[OK]   Có balsa/structured_logging.py
+[OK]   Có đủ 113 truy vấn JOB
+[OK]   Python 3.7.12 đúng với môi trường tái lập của dự án
+[OK]   ray==1.9.2
+[OK]   pytorch-lightning==0.9.0
+[OK]   torch==1.4.0
+[OK]   psycopg2-binary==2.8.5
+[OK]   absl-py==0.9.0
+[OK]   numpy==1.18.1
+[OK]   aiohttp==3.7.4
+[OK]   aioredis==1.3.1
+[OK]   grpcio==1.43.0
+[OK]   Đã tìm thấy psql
+[OK]   PostgreSQL 12.5
+[OK]   Connection host=/tmp port=5432 role=wings; identity=imdbload|wings|PostgreSQL 12.5 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit|||/home/wings/.local/share/balsa-pgdata
+[OK]   21 bảng JOB
+[OK]   2.528.312 bản ghi trong title
+[OK]   aka_name rows
+[OK]   aka_title rows
+[OK]   cast_info rows
+[OK]   char_name rows
+[OK]   comp_cast_type rows
+[OK]   company_name rows
+[OK]   company_type rows
+[OK]   complete_cast rows
+[OK]   info_type rows
+[OK]   keyword rows
+[OK]   kind_type rows
+[OK]   link_type rows
+[OK]   movie_companies rows
+[OK]   movie_info rows
+[OK]   movie_info_idx rows
+[OK]   movie_keyword rows
+[OK]   movie_link rows
+[OK]   name rows
+[OK]   person_info rows
+[OK]   role_type rows
+[OK]   Nạp được pg_hint_plan
+=== KẾT QUẢ: 0 lỗi, 0 cảnh báo ===

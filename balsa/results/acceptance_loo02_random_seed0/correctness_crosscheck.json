@@ -1,0 +1,132 @@
+{
+  "random_upstream_sha256": "246a9b06e611024d7ef2c337fb5e2756ad797db747b0154e49092841469ba7ff",
+  "random_split_seed": 52,
+  "agent_seed": 0,
+  "all_113_sql_hashes_match": true,
+  "protocols": [
+    {
+      "name": "A_fold02_retry2",
+      "train_count": 109,
+      "test_count": 4,
+      "train_iterations": [
+        {
+          "iteration": 0,
+          "train_feedback_queries": 109,
+          "status": "SKIPPED_EXPERT_INIT",
+          "test_feedback": 0
+        },
+        {
+          "iteration": 1,
+          "train_feedback_queries": 109,
+          "status": "COMPLETED",
+          "test_feedback": 0
+        },
+        {
+          "iteration": 2,
+          "train_feedback_queries": 109,
+          "status": "COMPLETED",
+          "test_feedback": 0
+        }
+      ],
+      "connection_identity": [
+        "imdbload",
+        "wings",
+        "PostgreSQL 12.5 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit",
+        "/home/wings/.local/share/balsa-pgdata"
+      ],
+      "train_worker_process_ids": [
+        1368044,
+        1368310
+      ],
+      "eval_process_id": 2138696,
+      "paired_baseline_statuses": {
+        "COMPLETED": 4
+      },
+      "simulator": {
+        "same_fold_restoration": true
+      },
+      "phase_seconds": {
+        "agent_and_simulator_initialization": 3.741564545998699,
+        "train": 58.25778770446777,
+        "plan": 180.02561855316162,
+        "wait_for_executions": 824.4672763347626
+      },
+      "eval_component_ms": {
+        "balsa_planning_ms": 496.38617500750115,
+        "postgres_hinted_planning_ms": 5.189,
+        "execution_ms": 7570.7,
+        "end_to_end_ms": 8072.275175007501,
+        "wall_clock_ms": 8086.391488999652
+      }
+    },
+    {
+      "name": "B_random52_retry2",
+      "train_count": 94,
+      "test_count": 19,
+      "train_iterations": [
+        {
+          "iteration": 0,
+          "train_feedback_queries": 94,
+          "status": "SKIPPED_EXPERT_INIT",
+          "test_feedback": 0
+        },
+        {
+          "iteration": 1,
+          "train_feedback_queries": 94,
+          "status": "COMPLETED",
+          "test_feedback": 0
+        },
+        {
+          "iteration": 2,
+          "train_feedback_queries": 94,
+          "status": "COMPLETED",
+          "test_feedback": 0
+        }
+      ],
+      "connection_identity": [
+        "imdbload",
+        "wings",
+        "PostgreSQL 12.5 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit",
+        "/home/wings/.local/share/balsa-pgdata"
+      ],
+      "train_worker_process_ids": [
+        2141263,
+        2141493,
+        2143665
+      ],
+      "eval_process_id": 2687506,
+      "paired_baseline_statuses": {
+        "COMPLETED": 19
+      },
+      "simulator": {
+        "num_points": 516759,
+        "evidence": {
+          "weights_before": "2d4356e3d4a573876e58ff2f65f9856aca4dcaac87484afa4aaeae8f1fc8eda0",
+          "weights_after": "61fc78046a5bd02c7ae5cb57ffa65ff33fa2b804c9b852f23e1acb970aaa527f",
+          "training_batches": 455,
+          "global_step": 455
+        },
+        "source_train_paths": 77
+      },
+      "phase_seconds": {
+        "baseline_initialization": 5.60037339200062,
+        "postgres_expert_baseline": 79.58780689300329,
+        "simulator_data_collection": 225.34730989300442,
+        "simulator_featurization": 84.17900413100142,
+        "simulator_neural_training": 387.25209491400165,
+        "simulator_training_and_featurization": 495.5540868149983,
+        "agent_and_simulator_initialization": 726.3717543259991,
+        "train": 153.47211503982544,
+        "plan": 86.96641302108765,
+        "wait_for_executions": 668.6867671012878
+      },
+      "eval_component_ms": {
+        "balsa_planning_ms": 5282.1885740049765,
+        "postgres_hinted_planning_ms": 86.834,
+        "execution_ms": 48755.465,
+        "end_to_end_ms": 54124.487574004976,
+        "wall_clock_ms": 54196.432605000155
+      }
+    }
+  ]
+}

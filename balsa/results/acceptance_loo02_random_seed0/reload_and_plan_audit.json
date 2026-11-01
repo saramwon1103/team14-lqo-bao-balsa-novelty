@@ -1,0 +1,14 @@
+[
+  {
+    "protocol": "A_fold02_retry2",
+    "checkpoint_sha256": "5f0093d331e97d5630c52d39e6b5fc80062ea7b08375f82930559b22df857b69",
+    "loaded_weight_sha256": "c178003d244307e8fc4c8bef08aae8b287db0805e30e5901b4959766c2c0c115",
+    "plans_reparsed_and_hints_match": true
+  },
+  {
+    "protocol": "B_random52_retry2",
+    "checkpoint_sha256": "5b033ed201606ec1c88f9f5672673760cbd0eccafe68a01a7ae62e36b3d97902",
+    "loaded_weight_sha256": "311b8ae4fa32dee52cb52bb2e47690ea7b23645b292cb830975776328ef914e2",
+    "plans_reparsed_and_hints_match": true
+  }
+]

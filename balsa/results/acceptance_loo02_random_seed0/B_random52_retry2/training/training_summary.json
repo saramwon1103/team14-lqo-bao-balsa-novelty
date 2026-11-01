@@ -1,0 +1,11 @@
+{
+  "wall_clock_seconds": 1727.6552049790043,
+  "checkpoint": "/tmp/opencode/ac1366378/B_random52_retry2/training/ax7jy4l3/checkpoints/evaluation.pt",
+  "seed": 0,
+  "smoke": false,
+  "simulator": true,
+  "membership_counts": {
+    "train": 94,
+    "test": 19
+  }
+}

@@ -81,8 +81,9 @@ def GetDevice():
 
 def Save(obj, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'wb') as f:
+    with open(path + '.tmp', 'wb') as f:
         pickle.dump(obj, f)
+    os.replace(path + '.tmp', path)
     return path
 
 
@@ -272,12 +273,7 @@ def ParseExecutionResult(result_tup,
             print('after\n', executed_hint_str)
             msg = 'Hint not respected for {}; server_ip={}'.format(
                 query_name, server_ip)
-            try:
-                assert False, msg
-            except Exception as e:
-                print(e, flush=True)
-                import ipdb
-                ipdb.set_trace()
+            raise RuntimeError('HINT_MISMATCH: ' + msg)
 
     if not silent:
         messages.append('{}Running {}: hinted plan\n{}'.format(
@@ -342,6 +338,7 @@ def _GetQueryFeaturizerClass(p):
 
 
 def TrainSim(p, loggers=None):
+    from balsa.run_instrumentation import phase
     sim_p = sim_lib.Sim.Params()
     # Copy over relevant params.
     sim_p.workload.query_dir = p.query_dir
@@ -349,7 +346,7 @@ def TrainSim(p, loggers=None):
     sim_p.workload.test_query_glob = p.test_query_glob
     sim_p.workload.search_space_join_ops = p.search_space_join_ops
     sim_p.workload.search_space_scan_ops = p.search_space_scan_ops
-    sim_p.skip_data_collection_geq_num_rels = 12
+    sim_p.skip_data_collection_geq_num_rels = p.sim_skip_geq
     if p.cost_model == 'mincardcost':
         sim_p.search.cost_model = costing.MinCardCost.Params()
     else:
@@ -373,12 +370,54 @@ def TrainSim(p, loggers=None):
     sim_p.epochs = p.epochs
     sim_p.perturb_query_features = p.perturb_query_features
     sim_p.validate_fraction = p.validate_fraction
+    if os.environ.get('BALSA_SIM_BUNDLE'):
+        from balsa.simulator_restore import restore_simulator
+        return restore_simulator(sim_p, os.environ['BALSA_SIM_BUNDLE'])
+    if os.environ.get('BALSA_SIM_INTEGRATION_EPOCHS'):
+        sim_p.epochs = int(os.environ['BALSA_SIM_INTEGRATION_EPOCHS'])
 
     # Instantiate.
     sim = sim_lib.Sim(sim_p)
+    if p.sim_cache_dir:
+        os.makedirs(p.sim_cache_dir, exist_ok=True)
+        sim.isolated_cache_dir = p.sim_cache_dir
+    reuse = os.environ.get('BALSA_SIM_REUSE')
+    if reuse:
+        import json
+        from balsa.evaluation_artifacts import file_hash
+        spec = json.load(open(reuse))
+        if spec['split_sha256'] != os.environ.get('BALSA_SPLIT_SHA256'):
+            raise ValueError('Simulator reuse split mismatch')
+        for key in ('checkpoint', 'featurized'):
+            if file_hash(spec[key]['path']) != spec[key]['sha256']:
+                raise ValueError('Simulator reuse hash mismatch: ' + key)
+        p.sim_checkpoint = spec['checkpoint']['path']
+        cached = sim._FeaturizedDataPath()
+        if os.path.lexists(cached):
+            raise FileExistsError(cached)
+        os.symlink(spec['featurized']['path'], cached)
     if p.sim_checkpoint is None:
-        sim.CollectSimulationData()
-    sim.Train(load_from_checkpoint=p.sim_checkpoint, loggers=loggers)
+        with phase('simulator_data_collection'):
+            sim.CollectSimulationData()
+    with phase('simulator_training_and_featurization'):
+        sim.Train(load_from_checkpoint=p.sim_checkpoint, loggers=loggers)
+    if p.sim_cache_dir:
+        import json
+        train_names = [n.info['query_name'] for n in sim.train_nodes]
+        test_names = [n.info['query_name'] for n in sim.test_nodes]
+        if set(train_names) & set(test_names):
+            raise ValueError('Simulator train/test overlap')
+        sim.trainer.save_checkpoint(os.path.join(p.sim_cache_dir, 'simulator.ckpt'))
+        num_points = getattr(sim, 'num_simulated_points',
+                             len(sim.simulation_data) if sim.simulation_data else 0)
+        collected_paths = getattr(
+            sim, 'collected_query_paths',
+            sorted(set(point.goal.info['path'] for point in (sim.simulation_data or []))))
+        with open(os.path.join(p.sim_cache_dir, 'provenance.json'), 'w') as f:
+            json.dump(dict(train_queries=train_names, test_queries=test_names,
+                num_simulated_points=num_points,
+                collected_query_paths=collected_paths,
+                skip_geq_num_relations=p.sim_skip_geq, evidence=sim.fit_evidence), f, indent=2)
     sim.model.freeze()
     sim.EvaluateCost()
     sim.FreeData()
@@ -586,6 +625,7 @@ class BalsaModel(pl.LightningModule):
         )['param_groups'][0]['lr']
 
     def training_step(self, batch, batch_idx):
+        self.actual_training_batches = getattr(self, 'actual_training_batches', 0) + 1
         loss, l2_loss = self._ComputeLoss(batch)
         result = pl.TrainResult(minimize=loss)
         # Log both a per-iter metric and an overall metric for comparison.
@@ -664,6 +704,20 @@ class BalsaModel(pl.LightningModule):
                 step=self.global_step)
 
 
+class LocalFirstWandbLogger(pl_loggers.WandbLogger):
+    """Persist scalar metrics even when the external backend fails."""
+
+    def log_metrics(self, metrics, step=None):
+        import json
+        directory = self.experiment.dir
+        with open(os.path.join(directory, 'local_metrics.jsonl'), 'a') as f:
+            f.write(json.dumps(dict(step=step, metrics=metrics), default=str) + '\n')
+        try:
+            return super().log_metrics(metrics, step=step)
+        except Exception as exc:
+            print('[WandB WARNING] External metrics failed; local_metrics.jsonl preserved:', exc)
+
+
 class BalsaAgent(object):
     """The Balsa agent."""
 
@@ -703,7 +757,15 @@ class BalsaAgent(object):
         self.prev_optimizer_state_dict = None
         # Ray.
         if p.use_local_execution:
-            ray.init(resources={'pg': 1})
+            runtime_dir = os.environ.get('BALSA_RUNTIME_DIR')
+            runtime_options = {}
+            if runtime_dir:
+                plasma = os.path.join(runtime_dir, 'plasma')
+                os.makedirs(plasma, exist_ok=True)
+                runtime_options = dict(_temp_dir=os.path.join(runtime_dir, 'ray'),
+                                       _plasma_directory=plasma,
+                                       object_store_memory=2 * 1024**3)
+            ray.init(resources={'pg': 1}, **runtime_options)
         else:
             # Cluster access: make sure the cluster has been launched.
             import uuid
@@ -776,7 +838,12 @@ class BalsaAgent(object):
         """Calls ray.shutdown() on cleanup."""
         print('Received signal {}; calling ray.shutdown().'.format(
             signal.Signals(signum).name))
+        logger = getattr(self, 'structured_logger', None)
+        if logger is not None and logger.current is not None:
+            logger.current['interrupted'] = True
+            logger.finish_iteration()
         ray.shutdown()
+        raise SystemExit(128 + signum)
 
     def _MakeWorkload(self):
         p = self.params
@@ -802,7 +869,7 @@ class BalsaAgent(object):
             pl_loggers.TensorBoardLogger(save_dir=os.getcwd(),
                                          version=None,
                                          name='tensorboard_logs'),
-            pl_loggers.WandbLogger(save_dir=os.getcwd(), project='balsa'),
+            LocalFirstWandbLogger(save_dir=os.getcwd(), project='balsa'),
         ]
         self.summary_writer = SummaryWriter()
         self.wandb_logger = self.loggers[-1]
@@ -1098,7 +1165,7 @@ class BalsaAgent(object):
                   'num_batches_per_epoch={}'.format(p.per_transition_sgd_steps,
                                                     max_steps,
                                                     len(train_loader)))
-        return pl.Trainer(
+        return train_utils.AtomicTrainer(
             gpus=1 if torch.cuda.is_available() else 0,
             max_epochs=p.epochs,
             max_steps=max_steps,
@@ -1190,6 +1257,7 @@ class BalsaAgent(object):
                 'silent': True,
                 'use_local_execution': p.use_local_execution,
                 'engine': p.engine,
+                'curr_timeout_ms': p.initial_timeout_ms,
             }
 
         tasks = []
@@ -1211,13 +1279,19 @@ class BalsaAgent(object):
             result, real_cost, _, message = ParseExecutionResult(
                 result_tup, **Args(node))
             # Save real cost (execution latency) to actual.
-            node.cost = real_cost
+            node.cost = real_cost if real_cost >= 0 else self.timeout_label()
+            node.is_timeout = real_cost < 0
             print('---------------------------------------')
             if p.engine == 'postgres':
-                node.info['explain_json'] = result[0][0][0]
+                if result.result:
+                    from balsa.explain_parser import normalize_explain
+                    node.info['explain_json'] = normalize_explain(result.result)
+                else:
+                    node.info['explain_json'] = None
                 if self.structured_logger is not None:
                     self.structured_logger.record_baseline(
-                        node.info['query_name'], result)
+                        node.info['query_name'], result,
+                        status='TIMEOUT' if real_cost < 0 else 'COMPLETED')
                 # 'node' is a PG plan; doesn't make sense to print if executed
                 # on a different engine.
                 print(node)
@@ -1253,6 +1327,11 @@ class BalsaAgent(object):
             model.SetLoggingPrefix('train/iter-{}-'.format(
                 self.curr_value_iter))
         trainer = self._MakeTrainer(train_loader)
+        from balsa.evaluation_artifacts import weight_hash, save_bundle
+        before_weights = weight_hash(model)
+        before_tensors = {k: v.detach().cpu().clone()
+                          for k, v in model.state_dict().items()}
+        model.actual_training_batches = 0
         did_fit = False
         if train_from_scratch:
             trainer.fit(model, train_loader, val_loader)
@@ -1271,8 +1350,26 @@ class BalsaAgent(object):
             if p.inherit_optimizer_state:
                 self.prev_optimizer_state_dict = trainer.optimizers[
                     0].state_dict()
+        self.train_did_fit = did_fit
         # Load best ckpt.
         self._LoadBestCheckpointForEval(model, trainer)
+        evidence = dict(value_iter=self.curr_value_iter, did_fit=did_fit,
+                        training_batches=model.actual_training_batches,
+                        global_step=int(trainer.global_step),
+                        weights_before=before_weights,
+                        weights_after=weight_hash(model),
+                        changed_tensors=sum(not torch.equal(before_tensors[k],
+                            v.detach().cpu()) for k, v in model.state_dict().items()),
+                        optimizer_steps=[float(s['step'])
+                            for opt in (trainer.optimizers or [])
+                            for s in opt.state.values() if 'step' in s])
+        print('FIT_EVIDENCE:', evidence)
+        if self.structured_logger is not None:
+            import json
+            with open(os.path.join(self.structured_logger.output_dir,
+                      'fit_evidence_{}.json'.format(self.curr_value_iter)), 'w') as f:
+                json.dump(evidence, f, indent=2)
+        save_bundle(self, model, plans_dataset)
         self.timer.Stop('train')
         if self.structured_logger is not None and not train_from_scratch:
             checkpoint_path = os.path.join(
@@ -1623,6 +1720,7 @@ class BalsaAgent(object):
             assert len(result_tups) == 4
             print(result_tups[-1])  # Messages.
             execution_results.append(result_tups[:-1])
+            nodes[i].info['last_result_source'] = 'CACHE' if is_cached_plan else 'MEASURED'
             # Increment counts for training.
             if not is_test:
                 if is_cached_plan:
@@ -1658,8 +1756,9 @@ class BalsaAgent(object):
                 self.structured_logger.record_training_plan(
                     node.info['query_name'],
                     result,
-                    raw_real_cost if raw_real_cost >= 0 else curr_timeout,
-                    status=('COMPLETED' if raw_real_cost >= 0 else 'TIMEOUT'))
+                    raw_real_cost if raw_real_cost >= 0 else None,
+                    status=('COMPLETED' if raw_real_cost >= 0 else 'TIMEOUT'),
+                    result_source=node.info.get('last_result_source'))
             # Record execution result, potentially with real_cost = -1
             # indicating a timeout.  The cache would only record a lower
             # latency value so once it gets a -1 label for a plan, it'd not be
@@ -1760,7 +1859,10 @@ class BalsaAgent(object):
         p = self.params
         # "<class 'experiments.ConfigName'>" -> "ConfigName".
         experiment = str(p.cls).split('.')[-1][:-2]
-        path = 'data/replay-{}-{}execs-{}nodes-{}s-{}iters-{}.pkl'.format(
+        replay_dir = (os.path.join(self.structured_logger.output_dir, 'replay')
+                      if self.structured_logger else 'data')
+        os.makedirs(replay_dir, exist_ok=True)
+        path = os.path.join(replay_dir, 'replay-{}-{}execs-{}nodes-{}s-{}iters-{}.pkl').format(
             experiment, self.num_query_execs, len(self.exp.nodes),
             int(iter_total_latency / 1e3), self.curr_value_iter,
             self.wandb_logger.experiment.id)
@@ -1788,15 +1890,33 @@ class BalsaAgent(object):
                                                 execution_results):
             _, real_cost, _ = result_tup
             if self.structured_logger is not None and tag == 'latency_test':
-                baseline = node.info.get('explain_json', {})
+                from balsa.explain_parser import normalize_explain
+                raw_baseline = node.info.get('explain_json')
+                baseline = normalize_explain(raw_baseline) if raw_baseline else {}
+                raw_result = result_tup[0].result
+                document = normalize_explain(raw_result) if raw_result else {}
+                plan_dir = os.path.join(self.structured_logger.output_dir, 'plans')
+                os.makedirs(plan_dir, exist_ok=True)
+                stem = '{}_iter_{}'.format(node.info['query_name'], self.curr_value_iter)
+                sql_path = os.path.join(plan_dir, stem + '_hinted.sql')
+                json_path = os.path.join(plan_dir, stem + '_explain.json') if document else None
+                with open(sql_path, 'w') as f:
+                    f.write(to_execute[1] + '\n' + to_execute[0])
+                if document:
+                    import json
+                    with open(json_path, 'w') as f:
+                        json.dump(document, f, indent=2)
                 self.structured_logger.record_evaluation(
                     query_name=node.info['query_name'],
                     planning_ms=to_execute[2],
                     execution_ms=real_cost if real_cost >= 0 else None,
                     postgres_planning_ms=baseline.get('Planning Time'),
-                    postgres_execution_ms=baseline.get(
-                        'Execution Time', node.cost),
-                    status=('COMPLETED' if real_cost >= 0 else 'TIMEOUT'))
+                    postgres_execution_ms=baseline.get('Execution Time'),
+                    status=('COMPLETED' if real_cost >= 0 else 'TIMEOUT'),
+                    postgres_hinted_planning_ms=document.get('Planning Time'),
+                    result_source=node.info.get('last_result_source'),
+                    hinted_sql_path=sql_path, explain_json_path=json_path,
+                    timeout_ms=to_execute[-1])
             if real_cost < 0:
                 has_timeouts = True
                 break
@@ -1818,9 +1938,21 @@ class BalsaAgent(object):
             return
         # Log a table of latencies, sorted by descending latency.
         rows = list(sorted(rows, key=lambda r: r[1], reverse=True))
-        table = wandb.Table(columns=['query_name', tag, 'curr_value_iter'],
-                            rows=rows)
-        self.wandb_logger.experiment.log({'{}_table'.format(tag): table})
+        import json
+        local_dir = (self.structured_logger.output_dir if self.structured_logger
+                     else self.wandb_logger.experiment.dir)
+        with open(os.path.join(local_dir, '{}_{}.json'.format(tag, self.curr_value_iter)), 'w') as f:
+            json.dump(dict(columns=['query_name', tag, 'curr_value_iter'], rows=rows), f)
+        try:
+            if os.environ.get('WANDB_MODE') in ('offline', 'disabled', 'dryrun'):
+                print('[WandB] Offline table kept locally; skipping SDK 0.18.7 server introspection:', local_dir)
+            else:
+                table = wandb.Table(columns=['query_name', tag, 'curr_value_iter'], rows=rows)
+                self.wandb_logger.experiment.log({'{}_table'.format(tag): table})
+        except Exception as e:
+            # WandB table logging must not abort the experiment loop; the
+            # structured file logs are written independently of the backend.
+            print('[WandB] Could not log {} table: {}'.format(tag, e))
 
         data.extend([
             (tag + '/workload', iter_total_latency / 1e3, self.curr_value_iter),
@@ -1873,6 +2005,8 @@ class BalsaAgent(object):
             use_plan_restrictions=p.real_use_plan_restrictions)
 
     def RunOneIter(self):
+        from balsa.run_instrumentation import event
+        event('value_iteration', 'START', value_iter=self.curr_value_iter)
         p = self.params
         self.curr_iter_skipped_queries = 0
         if self.structured_logger is not None:
@@ -1921,7 +2055,8 @@ class BalsaAgent(object):
                 self.structured_logger.record_training(
                     self.timer.GetLatestTiming('train') * 1e3,
                     checkpoint_path,
-                    status='COMPLETED')
+                    status=('COMPLETED' if self.train_did_fit
+                           else 'SKIPPED_EXPERT_INIT'))
         # Run and log test queries.
         self.EvaluateTestSet(model, planner)
 
@@ -1953,6 +2088,7 @@ class BalsaAgent(object):
         if self.structured_logger is not None:
             path = self.structured_logger.finish_iteration()
             print('Structured iteration log:', path)
+        event('value_iteration', 'END', value_iter=self.curr_value_iter, completed=True)
         return has_timeouts
 
     def SaveBestPlans(self):
@@ -2029,7 +2165,8 @@ class BalsaAgent(object):
         #   model.load_state_dict(torch.load(PATH))
         ckpt_path = os.path.join(self.wandb_logger.experiment.dir,
                                  'checkpoint.pt')
-        torch.save(model.state_dict(), ckpt_path)
+        torch.save(model.state_dict(), ckpt_path + '.tmp')
+        os.replace(ckpt_path + '.tmp', ckpt_path)
         SaveText(
             'value_iter,{}'.format(self.curr_value_iter),
             os.path.join(self.wandb_logger.experiment.dir,

@@ -1,0 +1,1238 @@
+{
+  "created_at": "2026-10-31T17:21:44.550312Z",
+  "encoding_rows": [
+    {
+      "planning_ms": 39.613962173461914,
+      "query": "q10c"
+    },
+    {
+      "planning_ms": 101.77254676818848,
+      "query": "q11a"
+    },
+    {
+      "planning_ms": 97.79715538024902,
+      "query": "q11b"
+    },
+    {
+      "planning_ms": 246.71173095703125,
+      "query": "q11c"
+    },
+    {
+      "planning_ms": 155.84301948547363,
+      "query": "q11d"
+    },
+    {
+      "planning_ms": 74.77092742919922,
+      "query": "q12a"
+    },
+    {
+      "planning_ms": 95.46494483947754,
+      "query": "q12c"
+    },
+    {
+      "planning_ms": 89.27464485168457,
+      "query": "q13a"
+    },
+    {
+      "planning_ms": 102.00619697570801,
+      "query": "q13b"
+    },
+    {
+      "planning_ms": 144.82855796813965,
+      "query": "q13c"
+    },
+    {
+      "planning_ms": 77.27360725402832,
+      "query": "q13d"
+    },
+    {
+      "planning_ms": 150.1142978668213,
+      "query": "q14a"
+    },
+    {
+      "planning_ms": 199.82600212097168,
+      "query": "q14b"
+    },
+    {
+      "planning_ms": 136.73853874206543,
+      "query": "q14c"
+    },
+    {
+      "planning_ms": 121.76346778869629,
+      "query": "q15c"
+    },
+    {
+      "planning_ms": 71.18988037109375,
+      "query": "q16b"
+    },
+    {
+      "planning_ms": 210.54935455322266,
+      "query": "q16c"
+    },
+    {
+      "planning_ms": 204.89835739135742,
+      "query": "q16d"
+    },
+    {
+      "planning_ms": 188.48490715026855,
+      "query": "q17a"
+    },
+    {
+      "planning_ms": 133.1768035888672,
+      "query": "q17b"
+    },
+    {
+      "planning_ms": 134.30476188659668,
+      "query": "q17d"
+    },
+    {
+      "planning_ms": 129.93168830871582,
+      "query": "q17f"
+    },
+    {
+      "planning_ms": 55.11307716369629,
+      "query": "q18a"
+    },
+    {
+      "planning_ms": 141.8910026550293,
+      "query": "q18b"
+    },
+    {
+      "planning_ms": 45.395612716674805,
+      "query": "q18c"
+    },
+    {
+      "planning_ms": 130.7971477508545,
+      "query": "q19a"
+    },
+    {
+      "planning_ms": 656.79931640625,
+      "query": "q19b"
+    },
+    {
+      "planning_ms": 117.19679832458496,
+      "query": "q19c"
+    },
+    {
+      "planning_ms": 170.59993743896484,
+      "query": "q19d"
+    },
+    {
+      "planning_ms": 105.3931713104248,
+      "query": "q1a"
+    },
+    {
+      "planning_ms": 53.79486083984375,
+      "query": "q1b"
+    },
+    {
+      "planning_ms": 102.71191596984863,
+      "query": "q1c"
+    },
+    {
+      "planning_ms": 29.227018356323242,
+      "query": "q1d"
+    },
+    {
+      "planning_ms": 724.3797779083252,
+      "query": "q20b"
+    },
+    {
+      "planning_ms": 668.161153793335,
+      "query": "q20c"
+    },
+    {
+      "planning_ms": 316.03240966796875,
+      "query": "q21a"
+    },
+    {
+      "planning_ms": 306.5905570983887,
+      "query": "q21b"
+    },
+    {
+      "planning_ms": 310.7163906097412,
+      "query": "q21c"
+    },
+    {
+      "planning_ms": 595.0369834899902,
+      "query": "q22a"
+    },
+    {
+      "planning_ms": 262.1726989746094,
+      "query": "q22d"
+    },
+    {
+      "planning_ms": 965.0628566741943,
+      "query": "q23a"
+    },
+    {
+      "planning_ms": 763.9865875244141,
+      "query": "q23b"
+    },
+    {
+      "planning_ms": 592.0224189758301,
+      "query": "q23c"
+    },
+    {
+      "planning_ms": 514.0912532806396,
+      "query": "q24a"
+    },
+    {
+      "planning_ms": 79.83708381652832,
+      "query": "q25a"
+    },
+    {
+      "planning_ms": 163.99073600769043,
+      "query": "q25b"
+    },
+    {
+      "planning_ms": 75.92463493347168,
+      "query": "q25c"
+    },
+    {
+      "planning_ms": 638.5047435760498,
+      "query": "q26a"
+    },
+    {
+      "planning_ms": 582.4921131134033,
+      "query": "q26c"
+    },
+    {
+      "planning_ms": 979.301929473877,
+      "query": "q27a"
+    },
+    {
+      "planning_ms": 835.5758190155029,
+      "query": "q27b"
+    },
+    {
+      "planning_ms": 1014.8649215698242,
+      "query": "q27c"
+    },
+    {
+      "planning_ms": 1198.218584060669,
+      "query": "q28a"
+    },
+    {
+      "planning_ms": 1395.4484462738037,
+      "query": "q28b"
+    },
+    {
+      "planning_ms": 1119.4274425506592,
+      "query": "q28c"
+    },
+    {
+      "planning_ms": 2081.7596912384033,
+      "query": "q29a"
+    },
+    {
+      "planning_ms": 1741.6996955871582,
+      "query": "q29b"
+    },
+    {
+      "planning_ms": 1187.6046657562256,
+      "query": "q29c"
+    },
+    {
+      "planning_ms": 55.04107475280762,
+      "query": "q2b"
+    },
+    {
+      "planning_ms": 48.36392402648926,
+      "query": "q2c"
+    },
+    {
+      "planning_ms": 49.21150207519531,
+      "query": "q2d"
+    },
+    {
+      "planning_ms": 234.43007469177246,
+      "query": "q30a"
+    },
+    {
+      "planning_ms": 364.8247718811035,
+      "query": "q30b"
+    },
+    {
+      "planning_ms": 341.92728996276855,
+      "query": "q31a"
+    },
+    {
+      "planning_ms": 415.3711795806885,
+      "query": "q31b"
+    },
+    {
+      "planning_ms": 199.30410385131836,
+      "query": "q31c"
+    },
+    {
+      "planning_ms": 107.37180709838867,
+      "query": "q32a"
+    },
+    {
+      "planning_ms": 138.0481719970703,
+      "query": "q32b"
+    },
+    {
+      "planning_ms": 711.0710144042969,
+      "query": "q33a"
+    },
+    {
+      "planning_ms": 515.704870223999,
+      "query": "q33b"
+    },
+    {
+      "planning_ms": 1487.2045516967773,
+      "query": "q33c"
+    },
+    {
+      "planning_ms": 17.82512664794922,
+      "query": "q3a"
+    },
+    {
+      "planning_ms": 17.807483673095703,
+      "query": "q3b"
+    },
+    {
+      "planning_ms": 17.461061477661133,
+      "query": "q3c"
+    },
+    {
+      "planning_ms": 30.162334442138672,
+      "query": "q4a"
+    },
+    {
+      "planning_ms": 39.93511199951172,
+      "query": "q5a"
+    },
+    {
+      "planning_ms": 52.96039581298828,
+      "query": "q5b"
+    },
+    {
+      "planning_ms": 42.38772392272949,
+      "query": "q5c"
+    },
+    {
+      "planning_ms": 34.95144844055176,
+      "query": "q6a"
+    },
+    {
+      "planning_ms": 28.911590576171875,
+      "query": "q6b"
+    },
+    {
+      "planning_ms": 30.16495704650879,
+      "query": "q6c"
+    },
+    {
+      "planning_ms": 28.990983963012695,
+      "query": "q6d"
+    },
+    {
+      "planning_ms": 30.73596954345703,
+      "query": "q6e"
+    },
+    {
+      "planning_ms": 37.46676445007324,
+      "query": "q6f"
+    },
+    {
+      "planning_ms": 139.24002647399902,
+      "query": "q7a"
+    },
+    {
+      "planning_ms": 149.92713928222656,
+      "query": "q7b"
+    },
+    {
+      "planning_ms": 135.8635425567627,
+      "query": "q7c"
+    },
+    {
+      "planning_ms": 119.9331283569336,
+      "query": "q8b"
+    },
+    {
+      "planning_ms": 57.415008544921875,
+      "query": "q8c"
+    },
+    {
+      "planning_ms": 77.23093032836914,
+      "query": "q8d"
+    },
+    {
+      "planning_ms": 88.88459205627441,
+      "query": "q9a"
+    },
+    {
+      "planning_ms": 201.69615745544434,
+      "query": "q9b"
+    },
+    {
+      "planning_ms": 52.33621597290039,
+      "query": "q9c"
+    },
+    {
+      "planning_ms": 51.717519760131836,
+      "query": "q9d"
+    }
+  ],
+  "evaluation_rows": [],
+  "model": "Balsa",
+  "split": "Random-52",
+  "training": {
+    "model_state": "in-memory value_iter=1; periodic checkpoint=/tmp/opencode/ac1366378/B_random52_retry2/training/wandb/offline-run-20261031_235957-ax7jy4l3/files/checkpoint.pt",
+    "status": "COMPLETED",
+    "time_ms": 76750.87833404541
+  },
+  "training_rows": [
+    {
+      "cardinality": 1,
+      "cost": 11516698.62,
+      "execution_ms": 1381.701,
+      "plan_collected": "YES",
+      "query": "q10c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 267166.77,
+      "execution_ms": 814.641,
+      "plan_collected": "YES",
+      "query": "q11a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 163836.16,
+      "execution_ms": 390.999,
+      "plan_collected": "YES",
+      "query": "q11b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 2160263.25,
+      "execution_ms": 1515.937,
+      "plan_collected": "YES",
+      "query": "q11c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1732400.67,
+      "execution_ms": 1909.84,
+      "plan_collected": "YES",
+      "query": "q11d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 420265.11,
+      "execution_ms": 1066.909,
+      "plan_collected": "YES",
+      "query": "q12a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 435138.28,
+      "execution_ms": 1012.963,
+      "plan_collected": "YES",
+      "query": "q12c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1119685.55,
+      "execution_ms": 7370.225,
+      "plan_collected": "YES",
+      "query": "q13a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 521464.29,
+      "execution_ms": 1434.484,
+      "plan_collected": "YES",
+      "query": "q13b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 476412.5,
+      "execution_ms": 1412.421,
+      "plan_collected": "YES",
+      "query": "q13c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1158727.31,
+      "execution_ms": 6804.761,
+      "plan_collected": "YES",
+      "query": "q13d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 613349.71,
+      "execution_ms": 1464.964,
+      "plan_collected": "YES",
+      "query": "q14a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 590190.2,
+      "execution_ms": 1216.19,
+      "plan_collected": "YES",
+      "query": "q14b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 813291.71,
+      "execution_ms": 2472.936,
+      "plan_collected": "YES",
+      "query": "q14c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1273662.05,
+      "execution_ms": 1240.942,
+      "plan_collected": "YES",
+      "query": "q15c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": null,
+      "cost": null,
+      "execution_ms": null,
+      "plan_collected": "NO",
+      "query": "q16b",
+      "result_source": "MEASURED",
+      "status": "TIMEOUT"
+    },
+    {
+      "cardinality": 1,
+      "cost": 858951.14,
+      "execution_ms": 2903.997,
+      "plan_collected": "YES",
+      "query": "q16c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 810792.89,
+      "execution_ms": 2754.819,
+      "plan_collected": "YES",
+      "query": "q16d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 788763.13,
+      "execution_ms": 4548.419,
+      "plan_collected": "YES",
+      "query": "q17a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 796976.69,
+      "execution_ms": 2031.148,
+      "plan_collected": "YES",
+      "query": "q17b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 785270.42,
+      "execution_ms": 2079.765,
+      "plan_collected": "YES",
+      "query": "q17d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 865225.92,
+      "execution_ms": 3126.665,
+      "plan_collected": "YES",
+      "query": "q17f",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 902679.97,
+      "execution_ms": 1697.634,
+      "plan_collected": "YES",
+      "query": "q18a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1104618.98,
+      "execution_ms": 1072.781,
+      "plan_collected": "YES",
+      "query": "q18b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1072869.43,
+      "execution_ms": 1642.103,
+      "plan_collected": "YES",
+      "query": "q18c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1528258.87,
+      "execution_ms": 1999.227,
+      "plan_collected": "YES",
+      "query": "q19a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1051736.16,
+      "execution_ms": 1371.781,
+      "plan_collected": "YES",
+      "query": "q19b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1717189.58,
+      "execution_ms": 2373.999,
+      "plan_collected": "YES",
+      "query": "q19c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1475075.93,
+      "execution_ms": 3230.231,
+      "plan_collected": "YES",
+      "query": "q19d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 190047.7,
+      "execution_ms": 711.249,
+      "plan_collected": "YES",
+      "query": "q1a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 209338.64,
+      "execution_ms": 475.689,
+      "plan_collected": "YES",
+      "query": "q1b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 219255.79,
+      "execution_ms": 559.469,
+      "plan_collected": "YES",
+      "query": "q1c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 579991.94,
+      "execution_ms": 727.997,
+      "plan_collected": "YES",
+      "query": "q1d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1122144.73,
+      "execution_ms": 2438.811,
+      "plan_collected": "YES",
+      "query": "q20b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 3263880.57,
+      "execution_ms": 4414.194,
+      "plan_collected": "YES",
+      "query": "q20c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 561479.53,
+      "execution_ms": 1018.405,
+      "plan_collected": "YES",
+      "query": "q21a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 533968.35,
+      "execution_ms": 661.651,
+      "plan_collected": "YES",
+      "query": "q21b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1235931.13,
+      "execution_ms": 1749.725,
+      "plan_collected": "YES",
+      "query": "q21c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1443280.05,
+      "execution_ms": 1572.481,
+      "plan_collected": "YES",
+      "query": "q22a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 264758.89,
+      "execution_ms": 2214.577,
+      "plan_collected": "YES",
+      "query": "q22d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1883562.5,
+      "execution_ms": 1412.068,
+      "plan_collected": "YES",
+      "query": "q23a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 600884.95,
+      "execution_ms": 722.521,
+      "plan_collected": "YES",
+      "query": "q23b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 623223.86,
+      "execution_ms": 749.7,
+      "plan_collected": "YES",
+      "query": "q23c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1641345.03,
+      "execution_ms": 1924.976,
+      "plan_collected": "YES",
+      "query": "q24a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 635327.35,
+      "execution_ms": 7524.231,
+      "plan_collected": "YES",
+      "query": "q25a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 18146152.05,
+      "execution_ms": 3090.071,
+      "plan_collected": "YES",
+      "query": "q25b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 681608.35,
+      "execution_ms": 3163.551,
+      "plan_collected": "YES",
+      "query": "q25c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1926526.81,
+      "execution_ms": 5669.469,
+      "plan_collected": "YES",
+      "query": "q26a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1495691.12,
+      "execution_ms": 4774.575,
+      "plan_collected": "YES",
+      "query": "q26c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 528923.18,
+      "execution_ms": 916.884,
+      "plan_collected": "YES",
+      "query": "q27a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 444081.74,
+      "execution_ms": 663.243,
+      "plan_collected": "YES",
+      "query": "q27b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 731458.45,
+      "execution_ms": 1025.595,
+      "plan_collected": "YES",
+      "query": "q27c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 835905.11,
+      "execution_ms": 5451.218,
+      "plan_collected": "YES",
+      "query": "q28a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1483791.7,
+      "execution_ms": 1917.54,
+      "plan_collected": "YES",
+      "query": "q28b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 727288.91,
+      "execution_ms": 2151.743,
+      "plan_collected": "YES",
+      "query": "q28c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 16707253.5,
+      "execution_ms": 4050.351,
+      "plan_collected": "YES",
+      "query": "q29a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 15950815.11,
+      "execution_ms": 3545.326,
+      "plan_collected": "YES",
+      "query": "q29b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 15899558.6,
+      "execution_ms": 2632.075,
+      "plan_collected": "YES",
+      "query": "q29c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 4692485.07,
+      "execution_ms": 6929.7,
+      "plan_collected": "YES",
+      "query": "q2b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 4692047.53,
+      "execution_ms": 6907.56,
+      "plan_collected": "YES",
+      "query": "q2c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 3833992.94,
+      "execution_ms": 4088.768,
+      "plan_collected": "YES",
+      "query": "q2d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 611653.78,
+      "execution_ms": 1065.011,
+      "plan_collected": "YES",
+      "query": "q30a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 591823.2,
+      "execution_ms": 905.529,
+      "plan_collected": "YES",
+      "query": "q30b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 564373.95,
+      "execution_ms": 1616.546,
+      "plan_collected": "YES",
+      "query": "q31a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1178199.9,
+      "execution_ms": 1328.926,
+      "plan_collected": "YES",
+      "query": "q31b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1120288.47,
+      "execution_ms": 1831.33,
+      "plan_collected": "YES",
+      "query": "q31c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1175576.19,
+      "execution_ms": 926.424,
+      "plan_collected": "YES",
+      "query": "q32a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1175576.19,
+      "execution_ms": 933.198,
+      "plan_collected": "YES",
+      "query": "q32b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 223508.18,
+      "execution_ms": 186.761,
+      "plan_collected": "YES",
+      "query": "q33a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 194439.57,
+      "execution_ms": 183.491,
+      "plan_collected": "YES",
+      "query": "q33b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1213152.22,
+      "execution_ms": 1415.258,
+      "plan_collected": "YES",
+      "query": "q33c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 557478.74,
+      "execution_ms": 850.46,
+      "plan_collected": "YES",
+      "query": "q3a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 296955.74,
+      "execution_ms": 393.41,
+      "plan_collected": "YES",
+      "query": "q3b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1507412.62,
+      "execution_ms": 1764.669,
+      "plan_collected": "YES",
+      "query": "q3c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 236038.98,
+      "execution_ms": 891.729,
+      "plan_collected": "YES",
+      "query": "q4a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 630739.71,
+      "execution_ms": 386.524,
+      "plan_collected": "YES",
+      "query": "q5a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": null,
+      "cost": null,
+      "execution_ms": null,
+      "plan_collected": "NO",
+      "query": "q5b",
+      "result_source": "MEASURED",
+      "status": "TIMEOUT"
+    },
+    {
+      "cardinality": 1,
+      "cost": 892224.6,
+      "execution_ms": 1157.854,
+      "plan_collected": "YES",
+      "query": "q5c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 777791.34,
+      "execution_ms": 1589.958,
+      "plan_collected": "YES",
+      "query": "q6a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 779529.88,
+      "execution_ms": 1740.301,
+      "plan_collected": "YES",
+      "query": "q6b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 777790.76,
+      "execution_ms": 1619.385,
+      "plan_collected": "YES",
+      "query": "q6c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 779548.73,
+      "execution_ms": 1944.529,
+      "plan_collected": "YES",
+      "query": "q6d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 777793.02,
+      "execution_ms": 1611.479,
+      "plan_collected": "YES",
+      "query": "q6e",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 796940.22,
+      "execution_ms": 2224.235,
+      "plan_collected": "YES",
+      "query": "q6f",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 437351.5,
+      "execution_ms": 762.838,
+      "plan_collected": "YES",
+      "query": "q7a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 413548.91,
+      "execution_ms": 589.33,
+      "plan_collected": "YES",
+      "query": "q7b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 511672.44,
+      "execution_ms": 1384.904,
+      "plan_collected": "YES",
+      "query": "q7c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 715095.83,
+      "execution_ms": 777.393,
+      "plan_collected": "YES",
+      "query": "q8b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 3396958.71,
+      "execution_ms": 7750.546,
+      "plan_collected": "YES",
+      "query": "q8c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 3396958.71,
+      "execution_ms": 5678.621,
+      "plan_collected": "YES",
+      "query": "q8d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 987939.7,
+      "execution_ms": 1597.991,
+      "plan_collected": "YES",
+      "query": "q9a",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1230727.03,
+      "execution_ms": 1099.44,
+      "plan_collected": "YES",
+      "query": "q9b",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1140889.15,
+      "execution_ms": 1948.555,
+      "plan_collected": "YES",
+      "query": "q9c",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    },
+    {
+      "cardinality": 1,
+      "cost": 1208363.18,
+      "execution_ms": 2553.306,
+      "plan_collected": "YES",
+      "query": "q9d",
+      "result_source": "MEASURED",
+      "status": "COMPLETED"
+    }
+  ],
+  "value_iter": 1
+}

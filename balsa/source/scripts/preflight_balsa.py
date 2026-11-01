@@ -156,6 +156,24 @@ def check_postgres(checks, args):
          'SELECT count(*) FROM title;',
          '2528312'),
     ]
+    # Canonical JOB/IMDB snapshot. Table existence/title alone cannot establish
+    # that COPY completed for all relations.
+    expected_rows = dict(aka_name=901343, aka_title=361472, cast_info=36244344,
+        char_name=3140339, comp_cast_type=4, company_name=234997,
+        company_type=4, complete_cast=135086, info_type=113, keyword=134170,
+        kind_type=7, link_type=18, movie_companies=2609129,
+        movie_info=14835720, movie_info_idx=1380035, movie_keyword=4523930,
+        movie_link=29997, name=4167491, person_info=2963664, role_type=12)
+    sql_checks.extend(('{} rows'.format(table),
+                       'SELECT count(*) FROM {};'.format(table), str(count))
+                      for table, count in sorted(expected_rows.items()))
+    code, identity, error = command_output(command + ['-c',
+        "select current_database(), current_user, version(), inet_server_addr(), inet_server_port(), current_setting('data_directory');"])
+    if code:
+        checks.fail('Cannot inspect server identity: ' + error)
+    else:
+        checks.ok('Connection host={} port={} role={}; identity={}'.format(
+            args.host, args.port or 'libpq default', args.user or 'libpq default', identity))
     for label, sql, expected in sql_checks:
         code, output, error = command_output(command + ['-c', sql])
         if code == 0 and output.splitlines()[-1:] == [expected]:
@@ -177,8 +195,8 @@ def check_postgres(checks, args):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--db', default=os.environ.get('BALSA_DB', 'imdbload'))
-    parser.add_argument('--host', default=os.environ.get('PGHOST'))
+    parser.add_argument('--db', default=os.environ.get('BALSA_DB', os.environ.get('PGDATABASE', 'imdbload')))
+    parser.add_argument('--host', default=os.environ.get('PGHOST', '/tmp'))
     parser.add_argument('--port', default=os.environ.get('PGPORT'))
     parser.add_argument('--user', default=os.environ.get('PGUSER'))
     args = parser.parse_args()

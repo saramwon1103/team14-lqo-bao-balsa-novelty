@@ -36,6 +36,8 @@ def main():
     parser.add_argument('--simulator-bundle', type=Path, help='Complete, hash-bound simulator initialization metadata')
     parser.add_argument('--simulator-checkpoint', type=Path, help='Verified split-compatible upstream simulator weights; reconstruct encoders from this split only')
     parser.add_argument('--simulator-integration-epochs', type=int, help='Explicit integration-only simulator epoch limit; agent configuration unchanged')
+    parser.add_argument('--fresh-simulator', action='store_true',
+                        help='Train a new simulator from this split only (V2 train-only integration)')
     parser.add_argument('--independent-eval-only', action='store_true', help='Schedule test reporting in fresh evaluator only; train feedback unchanged')
     args = parser.parse_args()
     if args.expert_data:
@@ -72,6 +74,8 @@ def main():
     if args.split_master:
         if args.iterations is None or args.initial_timeout_ms is None or args.simulator_integration_epochs is None:
             parser.error('V2 runs require explicit --iterations, --initial-timeout-ms and fresh simulator epoch cap')
+        if not args.fresh_simulator:
+            parser.error('V2 runs require --fresh-simulator; cross-split simulator reuse is forbidden')
         if args.expert_data or args.simulator_checkpoint or args.simulator_bundle or args.simulator_reuse:
             parser.error('V2 runs cannot reuse expert, agent, or simulator artifacts across splits')
     os.environ['BALSA_SPLIT_SHA256'] = manifest['sha256']
@@ -139,6 +143,8 @@ def main():
     # data is collected by the real baseline, then used by a separate agent.
     p.init_experience = str(output / 'expert.pkl')
     p.sim_checkpoint = None
+    if args.fresh_simulator:
+        p.sim = True
     if args.simulator_checkpoint:
         p.sim_checkpoint = str(args.simulator_checkpoint.resolve())
     p.prev_replay_buffers_glob = None

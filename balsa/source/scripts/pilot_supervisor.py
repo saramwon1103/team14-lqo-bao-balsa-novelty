@@ -75,7 +75,7 @@ def safe_export(mount, destination):
     omitted = []
     priority = [p for p in mount.rglob('*') if p.is_file() and (
         p.name in ('evaluation.pt', 'evaluation.pt.json', 'simulator.ckpt', 'provenance.json',
-                   'config.txt', 'split.json', 'training_summary.json', 'evaluation_summary.json',
+                   'run_provenance.json', 'config.txt', 'split.json', 'training_summary.json', 'evaluation_summary.json',
                    'balsa_results.csv', 'postgres_baseline.csv', 'predictions.json', 'environment.json')
         or p.name.startswith('fit_evidence_'))]
     priority += [p for p in mount.rglob('*') if p.is_file() and p not in priority and (
@@ -118,12 +118,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', required=True, type=Path)
     parser.add_argument('--fuse2fs', required=True, type=Path)
+    parser.add_argument('--split-type', required=True, choices=['LOO-1', 'Random-1', 'BaseQuery-1'])
     parser.add_argument('--ml-memory-gib', type=int, default=16,
                         help='Whole ML slice hard limit; leave headroom for PostgreSQL and OS')
     args = parser.parse_args()
     if not 16 <= args.ml_memory_gib <= 24:
         parser.error('Highest defensible ML hard limit on this 30.6 GiB host is 24 GiB '
                      '(PostgreSQL shared_buffers 4 GiB + OS/apps must remain resident)')
+    fusermount = shutil.which('fusermount3') or shutil.which('fusermount')
+    if not fusermount:
+        raise RuntimeError('fuse2fs requires fusermount3 or fusermount')
     memory_max = args.ml_memory_gib * GIB
     memory_stop = memory_max - GIB
     root = args.output_dir.resolve()
@@ -159,7 +163,9 @@ def main():
     initial_pg = directory_bytes(pg_dir)
     if available_memory() < 20 * GIB or shutil.disk_usage(str(root)).free < 64 * GIB:
         raise RuntimeError('Insufficient machine memory/disk headroom; pilot not started')
-    unit_base = 'balsa-pilot-' + str(os.getpid())
+    unit_base = 'balsa-v2-run-' + str(os.getpid())
+    # systemd nests this run slice under balsa-v2.slice; the run-local timer
+    # protects the two-hour limit while the outer slice enforces six hours.
     slice_name = unit_base + '.slice'
     fs_unit = unit_base + '-fs.service'
     mount = Path('/tmp/opencode/bp' + str(os.getpid()))
@@ -210,8 +216,9 @@ def main():
                  postgres_settings=settings, postgres_database_initial_bytes=db_initial,
                  postgres_directory_initial=initial_pg, cgroup=str(cgroup),
                  cgroup_contains=['ML driver', 'Ray workers/daemons', 'eval process', 'artifact filesystem daemon'],
-                 configuration=dict(fold=2, seed=0, val_iters=3, mode='full',
-                                    epochs=100, beam=20, complete_plans=10, simulator_skip_geq=12),
+                 configuration=dict(split_type=args.split_type, seed=0, val_iters=3, mode='full',
+                                    agent_epochs='Balsa configuration', simulator_integration_epochs=1,
+                                    simulator='fresh, split-local, train-only'),
                  runtime_constraints=dict(ray_object_store_bytes=2 * GIB,
                      filesystem='19 GiB FUSE ext2; disk I/O timing affected',
                      graceful_stop_memory_bytes=memory_stop,
@@ -317,9 +324,11 @@ def main():
 
     train_unit = unit_base + '-train.service'
     train = [PYTHON, '-u', str(SOURCE / 'scripts/train_split.py'),
-             '--manifest', str(SOURCE / 'manifests/loo_template/fold_02.json'),
+             '--split-master', str(SOURCE.parents[1] / 'analysis/data/split_master.csv'),
+             '--split-type', args.split_type,
              '--output-dir', str(mount / 'training'), '--allow-full', '--iterations', '3',
-             '--seed', '0', '--initial-timeout-ms', '10000', '--isolated-runtime']
+             '--seed', '0', '--initial-timeout-ms', '30000', '--isolated-runtime',
+             '--fresh-simulator', '--simulator-integration-epochs', '1']
     train_end = eval_end = None
     try:
         start_service(train_unit, train, env, slice_name, str(mount / 'raw_train.log'), args.ml_memory_gib)
@@ -332,13 +341,30 @@ def main():
             eval_unit = unit_base + '-eval.service'
             evaluate = [PYTHON, '-u', str(SOURCE / 'scripts/evaluate_checkpoint.py'),
                         '--checkpoint', str(checkpoint[0]), '--output-dir', str(mount / 'evaluation'),
-                        '--seed', '0', '--repeats', '3', '--timeout-ms', '60000']
+                        '--seed', '0', '--repeats', '1', '--timeout-ms', '30000',
+                        '--run-id', unit_base]
             start_service(eval_unit, evaluate, env, slice_name, str(mount / 'raw_test.log'), args.ml_memory_gib)
             eval_end = observe(eval_unit, 'INDEPENDENT_EVAL')
             state['eval_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), eval_end))
             command(['systemctl', '--user', 'stop', eval_unit])
         else:
             state['eval_service'] = dict(status='NOT_RUN', reason='no complete bundle or insufficient safe time/headroom')
+        if (state.get('eval_service', {}).get('exit_code') == '0'
+                and state.get('eval_service', {}).get('result') == 'success'
+                and state.get('train_service', {}).get('exit_code') == '0'
+                and state.get('train_service', {}).get('result') == 'success'):
+            split_dir = args.split_type
+            run_id = unit_base
+            common_dir = SOURCE.parents[0] / 'runs' / split_dir / run_id
+            export = [PYTHON, str(SOURCE / 'scripts/export_common_results.py'),
+                '--training-dir', str(mount / 'training'), '--evaluation-dir', str(mount / 'evaluation'),
+                '--split-master', str(SOURCE.parents[1] / 'analysis/data/split_master.csv'),
+                '--sql-dir', str(SOURCE / 'queries/join-order-benchmark'), '--output-dir', str(common_dir),
+                '--run-id', run_id, '--code-commit', subprocess.check_output(
+                    ['git', 'rev-parse', 'HEAD'], cwd=str(SOURCE.parents[1]), text=True).strip(),
+                '--raw-training-log', str(mount / 'raw_train.log'), '--raw-eval-log', str(mount / 'raw_test.log')]
+            command(export)
+            state['common_results'] = str(common_dir)
         events = []
         if (mount / 'phases.jsonl').exists():
             for line in (mount / 'phases.jsonl').read_text().splitlines():
@@ -370,11 +396,18 @@ def main():
                                                         used=shutil.disk_usage(str(mount)).used)
         state['export'] = safe_export(mount, root / 'accessible_artifacts')
         state['ml_peak_bytes'] = max(maximum_memory, int((cgroup / 'memory.peak').read_text()))
-        command(['fusermount', '-u', str(mount)])
+        command([fusermount, '-u', str(mount)])
         subprocess.run(['systemctl', '--user', 'stop', fs_unit], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         subprocess.run(['systemctl', '--user', 'stop', watchdog + '.timer'],
                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         state['outer_artifacts'] = directory_bytes(root)
+        common_dir = Path(state['common_results']) if state.get('common_results') else None
+        common_bytes = directory_bytes(common_dir) if common_dir and common_dir.exists() else dict(allocated=0, logical=0)
+        state['common_results_artifacts'] = common_bytes
+        total_allocated = state['outer_artifacts']['allocated'] + common_bytes['allocated']
+        state['total_new_artifact_allocated_bytes'] = total_allocated
+        if total_allocated > 20 * GIB:
+            state['status'] = 'ARTIFACT_LIMIT_EXCEEDED'
         state['elapsed_seconds'] = time.monotonic() - started
         atomic_json(root / 'resource_summary.json', state)
         cur.close()

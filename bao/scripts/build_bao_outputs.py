@@ -109,15 +109,18 @@ def read_runs(path):
 
 def summarize(runs):
     """Gộp 3 lần đo -> 1 dòng. Bất kỳ lần nào ghi giá trị phạt -> TIMEOUT, để trống thời gian."""
+    base = {"plan": "", "plans": "", "warning": ""}
     if not runs:
-        return {"status": "ERROR", "pl": None, "ex": None, "e2e": None, "hint": None, "error": "missing"}
+        return {**base, "status": "ERROR", "pl": None, "ex": None, "e2e": None, "error": "missing"}
     if any(r["planning"] >= PENALTY_MS or r["execution"] >= PENALTY_MS for r in runs):
-        return {"status": "TIMEOUT", "pl": None, "ex": None, "e2e": None, "hint": None, "error": "timeout"}
+        return {**base, "status": "TIMEOUT", "pl": None, "ex": None, "e2e": None, "error": "timeout"}
     pl = statistics.median(r["planning"] for r in runs)
     ex = statistics.median(r["execution"] for r in runs)
-    hints = {r["head"].strip() for r in runs}
-    return {"status": "OK", "pl": pl, "ex": ex, "e2e": pl + ex,
-            "hint": runs[-1]["head"], "error": "" if len(hints) == 1 else "hint_changed_between_runs"}
+    arms = [hint_to_arm(r["head"]) for r in runs]
+    same = len(set(arms)) == 1
+    return {"status": "OK", "pl": pl, "ex": ex, "e2e": pl + ex, "error": "",
+            "plan": arms[0] if same else "MULTIPLE", "plans": "|".join(arms),
+            "warning": "" if same else "hint_changed_between_runs"}
 
 
 def write_csv(path, header, rows):
@@ -142,7 +145,7 @@ def console_section(console, split_dir, tag):
 # ----------------------------------------------------------------------------- per split
 def build(split, args, report):
     stype, sid, sdir, tag, label, run_id, n_train_exp, n_test_exp = split
-    out = os.path.join(BAO, "runs", label, run_id)
+    out = os.path.join(args.out, label, run_id)
     os.makedirs(out, exist_ok=True)
     errs = []
 
@@ -158,8 +161,16 @@ def build(split, args, report):
         errs.append(f"Train ∪ Test != 113 JOB (thiếu {sorted(job - tr - te)}, thừa {sorted((tr | te) - job)})")
     if (len(tr), len(te)) != (n_train_exp, n_test_exp):
         errs.append(f"Số query train/test = {len(tr)}/{len(te)}, mong đợi {n_train_exp}/{n_test_exp}")
-    snap = [[MODEL, stype, sid, qid(f), family(qid(f)), role, f]
-            for role, files in (("train", sorted(tr)), ("test", sorted(te))) for f in files]
+    sm = [r for r in args.split_master_rows if r["split_type"] == stype and str(r["split_id"]) == str(sid)]
+    sm_tr = {r["sql_file"] for r in sm if r["role"] == "train"}
+    sm_te = {r["sql_file"] for r in sm if r["role"] == "test"}
+    if (sm_tr, sm_te) != (tr, te):
+        errs.append(f"split_master.csv KHÔNG khớp queries/job__{sdir}: train lệch {sorted(sm_tr ^ tr)}, "
+                    f"test lệch {sorted(sm_te ^ te)}")
+    if len(sm) != 113 or (sm_tr & sm_te):
+        errs.append(f"split_master.csv: {len(sm)} dòng (mong đợi 113), giao train/test = {sorted(sm_tr & sm_te)}")
+    tr, te = sm_tr, sm_te  # split_master.csv là nguồn duy nhất
+    snap = [[MODEL, stype, sid, r["query_id"], r["family"], r["role"], r["sql_file"]] for r in sm]
     snap.sort(key=lambda r: (int(re.match(r"q(\d+)", r[3]).group(1)), r[3]))
     write_csv(os.path.join(out, "split_snapshot.csv"),
               ["model", "split_type", "split_id", "query_id", "family", "role", "sql_file"], snap)
@@ -180,14 +191,15 @@ def build(split, args, report):
         if pg_g.get(f) and len(pg_g[f]) != 3:
             errs.append(f"PG {q}: {len(pg_g[f])} lần đo (mong đợi 3)")
         ev.append([run_id, MODEL, stype, sid, q, family(q), ckpt_id, r3(b["pl"]), "", r3(b["ex"]), r3(b["e2e"]),
-                   b["status"], TIMEOUT_MS, hint_to_arm(b["hint"]) if b["status"] == "OK" else "", b["error"]])
+                   b["status"], TIMEOUT_MS, b["plan"], b["error"], b["warning"], b["plans"]])
         pgr.append([stype, sid, q, family(q), r3(p["pl"]), r3(p["ex"]), r3(p["e2e"]), p["status"], TIMEOUT_MS])
     extra = (set(bao_g) | set(pg_g)) - te
     if extra:
         errs.append(f"Log test có query ngoài tập test: {sorted(extra)}")
     write_csv(os.path.join(out, "evaluation_results.csv"),
               ["run_id", "model", "split_type", "split_id", "query_id", "family", "checkpoint_id", "planning_ms",
-               "inference_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms", "chosen_plan_id", "error"], ev)
+               "inference_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms", "chosen_plan_id", "error", "warning",
+               "chosen_plan_ids"], ev)
     write_csv(os.path.join(out, "postgres_results.csv"),
               ["split_type", "split_id", "query_id", "family", "planning_ms", "execution_ms", "end_to_end_ms",
                "status", "timeout_ms"], pgr)
@@ -227,8 +239,9 @@ def build(split, args, report):
                "metric_value", "metric_unit", "status", "message", "timestamp"], trace)
 
     # ---- checkpoint_manifest.csv
-    ckpt_rel = os.path.join("bao", "bao_server", f"bao__job__{sdir}")
-    ckpt_abs = os.path.join(BAO, "bao_server", f"bao__job__{sdir}")
+    src_rel = f"bao/bao_server/bao__job__{sdir}"                       # vị trí trong repo upstream
+    ckpt_rel = f"bao/checkpoints/bao__job__{sdir}"                       # artifact trong repo nhóm
+    ckpt_abs = os.path.join(args.team_repo, ckpt_rel)
     need = ["nn_weights", "x_transform", "y_transform", "channels", "n"]
     ck_ok = os.path.isdir(ckpt_abs) and all(os.path.exists(os.path.join(ckpt_abs, x)) for x in need)
     if not ck_ok:
@@ -284,11 +297,16 @@ def build(split, args, report):
         "author_training_start_time": iso(t_start), "author_training_end_time": iso(t_end),
         "author_training_time_s": round((t_end - t_start).total_seconds(), 1) if t_start else None,
         "checkpoint_path": ckpt_rel,
+        "source_checkpoint_path": f"edualc/lqo_ml_perspective:{src_rel}",
+        "artifact_checkpoint_path": ckpt_rel,
+        "training_trace_source": "author_log",
+        "split_source": "analysis/data/split_master.csv",
         "timeout_ms": TIMEOUT_MS,
         "runs_per_query": 3,
         "aggregation": "median planning_ms + median execution_ms over 3 runs; any timed-out run => TIMEOUT",
         "inference_in_planning": True,
-        "chosen_plan_id_meaning": "Bao arm index (arm_0 = no hint ... arm_4), from 'Bao recommended hint'",
+        "chosen_plan_id_meaning": ("Bao arm (arm_0 = no hint ... arm_4) from 'Bao recommended hint'; "
+                                   "MULTIPLE if the 3 runs chose different arms, see chosen_plan_ids"),
         "hardware": "Laptop 8 GB RAM, 8 CPU cores, WSL2 ~3.7 GB RAM, Docker Desktop",
         "notes": ("Training could not be reproduced on team hardware (~22 h/split estimated: 40/1500 "
                   "log lines in 35 min). Evaluation and PostgreSQL baseline measured by team."),
@@ -313,22 +331,40 @@ def main():
     ap.add_argument("--console", default=os.path.expanduser("~/bao_ckpt.out"))
     ap.add_argument("--git-commit", default="")
     ap.add_argument("--pg-version", default="")
+    ap.add_argument("--team-repo", default=os.path.expanduser("~/team14-lqo-bao-balsa-novelty"))
+    ap.add_argument("--out", default=None, help="mặc định: <team-repo>/bao/results")
     args = ap.parse_args()
+    args.out = args.out or os.path.join(args.team_repo, "bao", "results")
+    sm_path = os.path.join(args.team_repo, "analysis", "data", "split_master.csv")
+    args.split_master_rows = list(csv.DictReader(open(sm_path, encoding="utf-8-sig")))
 
     report, all_ev, all_pg = [], [], []
     for s in SPLITS:
         ev, pg = build(s, args, report)
         all_ev += ev
         all_pg += pg
-    runs = os.path.join(BAO, "runs")
+    runs = args.out
     write_csv(os.path.join(runs, "ALL_evaluation_results.csv"),
               ["run_id", "model", "split_type", "split_id", "query_id", "family", "checkpoint_id", "planning_ms",
-               "inference_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms", "chosen_plan_id", "error"],
+               "inference_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms", "chosen_plan_id", "error", "warning",
+               "chosen_plan_ids"],
               all_ev)
     write_csv(os.path.join(runs, "ALL_postgres_results.csv"),
               ["split_type", "split_id", "query_id", "family", "planning_ms", "execution_ms", "end_to_end_ms",
                "status", "timeout_ms"], all_pg)
     report.append(f"TOTAL evaluation rows = {len(all_ev)} (mong đợi 74)")
+    nov_path = os.path.join(args.team_repo, "analysis", "data", "novelty.csv")
+    if os.path.exists(nov_path):
+        nov = {(r["split_type"], str(r["split_id"]), r["query_id"])
+               for r in csv.DictReader(open(nov_path, encoding="utf-8-sig"))}
+        keys = {(r[2], str(r[3]), r[4]) for r in all_ev}
+        miss = sorted(keys - nov)
+        report.append(f"MERGE novelty.csv on (split_type, split_id, query_id): {len(keys & nov)}/{len(keys)} khớp"
+                      + (f"  ! thiếu: {miss}" if miss else ""))
+    else:
+        report.append(f"  ! không thấy {nov_path}")
+    multi = [f"{r[2]}-{r[4]}:{r[16]}" for r in all_ev if r[13] == "MULTIPLE"]
+    report.append(f"chosen_plan_id = MULTIPLE: {len(multi)} query {multi if multi else ''}")
     text = "\n".join(report) + "\n"
     open(os.path.join(runs, "VALIDATION.txt"), "w", encoding="utf-8").write(text)
     print(text)

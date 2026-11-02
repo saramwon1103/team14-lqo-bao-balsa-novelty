@@ -1,2 +1,2 @@
 run_id,model,split_type,split_id,checkpoint_id,step,metric_name,metric_value,path,is_final,status
-bao_loo1_run01,Bao,LOO,1,bao_loo1_final,19,,,bao/bao_server/bao__job__leave_one_out_split_1,true,OK
+bao_loo1_run01,Bao,LOO,1,bao_loo1_final,19,,,bao/checkpoints/bao__job__leave_one_out_split_1,true,OK

@@ -94,13 +94,56 @@ BAO_CASE_STUDIES_PATH = (
 
 
 # ------------------------------------------------------------
+# Balsa analysis outputs
+# ------------------------------------------------------------
+
+BALSA_PERFORMANCE_PATH = (
+    DATA_DIR
+    / "balsa_novelty_performance.csv"
+)
+
+BALSA_SPEARMAN_PATH = (
+    DATA_DIR
+    / "balsa_spearman_summary.csv"
+)
+
+BALSA_GROUP_PATH = (
+    DATA_DIR
+    / "balsa_novelty_group_summary.csv"
+)
+
+BALSA_CASE_STUDIES_PATH = (
+    DATA_DIR
+    / "balsa_case_studies.csv"
+)
+
+
+# ------------------------------------------------------------
 # Canonical JOB SQL source
 # ------------------------------------------------------------
 
-JOB_SQL_DIR = Path(
-    r"D:\lqo_ml_perspective"
-    r"\bao\queries"
-    r"\join-order-benchmark"
+# Prefer the copy already tracked in this repository.
+# Keep the old local Bao path as a fallback for the author's machine.
+JOB_SQL_CANDIDATES = [
+    REPO_ROOT
+    / "balsa"
+    / "source"
+    / "queries"
+    / "join-order-benchmark",
+    Path(
+        r"D:\lqo_ml_perspective"
+        r"\bao\queries"
+        r"\join-order-benchmark"
+    ),
+]
+
+JOB_SQL_DIR = next(
+    (
+        path
+        for path in JOB_SQL_CANDIDATES
+        if path.exists()
+    ),
+    JOB_SQL_CANDIDATES[0],
 )
 
 
@@ -1322,6 +1365,22 @@ bao_case_studies_df = load_optional_csv(
     str(BAO_CASE_STUDIES_PATH)
 )
 
+balsa_performance_df = load_optional_csv(
+    str(BALSA_PERFORMANCE_PATH)
+)
+
+balsa_spearman_df = load_optional_csv(
+    str(BALSA_SPEARMAN_PATH)
+)
+
+balsa_group_df = load_optional_csv(
+    str(BALSA_GROUP_PATH)
+)
+
+balsa_case_studies_df = load_optional_csv(
+    str(BALSA_CASE_STUDIES_PATH)
+)
+
 feature_map = build_feature_map(
     feature_df
 )
@@ -1336,18 +1395,23 @@ feature_map = build_feature_map(
 def get_comparable_split_rows(
     performance_df: pd.DataFrame | None,
     split_type: str,
+    model_key: str,
+    split_id: int | None = None,
 ) -> pd.DataFrame:
-    """Return Bao/PostgreSQL rows that are valid for ratio analysis."""
+    """Return model/PostgreSQL rows valid for ratio analysis."""
 
     if performance_df is None:
         return pd.DataFrame()
 
+    status_col = f"{model_key}_status"
+    ratio_col = f"{model_key}_vs_pg_ratio"
+
     required = {
         "split_type",
-        "bao_status",
+        status_col,
         "pg_status",
         "novelty",
-        "bao_vs_pg_ratio",
+        ratio_col,
     }
 
     if not required.issubset(
@@ -1355,51 +1419,79 @@ def get_comparable_split_rows(
     ):
         return pd.DataFrame()
 
-    return performance_df[
-        (
-            performance_df["split_type"]
-            == split_type
-        )
-        & (
-            performance_df["bao_status"]
-            == "OK"
-        )
-        & (
-            performance_df["pg_status"]
-            == "OK"
-        )
+    mask = (
+        (performance_df["split_type"] == split_type)
+        & (performance_df[status_col] == "OK")
+        & (performance_df["pg_status"] == "OK")
         & performance_df["novelty"].notna()
-        & performance_df["bao_vs_pg_ratio"].notna()
+        & performance_df[ratio_col].notna()
+    )
+
+    if (
+        split_id is not None
+        and "split_id" in performance_df.columns
+    ):
+        mask &= (
+            performance_df["split_id"]
+            == split_id
+        )
+
+    return performance_df[
+        mask
     ].copy()
 
 
 def get_novelty_thresholds(
     split_type: str,
+    split_id: int,
 ) -> Tuple[float | None, float | None]:
     """
-    Reproduce DM2 grouping:
+    Shared split-level Novelty buckets:
 
         Low    <= q33
         Medium <= q67
         High   >  q67
 
-    Thresholds are computed separately inside each split.
+    Important: thresholds come from novelty.csv, not from a model's
+    comparable subset. Therefore Bao and Balsa use the same structural
+    Novelty level for the same query.
     """
 
-    comparable = get_comparable_split_rows(
-        bao_performance_df,
-        split_type,
-    )
+    if novelty_df is None:
+        return None, None
 
-    if comparable.empty:
+    required = {
+        "split_type",
+        "split_id",
+        "novelty",
+    }
+
+    if not required.issubset(
+        novelty_df.columns
+    ):
+        return None, None
+
+    rows = novelty_df[
+        (
+            novelty_df["split_type"]
+            == split_type
+        )
+        & (
+            novelty_df["split_id"]
+            == split_id
+        )
+        & novelty_df["novelty"].notna()
+    ]
+
+    if rows.empty:
         return None, None
 
     q33 = float(
-        comparable["novelty"].quantile(1 / 3)
+        rows["novelty"].quantile(1 / 3)
     )
 
     q67 = float(
-        comparable["novelty"].quantile(2 / 3)
+        rows["novelty"].quantile(2 / 3)
     )
 
     return q33, q67
@@ -1446,9 +1538,11 @@ def correlation_strength_label(
 
     mapping = {
         "negligible": "Không đáng kể",
+        "very weak": "Rất yếu",
         "weak": "Yếu",
         "moderate": "Trung bình",
         "strong": "Mạnh",
+        "very strong": "Rất mạnh",
         "not_available": "Chưa xác định",
         "insufficient_data": "Không đủ dữ liệu",
     }
@@ -1470,25 +1564,37 @@ def winner_label(
 
 
 def get_selected_performance_row(
+    performance_df: pd.DataFrame | None,
     split_type: str,
     split_id: int,
     query_id: str,
 ) -> pd.Series | None:
 
-    if bao_performance_df is None:
+    if performance_df is None:
         return None
 
-    rows = bao_performance_df[
+    required = {
+        "split_type",
+        "split_id",
+        "query_id",
+    }
+
+    if not required.issubset(
+        performance_df.columns
+    ):
+        return None
+
+    rows = performance_df[
         (
-            bao_performance_df["split_type"]
+            performance_df["split_type"]
             == split_type
         )
         & (
-            bao_performance_df["split_id"]
+            performance_df["split_id"]
             == split_id
         )
         & (
-            bao_performance_df["query_id"]
+            performance_df["query_id"]
             .astype(str)
             .str.lower()
             == query_id.lower()
@@ -1502,20 +1608,26 @@ def get_selected_performance_row(
 
 
 def get_spearman_row(
+    spearman_df: pd.DataFrame | None,
     split_type: str,
 ) -> pd.Series | None:
 
-    if bao_spearman_df is None:
+    if spearman_df is None:
         return None
 
     key = (
         "split_type"
-        if "split_type" in bao_spearman_df.columns
+        if "split_type" in spearman_df.columns
         else "group"
+        if "group" in spearman_df.columns
+        else None
     )
 
-    rows = bao_spearman_df[
-        bao_spearman_df[key]
+    if key is None:
+        return None
+
+    rows = spearman_df[
+        spearman_df[key]
         == split_type
     ]
 
@@ -1525,37 +1637,794 @@ def get_spearman_row(
     return rows.iloc[0]
 
 
-def get_group_summary_row(
+def get_case_study_labels(
+    case_df: pd.DataFrame | None,
     split_type: str,
-    level: str,
-) -> pd.Series | None:
+    query_id: str,
+) -> List[str]:
 
-    if bao_group_df is None:
-        return None
+    if case_df is None:
+        return []
 
-    rows = bao_group_df[
+    required = {
+        "split_type",
+        "query_id",
+        "case_type",
+    }
+
+    if not required.issubset(
+        case_df.columns
+    ):
+        return []
+
+    rows = case_df[
         (
-            bao_group_df["split_type"]
+            case_df["split_type"]
             == split_type
         )
         & (
-            bao_group_df["novelty_group"]
-            == level
+            case_df["query_id"]
+            .astype(str)
+            .str.lower()
+            == query_id.lower()
         )
     ]
+
+    return (
+        rows["case_type"]
+        .astype(str)
+        .drop_duplicates()
+        .tolist()
+    )
+
+
+def get_group_metrics(
+    performance_df: pd.DataFrame | None,
+    split_type: str,
+    split_id: int,
+    level: str,
+    model_key: str,
+    q33: float | None,
+    q67: float | None,
+) -> dict | None:
+    """Build Low/Medium/High metrics with the shared Novelty thresholds."""
+
+    if (
+        performance_df is None
+        or q33 is None
+        or q67 is None
+    ):
+        return None
+
+    required = {
+        "split_type",
+        "split_id",
+        "novelty",
+        f"{model_key}_status",
+        "pg_status",
+        f"{model_key}_vs_pg_ratio",
+    }
+
+    if not required.issubset(
+        performance_df.columns
+    ):
+        return None
+
+    rows = performance_df[
+        (
+            performance_df["split_type"]
+            == split_type
+        )
+        & (
+            performance_df["split_id"]
+            == split_id
+        )
+    ].copy()
 
     if rows.empty:
         return None
 
-    return rows.iloc[0]
+    rows["novelty_group_ui"] = rows[
+        "novelty"
+    ].apply(
+        lambda value: novelty_level(
+            float(value),
+            q33,
+            q67,
+        )
+        if pd.notna(value)
+        else "N/A"
+    )
+
+    group = rows[
+        rows["novelty_group_ui"]
+        == level
+    ].copy()
+
+    if group.empty:
+        return None
+
+    status_col = f"{model_key}_status"
+    ratio_col = f"{model_key}_vs_pg_ratio"
+
+    comparable = group[
+        (group[status_col] == "OK")
+        & (group["pg_status"] == "OK")
+        & group[ratio_col].notna()
+    ].copy()
+
+    n = len(group)
+    comparable_n = len(comparable)
+
+    model_wins = int(
+        (comparable[ratio_col] < 1).sum()
+    )
+
+    timeout_n = int(
+        (group[status_col] == "TIMEOUT").sum()
+    )
+
+    return {
+        "n": n,
+        "comparable_n": comparable_n,
+        "median_ratio": (
+            float(comparable[ratio_col].median())
+            if comparable_n > 0
+            else None
+        ),
+        "win_rate": (
+            model_wins / comparable_n
+            if comparable_n > 0
+            else None
+        ),
+        "timeouts": timeout_n,
+        "timeout_rate": (
+            timeout_n / n
+            if n > 0
+            else None
+        ),
+    }
+
+
+def get_valid_ratio(
+    row: pd.Series | None,
+    model_key: str,
+) -> float | None:
+
+    if row is None:
+        return None
+
+    status = str(
+        row.get(
+            f"{model_key}_status",
+            "N/A",
+        )
+    )
+
+    pg_status = str(
+        row.get(
+            "pg_status",
+            "N/A",
+        )
+    )
+
+    ratio = row.get(
+        f"{model_key}_vs_pg_ratio"
+    )
+
+    if (
+        status != "OK"
+        or pg_status != "OK"
+        or pd.isna(ratio)
+    ):
+        return None
+
+    return float(ratio)
+
+
+def normalized_lqo_winner(
+    bao_row: pd.Series | None,
+    balsa_row: pd.Series | None,
+) -> str:
+    """Compare normalized model/PG ratios, not raw cross-pipeline latency."""
+
+    bao_ratio = get_valid_ratio(
+        bao_row,
+        "bao",
+    )
+
+    balsa_ratio = get_valid_ratio(
+        balsa_row,
+        "balsa",
+    )
+
+    if (
+        bao_ratio is None
+        or balsa_ratio is None
+    ):
+        return "N/A"
+
+    if abs(bao_ratio - balsa_ratio) <= 1e-12:
+        return "Tương đương"
+
+    return (
+        "Bao"
+        if bao_ratio < balsa_ratio
+        else "Balsa"
+    )
 
 
 def format_ms(value) -> str:
 
-    if pd.isna(value):
+    if value is None or pd.isna(value):
         return "N/A"
 
     return f"{float(value):,.3f} ms"
+
+
+def format_ratio(value) -> str:
+
+    if value is None or pd.isna(value):
+        return "N/A"
+
+    return f"{float(value):.3f}×"
+
+
+def render_spearman_summary(
+    spearman_row: pd.Series | None,
+    model_label: str,
+) -> None:
+
+    if spearman_row is None:
+        st.warning(
+            f"Không tìm thấy kết quả Spearman của {model_label}."
+        )
+        return
+
+    rho = float(
+        spearman_row["rho"]
+    )
+
+    p_value = float(
+        spearman_row["p_value"]
+    )
+
+    c1, c2, c3 = st.columns(3)
+
+    c1.metric(
+        "Spearman ρ",
+        f"{rho:.3f}",
+    )
+
+    c2.metric(
+        "p-value",
+        f"{p_value:.3f}",
+    )
+
+    c3.metric(
+        "Mức tương quan",
+        correlation_strength_label(
+            spearman_row.get(
+                "strength",
+                "N/A",
+            )
+        ),
+    )
+
+    if p_value < 0.05 and rho > 0:
+        st.success(
+            f"Trong `{selected_split_type}`, Novelty cao hơn đi cùng "
+            f"{model_label}/PG ratio cao hơn với tín hiệu thống kê ở ngưỡng p < 0.05."
+        )
+    elif p_value < 0.05 and rho < 0:
+        st.success(
+            f"Trong `{selected_split_type}`, có tín hiệu thống kê cho quan hệ âm giữa "
+            f"Novelty và {model_label}/PG ratio."
+        )
+    else:
+        st.info(
+            f"Trong `{selected_split_type}`, chưa có đủ bằng chứng thống kê tại ngưỡng "
+            f"p < 0.05 cho quan hệ Novelty ↔ {model_label}/PG."
+        )
+
+
+def render_group_metrics(
+    metrics: dict | None,
+    model_label: str,
+) -> None:
+
+    if metrics is None:
+        st.warning(
+            f"Không đủ dữ liệu nhóm Novelty cho {model_label}."
+        )
+        return
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric(
+        "Số truy vấn",
+        int(metrics["n"]),
+    )
+
+    c2.metric(
+        "Có thể so sánh",
+        int(metrics["comparable_n"]),
+    )
+
+    c3.metric(
+        f"Trung vị {model_label}/PG",
+        format_ratio(
+            metrics["median_ratio"]
+        ),
+    )
+
+    win_rate = metrics["win_rate"]
+
+    c4.metric(
+        f"Tỷ lệ {model_label} thắng",
+        (
+            f"{100 * win_rate:.1f}%"
+            if win_rate is not None
+            else "N/A"
+        ),
+    )
+
+    if metrics["timeouts"] > 0:
+        st.caption(
+            f"Nhóm này có {metrics['timeouts']} timeout của {model_label} "
+            f"({100 * metrics['timeout_rate']:.1f}% số truy vấn trong nhóm)."
+        )
+
+
+def render_scatter_plot(
+    performance_df: pd.DataFrame | None,
+    model_key: str,
+    model_label: str,
+) -> None:
+
+    comparable = get_comparable_split_rows(
+        performance_df,
+        selected_split_type,
+        model_key,
+        selected_split_id,
+    )
+
+    if comparable.empty:
+        st.warning(
+            f"Không có đủ dữ liệu comparable để vẽ scatter cho {model_label}."
+        )
+        return
+
+    ratio_col = f"{model_key}_vs_pg_ratio"
+
+    scatter_df = comparable[
+        [
+            "query_id",
+            "novelty",
+            ratio_col,
+        ]
+    ].copy()
+
+    scatter_df["Point"] = scatter_df[
+        "query_id"
+    ].apply(
+        lambda query:
+            "Truy vấn đang chọn"
+            if str(query).lower()
+            == selected_query.lower()
+            else "Các truy vấn kiểm thử khác"
+    )
+
+    selected_filter = (
+        "datum.Point == 'Truy vấn đang chọn'"
+    )
+
+    chart_spec = {
+        "layer": [
+            {
+                "mark": {
+                    "type": "rule",
+                    "strokeDash": [6, 4],
+                },
+                "encoding": {
+                    "y": {
+                        "datum": 1,
+                    },
+                },
+            },
+            {
+                "mark": {
+                    "type": "point",
+                    "filled": True,
+                },
+                "encoding": {
+                    "x": {
+                        "field": "novelty",
+                        "type": "quantitative",
+                        "title": "Novelty cấu trúc",
+                    },
+                    "y": {
+                        "field": ratio_col,
+                        "type": "quantitative",
+                        "title": f"Tỷ lệ {model_label} / PostgreSQL",
+                    },
+                    "color": {
+                        "field": "Point",
+                        "type": "nominal",
+                        "title": None,
+                    },
+                    "size": {
+                        "condition": {
+                            "test": selected_filter,
+                            "value": 180,
+                        },
+                        "value": 70,
+                    },
+                    "tooltip": [
+                        {
+                            "field": "query_id",
+                            "type": "nominal",
+                            "title": "Truy vấn",
+                        },
+                        {
+                            "field": "novelty",
+                            "type": "quantitative",
+                            "format": ".6f",
+                            "title": "Novelty",
+                        },
+                        {
+                            "field": ratio_col,
+                            "type": "quantitative",
+                            "format": ".3f",
+                            "title": f"{model_label}/PG",
+                        },
+                    ],
+                },
+            },
+            {
+                "transform": [
+                    {
+                        "filter": selected_filter,
+                    }
+                ],
+                "mark": {
+                    "type": "text",
+                    "dy": -14,
+                    "fontWeight": "bold",
+                },
+                "encoding": {
+                    "x": {
+                        "field": "novelty",
+                        "type": "quantitative",
+                    },
+                    "y": {
+                        "field": ratio_col,
+                        "type": "quantitative",
+                    },
+                    "text": {
+                        "field": "query_id",
+                    },
+                },
+            },
+        ]
+    }
+
+    st.vega_lite_chart(
+        scatter_df,
+        chart_spec,
+        use_container_width=True,
+    )
+
+    st.caption(
+        f"Đường ngang y = 1: phía dưới là {model_label} nhanh hơn PostgreSQL; "
+        "phía trên là PostgreSQL nhanh hơn."
+    )
+
+
+
+def get_dm_dataset_summary(
+    performance_df: pd.DataFrame | None,
+    model_key: str,
+    split_type: str,
+    split_id: int,
+) -> dict | None:
+    """Summarize the split-level dataset used for Data Mining."""
+
+    if performance_df is None:
+        return None
+
+    required = {
+        "split_type",
+        "split_id",
+        f"{model_key}_status",
+        "pg_status",
+        f"{model_key}_vs_pg_ratio",
+    }
+
+    if not required.issubset(performance_df.columns):
+        return None
+
+    rows = performance_df[
+        (performance_df["split_type"] == split_type)
+        & (performance_df["split_id"] == split_id)
+    ].copy()
+
+    if rows.empty:
+        return None
+
+    status_col = f"{model_key}_status"
+    ratio_col = f"{model_key}_vs_pg_ratio"
+
+    comparable = rows[
+        (rows[status_col] == "OK")
+        & (rows["pg_status"] == "OK")
+        & rows[ratio_col].notna()
+    ]
+
+    return {
+        "observations": len(rows),
+        "comparable": len(comparable),
+        "timeouts": int((rows[status_col] == "TIMEOUT").sum()),
+        "non_ok_pg": int((rows["pg_status"] != "OK").sum()),
+    }
+
+
+def render_dm_dataset_summary(
+    performance_df: pd.DataFrame | None,
+    model_key: str,
+    model_label: str,
+) -> None:
+    """DM1: show the dataset that feeds the mining steps."""
+
+    summary = get_dm_dataset_summary(
+        performance_df,
+        model_key,
+        selected_split_type,
+        selected_split_id,
+    )
+
+    if summary is None:
+        st.warning(f"Không đủ dữ liệu DM1 cho {model_label}.")
+        return
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Quan sát", summary["observations"])
+    c2.metric("So sánh hợp lệ", summary["comparable"])
+    c3.metric(f"{model_label} timeout", summary["timeouts"])
+    c4.metric("PG không hợp lệ", summary["non_ok_pg"])
+
+
+
+def build_group_pattern_table(
+    performance_df: pd.DataFrame | None,
+    model_key: str,
+    model_label: str,
+) -> pd.DataFrame:
+    """DM3: build Low/Medium/High metrics under the shared thresholds."""
+
+    records = []
+
+    for level in ["Low", "Medium", "High"]:
+        metrics = get_group_metrics(
+            performance_df,
+            selected_split_type,
+            selected_split_id,
+            level,
+            model_key,
+            q33,
+            q67,
+        )
+
+        if metrics is None:
+            continue
+
+        win_rate = metrics["win_rate"]
+        timeout_rate = metrics["timeout_rate"]
+
+        records.append(
+            {
+                "Nhóm Novelty": novelty_level_label(level),
+                "n": int(metrics["n"]),
+                "Hợp lệ": int(metrics["comparable_n"]),
+                f"Trung vị {model_label}/PG": metrics["median_ratio"],
+                f"Tỷ lệ {model_label} thắng (%)": (
+                    100 * win_rate if win_rate is not None else None
+                ),
+                "Timeout rate (%)": (
+                    100 * timeout_rate if timeout_rate is not None else None
+                ),
+            }
+        )
+
+    return pd.DataFrame(records)
+
+
+def render_group_pattern_mining(
+    performance_df: pd.DataFrame | None,
+    model_key: str,
+    model_label: str,
+) -> None:
+    """DM3: render all Novelty groups, not only the selected query's group."""
+
+    table = build_group_pattern_table(
+        performance_df,
+        model_key,
+        model_label,
+    )
+
+    if table.empty:
+        st.warning(f"Không đủ dữ liệu DM3 cho {model_label}.")
+        return
+
+    st.dataframe(
+        table,
+        hide_index=True,
+        width="stretch",
+        column_config={
+            f"Trung vị {model_label}/PG": st.column_config.NumberColumn(format="%.3f×"),
+            f"Tỷ lệ {model_label} thắng (%)": st.column_config.NumberColumn(format="%.1f%%"),
+            "Timeout rate (%)": st.column_config.NumberColumn(format="%.1f%%"),
+        },
+    )
+
+    selected_row = table[
+        table["Nhóm Novelty"] == novelty_level_label(selected_level)
+    ]
+
+    if not selected_row.empty:
+        row = selected_row.iloc[0]
+        st.info(
+            f"Query `{selected_query}` thuộc nhóm **{novelty_level_label(selected_level)}**. "
+            f"Trung vị {model_label}/PG của nhóm = "
+            f"**{format_ratio(row[f'Trung vị {model_label}/PG'])}**."
+        )
+
+
+def case_type_label(value: str) -> str:
+    mapping = {
+        "HIGH_NOVELTY_WORST_SLOWDOWN": "Novelty cao · slowdown lớn nhất",
+        "LOW_NOVELTY_WORST_SLOWDOWN": "Novelty thấp · slowdown lớn",
+        "BALSA_TIMEOUT": "Balsa timeout",
+        "BAO_TIMEOUT": "Bao timeout",
+        "BEST_BALSA_RELATIVE_PERFORMANCE": "Balsa tốt nhất tương đối",
+        "BEST_BAO_RELATIVE_PERFORMANCE": "Bao tốt nhất tương đối",
+        "HIGH_NOVELTY_LOO": "Novelty cao · LOO",
+        "HIGH_NOVELTY_RANDOM": "Novelty cao · Random",
+        "HIGH_NOVELTY_BASEQUERY": "Novelty cao · BaseQuery",
+    }
+    return mapping.get(str(value), str(value).replace("_", " ").title())
+
+
+def render_case_mining(
+    case_df: pd.DataFrame | None,
+    model_key: str,
+    model_label: str,
+) -> None:
+    """DM4: show supportive/counterexample/timeout cases for the selected split."""
+
+    if case_df is None:
+        st.warning(f"Không tìm thấy dữ liệu case study của {model_label}.")
+        return
+
+    required = {"split_type", "query_id", "case_type"}
+    if not required.issubset(case_df.columns):
+        st.warning(f"Case-study file của {model_label} thiếu cột cần thiết.")
+        return
+
+    rows = case_df[
+        case_df["split_type"] == selected_split_type
+    ].copy()
+
+    if "split_id" in rows.columns:
+        rows = rows[
+            rows["split_id"] == selected_split_id
+        ]
+
+    if rows.empty:
+        st.info(f"Không có case study được gắn nhãn cho {model_label} trong split này.")
+        return
+
+    ratio_col = f"{model_key}_vs_pg_ratio"
+
+    wanted = [
+        "case_type",
+        "query_id",
+        "novelty",
+        "novelty_group",
+        f"{model_key}_status",
+        ratio_col,
+    ]
+    display_cols = [c for c in wanted if c in rows.columns]
+
+    display = rows[display_cols].copy()
+    display["case_type"] = display["case_type"].apply(case_type_label)
+    rename = {
+        "case_type": "Loại case",
+        "query_id": "Query",
+        "novelty": "Novelty",
+        "novelty_group": "Mức Novelty",
+        f"{model_key}_status": "Status",
+        ratio_col: f"{model_label}/PG",
+    }
+    display = display.rename(columns=rename)
+
+    st.dataframe(
+        display,
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "Novelty": st.column_config.NumberColumn(format="%.6f"),
+            f"{model_label}/PG": st.column_config.NumberColumn(format="%.3f×"),
+        },
+    )
+
+    selected_cases = rows[
+        rows["query_id"].astype(str).str.lower() == selected_query.lower()
+    ]
+
+    if not selected_cases.empty:
+        labels = [
+            case_type_label(value)
+            for value in selected_cases["case_type"].astype(str).drop_duplicates().tolist()
+        ]
+        st.success(
+            f"`{selected_query}`: " + "; ".join(labels)
+        )
+
+
+def render_query_performance_card(
+    performance_row: pd.Series | None,
+    model_key: str,
+    model_label: str,
+    caveat: str | None = None,
+) -> float | None:
+    """Render the selected query's model-vs-PG result and return a valid ratio."""
+
+    if performance_row is None:
+        st.warning(f"Không tìm thấy dữ liệu {model_label} cho query đang chọn.")
+        return None
+
+    model_status = str(performance_row.get(f"{model_key}_status", "N/A"))
+    pg_status = str(performance_row.get("pg_status", "N/A"))
+    ratio = get_valid_ratio(performance_row, model_key)
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric(
+        f"{model_label} E2E",
+        format_ms(performance_row.get(f"{model_key}_end_to_end_ms")),
+    )
+    c2.metric(
+        "PostgreSQL E2E",
+        format_ms(performance_row.get("pg_end_to_end_ms")),
+    )
+    c3.metric(
+        f"{model_label} / PG",
+        format_ratio(performance_row.get(f"{model_key}_vs_pg_ratio")),
+    )
+    c4.metric(
+        "Kết quả",
+        winner_label(performance_row.get("winner", "N/A")),
+    )
+
+    if caveat:
+        st.caption(caveat)
+
+    if model_status != "OK" or pg_status != "OK":
+        st.warning(
+            f"{model_label} = `{model_status}`, PostgreSQL = `{pg_status}`. "
+            "Query này không được dùng như một latency ratio hợp lệ."
+        )
+        return None
+
+    if ratio is not None:
+        if ratio < 1:
+            st.success(f"{model_label} nhanh hơn PostgreSQL · **{ratio:.3f}×**")
+        elif ratio > 1:
+            st.warning(f"PostgreSQL nhanh hơn {model_label} · **{ratio:.3f}×**")
+        else:
+            st.info(f"{model_label} ≈ PostgreSQL")
+
+    return ratio
 
 
 # ============================================================
@@ -1567,16 +2436,11 @@ st.title(
 )
 
 st.caption(
-    "JOB · Cách chia dữ liệu số 1 chính thức · Bao so với PostgreSQL"
+    "JOB · Cách chia dữ liệu số 1 chính thức · Bao và Balsa so với PostgreSQL"
 )
 
-st.markdown(
-    """
-**Hướng mở rộng của nhóm:** từ một truy vấn kiểm thử, đo truy vấn đó **khác tập huấn luyện đến mức nào**
-bằng Novelty cấu trúc, sau đó đối chiếu mức Novelty với **hiệu năng của Bao so với PostgreSQL**.
-
-**Luồng trình bày:** `SQL → Đặc trưng cấu trúc → Khoảng cách tới tập huấn luyện → Mức Novelty → Bao so với PostgreSQL → Nhận xét về khả năng khái quát hóa`
-"""
+st.caption(
+    "Structural Novelty → hiệu năng tương đối của Bao/Balsa → phân tích Data Mining"
 )
 
 
@@ -1691,10 +2555,6 @@ st.sidebar.metric(
     len(feature_map),
 )
 
-st.sidebar.info(
-    "Đổi kiểu chia dữ liệu hoặc truy vấn kiểm thử để toàn bộ quá trình "
-    "tính Novelty và hiệu năng cập nhật theo truy vấn đó."
-)
 
 
 # ============================================================
@@ -1717,14 +2577,23 @@ query_sql, query_sql_path = load_query_sql(
     selected_query
 )
 
-performance_row = get_selected_performance_row(
+bao_performance_row = get_selected_performance_row(
+    bao_performance_df,
+    selected_split_type,
+    selected_split_id,
+    selected_query,
+)
+
+balsa_performance_row = get_selected_performance_row(
+    balsa_performance_df,
     selected_split_type,
     selected_split_id,
     selected_query,
 )
 
 q33, q67 = get_novelty_thresholds(
-    selected_split_type
+    selected_split_type,
+    selected_split_id,
 )
 
 selected_level = novelty_level(
@@ -1733,13 +2602,46 @@ selected_level = novelty_level(
     q67,
 )
 
-spearman_row = get_spearman_row(
-    selected_split_type
+bao_spearman_row = get_spearman_row(
+    bao_spearman_df,
+    selected_split_type,
 )
 
-group_summary_row = get_group_summary_row(
+balsa_spearman_row = get_spearman_row(
+    balsa_spearman_df,
     selected_split_type,
+)
+
+bao_group_metrics = get_group_metrics(
+    bao_performance_df,
+    selected_split_type,
+    selected_split_id,
     selected_level,
+    "bao",
+    q33,
+    q67,
+)
+
+balsa_group_metrics = get_group_metrics(
+    balsa_performance_df,
+    selected_split_type,
+    selected_split_id,
+    selected_level,
+    "balsa",
+    q33,
+    q67,
+)
+
+bao_case_labels = get_case_study_labels(
+    bao_case_studies_df,
+    selected_split_type,
+    selected_query,
+)
+
+balsa_case_labels = get_case_study_labels(
+    balsa_case_studies_df,
+    selected_split_type,
+    selected_query,
 )
 
 
@@ -1773,19 +2675,14 @@ summary_3.metric(
     result["nearest"],
 )
 
-if performance_row is not None:
-    selected_winner = str(
-        performance_row.get(
-            "winner",
-            "N/A",
-        )
-    )
-else:
-    selected_winner = "N/A"
+selected_lqo_ratio_winner = normalized_lqo_winner(
+    bao_performance_row,
+    balsa_performance_row,
+)
 
 summary_4.metric(
-    "Bộ tối ưu tốt hơn",
-    winner_label(selected_winner),
+    "Normalized ratio thấp hơn",
+    selected_lqo_ratio_winner,
 )
 
 
@@ -1795,12 +2692,6 @@ summary_4.metric(
 
 st.markdown(
     "## ① Truy vấn SQL gốc"
-)
-
-st.markdown(
-    f"Truy vấn **`{selected_query}`** thuộc tập kiểm thử của "
-    f"**{selected_split_type}-{selected_split_id}**. "
-    "Đây là SQL gốc trước khi nhóm trích các đặc trưng cấu trúc."
 )
 
 with st.expander(
@@ -1813,9 +2704,6 @@ with st.expander(
         language="sql",
     )
 
-    st.caption(
-        f"Nguồn: {query_sql_path}"
-    )
 
 
 # ============================================================
@@ -1824,12 +2712,6 @@ with st.expander(
 
 st.markdown(
     "## ② Cấu trúc truy vấn"
-)
-
-st.markdown(
-    "Từ SQL gốc, nhóm trích ba nhóm đặc trưng cấu trúc. "
-    "Các giá trị hằng (literal) được chuẩn hóa nên Novelty tập trung vào "
-    "**cấu trúc truy vấn**, không phải giá trị literal cụ thể."
 )
 
 feature_m1, feature_m2, feature_m3 = (
@@ -1851,33 +2733,29 @@ feature_m3.metric(
     test_feature["n_filters"],
 )
 
-feature_c1, feature_c2, feature_c3 = (
-    st.columns(3)
-)
-
-with feature_c1:
-    display_feature_column(
-        "Bảng",
-        test_feature["tables"],
+with st.expander("Xem chi tiết đặc trưng cấu trúc", expanded=False):
+    feature_c1, feature_c2, feature_c3 = (
+        st.columns(3)
     )
 
-with feature_c2:
-    display_feature_column(
-        "Điều kiện nối",
-        test_feature["joins"],
-    )
+    with feature_c1:
+        display_feature_column(
+            "Bảng",
+            test_feature["tables"],
+        )
 
-with feature_c3:
-    display_feature_column(
-        "Điều kiện lọc",
-        test_feature["filters"],
-    )
+    with feature_c2:
+        display_feature_column(
+            "Điều kiện nối",
+            test_feature["joins"],
+        )
 
-st.info(
-    "Các giá trị hằng được chuẩn hóa thành `<LITERAL>` hoặc "
-    "`<LITERAL_SET>`. Vì vậy điểm hiện tại phản ánh "
-    "**Novelty cấu trúc**."
-)
+    with feature_c3:
+        display_feature_column(
+            "Điều kiện lọc",
+            test_feature["filters"],
+        )
+
 
 
 # ============================================================
@@ -1886,12 +2764,6 @@ st.info(
 
 st.markdown(
     "## ③ So sánh với tập huấn luyện"
-)
-
-st.markdown(
-    f"`{selected_query}` được so sánh với **{result['train_size']} truy vấn trong tập huấn luyện** "
-    f"trong `{selected_split_type}-{selected_split_id}`. "
-    "Với mỗi cặp kiểm thử–huấn luyện, nhóm tính ba khoảng cách Jaccard rồi lấy trung bình."
 )
 
 st.latex(
@@ -1999,497 +2871,225 @@ with level_c2:
 
     if q33 is not None and q67 is not None:
 
-        st.markdown(
-            f"""
-**Ngưỡng phân nhóm trong `{selected_split_type}`**
-
-- **Thấp:** Novelty ≤ `{q33:.6f}`
-- **Trung bình:** `{q33:.6f}` < Novelty ≤ `{q67:.6f}`
-- **Cao:** Novelty > `{q67:.6f}`
-
-`{selected_query}` = **{result['novelty']:.6f} → Novelty {novelty_level_label(selected_level)}**
-"""
-        )
-
-        st.caption(
-            "Ba mức Thấp / Trung bình / Cao được xác định riêng trong từng cách chia dữ liệu "
-            "theo cùng quy tắc đã dùng ở DM2."
-        )
+        threshold_c1, threshold_c2 = st.columns(2)
+        threshold_c1.metric("Ngưỡng q33", f"{q33:.6f}")
+        threshold_c2.metric("Ngưỡng q67", f"{q67:.6f}")
 
     else:
         st.warning(
-            "Chưa đủ dữ liệu hiệu năng của Bao để xác định "
-            "mức Novelty theo cách chia dữ liệu hiện tại."
+            "Chưa đủ dữ liệu Novelty để xác định "
+            "mức Low / Medium / High cho cách chia dữ liệu hiện tại."
         )
 
 
 # ============================================================
-# STEP 5 — BAO VS POSTGRESQL
-# ============================================================
-
-st.markdown(
-    "## ⑤ So sánh hiệu năng Bao và PostgreSQL"
-)
-
-st.latex(
-    r"R_{Bao}(q)=\frac{T_{Bao}(q)}{T_{PostgreSQL}(q)}"
-)
-
-ratio_info_1, ratio_info_2 = st.columns(2)
-
-ratio_info_1.info(
-    "**Tỷ lệ < 1** → Bao nhanh hơn"
-)
-
-ratio_info_2.info(
-    "**Tỷ lệ > 1** → PostgreSQL nhanh hơn"
-)
-
-if performance_row is None:
-
-    st.warning(
-        "Không tìm thấy dữ liệu hiệu năng của truy vấn này trong "
-        "bao_novelty_performance.csv."
-    )
-
-else:
-
-    bao_status = str(
-        performance_row.get(
-            "bao_status",
-            "N/A",
-        )
-    )
-
-    pg_status = str(
-        performance_row.get(
-            "pg_status",
-            "N/A",
-        )
-    )
-
-    perf_c1, perf_c2, perf_c3, perf_c4 = (
-        st.columns(4)
-    )
-
-    perf_c1.metric(
-        "Tổng thời gian Bao",
-        format_ms(
-            performance_row.get(
-                "bao_end_to_end_ms"
-            )
-        ),
-    )
-
-    perf_c2.metric(
-        "Tổng thời gian PostgreSQL",
-        format_ms(
-            performance_row.get(
-                "pg_end_to_end_ms"
-            )
-        ),
-    )
-
-    ratio_value = performance_row.get(
-        "bao_vs_pg_ratio"
-    )
-
-    if pd.notna(ratio_value):
-        ratio_label = f"{float(ratio_value):.3f}×"
-    else:
-        ratio_label = "N/A"
-
-    perf_c3.metric(
-        "Bao / PostgreSQL",
-        ratio_label,
-    )
-
-    perf_c4.metric(
-        "Bộ tối ưu tốt hơn",
-        winner_label(
-            performance_row.get(
-                "winner",
-                "N/A",
-            )
-        ),
-    )
-
-    if (
-        bao_status != "OK"
-        or pg_status != "OK"
-    ):
-
-        st.warning(
-            f"Không thể so sánh truy vấn này: trạng thái Bao = `{bao_status}`, "
-            f"trạng thái PostgreSQL = `{pg_status}`. "
-            "Timeout được giữ riêng và không thay bằng thời gian chạy giả."
-        )
-
-    elif pd.notna(ratio_value):
-
-        ratio_value = float(
-            ratio_value
-        )
-
-        if ratio_value < 1:
-            st.success(
-                f"Với `{selected_query}`, Bao nhanh hơn PostgreSQL: "
-                f"Bao/PG = **{ratio_value:.3f}**."
-            )
-        elif ratio_value > 1:
-            st.warning(
-                f"Với `{selected_query}`, PostgreSQL nhanh hơn Bao: "
-                f"Bao/PG = **{ratio_value:.3f}**."
-            )
-        else:
-            st.info(
-                "Bao và PostgreSQL có tỷ lệ thời gian chạy xấp xỉ 1."
-            )
-
-
-# ============================================================
-# STEP 6 — INTERPRETATION FOR THIS QUERY
+# STEP 5 — LQO ANALYSIS TABS
 # ============================================================
 
 st.markdown(
-    "## ⑥ Truy vấn này cho thấy điều gì?"
+    "## ⑤ Hiệu năng và Data Mining"
 )
 
-if (
-    performance_row is not None
-    and pd.notna(
-        performance_row.get(
-            "bao_vs_pg_ratio"
-        )
-    )
-    and str(
-        performance_row.get(
-            "bao_status"
-        )
-    ) == "OK"
-    and str(
-        performance_row.get(
-            "pg_status"
-        )
-    ) == "OK"
-):
+bao_ratio = get_valid_ratio(
+    bao_performance_row,
+    "bao",
+)
 
-    ratio_value = float(
-        performance_row[
-            "bao_vs_pg_ratio"
-        ]
-    )
+balsa_ratio = get_valid_ratio(
+    balsa_performance_row,
+    "balsa",
+)
 
-    winner = str(
-        performance_row[
-            "winner"
-        ]
-    )
+bao_tab, balsa_tab = st.tabs(
+    [
+        "🔵 Bao",
+        "🟠 Balsa",
+    ]
+)
+
+with bao_tab:
 
     st.markdown(
-        f"""
-### Quan sát ở mức truy vấn
-
-`{selected_query}` thuộc nhóm Novelty **{novelty_level_label(selected_level)}** trong `{selected_split_type}-{selected_split_id}`.
-
-- Novelty cấu trúc = **{result['novelty']:.6f}**
-- Tỷ lệ Bao / PostgreSQL = **{ratio_value:.3f}**
-- Bộ tối ưu tốt hơn cho truy vấn này = **{winner_label(winner)}**
-"""
+        f"### Bao · `{selected_split_type}-{selected_split_id}` · `{selected_query}`"
     )
 
-    if selected_level == "High" and ratio_value > 1:
-        st.info(
-            "Trường hợp này cho thấy **Novelty cao đi kèm với sự suy giảm "
-            "tương đối của Bao**. Đây là mối liên hệ quan sát được ở truy vấn này, "
-            "không phải bằng chứng rằng Novelty gây ra hiệu năng kém."
-        )
-
-    elif selected_level == "High" and ratio_value < 1:
-        st.info(
-            "Đây là một phản ví dụ quan trọng: truy vấn có **Novelty cao** "
-            "nhưng Bao vẫn tốt hơn PostgreSQL. Vì vậy Novelty cao "
-            "không đồng nghĩa Bao chắc chắn sẽ thua."
-        )
-
-    elif selected_level == "Low" and ratio_value > 1:
-        st.info(
-            "Đây cũng là một phản ví dụ hữu ích: **Novelty thấp** "
-            "không đảm bảo Bao sẽ hoạt động tốt."
-        )
-
-    else:
-        st.info(
-            "Hiệu năng của truy vấn này cần được đọc cùng với xu hướng "
-            "của toàn bộ cách chia dữ liệu; Novelty không phải yếu tố duy nhất."
-        )
-
-else:
-    st.info(
-        "Truy vấn này chưa có tỷ lệ thời gian chạy hợp lệ để tạo "
-        "nhận xét hiệu năng ở mức truy vấn."
+    bao_ratio = render_query_performance_card(
+        bao_performance_row,
+        "bao",
+        "Bao",
+        caveat="Author checkpoint · Team evaluation",
     )
 
-
-# ============================================================
-# STEP 7 — SPLIT-LEVEL CONTEXT
-# ============================================================
-
-st.markdown(
-    "## ⑦ Trường hợp này có phù hợp với xu hướng của toàn bộ cách chia dữ liệu không?"
-)
-
-st.markdown(
-    "Sau khi phân tích một truy vấn cụ thể, nhóm mở rộng phạm vi để kiểm tra "
-    "truy vấn đó có phù hợp với xu hướng của toàn bộ cách chia dữ liệu hay không."
-)
-
-if spearman_row is not None:
-
-    rho = float(
-        spearman_row["rho"]
-    )
-
-    p_value = float(
-        spearman_row["p_value"]
-    )
-
-    stat_c1, stat_c2, stat_c3 = st.columns(3)
-
-    stat_c1.metric(
-        "Spearman ρ",
-        f"{rho:.3f}",
-    )
-
-    stat_c2.metric(
-        "p-value",
-        f"{p_value:.3f}",
-    )
-
-    stat_c3.metric(
-        "Mức tương quan",
-        correlation_strength_label(
-            spearman_row.get(
-                "strength",
-                "N/A",
-            )
-        ),
-    )
-
-    if p_value < 0.05 and rho > 0:
-        st.success(
-            "Ở mức toàn bộ cách chia dữ liệu có tín hiệu thống kê: Novelty cao hơn đi cùng "
-            "Bao/PG ratio cao hơn, tức Bao có xu hướng mất lợi thế "
-            "tương đối so với PostgreSQL."
-        )
-    elif p_value < 0.05 and rho < 0:
-        st.success(
-            "Ở mức toàn bộ cách chia dữ liệu có tín hiệu thống kê cho quan hệ âm giữa "
-            "Novelty và Bao/PG ratio."
-        )
-    else:
-        st.info(
-            "Ở mức toàn bộ cách chia dữ liệu chưa có đủ bằng chứng thống kê tại ngưỡng "
-            "p < 0.05. Không nên biến chiều của rho thành kết luận mạnh."
-        )
-
-else:
-    st.warning(
-        "Không tìm thấy kết quả Spearman cho cách chia dữ liệu hiện tại."
-    )
-
-
-if group_summary_row is not None:
-
-    st.markdown(
-        f"### Nhóm Novelty {novelty_level_label(selected_level)} trong cách chia {selected_split_type}"
-    )
-
-    group_c1, group_c2, group_c3 = (
-        st.columns(3)
-    )
-
-    group_c1.metric(
-        "Số truy vấn",
-        int(
-            group_summary_row["n"]
-        ),
-    )
-
-    group_c2.metric(
-        "Trung vị tỷ lệ Bao/PG",
-        f"{float(group_summary_row['median_bao_pg_ratio']):.3f}",
-    )
-
-    group_c3.metric(
-        "Tỷ lệ Bao thắng",
-        f"{100 * float(group_summary_row['bao_win_rate']):.1f}%",
-    )
-
-
-# ------------------------------------------------------------
-# Scatter plot: selected query inside its split
-# ------------------------------------------------------------
-
-comparable_split = get_comparable_split_rows(
-    bao_performance_df,
-    selected_split_type,
-)
-
-if not comparable_split.empty:
-
-    st.markdown(
-        "### Vị trí truy vấn đang chọn trong toàn bộ cách chia dữ liệu"
-    )
-
-    scatter_df = comparable_split[
+    st.markdown("### Data Mining")
+    dm1, dm2, dm3, dm4 = st.tabs(
         [
-            "query_id",
-            "novelty",
-            "bao_vs_pg_ratio",
+            "DM1 · Dữ liệu",
+            "DM2 · Tương quan",
+            "DM3 · Nhóm Novelty",
+            "DM4 · Case study",
         ]
-    ].copy()
-
-    scatter_df["Point"] = scatter_df[
-        "query_id"
-    ].apply(
-        lambda q:
-            "Truy vấn đang chọn"
-            if str(q).lower()
-            == selected_query.lower()
-            else "Các truy vấn kiểm thử khác"
     )
 
-    # Vega-Lite lets us keep the important ratio=1 reference line
-    # without introducing an extra plotting dependency.
-    selected_filter = (
-        "datum.Point == 'Truy vấn đang chọn'"
+    with dm1:
+        render_dm_dataset_summary(
+            bao_performance_df,
+            "bao",
+            "Bao",
+        )
+
+    with dm2:
+        render_spearman_summary(
+            bao_spearman_row,
+            "Bao",
+        )
+        render_scatter_plot(
+            bao_performance_df,
+            "bao",
+            "Bao",
+        )
+
+    with dm3:
+        render_group_pattern_mining(
+            bao_performance_df,
+            "bao",
+            "Bao",
+        )
+
+    with dm4:
+        render_case_mining(
+            bao_case_studies_df,
+            "bao",
+            "Bao",
+        )
+
+with balsa_tab:
+
+    st.markdown(
+        f"### Balsa · `{selected_split_type}-{selected_split_id}` · `{selected_query}`"
     )
 
-    chart_spec = {
-        "layer": [
-            {
-                "mark": {
-                    "type": "rule",
-                    "strokeDash": [6, 4],
-                },
-                "encoding": {
-                    "y": {
-                        "datum": 1,
-                    },
-                },
-            },
-            {
-                "mark": {
-                    "type": "point",
-                    "filled": True,
-                },
-                "encoding": {
-                    "x": {
-                        "field": "novelty",
-                        "type": "quantitative",
-                        "title": "Novelty cấu trúc",
-                    },
-                    "y": {
-                        "field": "bao_vs_pg_ratio",
-                        "type": "quantitative",
-                        "title": "Tỷ lệ thời gian chạy Bao / PostgreSQL",
-                    },
-                    "color": {
-                        "field": "Point",
-                        "type": "nominal",
-                        "title": None,
-                    },
-                    "size": {
-                        "condition": {
-                            "test": selected_filter,
-                            "value": 180,
-                        },
-                        "value": 70,
-                    },
-                    "tooltip": [
-                        {
-                            "field": "query_id",
-                            "type": "nominal",
-                            "title": "Truy vấn",
-                        },
-                        {
-                            "field": "novelty",
-                            "type": "quantitative",
-                            "format": ".6f",
-                            "title": "Novelty",
-                        },
-                        {
-                            "field": "bao_vs_pg_ratio",
-                            "type": "quantitative",
-                            "format": ".3f",
-                            "title": "Bao/PG",
-                        },
-                    ],
-                },
-            },
-            {
-                "transform": [
-                    {
-                        "filter": selected_filter,
-                    }
-                ],
-                "mark": {
-                    "type": "text",
-                    "dy": -14,
-                    "fontWeight": "bold",
-                },
-                "encoding": {
-                    "x": {
-                        "field": "novelty",
-                        "type": "quantitative",
-                    },
-                    "y": {
-                        "field": "bao_vs_pg_ratio",
-                        "type": "quantitative",
-                    },
-                    "text": {
-                        "field": "query_id",
-                    },
-                },
-            },
+    balsa_ratio = render_query_performance_card(
+        balsa_performance_row,
+        "balsa",
+        "Balsa",
+        caveat="Team-trained · Resource-constrained · 3 iterations",
+    )
+
+    st.markdown("### Data Mining")
+    dm1, dm2, dm3, dm4 = st.tabs(
+        [
+            "DM1 · Dữ liệu",
+            "DM2 · Tương quan",
+            "DM3 · Nhóm Novelty",
+            "DM4 · Case study",
         ]
-    }
-
-    st.vega_lite_chart(
-        scatter_df,
-        chart_spec,
-        use_container_width=True,
     )
 
-    st.caption(
-        "Đường ngang y = 1: phía dưới là Bao nhanh hơn; "
-        "phía trên là PostgreSQL nhanh hơn."
-    )
+    with dm1:
+        render_dm_dataset_summary(
+            balsa_performance_df,
+            "balsa",
+            "Balsa",
+        )
+
+    with dm2:
+        render_spearman_summary(
+            balsa_spearman_row,
+            "Balsa",
+        )
+        render_scatter_plot(
+            balsa_performance_df,
+            "balsa",
+            "Balsa",
+        )
+
+    with dm3:
+        render_group_pattern_mining(
+            balsa_performance_df,
+            "balsa",
+            "Balsa",
+        )
+
+    with dm4:
+        render_case_mining(
+            balsa_case_studies_df,
+            "balsa",
+            "Balsa",
+        )
 
 
 # ============================================================
-# PRESENTATION TAKEAWAY
+# STEP 6 — CROSS-LQO INTERPRETATION
+# ============================================================
+
+st.markdown(
+    "## ⑥ Bao và Balsa trên cùng truy vấn"
+)
+
+compare_c1, compare_c2, compare_c3, compare_c4 = st.columns(4)
+
+compare_c1.metric(
+    "Novelty",
+    f"{result['novelty']:.6f}",
+)
+
+compare_c2.metric(
+    "Mức Novelty",
+    novelty_level_label(selected_level),
+)
+
+compare_c3.metric(
+    "Bao / PG",
+    format_ratio(bao_ratio),
+)
+
+compare_c4.metric(
+    "Balsa / PG",
+    format_ratio(balsa_ratio),
+)
+
+st.caption(
+    "So sánh theo tỷ lệ model/PG của từng pipeline; không phải benchmark raw latency trực tiếp Bao ↔ Balsa."
+)
+
+if bao_ratio is not None and balsa_ratio is not None:
+    normalized_winner = normalized_lqo_winner(
+        bao_performance_row,
+        balsa_performance_row,
+    )
+
+    if normalized_winner == "Bao":
+        st.success(
+            f"Normalized ratio thấp hơn: **Bao** · {bao_ratio:.3f}× vs {balsa_ratio:.3f}×"
+        )
+    elif normalized_winner == "Balsa":
+        st.success(
+            f"Normalized ratio thấp hơn: **Balsa** · {balsa_ratio:.3f}× vs {bao_ratio:.3f}×"
+        )
+    else:
+        st.info("Normalized ratio của hai LQO xấp xỉ nhau.")
+
+
+# ============================================================
+# STEP 7 — PRESENTATION TAKEAWAY
 # ============================================================
 
 st.divider()
 
 st.markdown(
-    "## 🎯 Kết luận chính"
+    "## 🎯 Kết luận"
 )
 
 st.markdown(
     """
-1. **Novelty cấu trúc** cho biết truy vấn kiểm thử khác tập huấn luyện đến mức nào về bảng, điều kiện nối và điều kiện lọc.  
-2. Ta dùng chính truy vấn đó để kiểm tra **Bao hay PostgreSQL cho hiệu năng tốt hơn** thông qua tỷ lệ thời gian chạy.  
-3. Sau đó đặt truy vấn vào **bối cảnh của toàn bộ cách chia dữ liệu** bằng Spearman và các nhóm Novelty.  
-4. **Novelty là một tín hiệu về khả năng khái quát hóa, không phải nguyên nhân duy nhất quyết định hiệu năng của bộ tối ưu truy vấn.**
+- **Structural Novelty** định lượng mức khác biệt cấu trúc giữa test query và tập huấn luyện.
+- **Data Mining** kiểm tra mối liên hệ Novelty ↔ performance bằng tương quan, phân nhóm và case study.
+- Kết quả cho thấy Novelty là **một tín hiệu về generalization**, nhưng mức liên hệ phụ thuộc split và không đủ để suy ra quan hệ nhân quả.
 """
 )
 
 st.caption(
-    "Bước tiếp theo của đồ án: áp dụng cùng quy trình cho Balsa "
-    "trên LOO-1, Random-1 và BaseQuery-1, rồi so sánh Bao vs Balsa."
+    "Balsa hiện dùng cấu hình team-trained, resource-constrained, 3 iterations."
 )
 
 

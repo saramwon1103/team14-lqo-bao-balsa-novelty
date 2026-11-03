@@ -1,0 +1,13 @@
+split_type,query_id,family,case_type,novelty,novelty_group,nearest_train_query,nearest_train_family,d_table,d_join,d_filter,n_tables,n_joins,n_filters,bao_end_to_end_ms,pg_end_to_end_ms,bao_vs_pg_ratio,winner
+LOO,q22b,q22,Low_best,0.0,Low,q22a,q22,0.0,0.0,0.0,11,16,9,271.905,504.407,0.5390587362982671,Bao
+LOO,q1c,q1,Low_worst,0.0,Low,q1d,q1,0.0,0.0,0.0,5,5,4,195.624,94.055,2.079889426399447,PostgreSQL
+LOO,q19a,q19,High_best,0.111111,High,q19c,q19,0.0,0.0,0.333333,10,13,11,437.778,568.303,0.7703249850871806,Bao
+LOO,q11b,q11,High_worst,0.111111,High,q11a,q11,0.0,0.0,0.333333,8,10,8,337.578,55.658,6.065219734809012,PostgreSQL
+Random,q2c,q2,Low_best,0.0,Low,q2a,q2,0.0,0.0,0.0,5,5,2,396.434,395.211,1.0030945494938148,PostgreSQL
+Random,q1c,q1,Low_worst,0.0,Low,q1d,q1,0.0,0.0,0.0,5,5,4,190.25,83.684,2.273433392285264,PostgreSQL
+Random,q17e,q17,High_best,0.102273,High,q16b,q16,0.125,0.181818,0.0,7,9,2,103356.885,99735.91,1.0363056295370443,PostgreSQL
+Random,q6a,q6,High_worst,0.166667,High,q6b,q6,0.0,0.0,0.5,5,5,3,86.477,11.228,7.701905949412184,PostgreSQL
+BaseQuery,q2b,q2,Low_best,0.243386,Low,q17e,q17,0.285714,0.444444,0.0,5,5,2,416.138,614.71,0.6769663743879227,Bao
+BaseQuery,q24a,q24,Low_worst,0.181481,Low,q19c,q19,0.166667,0.277778,0.1,12,18,10,1657.889,499.616,3.3183264747325945,PostgreSQL
+BaseQuery,q7a,q7,High_best,0.763462,High,q19a,q19,0.615385,0.8,0.875,8,11,7,261.23,1243.85,0.2100172850424086,Bao
+BaseQuery,q15b,q15,High_worst,0.489899,High,q23b,q23,0.333333,0.5,0.636364,9,14,7,101.414,31.424,3.2272785132382893,PostgreSQL

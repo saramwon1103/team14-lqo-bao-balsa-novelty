@@ -15,7 +15,11 @@ Sinh ra cho mỗi split:  bao/runs/<Split>/<run_id>/
   evaluation_results.csv, postgres_results.csv, raw_training.log
 và bao/runs/ALL_evaluation_results.csv, bao/runs/ALL_postgres_results.csv, bao/runs/VALIDATION.txt
 
-Chạy từ gốc repo (Ubuntu):
+Chạy từ gốc repo NHÓM (không cần Docker / repo upstream):
+  python3 bao/scripts/build_bao_outputs.py
+Đầu vào: bao/logs/test__{bao,postgres}__*_ckpt.txt, bao/logs/author/train__bao__<split>.txt,
+         bao/logs/console_evaluation.log, bao/checkpoints/, analysis/data/split_master.csv, novelty.csv
+(Cách cũ, từ repo upstream:)
   python3 bao/build_bao_outputs.py --console ~/bao_ckpt.out \
       --git-commit "$(git rev-parse HEAD)" \
       --pg-version "$(docker exec -u postgres pg_bao psql -Atc 'SELECT version();')"
@@ -31,7 +35,10 @@ import statistics
 import sys
 from datetime import datetime
 
-BAO = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.abspath(__file__))
+# Script nằm ở <team-repo>/bao/scripts/ -> BAO = <team-repo>/bao ; ROOT = <team-repo>
+BAO = os.path.dirname(_HERE) if os.path.basename(_HERE) == "scripts" else _HERE
+ROOT = os.path.dirname(BAO)
 TIMEOUT_MS = 3 * 60 * 1000          # statement_timeout thực tế trong run_test_queries.py
 PENALTY_MS = 2 * TIMEOUT_MS         # giá trị repo ghi khi timeout/lỗi (360000) -> KHÔNG phải số đo
 TS_FMT = "%Y-%m-%d %H:%M:%S.%f"
@@ -150,26 +157,23 @@ def build(split, args, report):
     errs = []
 
     # ---- split_snapshot.csv
-    train = sorted(glob.glob(os.path.join(BAO, "queries", f"job__{sdir}", "train", "*.sql")))
-    test = sorted(glob.glob(os.path.join(BAO, "queries", f"job__{sdir}", "test", "*.sql")))
-    tr = {os.path.basename(p) for p in train}
-    te = {os.path.basename(p) for p in test}
-    job = {os.path.basename(p) for p in glob.glob(os.path.join(BAO, "queries", "join-order-benchmark", "*.sql"))}
+    # split_master.csv là nguồn duy nhất
+    sm = [r for r in args.split_master_rows if r["split_type"] == stype and str(r["split_id"]) == str(sid)]
+    tr = {r["sql_file"] for r in sm if r["role"] == "train"}
+    te = {r["sql_file"] for r in sm if r["role"] == "test"}
     if tr & te:
         errs.append(f"Train ∩ Test != ∅: {sorted(tr & te)}")
-    if job and (tr | te) != job:
-        errs.append(f"Train ∪ Test != 113 JOB (thiếu {sorted(job - tr - te)}, thừa {sorted((tr | te) - job)})")
+    if len(sm) != 113 or len(tr | te) != 113:
+        errs.append(f"split_master.csv: {len(sm)} dòng / {len(tr | te)} query (mong đợi 113)")
     if (len(tr), len(te)) != (n_train_exp, n_test_exp):
         errs.append(f"Số query train/test = {len(tr)}/{len(te)}, mong đợi {n_train_exp}/{n_test_exp}")
-    sm = [r for r in args.split_master_rows if r["split_type"] == stype and str(r["split_id"]) == str(sid)]
-    sm_tr = {r["sql_file"] for r in sm if r["role"] == "train"}
-    sm_te = {r["sql_file"] for r in sm if r["role"] == "test"}
-    if (sm_tr, sm_te) != (tr, te):
-        errs.append(f"split_master.csv KHÔNG khớp queries/job__{sdir}: train lệch {sorted(sm_tr ^ tr)}, "
-                    f"test lệch {sorted(sm_te ^ te)}")
-    if len(sm) != 113 or (sm_tr & sm_te):
-        errs.append(f"split_master.csv: {len(sm)} dòng (mong đợi 113), giao train/test = {sorted(sm_tr & sm_te)}")
-    tr, te = sm_tr, sm_te  # split_master.csv là nguồn duy nhất
+    # (tuỳ chọn) đối chiếu với thư mục queries/ của repo upstream
+    if args.upstream_queries:
+        up_tr = {os.path.basename(p) for p in glob.glob(os.path.join(args.upstream_queries, f"job__{sdir}", "train", "*.sql"))}
+        up_te = {os.path.basename(p) for p in glob.glob(os.path.join(args.upstream_queries, f"job__{sdir}", "test", "*.sql"))}
+        if (up_tr, up_te) != (tr, te):
+            errs.append(f"split_master.csv KHÔNG khớp upstream job__{sdir}: train lệch {sorted(up_tr ^ tr)}, "
+                        f"test lệch {sorted(up_te ^ te)}")
     snap = [[MODEL, stype, sid, r["query_id"], r["family"], r["role"], r["sql_file"]] for r in sm]
     snap.sort(key=lambda r: (int(re.match(r"q(\d+)", r[3]).group(1)), r[3]))
     write_csv(os.path.join(out, "split_snapshot.csv"),
@@ -207,7 +211,9 @@ def build(split, args, report):
         errs.append(f"evaluation rows = {len(ev)}, mong đợi {n_test_exp}")
 
     # ---- training_trace.csv (log train của tác giả, đi kèm checkpoint)
-    tr_f = os.path.join(BAO, "logs", f"train__bao__{sdir}.txt")
+    tr_f = next((p for p in (os.path.join(BAO, "logs", "author", f"train__bao__{sdir}.txt"),
+                             os.path.join(BAO, "logs", f"train__bao__{sdir}.txt")) if os.path.exists(p)),
+                os.path.join(BAO, "logs", "author", f"train__bao__{sdir}.txt"))
     trace, t_start, t_end, n_retrain = [], None, None, 0
     if os.path.exists(tr_f):
         train_runs = read_runs(tr_f)
@@ -241,7 +247,7 @@ def build(split, args, report):
     # ---- checkpoint_manifest.csv
     src_rel = f"bao/bao_server/bao__job__{sdir}"                       # vị trí trong repo upstream
     ckpt_rel = f"bao/checkpoints/bao__job__{sdir}"                       # artifact trong repo nhóm
-    ckpt_abs = os.path.join(args.team_repo, ckpt_rel)
+    ckpt_abs = os.path.join(ROOT, ckpt_rel)
     need = ["nn_weights", "x_transform", "y_transform", "channels", "n"]
     ck_ok = os.path.isdir(ckpt_abs) and all(os.path.exists(os.path.join(ckpt_abs, x)) for x in need)
     if not ck_ok:
@@ -264,33 +270,38 @@ def build(split, args, report):
                 fo.write(text)
             else:
                 fo.write("(không có file)\n")
-        add(f"bao/logs/train__bao__{sdir}.txt  [author training log, unmodified]", tr_f)
-        add(f"console {args.console}  [team evaluation, unmodified section]",
+        add(f"{os.path.relpath(tr_f, ROOT)}  [author training log, unmodified]", tr_f)
+        add(f"{os.path.relpath(args.console, ROOT) if args.console.startswith(ROOT) else args.console}  [team evaluation console, unmodified section]",
             text=console_section(args.console, sdir, tag))
         add(f"bao/logs/server__{tag}_ckpt.txt  [Bao server, team evaluation]",
             os.path.join(BAO, "logs", f"server__{tag}_ckpt.txt"))
         add(f"bao/logs/test__postgres__{tag}_ckpt.txt  [team evaluation, raw]", pg_f)
         add(f"bao/logs/test__bao__{tag}_ckpt.txt  [team evaluation, raw]", bao_f)
         if stype == "BaseQuery":  # nỗ lực tự train của nhóm (dừng vì phần cứng)
-            for name in ("train__bao__bq1_run1.txt", "server__bq1_run1.txt"):
+            for name in ("team_training_attempt_bq1.txt", "train__bao__bq1_run1.txt", "server__bq1_run1.txt"):
                 p = os.path.join(BAO, "logs", name)
                 if os.path.exists(p):
                     add(f"bao/logs/{name}  [team training attempt, stopped: hardware too slow]", p)
 
     # ---- run_manifest.json
     all_eval = bao_runs + pg_runs
+    mpath = os.path.join(out, "run_manifest.json")
+    try:  # giữ lại git_commit / postgres_version đã ghi lần trước nếu không truyền tham số
+        prev = json.load(open(mpath, encoding="utf-8"))
+    except (OSError, ValueError):
+        prev = {}
     status = "completed" if not errs else "completed_with_warnings"
     manifest = {
         "run_id": run_id, "model": MODEL, "split_type": stype, "split_id": sid,
         "model_source": MODEL_SOURCE,
         "train_query_count": len(tr), "test_query_count": len(te),
         "seed": 42,
-        "git_repo": "edualc/lqo_ml_perspective", "git_commit": args.git_commit or "UNKNOWN",
+        "git_repo": "edualc/lqo_ml_perspective", "git_commit": args.git_commit or prev.get("git_commit", "UNKNOWN"),
         "training_command": (f"NOT RUN BY TEAM (author_checkpoint). Author protocol: python3 run_queries.py "
                              f"--query_dir queries/job__{sdir}/train --output_file logs/train__bao__{sdir}.txt"),
         "evaluation_command": (f"bash test_ckpt.sh {tag}_ckpt {sdir}  ->  run_test_queries.py --use_postgres / "
                                f"--use_bao --query_dir queries/job__{sdir}/test"),
-        "postgres_version": args.pg_version or "UNKNOWN",
+        "postgres_version": args.pg_version or prev.get("postgres_version", "UNKNOWN"),
         "start_time": iso(min(r["ts"] for r in all_eval)) if all_eval else None,
         "end_time": iso(max(r["ts"] for r in all_eval)) if all_eval else None,
         "time_zone": "UTC (container clock)",
@@ -328,14 +339,17 @@ def build(split, args, report):
 # ----------------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--console", default=os.path.expanduser("~/bao_ckpt.out"))
-    ap.add_argument("--git-commit", default="")
-    ap.add_argument("--pg-version", default="")
-    ap.add_argument("--team-repo", default=os.path.expanduser("~/team14-lqo-bao-balsa-novelty"))
-    ap.add_argument("--out", default=None, help="mặc định: <team-repo>/bao/results")
+    ap.add_argument("--console", default=os.path.join(BAO, "logs", "console_evaluation.log"))
+    ap.add_argument("--git-commit", default="", help="commit upstream; bỏ trống = giữ giá trị trong manifest cũ")
+    ap.add_argument("--pg-version", default="", help="bỏ trống = giữ giá trị trong manifest cũ")
+    ap.add_argument("--upstream-queries", default="", help="(tuỳ chọn) <lqo_ml_perspective>/bao/queries để đối chiếu")
+    ap.add_argument("--out", default=os.path.join(BAO, "results"))
     args = ap.parse_args()
-    args.out = args.out or os.path.join(args.team_repo, "bao", "results")
-    sm_path = os.path.join(args.team_repo, "analysis", "data", "split_master.csv")
+    for need in [os.path.join(BAO, "logs"), os.path.join(BAO, "checkpoints"),
+                 os.path.join(ROOT, "analysis", "data", "split_master.csv")]:
+        if not os.path.exists(need):
+            sys.exit(f"Không thấy {need}. Script phải nằm ở <team-repo>/bao/scripts/ (BAO={BAO}).")
+    sm_path = os.path.join(ROOT, "analysis", "data", "split_master.csv")
     args.split_master_rows = list(csv.DictReader(open(sm_path, encoding="utf-8-sig")))
 
     report, all_ev, all_pg = [], [], []
@@ -353,7 +367,7 @@ def main():
               ["split_type", "split_id", "query_id", "family", "planning_ms", "execution_ms", "end_to_end_ms",
                "status", "timeout_ms"], all_pg)
     report.append(f"TOTAL evaluation rows = {len(all_ev)} (mong đợi 74)")
-    nov_path = os.path.join(args.team_repo, "analysis", "data", "novelty.csv")
+    nov_path = os.path.join(ROOT, "analysis", "data", "novelty.csv")
     if os.path.exists(nov_path):
         nov = {(r["split_type"], str(r["split_id"]), r["query_id"])
                for r in csv.DictReader(open(nov_path, encoding="utf-8-sig"))}

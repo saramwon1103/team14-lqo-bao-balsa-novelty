@@ -1,5 +1,5 @@
 
-########## SOURCE: bao/logs/train__bao__leave_one_out_split_1.txt  [author training log, unmodified] ##########
+########## SOURCE: bao/logs/author/train__bao__leave_one_out_split_1.txt  [author training log, unmodified] ##########
 x, 0, 0, 2023-07-17 15:58:36.642081, queries/job__leave_one_out_split_1/train/2b.sql, 5.603, 1110.076, PG
 x, 0, 1, 2023-07-17 15:58:37.189133, queries/job__leave_one_out_split_1/train/2b.sql, 5.037, 523.396, PG
 x, 0, 2, 2023-07-17 15:58:38.409618, queries/job__leave_one_out_split_1/train/2b.sql, 51.788, 470.391, PG
@@ -1501,7 +1501,7 @@ x, 24, 2, 2023-07-17 16:01:25.252296, queries/job__leave_one_out_split_1/train/8
 18, 24, 1, 2023-07-17 17:20:49.293373, queries/job__leave_one_out_split_1/train/14b.sql, 214.767, 165.34, Bao
 18, 24, 2, 2023-07-17 17:20:50.357921, queries/job__leave_one_out_split_1/train/14b.sql, 186.843, 113.256, Bao
 
-########## SOURCE: console /home/anhtuan/bao_ckpt.out  [team evaluation, unmodified section] ##########
+########## SOURCE: bao/logs/console_evaluation.log  [team evaluation console, unmodified section] ##########
 [03:36:40] ===== 1/4 Bat Bao server voi checkpoint bao_server/bao__job__leave_one_out_split_1 =====
 Model da nap OK
 

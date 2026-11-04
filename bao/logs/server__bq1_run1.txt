@@ -1,0 +1,15 @@
+Listening on bao_server port 9381
+Spawning server process...
+Removing experience stored in SQLite DB
+Logged reward of 167.151272
+Logged reward of 14701.617326
+Logged reward of 119450.956689
+Logged reward of 1053.359462
+Logged reward of 36.472001
+Logged reward of 2235.047674
+Logged reward of 161.654358
+Logged reward of 1577.146329
+Logged reward of 11751.145692
+Logged reward of 1372.340332
+Logged reward of 779.946728
+Logged reward of 11852.575038

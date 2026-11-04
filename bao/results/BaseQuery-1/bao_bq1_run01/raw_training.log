@@ -1,5 +1,5 @@
 
-########## SOURCE: bao/logs/train__bao__base_query_split_1.txt  [author training log, unmodified] ##########
+########## SOURCE: bao/logs/author/train__bao__base_query_split_1.txt  [author training log, unmodified] ##########
 x, 0, 0, 2023-07-16 19:43:16.204195, queries/job__base_query_split_1/train/29a.sql, 103.218, 63.749, PG
 x, 0, 1, 2023-07-16 19:43:16.384561, queries/job__base_query_split_1/train/29a.sql, 101.206, 60.508, PG
 x, 0, 2, 2023-07-16 19:43:17.807134, queries/job__base_query_split_1/train/29a.sql, 262.766, 37.241, PG
@@ -1501,7 +1501,7 @@ x, 24, 2, 2023-07-16 19:48:07.305672, queries/job__base_query_split_1/train/8d.s
 18, 24, 1, 2023-07-16 21:00:18.961708, queries/job__base_query_split_1/train/13b.sql, 231.203, 703.647, Bao
 18, 24, 2, 2023-07-16 21:00:21.227584, queries/job__base_query_split_1/train/13b.sql, 368.304, 623.366, Bao
 
-########## SOURCE: console /home/anhtuan/bao_ckpt.out  [team evaluation, unmodified section] ##########
+########## SOURCE: bao/logs/console_evaluation.log  [team evaluation console, unmodified section] ##########
 [02:43:16] ===== 1/4 Bat Bao server voi checkpoint bao_server/bao__job__base_query_split_1 =====
 Model da nap OK
 
@@ -1991,7 +1991,7 @@ SET enable_mergejoin TO off; SET enable_indexscan TO off; , 2, 2026-10-28 03:04:
 (no hint), 1, 2026-10-28 03:05:53.221652, queries/job__base_query_split_1/test/7c.sql, 139.889, 5755.171, Bao
 (no hint), 2, 2026-10-28 03:05:53.221805, queries/job__base_query_split_1/test/7c.sql, 46.706, 2596.561, Bao
 
-########## SOURCE: bao/logs/train__bao__bq1_run1.txt  [team training attempt, stopped: hardware too slow] ##########
+########## SOURCE: bao/logs/team_training_attempt_bq1.txt  [team training attempt, stopped: hardware too slow] ##########
 x, 0, 0, 2026-10-28 02:05:46.973799, queries/job__base_query_split_1/train/29a.sql, 183.866, 12208.31, PG
 x, 0, 1, 2026-10-28 02:05:47.159451, queries/job__base_query_split_1/train/29a.sql, 70.719, 102.88, PG
 x, 0, 2, 2026-10-28 02:05:48.598427, queries/job__base_query_split_1/train/29a.sql, 176.241, 75.873, PG

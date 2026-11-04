@@ -1,5 +1,5 @@
 
-########## SOURCE: bao/logs/train__bao__random_split_1.txt  [author training log, unmodified] ##########
+########## SOURCE: bao/logs/author/train__bao__random_split_1.txt  [author training log, unmodified] ##########
 x, 0, 0, 2023-07-17 07:31:03.587212, queries/job__random_split_1/train/28c.sql, 84.181, 896.735, PG
 x, 0, 1, 2023-07-17 07:31:04.412441, queries/job__random_split_1/train/28c.sql, 77.495, 731.945, PG
 x, 0, 2, 2023-07-17 07:31:07.092328, queries/job__random_split_1/train/28c.sql, 259.573, 645.141, PG
@@ -1501,7 +1501,7 @@ x, 24, 2, 2023-07-17 07:36:28.734540, queries/job__random_split_1/train/8d.sql, 
 18, 24, 1, 2023-07-17 08:45:43.061913, queries/job__random_split_1/train/13c.sql, 232.685, 687.384, Bao
 18, 24, 2, 2023-07-17 08:45:45.140120, queries/job__random_split_1/train/13c.sql, 204.96, 587.53, Bao
 
-########## SOURCE: console /home/anhtuan/bao_ckpt.out  [team evaluation, unmodified section] ##########
+########## SOURCE: bao/logs/console_evaluation.log  [team evaluation console, unmodified section] ##########
 [03:05:56] ===== 1/4 Bat Bao server voi checkpoint bao_server/bao__job__random_split_1 =====
 Model da nap OK
 

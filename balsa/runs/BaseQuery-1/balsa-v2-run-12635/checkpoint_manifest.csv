@@ -1,0 +1,4 @@
+run_id,model,split_type,split_id,checkpoint_id,step,metric_name,metric_value,path,is_final,status
+balsa-v2-run-12635,Balsa,BaseQuery,1,balsa_basequery_0e26eb8b4283a111,3,,,milestones/iteration-3/evaluation.pt,false,OK
+balsa-v2-run-12635,Balsa,BaseQuery,1,balsa_basequery_b98bcb549b61927e,5,,,milestones/iteration-5/evaluation.pt,false,OK
+balsa-v2-run-12635,Balsa,BaseQuery,1,balsa_basequery_374e25f14402a595,10,,,milestones/iteration-10/evaluation.pt,true,OK

@@ -1,0 +1,150 @@
+{
+  "run_id": "balsa-v2-run-12635",
+  "model": "Balsa",
+  "split_type": "BaseQuery",
+  "split_id": 1,
+  "seed": 0,
+  "status": "COMPLETED_10_ITERATIONS_AND_3_MILESTONE_EVALS",
+  "model_source": "team_trained",
+  "simulator_source": "fresh_split_local_simulator",
+  "train_query_count": 94,
+  "test_query_count": 19,
+  "iterations_requested": 10,
+  "completed_value_iterations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "training_code_commit": "f596e88129fc1d92b74240f0dbf6e6192da74545",
+  "split_source_commit": "5c9d6403089289a3188aa05ea75ef33c62b50177",
+  "split_manifest_sha256": "6cc7dadb036e85db609ebda0a25931f89c4e838101ea381245a19a218a4b94a7",
+  "split_source_sha256": "804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880",
+  "training_command": [
+    "/tmp/opencode/team14-balsa-v2/balsa/source/scripts/train_split.py",
+    "--split-master",
+    "/tmp/opencode/team14-balsa-v2/analysis/data/split_master.csv",
+    "--split-type",
+    "BaseQuery-1",
+    "--output-dir",
+    "/tmp/opencode/bp12635/training",
+    "--allow-full",
+    "--iterations",
+    "10",
+    "--seed",
+    "0",
+    "--initial-timeout-ms",
+    "30000",
+    "--isolated-runtime",
+    "--fresh-simulator",
+    "--simulator-integration-epochs",
+    "1"
+  ],
+  "postgres_version": "PostgreSQL 12.5",
+  "database": "imdbload",
+  "role": "wings",
+  "socket": "/tmp",
+  "elapsed_seconds": 4144.7574930519995,
+  "resource_summary": "resource_summary.json",
+  "resource_summary_errata": "resource_summary_errata.json",
+  "milestone_evaluations": {
+    "3": {
+      "checkpoint_sha256": "0e26eb8b4283a111f06d3aa7ffbaeaca06981c7e74a7f3bd99fd7074b803edcb",
+      "evaluation_checkpoint_sha256": "0e26eb8b4283a111f06d3aa7ffbaeaca06981c7e74a7f3bd99fd7074b803edcb",
+      "queries": 19,
+      "completed": 19,
+      "non_completed": 0,
+      "median_balsa_end_to_end_ms": 3989.527906000142,
+      "median_postgres_baseline_end_to_end_ms": 239.535,
+      "median_balsa_vs_postgres_end_to_end_ratio": 0.11002110772656432
+    },
+    "5": {
+      "checkpoint_sha256": "b98bcb549b61927e76b863a6b6340a6b11eb6f6df6b464a355949da9f0837cfe",
+      "evaluation_checkpoint_sha256": "b98bcb549b61927e76b863a6b6340a6b11eb6f6df6b464a355949da9f0837cfe",
+      "queries": 19,
+      "completed": 19,
+      "non_completed": 0,
+      "median_balsa_end_to_end_ms": 3686.5886819991824,
+      "median_postgres_baseline_end_to_end_ms": 238.553,
+      "median_balsa_vs_postgres_end_to_end_ratio": 0.1023690197272201
+    },
+    "10": {
+      "checkpoint_sha256": "374e25f14402a59504960a158fd84a3e6334ac3a0cc80ed5b426b291c4b66577",
+      "evaluation_checkpoint_sha256": "374e25f14402a59504960a158fd84a3e6334ac3a0cc80ed5b426b291c4b66577",
+      "queries": 19,
+      "completed": 19,
+      "non_completed": 0,
+      "median_balsa_end_to_end_ms": 3316.5080760011524,
+      "median_postgres_baseline_end_to_end_ms": 239.397,
+      "median_balsa_vs_postgres_end_to_end_ratio": 0.1072619350178263
+    }
+  },
+  "checkpoint_bundles": [
+    {
+      "iteration": 3,
+      "path": "milestones/iteration-3/evaluation.pt",
+      "checkpoint_sha256": "0e26eb8b4283a111f06d3aa7ffbaeaca06981c7e74a7f3bd99fd7074b803edcb",
+      "weight_sha256": "4045a63031eb80a836101bd6cf498790ee0933b2fdf129820e2b7cbbd85599ab",
+      "evaluation_path": "evaluations/iteration-3"
+    },
+    {
+      "iteration": 5,
+      "path": "milestones/iteration-5/evaluation.pt",
+      "checkpoint_sha256": "b98bcb549b61927e76b863a6b6340a6b11eb6f6df6b464a355949da9f0837cfe",
+      "weight_sha256": "59085b8d476256cd2fd3da6eb9595fdad3dd6206e5a6e96a0f41bbe4cd6c6fb2",
+      "evaluation_path": "evaluations/iteration-5"
+    },
+    {
+      "iteration": 10,
+      "path": "milestones/iteration-10/evaluation.pt",
+      "checkpoint_sha256": "374e25f14402a59504960a158fd84a3e6334ac3a0cc80ed5b426b291c4b66577",
+      "weight_sha256": "1acfcb4817721f2c442e47ec53ca0ce89041f58b30df94bff285cb34e897c846",
+      "evaluation_path": "evaluations/iteration-10"
+    }
+  ],
+  "milestone_evaluation_validity": {
+    "3": {
+      "exit_code": "0",
+      "result": "success",
+      "valid": true
+    },
+    "5": {
+      "exit_code": "0",
+      "result": "success",
+      "valid": true
+    },
+    "10": {
+      "exit_code": "0",
+      "result": "success",
+      "valid": true
+    }
+  },
+  "optimizer_evidence": {
+    "initial_expert_iteration_skipped": true,
+    "iterations_1_through_9_fitted": true,
+    "optimizer_steps_per_iteration": 100,
+    "total_optimizer_steps": 900
+  },
+  "novelty_join_audit": {
+    "source": "analysis/data/novelty.csv",
+    "source_rows": 74,
+    "unique_source_keys": 74,
+    "matched_query_rows": 19,
+    "matched_rows_per_milestone": 19,
+    "join_key": [
+      "query_id",
+      "family",
+      "split_type",
+      "split_id"
+    ],
+    "merge_cardinality": "one_to_one"
+  },
+  "artifact_bytes_allocated": 6113058816,
+  "evaluation_timing_contract": "Balsa planning + hinted PostgreSQL planning + execution; comparison PostgreSQL baseline end-to-end"
+}

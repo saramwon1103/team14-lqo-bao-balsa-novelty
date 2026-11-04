@@ -61,6 +61,16 @@ split đó; training `git_commit` phản ánh chính xác code commit đã dùng
 | Random-1 | `balsa-v2-run-698900` | 91/22 | 200 | 22 OK | `1335ff20fd20a84f2101c5284dfb2a7e8b0e8efd` |
 | BaseQuery-1 | `balsa-v2-run-1308903` | 94/19 | 200 | 19 OK | `c6826be4ac2e4cbea860851ea2d0a54bbdfd8382` |
 
+An additional BaseQuery-1 run, `balsa-v2-run-12635`, trained for 10 value
+iterations in one fresh run. It has separately snapshotted and independently
+evaluated checkpoints at iterations 3, 5, and 10 (19/19 completed at each
+milestone; 900 optimizer steps after the expert-initialization iteration).
+Its report, checkpoint bundles, per-milestone evaluation artifacts, resource
+evidence, query-level comparison, and Novelty join audit are in
+`balsa/runs/BaseQuery-1/balsa-v2-run-12635/REPORT.md`. The earlier three runs
+above remain unchanged; this additional training is reported separately and is
+not substituted for the previous BaseQuery-1 result.
+
 Common files are under `balsa/runs/<split>/<run_id>/`. Every split passed
 113-row snapshot and exact test/baseline coverage validation. All 74 evaluation
 rows join `novelty.csv` one-to-one. Timeout timings are empty; no Novelty Score

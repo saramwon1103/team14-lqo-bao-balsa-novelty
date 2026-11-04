@@ -1,0 +1,313 @@
+===== EXPERIMENT START =====
+Model: Balsa
+Run: balsa-v2-run-12635-iter-3
+Split: 1
+Fold: None
+Seed: 0
+Training status: EVAL_ONLY
+
+[4] LQO EVALUATION
+Test query: 15a
+Repeat: 0
+Balsa inference/planning: 447.2895580001932
+PostgreSQL hinted planning: 1.859
+Execution time: 1383.466
+End-to-End: 1832.614558000193
+Wall clock: 1835.3636920001009
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/15a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.421
+Execution: 369.896
+End-to-End: 373.317
+
+[4] LQO EVALUATION
+Test query: 15b
+Repeat: 0
+Balsa inference/planning: 518.5875419992954
+PostgreSQL hinted planning: 1.832
+Execution time: 1276.219
+End-to-End: 1796.6385419992953
+Wall clock: 1799.197581000044
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/15b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.237
+Execution: 12.193
+End-to-End: 15.43
+
+[4] LQO EVALUATION
+Test query: 15c
+Repeat: 0
+Balsa inference/planning: 418.11444999984815
+PostgreSQL hinted planning: 2.068
+Execution time: 2524.171
+End-to-End: 2944.3534499998477
+Wall clock: 2946.9691029989917
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/15c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.195
+Execution: 639.097
+End-to-End: 642.292
+
+[4] LQO EVALUATION
+Test query: 15d
+Repeat: 0
+Balsa inference/planning: 402.0584930003679
+PostgreSQL hinted planning: 3.41
+Execution time: 2512.865
+End-to-End: 2918.3334930003675
+Wall clock: 2921.942250999564
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/15d_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.22
+Execution: 699.48
+End-to-End: 702.7
+
+[4] LQO EVALUATION
+Test query: 24a
+Repeat: 0
+Balsa inference/planning: 265.20673999948485
+PostgreSQL hinted planning: 12.848
+Execution time: 4042.373
+End-to-End: 4320.427739999485
+Wall clock: 4324.395274999915
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/24a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 22.555
+Execution: 193.679
+End-to-End: 216.234
+
+[4] LQO EVALUATION
+Test query: 24b
+Repeat: 0
+Balsa inference/planning: 202.88187600090168
+PostgreSQL hinted planning: 13.374
+Execution time: 3893.521
+End-to-End: 4109.776876000902
+Wall clock: 4114.276120000795
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/24b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 24.905
+Execution: 130.329
+End-to-End: 155.234
+
+[4] LQO EVALUATION
+Test query: 25a
+Repeat: 0
+Balsa inference/planning: 127.93055899965111
+PostgreSQL hinted planning: 2.788
+Execution time: 3964.089
+End-to-End: 4094.807558999651
+Wall clock: 4101.862235000226
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/25a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.135
+Execution: 1206.085
+End-to-End: 1209.22
+
+[4] LQO EVALUATION
+Test query: 25b
+Repeat: 0
+Balsa inference/planning: 151.04890600014187
+PostgreSQL hinted planning: 2.159
+Execution time: 3836.32
+End-to-End: 3989.527906000142
+Wall clock: 3993.7291759997606
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/25b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 2.881
+Execution: 105.455
+End-to-End: 108.336
+
+[4] LQO EVALUATION
+Test query: 25c
+Repeat: 0
+Balsa inference/planning: 162.42511900054524
+PostgreSQL hinted planning: 1.876
+Execution time: 4624.75
+End-to-End: 4789.051119000545
+Wall clock: 4795.688596999753
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/25c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 4.21
+Execution: 2853.687
+End-to-End: 2857.897
+
+[4] LQO EVALUATION
+Test query: 2a
+Repeat: 0
+Balsa inference/planning: 66.37906900141388
+PostgreSQL hinted planning: 0.493
+Execution time: 1839.653
+End-to-End: 1906.5250690014138
+Wall clock: 1911.7690540006151
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/2a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.458
+Execution: 209.3
+End-to-End: 209.758
+
+[4] LQO EVALUATION
+Test query: 2b
+Repeat: 0
+Balsa inference/planning: 69.35133900151413
+PostgreSQL hinted planning: 0.493
+Execution time: 1842.557
+End-to-End: 1912.401339001514
+Wall clock: 1917.6613910003653
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/2b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.459
+Execution: 190.92
+End-to-End: 191.379
+
+[4] LQO EVALUATION
+Test query: 2c
+Repeat: 0
+Balsa inference/planning: 58.31484900045325
+PostgreSQL hinted planning: 0.496
+Execution time: 1843.399
+End-to-End: 1902.2098490004532
+Wall clock: 1907.3748250011704
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/2c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.465
+Execution: 179.468
+End-to-End: 179.933
+
+[4] LQO EVALUATION
+Test query: 2d
+Repeat: 0
+Balsa inference/planning: 71.31386999935785
+PostgreSQL hinted planning: 0.91
+Execution time: 1854.392
+End-to-End: 1926.615869999358
+Wall clock: 1932.6944009990257
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/2d_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.453
+Execution: 239.082
+End-to-End: 239.535
+
+[4] LQO EVALUATION
+Test query: 31a
+Repeat: 0
+Balsa inference/planning: 330.8790939991013
+PostgreSQL hinted planning: 9.774
+Execution time: 4483.521
+End-to-End: 4824.174093999101
+Wall clock: 4834.378317998926
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/31a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 12.865
+Execution: 873.394
+End-to-End: 886.259
+
+[4] LQO EVALUATION
+Test query: 31b
+Repeat: 0
+Balsa inference/planning: 294.4433740012755
+PostgreSQL hinted planning: 9.649
+Execution time: 4587.984
+End-to-End: 4892.076374001276
+Wall clock: 4897.198560000106
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/31b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 11.735
+Execution: 138.139
+End-to-End: 149.87400000000002
+
+[4] LQO EVALUATION
+Test query: 31c
+Repeat: 0
+Balsa inference/planning: 294.1873999989184
+PostgreSQL hinted planning: 7.114
+Execution time: 5213.721
+End-to-End: 5515.0223999989175
+Wall clock: 5524.818414998663
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/31c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 12.786
+Execution: 888.803
+End-to-End: 901.5889999999999
+
+[4] LQO EVALUATION
+Test query: 7a
+Repeat: 0
+Balsa inference/planning: 62.02688599842077
+PostgreSQL hinted planning: 1.416
+Execution time: 5050.586
+End-to-End: 5114.028885998421
+Wall clock: 5116.5845499999705
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/7a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 8.55
+Execution: 318.502
+End-to-End: 327.052
+
+[4] LQO EVALUATION
+Test query: 7b
+Repeat: 0
+Balsa inference/planning: 54.57425500026147
+PostgreSQL hinted planning: 1.26
+Execution time: 3420.391
+End-to-End: 3476.2252550002618
+Wall clock: 3478.7537430001976
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/7b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 1.589
+Execution: 78.21
+End-to-End: 79.79899999999999
+
+[4] LQO EVALUATION
+Test query: 7c
+Repeat: 0
+Balsa inference/planning: 61.21591200098919
+PostgreSQL hinted planning: 2.224
+Execution time: 6399.901
+End-to-End: 6463.340912000989
+Wall clock: 6473.482561001219
+Status: COMPLETED
+Result source: MEASURED
+Plan: /tmp/opencode/bp12635/evaluations/iteration-3/plans/7c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 1.504
+Execution: 1548.451
+End-to-End: 1549.955
+Weight hash unchanged: YES
+===== EXPERIMENT END =====

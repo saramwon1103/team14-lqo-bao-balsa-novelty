@@ -12,7 +12,7 @@ Run mới được thực hiện trong một training duy nhất, seed 0, split 
 | 5 | PASS | 19/19 | 3686.589 | 238.553 | 0.1024x | `b98bcb549b61927e76b863a6b6340a6b11eb6f6df6b464a355949da9f0837cfe` |
 | 10 | PASS | 19/19 | 3316.508 | 239.397 | 0.1073x | `374e25f14402a59504960a158fd84a3e6334ac3a0cc80ed5b426b291c4b66577` |
 
-Từng evaluation có `errors=0`, `unchanged=true`, `train_called=false`; mỗi evaluation có đủ 19 query rows và không có timeout/failed rows. “Balsa E2E” giữ contract V2: Balsa planning + hinted PostgreSQL planning + execution. Tỷ lệ nhỏ hơn 1 nghĩa là baseline end-to-end thấp hơn Balsa cho median của workload này.
+Từng evaluation có `errors=0`, `unchanged=true`, `train_called=false`; mỗi evaluation có đủ 19 query rows và không có timeout/failed rows. “Balsa E2E” giữ contract V2: Balsa inference/planning (CSV `balsa_planning_ms`) + hinted PostgreSQL planning + execution. Tỷ lệ nhỏ hơn 1 nghĩa là baseline end-to-end thấp hơn Balsa cho median của workload này.
 
 ## Training và provenance
 

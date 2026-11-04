@@ -3,6 +3,7 @@ import copy
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 
 
@@ -90,6 +91,17 @@ def save_bundle(agent, model, dataset):
     with open(path + '.json.tmp', 'w') as handle:
         json.dump(metadata, handle, indent=2)
     os.replace(path + '.json.tmp', path + '.json')
+    # Preserve milestone bundles from a single training run. The regular
+    # evaluation.pt remains the latest bundle for backwards compatibility.
+    snapshot_root = os.environ.get('BALSA_CHECKPOINT_SNAPSHOTS')
+    milestone = agent.curr_value_iter + 1
+    milestones = {int(value) for value in os.environ.get(
+        'BALSA_CHECKPOINT_MILESTONES', '3,5,10').split(',') if value.strip()}
+    if snapshot_root and milestone in milestones:
+        destination = os.path.join(snapshot_root, 'iteration-{}'.format(milestone))
+        os.makedirs(destination, exist_ok=True)
+        shutil.copy2(path, os.path.join(destination, 'evaluation.pt'))
+        shutil.copy2(path + '.json', os.path.join(destination, 'evaluation.pt.json'))
     logger.metadata = dict(protocol=manifest['protocol'], split_id=manifest['split_id'],
                            fold_id=manifest['fold_id'], seed=getattr(agent, 'run_seed', None),
                            split_sha256=manifest['sha256'], checkpoint_sha256=file_hash(path))

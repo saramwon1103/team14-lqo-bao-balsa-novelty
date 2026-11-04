@@ -80,7 +80,8 @@ def safe_export(mount, destination):
     priority = [p for p in mount.rglob('*') if p.is_file() and (
         p.name in ('evaluation.pt', 'evaluation.pt.json', 'simulator.ckpt', 'provenance.json',
                    'run_provenance.json', 'config.txt', 'split.json', 'training_summary.json', 'evaluation_summary.json',
-                   'balsa_results.csv', 'postgres_baseline.csv', 'predictions.json', 'environment.json')
+                   'balsa_results.csv', 'postgres_baseline.csv', 'predictions.json',
+                   'evaluation_summary.json', 'environment.json')
         or p.name.startswith('fit_evidence_'))]
     priority += [p for p in mount.rglob('*') if p.is_file() and p not in priority and (
         p.suffix in ('.log', '.sql') or 'evaluation/plans/' in str(p.relative_to(mount))
@@ -213,6 +214,8 @@ def main():
                TMPDIR=str(mount / 'tmp'), XDG_CACHE_HOME=str(mount / 'cache'),
                WANDB_CACHE_DIR=str(mount / 'wandb-cache'),
                WANDB_CONFIG_DIR=str(mount / 'wandb-config'))
+    env['BALSA_CHECKPOINT_SNAPSHOTS'] = str(mount / 'milestones')
+    env['BALSA_CHECKPOINT_MILESTONES'] = '3,5,10'
     state = dict(status='RUNNING', started_timestamp=time.time(), wall_limit_seconds=7200,
                  ml_memory_max_bytes=memory_max, artifact_limit_bytes=20 * GIB,
                  machine_available_before_ml_bytes=available_memory(),
@@ -341,7 +344,7 @@ def main():
     train = [PYTHON, '-u', str(SOURCE / 'scripts/train_split.py'),
              '--split-master', str(SOURCE.parents[1] / 'analysis/data/split_master.csv'),
              '--split-type', args.split_type,
-             '--output-dir', str(mount / 'training'), '--allow-full', '--iterations', '3',
+              '--output-dir', str(mount / 'training'), '--allow-full', '--iterations', '10',
              '--seed', '0', '--initial-timeout-ms', '30000', '--isolated-runtime',
              '--fresh-simulator', '--simulator-integration-epochs', '1']
     train_end = eval_end = None
@@ -349,41 +352,41 @@ def main():
         start_service(train_unit, train, env, slice_name, str(mount / 'raw_train.log'), args.ml_memory_gib)
         train_end = observe(train_unit, 'TRAIN', stop_for_reserve=True)
         state['train_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), train_end))
-        checkpoint = list(mount.glob('training/*/checkpoints/evaluation.pt'))
         train_clean = train_end == ('0', 'success', None)
-        if train_clean and len(checkpoint) == 1 and deadline - time.monotonic() > 45 and available_memory() > 3 * GIB:
-            state['checkpoint'] = str(checkpoint[0].relative_to(mount))
-            eval_unit = unit_base + '-eval.service'
-            evaluate = [PYTHON, '-u', str(SOURCE / 'scripts/evaluate_checkpoint.py'),
-                        '--checkpoint', str(checkpoint[0]), '--output-dir', str(mount / 'evaluation'),
-                        '--seed', '0', '--repeats', '1', '--timeout-ms', '30000',
-                        '--run-id', unit_base]
-            start_service(eval_unit, evaluate, env, slice_name, str(mount / 'raw_test.log'), args.ml_memory_gib)
-            eval_end = observe(eval_unit, 'INDEPENDENT_EVAL')
-            state['eval_service'] = dict(zip(('exit_code', 'result', 'stop_reason'), eval_end))
+        milestone_results = {}
+        bundles = [mount / 'milestones' / ('iteration-{}'.format(i)) / 'evaluation.pt'
+                   for i in (3, 5, 10)]
+        if train_clean and all(path.is_file() for path in bundles):
+            for iteration, checkpoint in zip((3, 5, 10), bundles):
+                if deadline - time.monotonic() <= 45 or available_memory() <= 3 * GIB:
+                    milestone_results[str(iteration)] = dict(status='NOT_RUN', reason='insufficient safe time/headroom')
+                    continue
+                eval_dir = mount / 'evaluations' / ('iteration-{}'.format(iteration))
+                eval_unit = unit_base + '-eval-' + str(iteration) + '.service'
+                evaluate = [PYTHON, '-u', str(SOURCE / 'scripts/evaluate_checkpoint.py'),
+                            '--checkpoint', str(checkpoint), '--output-dir', str(eval_dir),
+                            '--seed', '0', '--repeats', '1', '--timeout-ms', '30000',
+                            '--run-id', unit_base + '-iter-' + str(iteration)]
+                start_service(eval_unit, evaluate, env, slice_name,
+                              str(mount / ('raw_test_{}.log'.format(iteration))), args.ml_memory_gib)
+                eval_end = observe(eval_unit, 'INDEPENDENT_EVAL_' + str(iteration))
+                summary_path = eval_dir / 'evaluation_summary.json'
+                valid = False
+                if summary_path.is_file():
+                    summary = json.loads(summary_path.read_text())
+                    valid = summary.get('unchanged') is True and summary.get('train_called') is False
+                milestone_results[str(iteration)] = dict(
+                    exit_code=eval_end[0], result=eval_end[1], stop_reason=eval_end[2], valid=valid,
+                    checkpoint=str(checkpoint.relative_to(mount)))
+            state['milestone_evaluations'] = milestone_results
+            state['eval_service'] = dict(status='COMPLETED' if all(
+                r.get('valid') for r in milestone_results.values()) else 'INCOMPLETE')
         else:
-            state['eval_service'] = dict(status='NOT_RUN', reason='no complete bundle or insufficient safe time/headroom')
-        evaluation_summary_path = mount / 'evaluation' / 'evaluation_summary.json'
-        evaluation_valid = False
-        if evaluation_summary_path.is_file():
-            evaluation_summary = json.loads(evaluation_summary_path.read_text())
-            evaluation_valid = (evaluation_summary.get('unchanged') is True
-                                and evaluation_summary.get('train_called') is False)
-        if (evaluation_valid and state.get('train_service', {}).get('exit_code') == '0'
-                and state.get('train_service', {}).get('result') == 'success'
-                and not state.get('train_service', {}).get('stop_reason')):
-            split_dir = args.split_type
-            run_id = unit_base
-            common_dir = SOURCE.parents[0] / 'runs' / split_dir / run_id
-            export = [PYTHON, str(SOURCE / 'scripts/export_common_results.py'),
-                '--training-dir', str(mount / 'training'), '--evaluation-dir', str(mount / 'evaluation'),
-                '--split-master', str(SOURCE.parents[1] / 'analysis/data/split_master.csv'),
-                '--sql-dir', str(SOURCE / 'queries/join-order-benchmark'), '--output-dir', str(common_dir),
-                '--run-id', run_id, '--code-commit', subprocess.check_output(
-                    ['git', 'rev-parse', 'HEAD'], cwd=str(SOURCE.parents[1]), text=True).strip(),
-             '--raw-training-log', str(mount / 'raw_train.log'), '--raw-eval-log', str(mount / 'raw_test.log')]
-            command(export)
-            state['common_results'] = str(common_dir)
+            state['milestone_evaluations'] = {}
+            state['eval_service'] = dict(status='NOT_RUN', reason='missing milestone bundle, failed training, or insufficient headroom')
+        evaluation_valid = (len(milestone_results) == 3 and all(
+            r.get('valid') for r in milestone_results.values()))
+        state['milestone_output_root'] = str((mount / 'milestones').relative_to(mount))
         events = []
         if (mount / 'phases.jsonl').exists():
             for line in (mount / 'phases.jsonl').read_text().splitlines():
@@ -395,8 +398,8 @@ def main():
             if e['stage'] == 'value_iteration' and e['event'] == 'END' and e.get('completed')})
         state['phase_timings'] = [e for e in events if e['event'] == 'END']
         state['fit_evidence'] = [json.loads(p.read_text()) for p in mount.glob('training/*/fit_evidence_*.json')]
-        state['status'] = ('COMPLETED_3_ITERATIONS_AND_EVAL' if len(state['completed_value_iterations']) == 3
-            and train_end == ('0', 'success', None) and state.get('common_results')
+        state['status'] = ('COMPLETED_10_ITERATIONS_AND_3_MILESTONE_EVALS' if len(state['completed_value_iterations']) == 10
+            and train_end == ('0', 'success', None) and evaluation_valid
             else 'STOPPED_OR_FAILED_PARTIAL')
     except BaseException as exc:
         state.update(status='SUPERVISOR_ERROR', error=repr(exc))

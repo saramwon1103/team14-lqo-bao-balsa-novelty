@@ -615,14 +615,14 @@ def build_split_overview_table() -> pd.DataFrame:
             record["Bao median E2E/PG"] = float(ratios.median()) if not ratios.empty else None
             record["Bao wins"] = int((ratios < 1).sum()) if not ratios.empty else 0
             record["Bao total E2E (s)"] = pd.to_numeric(bao_rows["bao_end_to_end_ms"], errors="coerce").sum() / 1000.0
-            record["PG@Bao total E2E (s)"] = pd.to_numeric(bao_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["PostgreSQL (Bao eval) total E2E (s)"] = pd.to_numeric(bao_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
         else:
             record.update({
                 "Bao comparable": 0,
                 "Bao median E2E/PG": None,
                 "Bao wins": 0,
                 "Bao total E2E (s)": None,
-                "PG@Bao total E2E (s)": None,
+                "PostgreSQL (Bao eval) total E2E (s)": None,
             })
 
         balsa_rows = split_comparable_rows(balsa_df, "balsa", split_type)
@@ -632,14 +632,14 @@ def build_split_overview_table() -> pd.DataFrame:
             record["Balsa median E2E/PG"] = float(ratios.median()) if not ratios.empty else None
             record["Balsa wins"] = int((ratios < 1).sum()) if not ratios.empty else 0
             record["Balsa total E2E (s)"] = pd.to_numeric(balsa_rows["balsa_end_to_end_ms"], errors="coerce").sum() / 1000.0
-            record["PG@Balsa total E2E (s)"] = pd.to_numeric(balsa_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["PostgreSQL (Balsa eval) total E2E (s)"] = pd.to_numeric(balsa_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
         else:
             record.update({
                 "Balsa comparable": 0,
                 "Balsa median E2E/PG": None,
                 "Balsa wins": 0,
                 "Balsa total E2E (s)": None,
-                "PG@Balsa total E2E (s)": None,
+                "PostgreSQL (Balsa eval) total E2E (s)": None,
             })
 
         records.append(record)
@@ -764,7 +764,7 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
 
         if not bao_rows.empty:
             rows = [
-                (f"{split_label} · PG@Bao", "Planning", pd.to_numeric(bao_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
+                (f"{split_label} · PostgreSQL (Bao eval)", "Planning", pd.to_numeric(bao_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
                 (f"{split_label} · Bao", "Planning + Bao inference", pd.to_numeric(bao_rows["bao_planning_ms"], errors="coerce").sum() / 1000.0),
             ]
             for row_label, component, seconds in rows:
@@ -774,7 +774,7 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
 
             execution_records.extend([
                 {
-                    "Row": f"{split_label} · PG@Bao",
+                    "Row": f"{split_label} · PostgreSQL (Bao eval)",
                     "Seconds": float(pd.to_numeric(bao_rows["pg_execution_ms"], errors="coerce").sum() / 1000.0),
                 },
                 {
@@ -784,7 +784,7 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
             ])
 
         if not balsa_rows.empty:
-            pg_row = f"{split_label} · PG@Balsa"
+            pg_row = f"{split_label} · PostgreSQL (Balsa eval)"
             balsa_row = f"{split_label} · Balsa"
             planning_records.extend([
                 {
@@ -952,10 +952,10 @@ def build_execution_evidence_summary() -> pd.DataFrame:
             "Train / Test": f"{len(train_queries)} / {len(test_queries)}",
             "Bao checkpoint": bao_checkpoint,
             "Bao eval": _status_summary(bao_rows),
-            "PG@Bao": _status_summary(bao_pg_rows),
+            "PostgreSQL (Bao eval)": _status_summary(bao_pg_rows),
             "Balsa checkpoint": balsa_checkpoint,
             "Balsa eval": _status_summary(balsa_rows),
-            "PG@Balsa": _status_summary(balsa_pg_rows),
+            "PostgreSQL (Balsa eval)": _status_summary(balsa_pg_rows),
             "Balsa eval isolation": " · ".join(eval_isolation) if eval_isolation else "N/A",
         })
 
@@ -1042,9 +1042,9 @@ def render_paper_protocol_replay() -> None:
             "Bao median E2E/PG": st.column_config.NumberColumn(format="%.3f×"),
             "Balsa median E2E/PG": st.column_config.NumberColumn(format="%.3f×"),
             "Bao total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
-            "PG@Bao total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
+            "PostgreSQL (Bao eval) total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
             "Balsa total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
-            "PG@Balsa total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
+            "PostgreSQL (Balsa eval) total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
         },
     )
 
@@ -1055,7 +1055,7 @@ def render_paper_protocol_replay() -> None:
     st.caption(
         "Bao: inference được tính trong planning · "
         "Balsa: inference/plan-search tách riêng trước PostgreSQL planning · "
-        "PG@Bao và PG@Balsa: baseline tương ứng của từng evaluation pipeline."
+        "PostgreSQL (Bao eval) và PostgreSQL (Balsa eval): baseline tương ứng của từng evaluation pipeline."
     )
     render_figure4_like_overview()
 

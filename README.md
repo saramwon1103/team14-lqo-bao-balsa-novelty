@@ -32,31 +32,24 @@ Trước tiên, mỗi mô hình được đánh giá trên tập Test chính th�
 
 `Bao_BASE / Balsa_BASE → Test_BASE`
 
-Kết quả này được sử dụng để tái lập benchmark và kiểm tra hiệu năng của từng LQO theo từng cách chia dữ liệu.
+Kết quả này được sử dụng cho team evaluation trên ba official Split-1
+(`LOO-1`, `Random-1`, `BaseQuery-1`). Đây là một subset của benchmark trong
+paper, không phải reproduction đầy đủ Figure 4 với toàn bộ các split.
 
-### Controlled Novelty Analysis
+### Structural Novelty Analysis
 
-Để phân tích ảnh hưởng của tập Train lên cùng một truy vấn kiểm thử, nhóm xác định:
+Ba official test set không có một tập giao chung đủ để giữ nguyên cùng một
+query qua cả ba split. Vì vậy Novelty được phân tích **trong từng split**.
 
-`Q_common = Test_LOO ∩ Test_RANDOM ∩ Test_BASE`
-
-Với mỗi query `q ∈ Q_common`, giữ nguyên query và chỉ thay đổi tập Train.
-
-Đối với mỗi split `s`:
+Với mỗi Test Query `q` của split `s`:
 
 `Novelty_s(q) = min D(q,h), h ∈ Train_s`
 
-Song song, query `q` được đánh giá bằng Bao và Balsa đã được huấn luyện trên chính `Train_s`.
+Song song, chính Test Query đó được đánh giá bằng Bao/Balsa tương ứng với
+split và so với PostgreSQL baseline của pipeline đó.
 
-Do đó một query sẽ tạo ra ba nhóm quan sát:
-
-`q + Train_LOO → Novelty_LOO + Performance_LOO`
-
-`q + Train_RANDOM → Novelty_RANDOM + Performance_RANDOM`
-
-`q + Train_BASE → Novelty_BASE + Performance_BASE`
-
-Novelty Score không được đưa vào mô hình LQO. Novelty và hiệu năng được tính độc lập, sau đó mới được ghép lại trong bước Data Mining.
+Novelty Score không được đưa vào mô hình LQO. Novelty và hiệu năng được tính
+độc lập, sau đó mới được ghép lại trong bước Data Mining.
 
 ### Final Analysis
 
@@ -77,6 +70,6 @@ Phân tích cuối tập trung vào mối quan hệ:
 
 và trả lời hai câu hỏi:
 
-**RQ1.** Cách tổ chức tập Train theo LOO, Random và Base Query ảnh hưởng như thế nào đến Novelty Score của cùng một test query?
+**RQ1.** Ba chiến lược LOO, Random và Base Query tạo ra mức Structural Novelty khác nhau như thế nào?
 
-**RQ2.** Khi Novelty Score thay đổi theo tập Train, hiệu năng của Bao và Balsa so với PostgreSQL thay đổi như thế nào?
+**RQ2.** Trong từng split, Structural Novelty có liên hệ như thế nào với hiệu năng của Bao/Balsa so với PostgreSQL?

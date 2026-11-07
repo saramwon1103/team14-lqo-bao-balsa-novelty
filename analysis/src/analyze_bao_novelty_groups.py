@@ -21,7 +21,14 @@ OUTPUT_FILE = (
 )
 
 
-def assign_novelty_groups(df):
+def split_thresholds(df):
+    """Return canonical split-level thresholds from all test observations."""
+    q33 = round(float(df["novelty"].quantile(1 / 3)), 6)
+    q67 = round(float(df["novelty"].quantile(2 / 3)), 6)
+    return q33, q67
+
+
+def assign_novelty_groups(df, q33, q67):
     """
     Chia Low / Medium / High Novelty TRONG TỪNG SPLIT.
 
@@ -34,9 +41,6 @@ def assign_novelty_groups(df):
     """
 
     df = df.copy()
-
-    q33 = df["novelty"].quantile(1 / 3)
-    q67 = df["novelty"].quantile(2 / 3)
 
     def classify(value):
         if value <= q33:
@@ -51,7 +55,7 @@ def assign_novelty_groups(df):
         .apply(classify)
     )
 
-    return df, q33, q67
+    return df
 
 
 def summarize_group(df, split, group):
@@ -153,14 +157,19 @@ def main():
 
     for split in split_order:
 
+        split_all = df[
+            df["split_type"] == split
+        ].copy()
+
         split_df = valid[
             valid["split_type"] == split
         ].copy()
 
-        grouped_df, q33, q67 = (
-            assign_novelty_groups(
-                split_df
-            )
+        q33, q67 = split_thresholds(split_all)
+        grouped_df = assign_novelty_groups(
+            split_df,
+            q33,
+            q67,
         )
 
         print(

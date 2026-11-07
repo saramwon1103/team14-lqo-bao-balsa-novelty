@@ -170,8 +170,28 @@ export PY=/path/to/balsa-env/bin/python
 ```
 
 Máy đã đo dùng CPU, PG shared_buffers=4GiB/work_mem=64MiB/parallel-query=2.
-Evaluator đặt session GEQO off, parallel-query=0 và timeout 30 giây cho cả
-hinted và baseline. Cache warm không kiểm soát, không drop cache/restart PG.
+Evaluator đặt GEQO off và parallel-query=0 **chỉ cho Balsa hinted query**.
+Native PostgreSQL baseline dùng một connection mới, giữ DB/session defaults và
+dùng cùng statement timeout. Cách tách connection này ngăn Balsa-only settings
+leak sang baseline. Cache warm không kiểm soát, không drop cache/restart PG.
+
+Lưu ý provenance: ba run chính đã publish (`balsa-v2-run-51121`,
+`balsa-v2-run-698900`, `balsa-v2-run-1308903`) được đo trước khi patch baseline
+isolation này. `run_manifest.json` của chúng được đánh dấu
+`legacy_same_session`; cần refresh/re-evaluate PostgreSQL baseline trước khi gọi
+đó là native PostgreSQL baseline đã được cô lập hoàn toàn.
+
+Nếu muốn giữ nguyên Balsa checkpoint/timing cũ và chỉ đo lại native PostgreSQL
+baseline, chạy script refresh riêng cho từng run, ví dụ:
+
+```bash
+"$PY" balsa/source/scripts/refresh_postgres_baseline.py \
+  --run-dir balsa/runs/LOO-1/balsa-v2-run-51121 \
+  --timeout-ms 30000
+```
+
+Sau đó chạy lại `analysis/src/merge_balsa_novelty.py` và các script phân tích
+Balsa. Script refresh không train lại Balsa và không thay Balsa timing/plan.
 
 ## Test riêng từ checkpoint, không cần trainer/simulator còn sống
 

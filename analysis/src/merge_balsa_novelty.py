@@ -1,4 +1,6 @@
 from pathlib import Path
+import json
+import re
 
 import numpy as np
 import pandas as pd
@@ -48,12 +50,78 @@ BALSA_RUNS = {
     ),
 }
 
+MAIN_TRAINING_ITERATIONS = 3
+MAIN_TRAINING_LABEL = "resource_constrained_3_iterations"
+
+
+def read_training_iterations(run_dir):
+    """Read and validate the training budget recorded by the run manifest."""
+    manifest_file = run_dir / "run_manifest.json"
+    if not manifest_file.exists():
+        raise FileNotFoundError(
+            f"Missing Balsa run manifest: {manifest_file}"
+        )
+
+    manifest = json.loads(
+        manifest_file.read_text(encoding="utf-8")
+    )
+    command = str(
+        manifest.get("training_command", "")
+    )
+    match = re.search(
+        r"(?:^|\s)--iterations\s+(\d+)(?:\s|$)",
+        command,
+    )
+    if not match:
+        raise ValueError(
+            f"Cannot determine --iterations from {manifest_file}"
+        )
+
+    iterations = int(match.group(1))
+    if iterations != MAIN_TRAINING_ITERATIONS:
+        raise ValueError(
+            f"Main Balsa analysis expects {MAIN_TRAINING_ITERATIONS} "
+            f"iterations, but {manifest_file} records {iterations}. "
+            "Keep 3/5/10 milestone runs in the sensitivity analysis, "
+            "not in the main Novelty merge."
+        )
+    return iterations
+
+
+def read_baseline_provenance(run_dir):
+    manifest_file = run_dir / "run_manifest.json"
+    manifest = json.loads(
+        manifest_file.read_text(encoding="utf-8")
+    )
+    info = manifest.get(
+        "postgres_baseline_session",
+        {},
+    )
+    connection = str(
+        info.get("connection", "unknown")
+    )
+    return connection, connection in {
+        "fresh",
+        "fresh_per_query",
+    }
+
 
 def load_balsa_runs():
     evaluation_frames = []
     postgres_frames = []
 
     for split_type, run_dir in BALSA_RUNS.items():
+
+        training_iterations = read_training_iterations(
+            run_dir
+        )
+
+        (
+            pg_baseline_session,
+            pg_baseline_isolated,
+        ) = read_baseline_provenance(
+            run_dir
+        )
 
         evaluation_file = (
             run_dir
@@ -81,9 +149,25 @@ def load_balsa_runs():
             evaluation_file
         )
 
+        evaluation[
+            "balsa_training_iterations"
+        ] = training_iterations
+
+        evaluation[
+            "balsa_training_label"
+        ] = MAIN_TRAINING_LABEL
+
         postgres = pd.read_csv(
             postgres_file
         )
+
+        postgres[
+            "pg_baseline_session"
+        ] = pg_baseline_session
+
+        postgres[
+            "pg_baseline_isolated"
+        ] = pg_baseline_isolated
 
         # Validate split
         if not (
@@ -195,6 +279,8 @@ def main():
             "timeout_ms",
             "chosen_plan_id",
             "error",
+            "balsa_training_iterations",
+            "balsa_training_label",
         ]
     ].rename(
         columns={
@@ -230,17 +316,6 @@ def main():
         }
     )
 
-    # Current experiment budget
-    balsa[
-        "balsa_training_iterations"
-    ] = 3
-
-    balsa[
-        "balsa_training_label"
-    ] = (
-        "resource_constrained_3_iterations"
-    )
-
     # ========================================================
     # 4. SELECT POSTGRESQL COLUMNS
     # ========================================================
@@ -255,6 +330,8 @@ def main():
             "end_to_end_ms",
             "status",
             "timeout_ms",
+            "pg_baseline_session",
+            "pg_baseline_isolated",
         ]
     ].rename(
         columns={

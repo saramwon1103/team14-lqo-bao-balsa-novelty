@@ -86,6 +86,19 @@ def validate_exported_run(run_dir, split_type):
             vals=[float(row[k]) for k in ('planning_ms','inference_ms','execution_ms')]
             if abs(float(row['end_to_end_ms'])-sum(vals))>1e-6:
                 raise ValueError('E2E mapping differs from V2 timing contract')
+    for row in postgres:
+        timing_keys=('planning_ms','execution_ms','end_to_end_ms')
+        if row['status']=='OK':
+            if not all(row[k] for k in timing_keys):
+                raise ValueError('OK PostgreSQL row missing timing')
+            if abs(float(row['end_to_end_ms'])-
+                   (float(row['planning_ms'])+float(row['execution_ms'])))>1e-6:
+                raise ValueError('PostgreSQL E2E differs from planning + execution')
+        elif row['status'] in ('TIMEOUT','ERROR','NOT_RUN'):
+            if any(row[k] for k in timing_keys):
+                raise ValueError('Unmeasured/failed PostgreSQL row contains fabricated timing')
+        else:
+            raise ValueError('Unknown PostgreSQL status: '+row['status'])
     checkpoint=read('checkpoint_manifest.csv',CHECKPOINT_FIELDS)
     if len(checkpoint)!=1 or not (root/checkpoint[0]['path']).is_file():
         raise ValueError('Checkpoint manifest path does not resolve to artifact')
@@ -102,7 +115,26 @@ def v2_split_name(protocol):
 
 
 def status_v2(value):
-    return {'COMPLETED':'OK','HINT_MISMATCH':'ERROR','OK':'OK','TIMEOUT':'TIMEOUT','ERROR':'ERROR'}.get(value,'ERROR')
+    return {
+        'COMPLETED':'OK',
+        'HINT_MISMATCH':'ERROR',
+        'OK':'OK',
+        'TIMEOUT':'TIMEOUT',
+        'ERROR':'ERROR',
+        'NOT_RUN':'NOT_RUN',
+    }.get(value,'ERROR')
+
+
+def baseline_status_v2(value):
+    """Normalize PostgreSQL baseline status without inventing an error.
+
+    Legacy Balsa rows left ``baseline_status`` blank when the hinted Balsa
+    execution timed out before the baseline statement was reached.  Blank in
+    that situation means "not measured", not "PostgreSQL error".
+    """
+    if value in ('', None):
+        return 'NOT_RUN'
+    return status_v2(value)
 
 
 def query_stem(value):
@@ -197,8 +229,8 @@ def export_run(training_dir, evaluation_dir, source_csv, sql_dir, output_dir,
             query_id=row['query_id'],family=row['family'],checkpoint_id=checkpoint_id,
             planning_ms=vals['postgres_hinted_planning_ms'],inference_ms=vals['balsa_planning_ms'],
             execution_ms=vals['execution_ms'],end_to_end_ms=e2e,status=status,timeout_ms=timeout,
-            chosen_plan_id=plan_id or '',error=raw.get('error_message','') or raw.get('baseline_error','')))
-        baseline_status=status_v2(raw.get('baseline_status','ERROR'))
+            chosen_plan_id=plan_id or '',error=raw.get('error_message','')))
+        baseline_status=baseline_status_v2(raw.get('baseline_status'))
         bp=raw.get('postgres_baseline_planning_ms')
         be=raw.get('postgres_baseline_execution_ms')
         baseline_ok=baseline_status=='OK' and bp not in ('',None) and be not in ('',None)
@@ -292,9 +324,16 @@ def export_run(training_dir, evaluation_dir, source_csv, sql_dir, output_dir,
             except UnicodeDecodeError: continue
             if '/home/wings/' in text or '/tmp/opencode/' in text:
                 raise ValueError('Absolute machine path leaked into exported artifact: '+str(path))
+    env=json.loads((evaluation_dir/'environment.json').read_text())
     if pg_version is None:
-        env=json.loads((evaluation_dir/'environment.json').read_text())
         pg_version=env.get('connection',[None,None,'unknown'])[2]
+    postgres_baseline_session=env.get('postgres_baseline_session')
+    if postgres_baseline_session is None:
+        postgres_baseline_session=dict(
+            connection='legacy_same_session',
+            note=('Evaluator artifact predates baseline isolation. PostgreSQL baseline '
+                  'may inherit Balsa-only session overrides; refresh/re-evaluate before '
+                  'claiming a native PostgreSQL baseline.'))
     evidence_paths=list(training_dir.rglob('fit_evidence_*.json'))
     fit_steps=[];real_update=False
     for path in evidence_paths:
@@ -329,6 +368,7 @@ def export_run(training_dir, evaluation_dir, source_csv, sql_dir, output_dir,
         split_manifest_sha256=manifest['sha256'],evaluation_pid=evaluation.get('process_id'),
         train_called_during_eval=evaluation.get('train_called'),weights_unchanged=evaluation.get('unchanged'),
         training_trace_source='team_run',timing_contract='V2: inference + hinted PostgreSQL planning + execution',
+        postgres_baseline_session=postgres_baseline_session,
         novelty_join_audit=novelty_audit,
         evaluation_status_counts={s:sum(r['status']==s for r in evaluation_rows) for s in sorted({r['status'] for r in evaluation_rows})},
         postgres_status_counts={s:sum(r['status']==s for r in base) for s in sorted({r['status'] for r in base})})

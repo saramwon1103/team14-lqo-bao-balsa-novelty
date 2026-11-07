@@ -98,10 +98,19 @@ def main():
         connection = list(cur.fetchone())
         cur.execute('show data_directory')
         connection.append(cur.fetchone()[0])
+        cur.execute('show geqo')
+        native_geqo = cur.fetchone()[0]
+        cur.execute('show max_parallel_workers_per_gather')
+        native_parallel_workers_per_gather = cur.fetchone()[0]
     with open(os.path.join(args.output_dir, 'environment.json'), 'w') as f:
         json.dump(dict(connection=connection, cache_policy='uncontrolled warm; no cache drop',
                        seed=args.seed, process_id=os.getpid(),
-                       boundary='Balsa encoding/search/selection + PG Planning Time + Execution Time; wall clock separately; baseline same session settings'), f, indent=2)
+                       boundary='Balsa encoding/search/selection + PG Planning Time + Execution Time; wall clock separately',
+                       balsa_session_overrides=dict(geqo='off', max_parallel_workers_per_gather='0'),
+                       postgres_baseline_session=dict(
+                           connection='fresh', geqo=native_geqo,
+                           max_parallel_workers_per_gather=native_parallel_workers_per_gather,
+                           statement_timeout_ms=args.timeout_ms)), f, indent=2)
     with open(os.path.join(args.output_dir, 'balsa_results.csv'), 'w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=FIELDS)
         writer.writeheader()
@@ -111,7 +120,10 @@ def main():
                            split_id=manifest['split_id'], fold_id=manifest['fold_id'],
                            seed=args.seed, query_id=node.info['query_name'], repeat_id=repeat,
                            checkpoint_sha256=checkpoint_hash, split_sha256=split_hash,
-                           result_source='MEASURED', timeout_ms=args.timeout_ms)
+                           result_source='MEASURED', timeout_ms=args.timeout_ms,
+                           baseline_status='NOT_RUN')
+                sql = node.info['sql_str']
+                stem = '{}_repeat_{}'.format(row['query_id'], repeat)
                 start = time.perf_counter()
                 try:
                     with torch.no_grad():
@@ -124,8 +136,6 @@ def main():
                     row['chosen_plan_id'] = 'plan_' + hashlib.sha256(hint.encode('utf-8')).hexdigest()[:16]
                     predictions.append(dict(query_id=row['query_id'], repeat_id=repeat,
                                             predicted_latency_ms=float(prediction), hint=hint))
-                    sql = node.info['sql_str']
-                    stem = '{}_repeat_{}'.format(row['query_id'], repeat)
                     sqlpath = os.path.join(plans_dir, stem + '_hinted.sql')
                     jsonpath = os.path.join(plans_dir, stem + '_explain.json')
                     with open(sqlpath, 'w') as out:
@@ -147,28 +157,10 @@ def main():
                                    status='COMPLETED' if respected else 'HINT_MISMATCH',
                                    postgres_hinted_planning_ms=document.get('Planning Time'),
                                    execution_ms=document.get('Execution Time'))
-                        baseline = {}
-                        try:
-                            cur.execute('EXPLAIN (VERBOSE, ANALYZE, FORMAT JSON)\n' + sql)
-                            baseline = normalize_explain(cur.fetchall())
-                            row['baseline_status'] = 'COMPLETED'
-                            with open(os.path.join(plans_dir, stem + '_baseline.json'), 'w') as out:
-                                json.dump(baseline, out, indent=2)
-                        except Exception as exc:
-                            row['baseline_status'] = ('TIMEOUT' if getattr(exc, 'pgcode', None) == '57014' else 'ERROR')
-                            row['baseline_error'] = str(exc)
-                    bp, be = baseline.get('Planning Time'), baseline.get('Execution Time')
-                    row.update(postgres_baseline_planning_ms=bp,
-                               postgres_baseline_execution_ms=be)
                     if all(row.get(k) is not None for k in
                            ('balsa_planning_ms', 'postgres_hinted_planning_ms', 'execution_ms')):
                         row['end_to_end_ms'] = sum(row[k] for k in
                             ('balsa_planning_ms', 'postgres_hinted_planning_ms', 'execution_ms'))
-                    if bp is not None and be is not None:
-                        row['postgres_baseline_end_to_end_ms'] = bp + be
-                        if respected and row.get('end_to_end_ms') and row.get('execution_ms'):
-                            row['speedup_execution'] = be / row['execution_ms']
-                            row['speedup_end_to_end'] = (bp + be) / row['end_to_end_ms']
                     if not respected:
                         errors += 1
                 except Exception as exc:
@@ -176,6 +168,34 @@ def main():
                                else 'ERROR', error_message=str(exc))
                     errors += 1
                     print('EVAL ERROR:', row['query_id'], exc, file=sys.stderr)
+
+                # Measure native PostgreSQL independently from the Balsa execution.
+                # A fresh connection prevents Balsa-only session settings (GEQO off,
+                # parallel workers disabled, and pg_hint_plan state) from leaking into
+                # the PostgreSQL baseline.  The baseline is still attempted when the
+                # Balsa plan times out so that model failure does not erase PG coverage.
+                baseline = {}
+                try:
+                    with pg_executor.Cursor() as baseline_cur:
+                        baseline_cur.execute('set statement_timeout={}'.format(args.timeout_ms))
+                        baseline_cur.execute('EXPLAIN (VERBOSE, ANALYZE, FORMAT JSON)\n' + sql)
+                        baseline = normalize_explain(baseline_cur.fetchall())
+                    row['baseline_status'] = 'COMPLETED'
+                    with open(os.path.join(plans_dir, stem + '_baseline.json'), 'w') as out:
+                        json.dump(baseline, out, indent=2)
+                except Exception as exc:
+                    row['baseline_status'] = ('TIMEOUT' if getattr(exc, 'pgcode', None) == '57014' else 'ERROR')
+                    row['baseline_error'] = str(exc)
+
+                bp, be = baseline.get('Planning Time'), baseline.get('Execution Time')
+                row.update(postgres_baseline_planning_ms=bp,
+                           postgres_baseline_execution_ms=be)
+                if bp is not None and be is not None:
+                    row['postgres_baseline_end_to_end_ms'] = bp + be
+                    if (row.get('status') == 'COMPLETED' and row.get('hint_respected')
+                            and row.get('end_to_end_ms') and row.get('execution_ms')):
+                        row['speedup_execution'] = be / row['execution_ms']
+                        row['speedup_end_to_end'] = (bp + be) / row['end_to_end_ms']
                 writer.writerow(row)
                 f.flush()
                 with open(logpath, 'a') as log:

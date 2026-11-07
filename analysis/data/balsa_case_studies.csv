@@ -1,8 +1,8 @@
 case_type,split_type,split_id,query_id,novelty,novelty_group,nearest_train_query,balsa_status,pg_status,balsa_end_to_end_ms,pg_end_to_end_ms,balsa_vs_pg_ratio,winner,interpretation
 HIGH_NOVELTY_WORST_SLOWDOWN,Random,1,q6c,0.166667,High,q6b,OK,OK,3855.7384790011024,7.113,542.069236468593,PostgreSQL,High Novelty đi cùng mức slowdown Balsa/PG rất lớn.
 LOW_NOVELTY_WORST_SLOWDOWN,LOO,1,q21c,0.0,Low,q21a,OK,OK,2476.686061001058,28.839,85.87974829227984,PostgreSQL,Novelty thấp nhưng Balsa vẫn chậm đáng kể; Novelty không phải yếu tố duy nhất.
-BALSA_TIMEOUT,LOO,1,q16c,0.083333,Medium,q16a,TIMEOUT,ERROR,,,,Not comparable,Balsa timeout dù Novelty không nhất thiết thuộc nhóm cao.
-BALSA_TIMEOUT,LOO,1,q6b,0.0,Low,q6d,TIMEOUT,ERROR,,,,Not comparable,Balsa timeout dù Novelty không nhất thiết thuộc nhóm cao.
+BALSA_TIMEOUT,LOO,1,q16c,0.083333,Medium,q16a,TIMEOUT,NOT_RUN,,,,Not comparable,Balsa timeout dù Novelty không nhất thiết thuộc nhóm cao.
+BALSA_TIMEOUT,LOO,1,q6b,0.0,Low,q6d,TIMEOUT,NOT_RUN,,,,Not comparable,Balsa timeout dù Novelty không nhất thiết thuộc nhóm cao.
 BEST_BALSA_RELATIVE_PERFORMANCE,Random,1,q2c,0.0,Low,q2a,OK,OK,254.9559250007524,233.892,1.090058338894671,PostgreSQL,Query có Balsa/PG thấp nhất trong cấu hình 3 iterations.
 HIGH_NOVELTY_LOO,LOO,1,q15b,0.125,High,q15a,OK,OK,3360.8844430002828,16.127,208.40109400386203,PostgreSQL,High-Novelty representative case của LOO.
 HIGH_NOVELTY_RANDOM,Random,1,q6c,0.166667,High,q6b,OK,OK,3855.7384790011024,7.113,542.069236468593,PostgreSQL,High-Novelty representative case của Random.

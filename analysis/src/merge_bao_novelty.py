@@ -52,22 +52,30 @@ def main():
             "split_type",
             "split_id",
             "query_id",
+            "run_id",
+            "checkpoint_id",
             "planning_ms",
             "execution_ms",
             "end_to_end_ms",
             "status",
             "timeout_ms",
             "chosen_plan_id",
+            "chosen_plan_ids",
+            "warning",
             "error",
         ]
     ].rename(
         columns={
             "planning_ms": "bao_planning_ms",
+            "run_id": "bao_run_id",
+            "checkpoint_id": "bao_checkpoint_id",
             "execution_ms": "bao_execution_ms",
             "end_to_end_ms": "bao_end_to_end_ms",
             "status": "bao_status",
             "timeout_ms": "bao_timeout_ms",
             "chosen_plan_id": "bao_chosen_plan_id",
+            "chosen_plan_ids": "bao_chosen_plan_ids",
+            "warning": "bao_warning",
             "error": "bao_error",
         }
     )

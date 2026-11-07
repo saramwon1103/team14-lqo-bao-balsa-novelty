@@ -13,8 +13,8 @@ Bao và Balsa cần xuất kết quả về cùng schema tối thiểu.
 | inference_ms | Thời gian suy luận nếu đo riêng |
 | execution_ms | Thời gian thực thi |
 | end_to_end_ms | Thời gian đầu cuối |
-| status | COMPLETED / TIMEOUT / ERROR |
+| status | OK / TIMEOUT / ERROR / NOT_RUN (`NOT_RUN` dùng khi phép đo đó chưa thực sự được thực thi) |
 | plan_path | Đường dẫn plan hoặc log |
-| model_source | trained_by_team / author_checkpoint |
+| model_source | team_trained / author_checkpoint |
 
 Đơn vị thời gian thống nhất: millisecond (ms).

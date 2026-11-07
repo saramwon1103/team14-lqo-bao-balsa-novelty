@@ -52,5 +52,9 @@
     "statuses": {
       "OK": 22
     }
+  },
+  "postgres_baseline_session": {
+    "connection": "legacy_same_session",
+    "note": "This published run predates Stage-A baseline isolation. Native PostgreSQL baseline was measured after Balsa session overrides in the same evaluator cursor; re-evaluation/refresh is required before claiming a fully isolated native PostgreSQL baseline."
   }
 }

@@ -31,8 +31,11 @@ def assign_novelty_group(group):
 
     group = group.copy()
 
-    q33 = group["novelty"].quantile(1 / 3)
-    q67 = group["novelty"].quantile(2 / 3)
+    # novelty.csv is stored at 6 decimal places.  Round the quantile cutoffs
+    # to the same precision before comparison so values that are textually
+    # equal to a cutoff are not split by floating-point representation noise.
+    q33 = round(float(group["novelty"].quantile(1 / 3)), 6)
+    q67 = round(float(group["novelty"].quantile(2 / 3)), 6)
 
     conditions = [
         group["novelty"] <= q33,

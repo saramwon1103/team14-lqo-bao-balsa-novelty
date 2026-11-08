@@ -1,0 +1,2859 @@
+﻿Folder PATH listing for volume New Volume
+Volume serial number is FEFA-8E35
+D:\TEAM14-LQO-BAO-BALSA-NOVELTY
+|   .gitattributes
+|   .gitignore
+|   CONTRIBUTING.md
+|   PUSH_TO_GITHUB.md
+|   README.md
+|   THIRD_PARTY_NOTICES.md
+|   
++---analysis
+|   |   README.md
+|   |   
+|   +---data
+|   |       .gitkeep
+|   |       balsa_case_studies.csv
+|   |       balsa_novelty_group_summary.csv
+|   |       balsa_novelty_performance.csv
+|   |       balsa_spearman_summary.csv
+|   |       bao_case_studies.csv
+|   |       bao_complexity_by_novelty_group.csv
+|   |       bao_complexity_correlations.csv
+|   |       bao_novelty_complexity.csv
+|   |       bao_novelty_group_summary.csv
+|   |       bao_novelty_performance.csv
+|   |       bao_spearman_summary.csv
+|   |       novelty.csv
+|   |       novelty_pairs.csv
+|   |       query_features.csv
+|   |       split_master.csv
+|   |       
+|   +---notebooks
+|   |       .gitkeep
+|   |       
+|   \---src
+|       |   .gitkeep
+|       |   analyze_balsa_case_studies.py
+|       |   analyze_balsa_novelty_groups.py
+|       |   analyze_balsa_spearman.py
+|       |   analyze_bao_case_studies.py
+|       |   analyze_bao_complexity.py
+|       |   analyze_bao_novelty_groups.py
+|       |   analyze_bao_spearman.py
+|       |   analyze_novelty.py
+|       |   build_split_master.py
+|       |   compute_novelty.py
+|       |   extract_query_features.py
+|       |   merge_balsa_novelty.py
+|       |   merge_bao_novelty.py
+|       |   merge_results.py
+|       |   
+|       \---__pycache__
+|               analyze_balsa_novelty_groups.cpython-311.pyc
+|               analyze_bao_novelty_groups.cpython-311.pyc
+|               merge_balsa_novelty.cpython-311.pyc
+|               merge_bao_novelty.cpython-311.pyc
+|               
++---balsa
+|   |   environment.txt
+|   |   PUBLISHED_MANIFEST.json
+|   |   README.md
+|   |   README_BASEQUERY1.md
+|   |   SOURCE_PROVENANCE.md
+|   |   
+|   +---checkpoint
+|   |   |   .gitkeep
+|   |   |   
+|   |   +---loo_template_fold02_seed0
+|   |   |       evaluation.pt
+|   |   |       evaluation.pt.json
+|   |   |       
+|   |   \---random52_seed0
+|   |           evaluation.pt
+|   |           evaluation.pt.json
+|   |           
+|   +---logs
+|   |       .gitkeep
+|   |       
+|   +---results
+|   |   |   .gitkeep
+|   |   |   
+|   |   \---acceptance_loo02_random_seed0
+|   |       |   AUDIT.json
+|   |       |   correctness_crosscheck.json
+|   |       |   FINAL_RESOURCE_AUDIT.json
+|   |       |   final_unit_tests_verified.log
+|   |       |   HANDOFF.md
+|   |       |   package_unit_tests.log
+|   |       |   published_tests.log
+|   |       |   reload_and_plan_audit.json
+|   |       |   
+|   |       +---A_fold02_retry2
+|   |       |   |   eval-A_fold02_retry2.log
+|   |       |   |   experiment.log
+|   |       |   |   phases.jsonl
+|   |       |   |   postgres_baseline.csv
+|   |       |   |   train-A_fold02_retry2.log
+|   |       |   |   
+|   |       |   +---evaluation
+|   |       |   |   |   balsa_results.csv
+|   |       |   |   |   config.txt
+|   |       |   |   |   environment.json
+|   |       |   |   |   evaluation_summary.json
+|   |       |   |   |   experiment.log
+|   |       |   |   |   postgres_baseline.csv
+|   |       |   |   |   predictions.json
+|   |       |   |   |   split.json
+|   |       |   |   |   
+|   |       |   |   \---plans
+|   |       |   |           2a_repeat_0_baseline.json
+|   |       |   |           2a_repeat_0_explain.json
+|   |       |   |           2a_repeat_0_hinted.sql
+|   |       |   |           2b_repeat_0_baseline.json
+|   |       |   |           2b_repeat_0_explain.json
+|   |       |   |           2b_repeat_0_hinted.sql
+|   |       |   |           2c_repeat_0_baseline.json
+|   |       |   |           2c_repeat_0_explain.json
+|   |       |   |           2c_repeat_0_hinted.sql
+|   |       |   |           2d_repeat_0_baseline.json
+|   |       |   |           2d_repeat_0_explain.json
+|   |       |   |           2d_repeat_0_hinted.sql
+|   |       |   |           
+|   |       |   \---training
+|   |       |       |   config.txt
+|   |       |       |   expert_provenance.json
+|   |       |       |   fit_evidence_0.json
+|   |       |       |   fit_evidence_1.json
+|   |       |       |   fit_evidence_2.json
+|   |       |       |   preflight.log
+|   |       |       |   split.json
+|   |       |       |   training_summary.json
+|   |       |       |   
+|   |       |       \---iterations
+|   |       |               value_iter_0000.json
+|   |       |               value_iter_0001.json
+|   |       |               value_iter_0002.json
+|   |       |               
+|   |       \---B_random52_retry2
+|   |           |   eval-B_random52_retry2.log
+|   |           |   experiment.log
+|   |           |   phases.jsonl
+|   |           |   train-B_random52_retry2.log
+|   |           |   
+|   |           +---evaluation
+|   |           |   |   balsa_results.csv
+|   |           |   |   config.txt
+|   |           |   |   environment.json
+|   |           |   |   evaluation_summary.json
+|   |           |   |   experiment.log
+|   |           |   |   postgres_baseline.csv
+|   |           |   |   predictions.json
+|   |           |   |   split.json
+|   |           |   |   
+|   |           |   \---plans
+|   |           |           10a_repeat_0_baseline.json
+|   |           |           10a_repeat_0_explain.json
+|   |           |           10a_repeat_0_hinted.sql
+|   |           |           10b_repeat_0_baseline.json
+|   |           |           10b_repeat_0_explain.json
+|   |           |           10b_repeat_0_hinted.sql
+|   |           |           12b_repeat_0_baseline.json
+|   |           |           12b_repeat_0_explain.json
+|   |           |           12b_repeat_0_hinted.sql
+|   |           |           15a_repeat_0_baseline.json
+|   |           |           15a_repeat_0_explain.json
+|   |           |           15a_repeat_0_hinted.sql
+|   |           |           15b_repeat_0_baseline.json
+|   |           |           15b_repeat_0_explain.json
+|   |           |           15b_repeat_0_hinted.sql
+|   |           |           15d_repeat_0_baseline.json
+|   |           |           15d_repeat_0_explain.json
+|   |           |           15d_repeat_0_hinted.sql
+|   |           |           16a_repeat_0_baseline.json
+|   |           |           16a_repeat_0_explain.json
+|   |           |           16a_repeat_0_hinted.sql
+|   |           |           17c_repeat_0_baseline.json
+|   |           |           17c_repeat_0_explain.json
+|   |           |           17c_repeat_0_hinted.sql
+|   |           |           17e_repeat_0_baseline.json
+|   |           |           17e_repeat_0_explain.json
+|   |           |           17e_repeat_0_hinted.sql
+|   |           |           20a_repeat_0_baseline.json
+|   |           |           20a_repeat_0_explain.json
+|   |           |           20a_repeat_0_hinted.sql
+|   |           |           22b_repeat_0_baseline.json
+|   |           |           22b_repeat_0_explain.json
+|   |           |           22b_repeat_0_hinted.sql
+|   |           |           22c_repeat_0_baseline.json
+|   |           |           22c_repeat_0_explain.json
+|   |           |           22c_repeat_0_hinted.sql
+|   |           |           24b_repeat_0_baseline.json
+|   |           |           24b_repeat_0_explain.json
+|   |           |           24b_repeat_0_hinted.sql
+|   |           |           26b_repeat_0_baseline.json
+|   |           |           26b_repeat_0_explain.json
+|   |           |           26b_repeat_0_hinted.sql
+|   |           |           2a_repeat_0_baseline.json
+|   |           |           2a_repeat_0_explain.json
+|   |           |           2a_repeat_0_hinted.sql
+|   |           |           30c_repeat_0_baseline.json
+|   |           |           30c_repeat_0_explain.json
+|   |           |           30c_repeat_0_hinted.sql
+|   |           |           4b_repeat_0_baseline.json
+|   |           |           4b_repeat_0_explain.json
+|   |           |           4b_repeat_0_hinted.sql
+|   |           |           4c_repeat_0_baseline.json
+|   |           |           4c_repeat_0_explain.json
+|   |           |           4c_repeat_0_hinted.sql
+|   |           |           8a_repeat_0_baseline.json
+|   |           |           8a_repeat_0_explain.json
+|   |           |           8a_repeat_0_hinted.sql
+|   |           |           
+|   |           \---training
+|   |               |   config.txt
+|   |               |   fit_evidence_0.json
+|   |               |   fit_evidence_1.json
+|   |               |   fit_evidence_2.json
+|   |               |   preflight.log
+|   |               |   split.json
+|   |               |   training_summary.json
+|   |               |   
+|   |               \---iterations
+|   |                       value_iter_0000.json
+|   |                       value_iter_0001.json
+|   |                       value_iter_0002.json
+|   |                       
+|   +---runs
+|   |   +---BaseQuery-1
+|   |   |   +---balsa-v2-run-12635
+|   |   |   |   |   checkpoint_manifest.csv
+|   |   |   |   |   connections.jsonl
+|   |   |   |   |   milestone_comparison.csv
+|   |   |   |   |   novelty_join.csv
+|   |   |   |   |   phases.jsonl
+|   |   |   |   |   raw_test_10.log
+|   |   |   |   |   raw_test_3.log
+|   |   |   |   |   raw_test_5.log
+|   |   |   |   |   raw_train.log
+|   |   |   |   |   REPORT.md
+|   |   |   |   |   resource_summary.json
+|   |   |   |   |   resource_summary_errata.json
+|   |   |   |   |   run_manifest.json
+|   |   |   |   |   
+|   |   |   |   +---evaluations
+|   |   |   |   |   +---iteration-10
+|   |   |   |   |   |   |   balsa_results.csv
+|   |   |   |   |   |   |   config.txt
+|   |   |   |   |   |   |   environment.json
+|   |   |   |   |   |   |   evaluation_summary.json
+|   |   |   |   |   |   |   experiment.log
+|   |   |   |   |   |   |   predictions.json
+|   |   |   |   |   |   |   split.json
+|   |   |   |   |   |   |   
+|   |   |   |   |   |   \---plans
+|   |   |   |   |   |           15a_repeat_0_hinted.sql
+|   |   |   |   |   |           15b_repeat_0_hinted.sql
+|   |   |   |   |   |           15c_repeat_0_hinted.sql
+|   |   |   |   |   |           15d_repeat_0_hinted.sql
+|   |   |   |   |   |           24a_repeat_0_hinted.sql
+|   |   |   |   |   |           24b_repeat_0_hinted.sql
+|   |   |   |   |   |           25a_repeat_0_hinted.sql
+|   |   |   |   |   |           25b_repeat_0_hinted.sql
+|   |   |   |   |   |           25c_repeat_0_hinted.sql
+|   |   |   |   |   |           2a_repeat_0_hinted.sql
+|   |   |   |   |   |           2b_repeat_0_hinted.sql
+|   |   |   |   |   |           2c_repeat_0_hinted.sql
+|   |   |   |   |   |           2d_repeat_0_hinted.sql
+|   |   |   |   |   |           31a_repeat_0_hinted.sql
+|   |   |   |   |   |           31b_repeat_0_hinted.sql
+|   |   |   |   |   |           31c_repeat_0_hinted.sql
+|   |   |   |   |   |           7a_repeat_0_hinted.sql
+|   |   |   |   |   |           7b_repeat_0_hinted.sql
+|   |   |   |   |   |           7c_repeat_0_hinted.sql
+|   |   |   |   |   |           
+|   |   |   |   |   +---iteration-3
+|   |   |   |   |   |   |   balsa_results.csv
+|   |   |   |   |   |   |   config.txt
+|   |   |   |   |   |   |   environment.json
+|   |   |   |   |   |   |   evaluation_summary.json
+|   |   |   |   |   |   |   experiment.log
+|   |   |   |   |   |   |   predictions.json
+|   |   |   |   |   |   |   split.json
+|   |   |   |   |   |   |   
+|   |   |   |   |   |   \---plans
+|   |   |   |   |   |           15a_repeat_0_hinted.sql
+|   |   |   |   |   |           15b_repeat_0_hinted.sql
+|   |   |   |   |   |           15c_repeat_0_hinted.sql
+|   |   |   |   |   |           15d_repeat_0_hinted.sql
+|   |   |   |   |   |           24a_repeat_0_hinted.sql
+|   |   |   |   |   |           24b_repeat_0_hinted.sql
+|   |   |   |   |   |           25a_repeat_0_hinted.sql
+|   |   |   |   |   |           25b_repeat_0_hinted.sql
+|   |   |   |   |   |           25c_repeat_0_hinted.sql
+|   |   |   |   |   |           2a_repeat_0_hinted.sql
+|   |   |   |   |   |           2b_repeat_0_hinted.sql
+|   |   |   |   |   |           2c_repeat_0_hinted.sql
+|   |   |   |   |   |           2d_repeat_0_hinted.sql
+|   |   |   |   |   |           31a_repeat_0_hinted.sql
+|   |   |   |   |   |           31b_repeat_0_hinted.sql
+|   |   |   |   |   |           31c_repeat_0_hinted.sql
+|   |   |   |   |   |           7a_repeat_0_hinted.sql
+|   |   |   |   |   |           7b_repeat_0_hinted.sql
+|   |   |   |   |   |           7c_repeat_0_hinted.sql
+|   |   |   |   |   |           
+|   |   |   |   |   \---iteration-5
+|   |   |   |   |       |   balsa_results.csv
+|   |   |   |   |       |   config.txt
+|   |   |   |   |       |   environment.json
+|   |   |   |   |       |   evaluation_summary.json
+|   |   |   |   |       |   experiment.log
+|   |   |   |   |       |   predictions.json
+|   |   |   |   |       |   split.json
+|   |   |   |   |       |   
+|   |   |   |   |       \---plans
+|   |   |   |   |               15a_repeat_0_hinted.sql
+|   |   |   |   |               15b_repeat_0_hinted.sql
+|   |   |   |   |               15c_repeat_0_hinted.sql
+|   |   |   |   |               15d_repeat_0_hinted.sql
+|   |   |   |   |               24a_repeat_0_hinted.sql
+|   |   |   |   |               24b_repeat_0_hinted.sql
+|   |   |   |   |               25a_repeat_0_hinted.sql
+|   |   |   |   |               25b_repeat_0_hinted.sql
+|   |   |   |   |               25c_repeat_0_hinted.sql
+|   |   |   |   |               2a_repeat_0_hinted.sql
+|   |   |   |   |               2b_repeat_0_hinted.sql
+|   |   |   |   |               2c_repeat_0_hinted.sql
+|   |   |   |   |               2d_repeat_0_hinted.sql
+|   |   |   |   |               31a_repeat_0_hinted.sql
+|   |   |   |   |               31b_repeat_0_hinted.sql
+|   |   |   |   |               31c_repeat_0_hinted.sql
+|   |   |   |   |               7a_repeat_0_hinted.sql
+|   |   |   |   |               7b_repeat_0_hinted.sql
+|   |   |   |   |               7c_repeat_0_hinted.sql
+|   |   |   |   |               
+|   |   |   |   +---milestones
+|   |   |   |   |   +---iteration-10
+|   |   |   |   |   |       evaluation.pt
+|   |   |   |   |   |       evaluation.pt.json
+|   |   |   |   |   |       
+|   |   |   |   |   +---iteration-3
+|   |   |   |   |   |       evaluation.pt
+|   |   |   |   |   |       evaluation.pt.json
+|   |   |   |   |   |       
+|   |   |   |   |   \---iteration-5
+|   |   |   |   |           evaluation.pt
+|   |   |   |   |           evaluation.pt.json
+|   |   |   |   |           
+|   |   |   |   \---training
+|   |   |   |       |   config.txt
+|   |   |   |       |   connections.jsonl
+|   |   |   |       |   local_metrics.jsonl
+|   |   |   |       |   preflight.log
+|   |   |   |       |   run_provenance.json
+|   |   |   |       |   split.json
+|   |   |   |       |   training_summary.json
+|   |   |   |       |   
+|   |   |   |       +---9ry1hl0h
+|   |   |   |       |   |   balsa_results.csv
+|   |   |   |       |   |   experiment.log
+|   |   |   |       |   |   fit_evidence_0.json
+|   |   |   |       |   |   fit_evidence_1.json
+|   |   |   |       |   |   fit_evidence_2.json
+|   |   |   |       |   |   fit_evidence_3.json
+|   |   |   |       |   |   fit_evidence_4.json
+|   |   |   |       |   |   fit_evidence_5.json
+|   |   |   |       |   |   fit_evidence_6.json
+|   |   |   |       |   |   fit_evidence_7.json
+|   |   |   |       |   |   fit_evidence_8.json
+|   |   |   |       |   |   fit_evidence_9.json
+|   |   |   |       |   |   split.json
+|   |   |   |       |   |   
+|   |   |   |       |   +---checkpoints
+|   |   |   |       |   |       evaluation.pt
+|   |   |   |       |   |       evaluation.pt.json
+|   |   |   |       |   |       
+|   |   |   |       |   +---iterations
+|   |   |   |       |   |       value_iter_0000.log
+|   |   |   |       |   |       value_iter_0001.log
+|   |   |   |       |   |       value_iter_0002.log
+|   |   |   |       |   |       value_iter_0003.log
+|   |   |   |       |   |       value_iter_0004.log
+|   |   |   |       |   |       value_iter_0005.log
+|   |   |   |       |   |       value_iter_0006.log
+|   |   |   |       |   |       value_iter_0007.log
+|   |   |   |       |   |       value_iter_0008.log
+|   |   |   |       |   |       value_iter_0009.log
+|   |   |   |       |   |       
+|   |   |   |       |   \---plans
+|   |   |   |       |           15a_iter_0_hinted.sql
+|   |   |   |       |           15a_iter_1_hinted.sql
+|   |   |   |       |           15a_iter_2_hinted.sql
+|   |   |   |       |           15a_iter_3_hinted.sql
+|   |   |   |       |           15a_iter_4_hinted.sql
+|   |   |   |       |           15a_iter_5_hinted.sql
+|   |   |   |       |           15a_iter_6_hinted.sql
+|   |   |   |       |           15a_iter_7_hinted.sql
+|   |   |   |       |           15a_iter_8_hinted.sql
+|   |   |   |       |           15a_iter_9_hinted.sql
+|   |   |   |       |           15b_iter_0_hinted.sql
+|   |   |   |       |           15b_iter_1_hinted.sql
+|   |   |   |       |           15b_iter_2_hinted.sql
+|   |   |   |       |           15b_iter_3_hinted.sql
+|   |   |   |       |           15b_iter_4_hinted.sql
+|   |   |   |       |           15b_iter_5_hinted.sql
+|   |   |   |       |           15b_iter_6_hinted.sql
+|   |   |   |       |           15b_iter_7_hinted.sql
+|   |   |   |       |           15b_iter_8_hinted.sql
+|   |   |   |       |           15b_iter_9_hinted.sql
+|   |   |   |       |           15c_iter_0_hinted.sql
+|   |   |   |       |           15c_iter_1_hinted.sql
+|   |   |   |       |           15c_iter_2_hinted.sql
+|   |   |   |       |           15c_iter_3_hinted.sql
+|   |   |   |       |           15c_iter_4_hinted.sql
+|   |   |   |       |           15c_iter_5_hinted.sql
+|   |   |   |       |           15c_iter_6_hinted.sql
+|   |   |   |       |           15c_iter_7_hinted.sql
+|   |   |   |       |           15c_iter_8_hinted.sql
+|   |   |   |       |           15c_iter_9_hinted.sql
+|   |   |   |       |           15d_iter_0_hinted.sql
+|   |   |   |       |           15d_iter_1_hinted.sql
+|   |   |   |       |           15d_iter_2_hinted.sql
+|   |   |   |       |           15d_iter_3_hinted.sql
+|   |   |   |       |           15d_iter_4_hinted.sql
+|   |   |   |       |           15d_iter_5_hinted.sql
+|   |   |   |       |           15d_iter_6_hinted.sql
+|   |   |   |       |           15d_iter_7_hinted.sql
+|   |   |   |       |           15d_iter_8_hinted.sql
+|   |   |   |       |           15d_iter_9_hinted.sql
+|   |   |   |       |           24a_iter_0_hinted.sql
+|   |   |   |       |           24a_iter_1_hinted.sql
+|   |   |   |       |           24a_iter_2_hinted.sql
+|   |   |   |       |           24a_iter_3_hinted.sql
+|   |   |   |       |           24a_iter_4_hinted.sql
+|   |   |   |       |           24a_iter_5_hinted.sql
+|   |   |   |       |           24a_iter_6_hinted.sql
+|   |   |   |       |           24a_iter_7_hinted.sql
+|   |   |   |       |           24a_iter_8_hinted.sql
+|   |   |   |       |           24a_iter_9_hinted.sql
+|   |   |   |       |           24b_iter_0_hinted.sql
+|   |   |   |       |           24b_iter_1_hinted.sql
+|   |   |   |       |           24b_iter_2_hinted.sql
+|   |   |   |       |           24b_iter_3_hinted.sql
+|   |   |   |       |           24b_iter_4_hinted.sql
+|   |   |   |       |           24b_iter_5_hinted.sql
+|   |   |   |       |           24b_iter_6_hinted.sql
+|   |   |   |       |           24b_iter_7_hinted.sql
+|   |   |   |       |           24b_iter_8_hinted.sql
+|   |   |   |       |           24b_iter_9_hinted.sql
+|   |   |   |       |           25a_iter_0_hinted.sql
+|   |   |   |       |           25a_iter_1_hinted.sql
+|   |   |   |       |           25a_iter_2_hinted.sql
+|   |   |   |       |           25a_iter_3_hinted.sql
+|   |   |   |       |           25a_iter_4_hinted.sql
+|   |   |   |       |           25a_iter_5_hinted.sql
+|   |   |   |       |           25a_iter_6_hinted.sql
+|   |   |   |       |           25a_iter_7_hinted.sql
+|   |   |   |       |           25a_iter_8_hinted.sql
+|   |   |   |       |           25a_iter_9_hinted.sql
+|   |   |   |       |           25b_iter_0_hinted.sql
+|   |   |   |       |           25b_iter_1_hinted.sql
+|   |   |   |       |           25b_iter_2_hinted.sql
+|   |   |   |       |           25b_iter_3_hinted.sql
+|   |   |   |       |           25b_iter_4_hinted.sql
+|   |   |   |       |           25b_iter_5_hinted.sql
+|   |   |   |       |           25b_iter_6_hinted.sql
+|   |   |   |       |           25b_iter_7_hinted.sql
+|   |   |   |       |           25b_iter_8_hinted.sql
+|   |   |   |       |           25b_iter_9_hinted.sql
+|   |   |   |       |           25c_iter_0_hinted.sql
+|   |   |   |       |           25c_iter_1_hinted.sql
+|   |   |   |       |           25c_iter_2_hinted.sql
+|   |   |   |       |           25c_iter_3_hinted.sql
+|   |   |   |       |           25c_iter_4_hinted.sql
+|   |   |   |       |           25c_iter_5_hinted.sql
+|   |   |   |       |           25c_iter_6_hinted.sql
+|   |   |   |       |           25c_iter_7_hinted.sql
+|   |   |   |       |           25c_iter_8_hinted.sql
+|   |   |   |       |           25c_iter_9_hinted.sql
+|   |   |   |       |           2a_iter_0_hinted.sql
+|   |   |   |       |           2a_iter_1_hinted.sql
+|   |   |   |       |           2a_iter_2_hinted.sql
+|   |   |   |       |           2a_iter_3_hinted.sql
+|   |   |   |       |           2a_iter_4_hinted.sql
+|   |   |   |       |           2a_iter_5_hinted.sql
+|   |   |   |       |           2a_iter_6_hinted.sql
+|   |   |   |       |           2a_iter_7_hinted.sql
+|   |   |   |       |           2a_iter_8_hinted.sql
+|   |   |   |       |           2a_iter_9_hinted.sql
+|   |   |   |       |           2b_iter_0_hinted.sql
+|   |   |   |       |           2b_iter_1_hinted.sql
+|   |   |   |       |           2b_iter_2_hinted.sql
+|   |   |   |       |           2b_iter_3_hinted.sql
+|   |   |   |       |           2b_iter_4_hinted.sql
+|   |   |   |       |           2b_iter_5_hinted.sql
+|   |   |   |       |           2b_iter_6_hinted.sql
+|   |   |   |       |           2b_iter_7_hinted.sql
+|   |   |   |       |           2b_iter_8_hinted.sql
+|   |   |   |       |           2b_iter_9_hinted.sql
+|   |   |   |       |           2c_iter_0_hinted.sql
+|   |   |   |       |           2c_iter_1_hinted.sql
+|   |   |   |       |           2c_iter_2_hinted.sql
+|   |   |   |       |           2c_iter_3_hinted.sql
+|   |   |   |       |           2c_iter_4_hinted.sql
+|   |   |   |       |           2c_iter_5_hinted.sql
+|   |   |   |       |           2c_iter_6_hinted.sql
+|   |   |   |       |           2c_iter_7_hinted.sql
+|   |   |   |       |           2c_iter_8_hinted.sql
+|   |   |   |       |           2c_iter_9_hinted.sql
+|   |   |   |       |           2d_iter_0_hinted.sql
+|   |   |   |       |           2d_iter_1_hinted.sql
+|   |   |   |       |           2d_iter_2_hinted.sql
+|   |   |   |       |           2d_iter_3_hinted.sql
+|   |   |   |       |           2d_iter_4_hinted.sql
+|   |   |   |       |           2d_iter_5_hinted.sql
+|   |   |   |       |           2d_iter_6_hinted.sql
+|   |   |   |       |           2d_iter_7_hinted.sql
+|   |   |   |       |           2d_iter_8_hinted.sql
+|   |   |   |       |           2d_iter_9_hinted.sql
+|   |   |   |       |           31a_iter_0_hinted.sql
+|   |   |   |       |           31a_iter_1_hinted.sql
+|   |   |   |       |           31a_iter_2_hinted.sql
+|   |   |   |       |           31a_iter_3_hinted.sql
+|   |   |   |       |           31a_iter_4_hinted.sql
+|   |   |   |       |           31a_iter_5_hinted.sql
+|   |   |   |       |           31a_iter_6_hinted.sql
+|   |   |   |       |           31a_iter_7_hinted.sql
+|   |   |   |       |           31a_iter_8_hinted.sql
+|   |   |   |       |           31a_iter_9_hinted.sql
+|   |   |   |       |           31b_iter_0_hinted.sql
+|   |   |   |       |           31b_iter_1_hinted.sql
+|   |   |   |       |           31b_iter_2_hinted.sql
+|   |   |   |       |           31b_iter_3_hinted.sql
+|   |   |   |       |           31b_iter_4_hinted.sql
+|   |   |   |       |           31b_iter_5_hinted.sql
+|   |   |   |       |           31b_iter_6_hinted.sql
+|   |   |   |       |           31b_iter_7_hinted.sql
+|   |   |   |       |           31b_iter_8_hinted.sql
+|   |   |   |       |           31b_iter_9_hinted.sql
+|   |   |   |       |           31c_iter_0_hinted.sql
+|   |   |   |       |           31c_iter_1_hinted.sql
+|   |   |   |       |           31c_iter_2_hinted.sql
+|   |   |   |       |           31c_iter_3_hinted.sql
+|   |   |   |       |           31c_iter_4_hinted.sql
+|   |   |   |       |           31c_iter_5_hinted.sql
+|   |   |   |       |           31c_iter_6_hinted.sql
+|   |   |   |       |           31c_iter_7_hinted.sql
+|   |   |   |       |           31c_iter_8_hinted.sql
+|   |   |   |       |           31c_iter_9_hinted.sql
+|   |   |   |       |           7a_iter_0_hinted.sql
+|   |   |   |       |           7a_iter_1_hinted.sql
+|   |   |   |       |           7a_iter_2_hinted.sql
+|   |   |   |       |           7a_iter_3_hinted.sql
+|   |   |   |       |           7a_iter_4_hinted.sql
+|   |   |   |       |           7a_iter_5_hinted.sql
+|   |   |   |       |           7a_iter_6_hinted.sql
+|   |   |   |       |           7a_iter_7_hinted.sql
+|   |   |   |       |           7a_iter_8_hinted.sql
+|   |   |   |       |           7a_iter_9_hinted.sql
+|   |   |   |       |           7b_iter_0_hinted.sql
+|   |   |   |       |           7b_iter_1_hinted.sql
+|   |   |   |       |           7b_iter_2_hinted.sql
+|   |   |   |       |           7b_iter_3_hinted.sql
+|   |   |   |       |           7b_iter_4_hinted.sql
+|   |   |   |       |           7b_iter_5_hinted.sql
+|   |   |   |       |           7b_iter_6_hinted.sql
+|   |   |   |       |           7b_iter_7_hinted.sql
+|   |   |   |       |           7b_iter_8_hinted.sql
+|   |   |   |       |           7b_iter_9_hinted.sql
+|   |   |   |       |           7c_iter_0_hinted.sql
+|   |   |   |       |           7c_iter_1_hinted.sql
+|   |   |   |       |           7c_iter_2_hinted.sql
+|   |   |   |       |           7c_iter_3_hinted.sql
+|   |   |   |       |           7c_iter_4_hinted.sql
+|   |   |   |       |           7c_iter_5_hinted.sql
+|   |   |   |       |           7c_iter_6_hinted.sql
+|   |   |   |       |           7c_iter_7_hinted.sql
+|   |   |   |       |           7c_iter_8_hinted.sql
+|   |   |   |       |           7c_iter_9_hinted.sql
+|   |   |   |       |           
+|   |   |   |       +---simulator
+|   |   |   |       |       provenance.json
+|   |   |   |       |       
+|   |   |   |       \---toemhegr
+|   |   |   |               postgres_baseline.csv
+|   |   |   |               
+|   |   |   \---balsa-v2-run-1308903
+|   |   |       |   checkpoint_manifest.csv
+|   |   |       |   evaluation_results.csv
+|   |   |       |   postgres_results.csv
+|   |   |       |   raw_eval.log
+|   |   |       |   raw_training.log
+|   |   |       |   resource_evidence.json
+|   |   |       |   run_manifest.json
+|   |   |       |   split_snapshot.csv
+|   |   |       |   training_trace.csv
+|   |   |       |   
+|   |   |       +---artifacts
+|   |   |       |       evaluation.pt
+|   |   |       |       evaluation.pt.json
+|   |   |       |       
+|   |   |       \---evaluation
+|   |   |           |   balsa_results.csv
+|   |   |           |   config.txt
+|   |   |           |   environment.json
+|   |   |           |   evaluation_summary.json
+|   |   |           |   experiment.log
+|   |   |           |   predictions.json
+|   |   |           |   split.json
+|   |   |           |   
+|   |   |           \---plans
+|   |   |                   15a_repeat_0_baseline.json
+|   |   |                   15a_repeat_0_explain.json
+|   |   |                   15a_repeat_0_hinted.sql
+|   |   |                   15b_repeat_0_baseline.json
+|   |   |                   15b_repeat_0_explain.json
+|   |   |                   15b_repeat_0_hinted.sql
+|   |   |                   15c_repeat_0_baseline.json
+|   |   |                   15c_repeat_0_explain.json
+|   |   |                   15c_repeat_0_hinted.sql
+|   |   |                   15d_repeat_0_baseline.json
+|   |   |                   15d_repeat_0_explain.json
+|   |   |                   15d_repeat_0_hinted.sql
+|   |   |                   24a_repeat_0_baseline.json
+|   |   |                   24a_repeat_0_explain.json
+|   |   |                   24a_repeat_0_hinted.sql
+|   |   |                   24b_repeat_0_baseline.json
+|   |   |                   24b_repeat_0_explain.json
+|   |   |                   24b_repeat_0_hinted.sql
+|   |   |                   25a_repeat_0_baseline.json
+|   |   |                   25a_repeat_0_explain.json
+|   |   |                   25a_repeat_0_hinted.sql
+|   |   |                   25b_repeat_0_baseline.json
+|   |   |                   25b_repeat_0_explain.json
+|   |   |                   25b_repeat_0_hinted.sql
+|   |   |                   25c_repeat_0_baseline.json
+|   |   |                   25c_repeat_0_explain.json
+|   |   |                   25c_repeat_0_hinted.sql
+|   |   |                   2a_repeat_0_baseline.json
+|   |   |                   2a_repeat_0_explain.json
+|   |   |                   2a_repeat_0_hinted.sql
+|   |   |                   2b_repeat_0_baseline.json
+|   |   |                   2b_repeat_0_explain.json
+|   |   |                   2b_repeat_0_hinted.sql
+|   |   |                   2c_repeat_0_baseline.json
+|   |   |                   2c_repeat_0_explain.json
+|   |   |                   2c_repeat_0_hinted.sql
+|   |   |                   2d_repeat_0_baseline.json
+|   |   |                   2d_repeat_0_explain.json
+|   |   |                   2d_repeat_0_hinted.sql
+|   |   |                   31a_repeat_0_baseline.json
+|   |   |                   31a_repeat_0_explain.json
+|   |   |                   31a_repeat_0_hinted.sql
+|   |   |                   31b_repeat_0_baseline.json
+|   |   |                   31b_repeat_0_explain.json
+|   |   |                   31b_repeat_0_hinted.sql
+|   |   |                   31c_repeat_0_baseline.json
+|   |   |                   31c_repeat_0_explain.json
+|   |   |                   31c_repeat_0_hinted.sql
+|   |   |                   7a_repeat_0_baseline.json
+|   |   |                   7a_repeat_0_explain.json
+|   |   |                   7a_repeat_0_hinted.sql
+|   |   |                   7b_repeat_0_baseline.json
+|   |   |                   7b_repeat_0_explain.json
+|   |   |                   7b_repeat_0_hinted.sql
+|   |   |                   7c_repeat_0_baseline.json
+|   |   |                   7c_repeat_0_explain.json
+|   |   |                   7c_repeat_0_hinted.sql
+|   |   |                   
+|   |   +---LOO-1
+|   |   |   \---balsa-v2-run-51121
+|   |   |       |   checkpoint_manifest.csv
+|   |   |       |   evaluation_results.csv
+|   |   |       |   postgres_results.csv
+|   |   |       |   raw_eval.log
+|   |   |       |   raw_training.log
+|   |   |       |   resource_evidence.json
+|   |   |       |   run_manifest.json
+|   |   |       |   split_snapshot.csv
+|   |   |       |   training_trace.csv
+|   |   |       |   
+|   |   |       +---artifacts
+|   |   |       |       evaluation.pt
+|   |   |       |       evaluation.pt.json
+|   |   |       |       
+|   |   |       \---evaluation
+|   |   |           |   balsa_results.csv
+|   |   |           |   config.txt
+|   |   |           |   environment.json
+|   |   |           |   evaluation_summary.json
+|   |   |           |   experiment.log
+|   |   |           |   predictions.json
+|   |   |           |   split.json
+|   |   |           |   
+|   |   |           \---plans
+|   |   |                   10b_repeat_0_baseline.json
+|   |   |                   10b_repeat_0_explain.json
+|   |   |                   10b_repeat_0_hinted.sql
+|   |   |                   11b_repeat_0_baseline.json
+|   |   |                   11b_repeat_0_explain.json
+|   |   |                   11b_repeat_0_hinted.sql
+|   |   |                   12c_repeat_0_baseline.json
+|   |   |                   12c_repeat_0_explain.json
+|   |   |                   12c_repeat_0_hinted.sql
+|   |   |                   13b_repeat_0_baseline.json
+|   |   |                   13b_repeat_0_explain.json
+|   |   |                   13b_repeat_0_hinted.sql
+|   |   |                   14a_repeat_0_baseline.json
+|   |   |                   14a_repeat_0_explain.json
+|   |   |                   14a_repeat_0_hinted.sql
+|   |   |                   15b_repeat_0_baseline.json
+|   |   |                   15b_repeat_0_explain.json
+|   |   |                   15b_repeat_0_hinted.sql
+|   |   |                   16c_repeat_0_hinted.sql
+|   |   |                   17c_repeat_0_baseline.json
+|   |   |                   17c_repeat_0_explain.json
+|   |   |                   17c_repeat_0_hinted.sql
+|   |   |                   18b_repeat_0_baseline.json
+|   |   |                   18b_repeat_0_explain.json
+|   |   |                   18b_repeat_0_hinted.sql
+|   |   |                   19a_repeat_0_baseline.json
+|   |   |                   19a_repeat_0_explain.json
+|   |   |                   19a_repeat_0_hinted.sql
+|   |   |                   1c_repeat_0_baseline.json
+|   |   |                   1c_repeat_0_explain.json
+|   |   |                   1c_repeat_0_hinted.sql
+|   |   |                   20c_repeat_0_baseline.json
+|   |   |                   20c_repeat_0_explain.json
+|   |   |                   20c_repeat_0_hinted.sql
+|   |   |                   21c_repeat_0_baseline.json
+|   |   |                   21c_repeat_0_explain.json
+|   |   |                   21c_repeat_0_hinted.sql
+|   |   |                   22b_repeat_0_baseline.json
+|   |   |                   22b_repeat_0_explain.json
+|   |   |                   22b_repeat_0_hinted.sql
+|   |   |                   23b_repeat_0_baseline.json
+|   |   |                   23b_repeat_0_explain.json
+|   |   |                   23b_repeat_0_hinted.sql
+|   |   |                   24a_repeat_0_baseline.json
+|   |   |                   24a_repeat_0_explain.json
+|   |   |                   24a_repeat_0_hinted.sql
+|   |   |                   25a_repeat_0_baseline.json
+|   |   |                   25a_repeat_0_explain.json
+|   |   |                   25a_repeat_0_hinted.sql
+|   |   |                   26c_repeat_0_baseline.json
+|   |   |                   26c_repeat_0_explain.json
+|   |   |                   26c_repeat_0_hinted.sql
+|   |   |                   27c_repeat_0_baseline.json
+|   |   |                   27c_repeat_0_explain.json
+|   |   |                   27c_repeat_0_hinted.sql
+|   |   |                   28a_repeat_0_baseline.json
+|   |   |                   28a_repeat_0_explain.json
+|   |   |                   28a_repeat_0_hinted.sql
+|   |   |                   29b_repeat_0_baseline.json
+|   |   |                   29b_repeat_0_explain.json
+|   |   |                   29b_repeat_0_hinted.sql
+|   |   |                   2a_repeat_0_baseline.json
+|   |   |                   2a_repeat_0_explain.json
+|   |   |                   2a_repeat_0_hinted.sql
+|   |   |                   30a_repeat_0_baseline.json
+|   |   |                   30a_repeat_0_explain.json
+|   |   |                   30a_repeat_0_hinted.sql
+|   |   |                   31b_repeat_0_baseline.json
+|   |   |                   31b_repeat_0_explain.json
+|   |   |                   31b_repeat_0_hinted.sql
+|   |   |                   32b_repeat_0_baseline.json
+|   |   |                   32b_repeat_0_explain.json
+|   |   |                   32b_repeat_0_hinted.sql
+|   |   |                   33c_repeat_0_baseline.json
+|   |   |                   33c_repeat_0_explain.json
+|   |   |                   33c_repeat_0_hinted.sql
+|   |   |                   3b_repeat_0_baseline.json
+|   |   |                   3b_repeat_0_explain.json
+|   |   |                   3b_repeat_0_hinted.sql
+|   |   |                   4a_repeat_0_baseline.json
+|   |   |                   4a_repeat_0_explain.json
+|   |   |                   4a_repeat_0_hinted.sql
+|   |   |                   5a_repeat_0_baseline.json
+|   |   |                   5a_repeat_0_explain.json
+|   |   |                   5a_repeat_0_hinted.sql
+|   |   |                   6b_repeat_0_hinted.sql
+|   |   |                   7c_repeat_0_baseline.json
+|   |   |                   7c_repeat_0_explain.json
+|   |   |                   7c_repeat_0_hinted.sql
+|   |   |                   8c_repeat_0_baseline.json
+|   |   |                   8c_repeat_0_explain.json
+|   |   |                   8c_repeat_0_hinted.sql
+|   |   |                   9c_repeat_0_baseline.json
+|   |   |                   9c_repeat_0_explain.json
+|   |   |                   9c_repeat_0_hinted.sql
+|   |   |                   
+|   |   \---Random-1
+|   |       \---balsa-v2-run-698900
+|   |           |   checkpoint_manifest.csv
+|   |           |   evaluation_results.csv
+|   |           |   postgres_results.csv
+|   |           |   raw_eval.log
+|   |           |   raw_training.log
+|   |           |   resource_evidence.json
+|   |           |   run_manifest.json
+|   |           |   split_snapshot.csv
+|   |           |   training_trace.csv
+|   |           |   
+|   |           +---artifacts
+|   |           |       evaluation.pt
+|   |           |       evaluation.pt.json
+|   |           |       
+|   |           \---evaluation
+|   |               |   balsa_results.csv
+|   |               |   config.txt
+|   |               |   environment.json
+|   |               |   evaluation_summary.json
+|   |               |   experiment.log
+|   |               |   predictions.json
+|   |               |   split.json
+|   |               |   
+|   |               \---plans
+|   |                       11d_repeat_0_baseline.json
+|   |                       11d_repeat_0_explain.json
+|   |                       11d_repeat_0_hinted.sql
+|   |                       15a_repeat_0_baseline.json
+|   |                       15a_repeat_0_explain.json
+|   |                       15a_repeat_0_hinted.sql
+|   |                       17b_repeat_0_baseline.json
+|   |                       17b_repeat_0_explain.json
+|   |                       17b_repeat_0_hinted.sql
+|   |                       17e_repeat_0_baseline.json
+|   |                       17e_repeat_0_explain.json
+|   |                       17e_repeat_0_hinted.sql
+|   |                       18b_repeat_0_baseline.json
+|   |                       18b_repeat_0_explain.json
+|   |                       18b_repeat_0_hinted.sql
+|   |                       1c_repeat_0_baseline.json
+|   |                       1c_repeat_0_explain.json
+|   |                       1c_repeat_0_hinted.sql
+|   |                       20a_repeat_0_baseline.json
+|   |                       20a_repeat_0_explain.json
+|   |                       20a_repeat_0_hinted.sql
+|   |                       21a_repeat_0_baseline.json
+|   |                       21a_repeat_0_explain.json
+|   |                       21a_repeat_0_hinted.sql
+|   |                       25c_repeat_0_baseline.json
+|   |                       25c_repeat_0_explain.json
+|   |                       25c_repeat_0_hinted.sql
+|   |                       28b_repeat_0_baseline.json
+|   |                       28b_repeat_0_explain.json
+|   |                       28b_repeat_0_hinted.sql
+|   |                       2c_repeat_0_baseline.json
+|   |                       2c_repeat_0_explain.json
+|   |                       2c_repeat_0_hinted.sql
+|   |                       32b_repeat_0_baseline.json
+|   |                       32b_repeat_0_explain.json
+|   |                       32b_repeat_0_hinted.sql
+|   |                       33a_repeat_0_baseline.json
+|   |                       33a_repeat_0_explain.json
+|   |                       33a_repeat_0_hinted.sql
+|   |                       4b_repeat_0_baseline.json
+|   |                       4b_repeat_0_explain.json
+|   |                       4b_repeat_0_hinted.sql
+|   |                       4c_repeat_0_baseline.json
+|   |                       4c_repeat_0_explain.json
+|   |                       4c_repeat_0_hinted.sql
+|   |                       5c_repeat_0_baseline.json
+|   |                       5c_repeat_0_explain.json
+|   |                       5c_repeat_0_hinted.sql
+|   |                       6a_repeat_0_baseline.json
+|   |                       6a_repeat_0_explain.json
+|   |                       6a_repeat_0_hinted.sql
+|   |                       6c_repeat_0_baseline.json
+|   |                       6c_repeat_0_explain.json
+|   |                       6c_repeat_0_hinted.sql
+|   |                       6e_repeat_0_baseline.json
+|   |                       6e_repeat_0_explain.json
+|   |                       6e_repeat_0_hinted.sql
+|   |                       8b_repeat_0_baseline.json
+|   |                       8b_repeat_0_explain.json
+|   |                       8b_repeat_0_hinted.sql
+|   |                       8c_repeat_0_baseline.json
+|   |                       8c_repeat_0_explain.json
+|   |                       8c_repeat_0_hinted.sql
+|   |                       9c_repeat_0_baseline.json
+|   |                       9c_repeat_0_explain.json
+|   |                       9c_repeat_0_hinted.sql
+|   |                       
+|   \---source
+|       |   experiments.py
+|       |   LICENSE
+|       |   README.md
+|       |   README_BASEQUERY1.md
+|       |   requirements.txt
+|       |   run.py
+|       |   setup.py
+|       |   sim.py
+|       |   train_utils.py
+|       |   
+|       +---balsa
+|       |   |   card_est.py
+|       |   |   costing.py
+|       |   |   evaluation_artifacts.py
+|       |   |   execution.py
+|       |   |   experience.py
+|       |   |   explain_parser.py
+|       |   |   hyperparams.py
+|       |   |   optimizer.py
+|       |   |   params_registry.py
+|       |   |   plan_analysis.py
+|       |   |   run_instrumentation.py
+|       |   |   search.py
+|       |   |   simulator_restore.py
+|       |   |   structured_logging.py
+|       |   |   utils.py
+|       |   |   v2_split_safety.py
+|       |   |   __init__.py
+|       |   |   
+|       |   +---cluster
+|       |   |       check_cluster.py
+|       |   |       cluster.yml
+|       |   |       warmup_pg_servers.py
+|       |   |       
+|       |   +---envs
+|       |   |   |   envs.py
+|       |   |   |   __init__.py
+|       |   |   |   
+|       |   |   \---__pycache__
+|       |   |           envs.cpython-311.pyc
+|       |   |           __init__.cpython-311.pyc
+|       |   |           
+|       |   +---models
+|       |   |       models.py
+|       |   |       transformer.py
+|       |   |       treeconv.py
+|       |   |       __init__.py
+|       |   |       
+|       |   +---util
+|       |   |   |   dataset.py
+|       |   |   |   graphs.py
+|       |   |   |   plans_lib.py
+|       |   |   |   postgres.py
+|       |   |   |   simple_sql_parser.py
+|       |   |   |   __init__.py
+|       |   |   |   
+|       |   |   \---__pycache__
+|       |   |           simple_sql_parser.cpython-311.pyc
+|       |   |           __init__.cpython-311.pyc
+|       |   |           
+|       |   \---__pycache__
+|       |           explain_parser.cpython-311.pyc
+|       |           hyperparams.cpython-311.pyc
+|       |           structured_logging.cpython-311.pyc
+|       |           __init__.cpython-311.pyc
+|       |           
+|       +---conf
+|       |       balsa-postgresql.conf
+|       |       
+|       +---manifests
+|       |   |   basequery1.json
+|       |   |   job_templates.json
+|       |   |   random52.json
+|       |   |   smoke.json
+|       |   |   
+|       |   +---loo_template
+|       |   |       fold_01.json
+|       |   |       fold_02.json
+|       |   |       fold_03.json
+|       |   |       fold_04.json
+|       |   |       fold_05.json
+|       |   |       fold_06.json
+|       |   |       fold_07.json
+|       |   |       fold_08.json
+|       |   |       fold_09.json
+|       |   |       fold_10.json
+|       |   |       fold_11.json
+|       |   |       fold_12.json
+|       |   |       fold_13.json
+|       |   |       fold_14.json
+|       |   |       fold_15.json
+|       |   |       fold_16.json
+|       |   |       fold_17.json
+|       |   |       fold_18.json
+|       |   |       fold_19.json
+|       |   |       fold_20.json
+|       |   |       fold_21.json
+|       |   |       fold_22.json
+|       |   |       fold_23.json
+|       |   |       fold_24.json
+|       |   |       fold_25.json
+|       |   |       fold_26.json
+|       |   |       fold_27.json
+|       |   |       fold_28.json
+|       |   |       fold_29.json
+|       |   |       fold_30.json
+|       |   |       fold_31.json
+|       |   |       fold_32.json
+|       |   |       fold_33.json
+|       |   |       
+|       |   +---provenance
+|       |   |       experiments_original.py
+|       |   |       
+|       |   \---v2
+|       |           basequery1.json
+|       |           loo1.json
+|       |           random1.json
+|       |           source_audit.json
+|       |           
+|       +---pg_executor
+|       |   |   requirements.txt
+|       |   |   setup.py
+|       |   |   
+|       |   \---pg_executor
+|       |           dbmsx_executor.py
+|       |           pg_executor.py
+|       |           __init__.py
+|       |           
+|       +---queries
+|       |   +---join-order-benchmark
+|       |   |       10a.sql
+|       |   |       10b.sql
+|       |   |       10c.sql
+|       |   |       11a.sql
+|       |   |       11b.sql
+|       |   |       11c.sql
+|       |   |       11d.sql
+|       |   |       12a.sql
+|       |   |       12b.sql
+|       |   |       12c.sql
+|       |   |       13a.sql
+|       |   |       13b.sql
+|       |   |       13c.sql
+|       |   |       13d.sql
+|       |   |       14a.sql
+|       |   |       14b.sql
+|       |   |       14c.sql
+|       |   |       15a.sql
+|       |   |       15b.sql
+|       |   |       15c.sql
+|       |   |       15d.sql
+|       |   |       16a.sql
+|       |   |       16b.sql
+|       |   |       16c.sql
+|       |   |       16d.sql
+|       |   |       17a.sql
+|       |   |       17b.sql
+|       |   |       17c.sql
+|       |   |       17d.sql
+|       |   |       17e.sql
+|       |   |       17f.sql
+|       |   |       18a.sql
+|       |   |       18b.sql
+|       |   |       18c.sql
+|       |   |       19a.sql
+|       |   |       19b.sql
+|       |   |       19c.sql
+|       |   |       19d.sql
+|       |   |       1a.sql
+|       |   |       1b.sql
+|       |   |       1c.sql
+|       |   |       1d.sql
+|       |   |       20a.sql
+|       |   |       20b.sql
+|       |   |       20c.sql
+|       |   |       21a.sql
+|       |   |       21b.sql
+|       |   |       21c.sql
+|       |   |       22a.sql
+|       |   |       22b.sql
+|       |   |       22c.sql
+|       |   |       22d.sql
+|       |   |       23a.sql
+|       |   |       23b.sql
+|       |   |       23c.sql
+|       |   |       24a.sql
+|       |   |       24b.sql
+|       |   |       25a.sql
+|       |   |       25b.sql
+|       |   |       25c.sql
+|       |   |       26a.sql
+|       |   |       26b.sql
+|       |   |       26c.sql
+|       |   |       27a.sql
+|       |   |       27b.sql
+|       |   |       27c.sql
+|       |   |       28a.sql
+|       |   |       28b.sql
+|       |   |       28c.sql
+|       |   |       29a.sql
+|       |   |       29b.sql
+|       |   |       29c.sql
+|       |   |       2a.sql
+|       |   |       2b.sql
+|       |   |       2c.sql
+|       |   |       2d.sql
+|       |   |       30a.sql
+|       |   |       30b.sql
+|       |   |       30c.sql
+|       |   |       31a.sql
+|       |   |       31b.sql
+|       |   |       31c.sql
+|       |   |       32a.sql
+|       |   |       32b.sql
+|       |   |       33a.sql
+|       |   |       33b.sql
+|       |   |       33c.sql
+|       |   |       3a.sql
+|       |   |       3b.sql
+|       |   |       3c.sql
+|       |   |       4a.sql
+|       |   |       4b.sql
+|       |   |       4c.sql
+|       |   |       5a.sql
+|       |   |       5b.sql
+|       |   |       5c.sql
+|       |   |       6a.sql
+|       |   |       6b.sql
+|       |   |       6c.sql
+|       |   |       6d.sql
+|       |   |       6e.sql
+|       |   |       6f.sql
+|       |   |       7a.sql
+|       |   |       7b.sql
+|       |   |       7c.sql
+|       |   |       8a.sql
+|       |   |       8b.sql
+|       |   |       8c.sql
+|       |   |       8d.sql
+|       |   |       9a.sql
+|       |   |       9b.sql
+|       |   |       9c.sql
+|       |   |       9d.sql
+|       |   |       README.md
+|       |   |       
+|       |   \---join-order-benchmark-extended
+|       |           10a.sql
+|       |           10b.sql
+|       |           10c.sql
+|       |           11a.sql
+|       |           11b.sql
+|       |           11c.sql
+|       |           11d.sql
+|       |           12a.sql
+|       |           12b.sql
+|       |           12c.sql
+|       |           13a.sql
+|       |           13b.sql
+|       |           13c.sql
+|       |           13d.sql
+|       |           14a.sql
+|       |           14b.sql
+|       |           14c.sql
+|       |           15a.sql
+|       |           15b.sql
+|       |           15c.sql
+|       |           15d.sql
+|       |           16a.sql
+|       |           16b.sql
+|       |           16c.sql
+|       |           16d.sql
+|       |           17a.sql
+|       |           17b.sql
+|       |           17c.sql
+|       |           17d.sql
+|       |           17e.sql
+|       |           17f.sql
+|       |           18a.sql
+|       |           18b.sql
+|       |           18c.sql
+|       |           19a.sql
+|       |           19b.sql
+|       |           19c.sql
+|       |           19d.sql
+|       |           1a.sql
+|       |           1b.sql
+|       |           1c.sql
+|       |           1d.sql
+|       |           20a.sql
+|       |           20b.sql
+|       |           20c.sql
+|       |           21a.sql
+|       |           21b.sql
+|       |           21c.sql
+|       |           22a.sql
+|       |           22b.sql
+|       |           22c.sql
+|       |           22d.sql
+|       |           23a.sql
+|       |           23b.sql
+|       |           23c.sql
+|       |           24a.sql
+|       |           24b.sql
+|       |           25a.sql
+|       |           25b.sql
+|       |           25c.sql
+|       |           26a.sql
+|       |           26b.sql
+|       |           26c.sql
+|       |           27a.sql
+|       |           27b.sql
+|       |           27c.sql
+|       |           28a.sql
+|       |           28b.sql
+|       |           28c.sql
+|       |           29a.sql
+|       |           29b.sql
+|       |           29c.sql
+|       |           2a.sql
+|       |           2b.sql
+|       |           2c.sql
+|       |           2d.sql
+|       |           30a.sql
+|       |           30b.sql
+|       |           30c.sql
+|       |           31a.sql
+|       |           31b.sql
+|       |           31c.sql
+|       |           32a.sql
+|       |           32b.sql
+|       |           33a.sql
+|       |           33b.sql
+|       |           33c.sql
+|       |           3a.sql
+|       |           3b.sql
+|       |           3c.sql
+|       |           4a.sql
+|       |           4b.sql
+|       |           4c.sql
+|       |           5a.sql
+|       |           5b.sql
+|       |           5c.sql
+|       |           6a.sql
+|       |           6b.sql
+|       |           6c.sql
+|       |           6d.sql
+|       |           6e.sql
+|       |           6f.sql
+|       |           7a.sql
+|       |           7b.sql
+|       |           7c.sql
+|       |           8a.sql
+|       |           8b.sql
+|       |           8c.sql
+|       |           8d.sql
+|       |           9a.sql
+|       |           9b.sql
+|       |           9c.sql
+|       |           9d.sql
+|       |           e10a.sql
+|       |           e10b.sql
+|       |           e11a.sql
+|       |           e11b.sql
+|       |           e12a.sql
+|       |           e12b.sql
+|       |           e1a.sql
+|       |           e1b.sql
+|       |           e2a.sql
+|       |           e2b.sql
+|       |           e3a.sql
+|       |           e3b.sql
+|       |           e4a.sql
+|       |           e4b.sql
+|       |           e5a.sql
+|       |           e5b.sql
+|       |           e6a.sql
+|       |           e6b.sql
+|       |           e7a.sql
+|       |           e7b.sql
+|       |           e8a.sql
+|       |           e8b.sql
+|       |           e9a.sql
+|       |           e9b.sql
+|       |           README.md
+|       |           
+|       +---scripts
+|       |   |   acceptance_session.py
+|       |   |   collect_submission.py
+|       |   |   evaluate_checkpoint.py
+|       |   |   export_common_results.py
+|       |   |   install_pilot_deadline.py
+|       |   |   make_splits.py
+|       |   |   package_acceptance.py
+|       |   |   pilot_supervisor.py
+|       |   |   preflight_balsa.py
+|       |   |   prepare_fold02_simulator.py
+|       |   |   refresh_postgres_baseline.py
+|       |   |   report_pilot.py
+|       |   |   run_all_splits.sh
+|       |   |   run_basequery1.sh
+|       |   |   run_experiment.py
+|       |   |   run_v2_all_splits.sh
+|       |   |   split_master_adapter.py
+|       |   |   train_split.py
+|       |   |   verify_job_templates.py
+|       |   |   
+|       |   \---__pycache__
+|       |           evaluate_checkpoint.cpython-311.pyc
+|       |           export_common_results.cpython-311.pyc
+|       |           make_splits.cpython-311.pyc
+|       |           pilot_supervisor.cpython-311.pyc
+|       |           refresh_postgres_baseline.cpython-311.pyc
+|       |           run_experiment.cpython-311.pyc
+|       |           split_master_adapter.cpython-311.pyc
+|       |           verify_job_templates.cpython-311.pyc
+|       |           
+|       \---tests
+|           |   test_acceptance_contract.py
+|           |   test_basequery1_config.py
+|           |   test_explain_parser.py
+|           |   test_loo_templates.py
+|           |   test_output_contract.py
+|           |   test_pilot_safety.py
+|           |   test_run_experiment.py
+|           |   test_structured_logging.py
+|           |   test_v2_split_master.py
+|           |   
+|           \---__pycache__
+|                   test_acceptance_contract.cpython-311.pyc
+|                   test_basequery1_config.cpython-311.pyc
+|                   test_explain_parser.cpython-311.pyc
+|                   test_loo_templates.cpython-311.pyc
+|                   test_output_contract.cpython-311.pyc
+|                   test_pilot_safety.cpython-311.pyc
+|                   test_run_experiment.cpython-311.pyc
+|                   test_structured_logging.cpython-311.pyc
+|                   test_v2_split_master.cpython-311.pyc
+|                   
++---bao
+|   |   README.md
+|   |   
+|   +---checkpoints
+|   |   |   .gitkeep
+|   |   |   LICENSE_BAO
+|   |   |   
+|   |   +---bao__job__base_query_split_1
+|   |   |       channels
+|   |   |       n
+|   |   |       nn_weights
+|   |   |       x_transform
+|   |   |       y_transform
+|   |   |       
+|   |   +---bao__job__leave_one_out_split_1
+|   |   |       channels
+|   |   |       n
+|   |   |       nn_weights
+|   |   |       x_transform
+|   |   |       y_transform
+|   |   |       
+|   |   \---bao__job__random_split_1
+|   |           channels
+|   |           n
+|   |           nn_weights
+|   |           x_transform
+|   |           y_transform
+|   |           
+|   +---config
+|   |       .gitkeep
+|   |       bao-postgresql.conf
+|   |       docker-compose.yml
+|   |       Dockerfile__pg_bao_img
+|   |       
+|   +---logs
+|   |   |   console_evaluation.log
+|   |   |   experiment__bq1_ckpt.log
+|   |   |   experiment__bq1_ckpt_per_query.csv
+|   |   |   experiment__bq1_ckpt_summary.log
+|   |   |   experiment__loo1_ckpt.log
+|   |   |   experiment__loo1_ckpt_per_query.csv
+|   |   |   experiment__loo1_ckpt_summary.log
+|   |   |   experiment__rnd1_ckpt.log
+|   |   |   experiment__rnd1_ckpt_per_query.csv
+|   |   |   experiment__rnd1_ckpt_summary.log
+|   |   |   server__bq1_ckpt.txt
+|   |   |   server__bq1_run1.txt
+|   |   |   server__loo1_ckpt.txt
+|   |   |   server__rnd1_ckpt.txt
+|   |   |   team_training_attempt_bq1.txt
+|   |   |   test__bao__bq1_ckpt.txt
+|   |   |   test__bao__loo1_ckpt.txt
+|   |   |   test__bao__rnd1_ckpt.txt
+|   |   |   test__postgres__bq1_ckpt.txt
+|   |   |   test__postgres__loo1_ckpt.txt
+|   |   |   test__postgres__rnd1_ckpt.txt
+|   |   |   
+|   |   \---author
+|   |           train__bao__base_query_split_1.txt
+|   |           train__bao__leave_one_out_split_1.txt
+|   |           train__bao__random_split_1.txt
+|   |           
+|   +---results
+|   |   |   ALL_evaluation_results.csv
+|   |   |   ALL_postgres_results.csv
+|   |   |   bao_results.csv
+|   |   |   experiment__bq1_ckpt_per_query.csv
+|   |   |   experiment__loo1_ckpt_per_query.csv
+|   |   |   experiment__rnd1_ckpt_per_query.csv
+|   |   |   VALIDATION.txt
+|   |   |   
+|   |   +---BaseQuery-1
+|   |   |   \---bao_bq1_run01
+|   |   |           checkpoint_manifest.csv
+|   |   |           evaluation_results.csv
+|   |   |           postgres_results.csv
+|   |   |           raw_training.log
+|   |   |           run_manifest.json
+|   |   |           split_snapshot.csv
+|   |   |           training_trace.csv
+|   |   |           
+|   |   +---LOO-1
+|   |   |   \---bao_loo1_run01
+|   |   |           checkpoint_manifest.csv
+|   |   |           evaluation_results.csv
+|   |   |           postgres_results.csv
+|   |   |           raw_training.log
+|   |   |           run_manifest.json
+|   |   |           split_snapshot.csv
+|   |   |           training_trace.csv
+|   |   |           
+|   |   \---Random-1
+|   |       \---bao_rnd1_run01
+|   |               checkpoint_manifest.csv
+|   |               evaluation_results.csv
+|   |               postgres_results.csv
+|   |               raw_training.log
+|   |               run_manifest.json
+|   |               split_snapshot.csv
+|   |               training_trace.csv
+|   |               
+|   \---scripts
+|           .gitkeep
+|           build_bao_outputs.py
+|           make_bao_log.py
+|           make_summary_log.py
+|           run_one.sh
+|           test_ckpt.sh
+|           
++---demo
+|   |   app.py
+|   |   README.md
+|   |   
+|   \---__pycache__
+|           app.cpython-311.pyc
+|           
++---docs
+|       CURRENT_STATUS.md
+|       FILE_MANIFEST.sha256
+|       RESULT_SCHEMA.md
+|       TODO_THANG_BALSA.md
+|       TODO_THANG_BALSA_V2.md
+|       TODO_TUAN_BAO.md
+|       TODO_TUAN_BAO_V2.md
+|       
++---final_review_bundle_20261107_2334
+|   |   .gitattributes
+|   |   .gitignore
+|   |   CONTRIBUTING.md
+|   |   excluded_large_files.csv
+|   |   git_branch.txt
+|   |   git_log.txt
+|   |   git_status.txt
+|   |   PUSH_TO_GITHUB.md
+|   |   README.md
+|   |   repo_file_inventory.csv
+|   |   repo_tree.txt
+|   |   THIRD_PARTY_NOTICES.md
+|   |   
+|   +---analysis
+|   |   |   README.md
+|   |   |   
+|   |   +---data
+|   |   |       .gitkeep
+|   |   |       balsa_case_studies.csv
+|   |   |       balsa_novelty_group_summary.csv
+|   |   |       balsa_novelty_performance.csv
+|   |   |       balsa_spearman_summary.csv
+|   |   |       bao_case_studies.csv
+|   |   |       bao_complexity_by_novelty_group.csv
+|   |   |       bao_complexity_correlations.csv
+|   |   |       bao_novelty_complexity.csv
+|   |   |       bao_novelty_group_summary.csv
+|   |   |       bao_novelty_performance.csv
+|   |   |       bao_spearman_summary.csv
+|   |   |       novelty.csv
+|   |   |       novelty_pairs.csv
+|   |   |       query_features.csv
+|   |   |       split_master.csv
+|   |   |       
+|   |   +---notebooks
+|   |   |       .gitkeep
+|   |   |       
+|   |   \---src
+|   |           .gitkeep
+|   |           analyze_balsa_case_studies.py
+|   |           analyze_balsa_novelty_groups.py
+|   |           analyze_balsa_spearman.py
+|   |           analyze_bao_case_studies.py
+|   |           analyze_bao_complexity.py
+|   |           analyze_bao_novelty_groups.py
+|   |           analyze_bao_spearman.py
+|   |           analyze_novelty.py
+|   |           build_split_master.py
+|   |           compute_novelty.py
+|   |           extract_query_features.py
+|   |           merge_balsa_novelty.py
+|   |           merge_bao_novelty.py
+|   |           merge_results.py
+|   |           
+|   +---balsa
+|   |   |   environment.txt
+|   |   |   PUBLISHED_MANIFEST.json
+|   |   |   README.md
+|   |   |   README_BASEQUERY1.md
+|   |   |   SOURCE_PROVENANCE.md
+|   |   |   
+|   |   +---checkpoint
+|   |   |   |   .gitkeep
+|   |   |   |   
+|   |   |   +---loo_template_fold02_seed0
+|   |   |   |       evaluation.pt.json
+|   |   |   |       
+|   |   |   \---random52_seed0
+|   |   |           evaluation.pt.json
+|   |   |           
+|   |   +---logs
+|   |   |       .gitkeep
+|   |   |       
+|   |   +---results
+|   |   |   |   .gitkeep
+|   |   |   |   
+|   |   |   \---acceptance_loo02_random_seed0
+|   |   |       |   AUDIT.json
+|   |   |       |   correctness_crosscheck.json
+|   |   |       |   FINAL_RESOURCE_AUDIT.json
+|   |   |       |   final_unit_tests_verified.log
+|   |   |       |   HANDOFF.md
+|   |   |       |   package_unit_tests.log
+|   |   |       |   published_tests.log
+|   |   |       |   reload_and_plan_audit.json
+|   |   |       |   
+|   |   |       +---A_fold02_retry2
+|   |   |       |   |   eval-A_fold02_retry2.log
+|   |   |       |   |   experiment.log
+|   |   |       |   |   phases.jsonl
+|   |   |       |   |   postgres_baseline.csv
+|   |   |       |   |   train-A_fold02_retry2.log
+|   |   |       |   |   
+|   |   |       |   +---evaluation
+|   |   |       |   |   |   balsa_results.csv
+|   |   |       |   |   |   config.txt
+|   |   |       |   |   |   environment.json
+|   |   |       |   |   |   evaluation_summary.json
+|   |   |       |   |   |   experiment.log
+|   |   |       |   |   |   postgres_baseline.csv
+|   |   |       |   |   |   predictions.json
+|   |   |       |   |   |   split.json
+|   |   |       |   |   |   
+|   |   |       |   |   \---plans
+|   |   |       |   |           2a_repeat_0_baseline.json
+|   |   |       |   |           2a_repeat_0_explain.json
+|   |   |       |   |           2a_repeat_0_hinted.sql
+|   |   |       |   |           2b_repeat_0_baseline.json
+|   |   |       |   |           2b_repeat_0_explain.json
+|   |   |       |   |           2b_repeat_0_hinted.sql
+|   |   |       |   |           2c_repeat_0_baseline.json
+|   |   |       |   |           2c_repeat_0_explain.json
+|   |   |       |   |           2c_repeat_0_hinted.sql
+|   |   |       |   |           2d_repeat_0_baseline.json
+|   |   |       |   |           2d_repeat_0_explain.json
+|   |   |       |   |           2d_repeat_0_hinted.sql
+|   |   |       |   |           
+|   |   |       |   \---training
+|   |   |       |       |   config.txt
+|   |   |       |       |   expert_provenance.json
+|   |   |       |       |   fit_evidence_0.json
+|   |   |       |       |   fit_evidence_1.json
+|   |   |       |       |   fit_evidence_2.json
+|   |   |       |       |   preflight.log
+|   |   |       |       |   split.json
+|   |   |       |       |   training_summary.json
+|   |   |       |       |   
+|   |   |       |       \---iterations
+|   |   |       |               value_iter_0000.json
+|   |   |       |               value_iter_0001.json
+|   |   |       |               value_iter_0002.json
+|   |   |       |               
+|   |   |       \---B_random52_retry2
+|   |   |           |   eval-B_random52_retry2.log
+|   |   |           |   experiment.log
+|   |   |           |   phases.jsonl
+|   |   |           |   train-B_random52_retry2.log
+|   |   |           |   
+|   |   |           +---evaluation
+|   |   |           |   |   balsa_results.csv
+|   |   |           |   |   config.txt
+|   |   |           |   |   environment.json
+|   |   |           |   |   evaluation_summary.json
+|   |   |           |   |   experiment.log
+|   |   |           |   |   postgres_baseline.csv
+|   |   |           |   |   predictions.json
+|   |   |           |   |   split.json
+|   |   |           |   |   
+|   |   |           |   \---plans
+|   |   |           |           10a_repeat_0_baseline.json
+|   |   |           |           10a_repeat_0_explain.json
+|   |   |           |           10a_repeat_0_hinted.sql
+|   |   |           |           10b_repeat_0_baseline.json
+|   |   |           |           10b_repeat_0_explain.json
+|   |   |           |           10b_repeat_0_hinted.sql
+|   |   |           |           12b_repeat_0_baseline.json
+|   |   |           |           12b_repeat_0_explain.json
+|   |   |           |           12b_repeat_0_hinted.sql
+|   |   |           |           15a_repeat_0_baseline.json
+|   |   |           |           15a_repeat_0_explain.json
+|   |   |           |           15a_repeat_0_hinted.sql
+|   |   |           |           15b_repeat_0_baseline.json
+|   |   |           |           15b_repeat_0_explain.json
+|   |   |           |           15b_repeat_0_hinted.sql
+|   |   |           |           15d_repeat_0_baseline.json
+|   |   |           |           15d_repeat_0_explain.json
+|   |   |           |           15d_repeat_0_hinted.sql
+|   |   |           |           16a_repeat_0_baseline.json
+|   |   |           |           16a_repeat_0_explain.json
+|   |   |           |           16a_repeat_0_hinted.sql
+|   |   |           |           17c_repeat_0_baseline.json
+|   |   |           |           17c_repeat_0_explain.json
+|   |   |           |           17c_repeat_0_hinted.sql
+|   |   |           |           17e_repeat_0_baseline.json
+|   |   |           |           17e_repeat_0_explain.json
+|   |   |           |           17e_repeat_0_hinted.sql
+|   |   |           |           20a_repeat_0_baseline.json
+|   |   |           |           20a_repeat_0_explain.json
+|   |   |           |           20a_repeat_0_hinted.sql
+|   |   |           |           22b_repeat_0_baseline.json
+|   |   |           |           22b_repeat_0_explain.json
+|   |   |           |           22b_repeat_0_hinted.sql
+|   |   |           |           22c_repeat_0_baseline.json
+|   |   |           |           22c_repeat_0_explain.json
+|   |   |           |           22c_repeat_0_hinted.sql
+|   |   |           |           24b_repeat_0_baseline.json
+|   |   |           |           24b_repeat_0_explain.json
+|   |   |           |           24b_repeat_0_hinted.sql
+|   |   |           |           26b_repeat_0_baseline.json
+|   |   |           |           26b_repeat_0_explain.json
+|   |   |           |           26b_repeat_0_hinted.sql
+|   |   |           |           2a_repeat_0_baseline.json
+|   |   |           |           2a_repeat_0_explain.json
+|   |   |           |           2a_repeat_0_hinted.sql
+|   |   |           |           30c_repeat_0_baseline.json
+|   |   |           |           30c_repeat_0_explain.json
+|   |   |           |           30c_repeat_0_hinted.sql
+|   |   |           |           4b_repeat_0_baseline.json
+|   |   |           |           4b_repeat_0_explain.json
+|   |   |           |           4b_repeat_0_hinted.sql
+|   |   |           |           4c_repeat_0_baseline.json
+|   |   |           |           4c_repeat_0_explain.json
+|   |   |           |           4c_repeat_0_hinted.sql
+|   |   |           |           8a_repeat_0_baseline.json
+|   |   |           |           8a_repeat_0_explain.json
+|   |   |           |           8a_repeat_0_hinted.sql
+|   |   |           |           
+|   |   |           \---training
+|   |   |               |   config.txt
+|   |   |               |   fit_evidence_0.json
+|   |   |               |   fit_evidence_1.json
+|   |   |               |   fit_evidence_2.json
+|   |   |               |   preflight.log
+|   |   |               |   split.json
+|   |   |               |   training_summary.json
+|   |   |               |   
+|   |   |               \---iterations
+|   |   |                       value_iter_0000.json
+|   |   |                       value_iter_0001.json
+|   |   |                       value_iter_0002.json
+|   |   |                       
+|   |   +---runs
+|   |   |   +---BaseQuery-1
+|   |   |   |   +---balsa-v2-run-12635
+|   |   |   |   |   |   checkpoint_manifest.csv
+|   |   |   |   |   |   connections.jsonl
+|   |   |   |   |   |   milestone_comparison.csv
+|   |   |   |   |   |   novelty_join.csv
+|   |   |   |   |   |   phases.jsonl
+|   |   |   |   |   |   raw_test_10.log
+|   |   |   |   |   |   raw_test_3.log
+|   |   |   |   |   |   raw_test_5.log
+|   |   |   |   |   |   raw_train.log
+|   |   |   |   |   |   REPORT.md
+|   |   |   |   |   |   resource_summary.json
+|   |   |   |   |   |   resource_summary_errata.json
+|   |   |   |   |   |   run_manifest.json
+|   |   |   |   |   |   
+|   |   |   |   |   +---evaluations
+|   |   |   |   |   |   +---iteration-10
+|   |   |   |   |   |   |   |   balsa_results.csv
+|   |   |   |   |   |   |   |   config.txt
+|   |   |   |   |   |   |   |   environment.json
+|   |   |   |   |   |   |   |   evaluation_summary.json
+|   |   |   |   |   |   |   |   experiment.log
+|   |   |   |   |   |   |   |   predictions.json
+|   |   |   |   |   |   |   |   split.json
+|   |   |   |   |   |   |   |   
+|   |   |   |   |   |   |   \---plans
+|   |   |   |   |   |   |           15a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15d_repeat_0_hinted.sql
+|   |   |   |   |   |   |           24a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           24b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2d_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           
+|   |   |   |   |   |   +---iteration-3
+|   |   |   |   |   |   |   |   balsa_results.csv
+|   |   |   |   |   |   |   |   config.txt
+|   |   |   |   |   |   |   |   environment.json
+|   |   |   |   |   |   |   |   evaluation_summary.json
+|   |   |   |   |   |   |   |   experiment.log
+|   |   |   |   |   |   |   |   predictions.json
+|   |   |   |   |   |   |   |   split.json
+|   |   |   |   |   |   |   |   
+|   |   |   |   |   |   |   \---plans
+|   |   |   |   |   |   |           15a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           15d_repeat_0_hinted.sql
+|   |   |   |   |   |   |           24a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           24b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           25c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           2d_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           31c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7a_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7b_repeat_0_hinted.sql
+|   |   |   |   |   |   |           7c_repeat_0_hinted.sql
+|   |   |   |   |   |   |           
+|   |   |   |   |   |   \---iteration-5
+|   |   |   |   |   |       |   balsa_results.csv
+|   |   |   |   |   |       |   config.txt
+|   |   |   |   |   |       |   environment.json
+|   |   |   |   |   |       |   evaluation_summary.json
+|   |   |   |   |   |       |   experiment.log
+|   |   |   |   |   |       |   predictions.json
+|   |   |   |   |   |       |   split.json
+|   |   |   |   |   |       |   
+|   |   |   |   |   |       \---plans
+|   |   |   |   |   |               15a_repeat_0_hinted.sql
+|   |   |   |   |   |               15b_repeat_0_hinted.sql
+|   |   |   |   |   |               15c_repeat_0_hinted.sql
+|   |   |   |   |   |               15d_repeat_0_hinted.sql
+|   |   |   |   |   |               24a_repeat_0_hinted.sql
+|   |   |   |   |   |               24b_repeat_0_hinted.sql
+|   |   |   |   |   |               25a_repeat_0_hinted.sql
+|   |   |   |   |   |               25b_repeat_0_hinted.sql
+|   |   |   |   |   |               25c_repeat_0_hinted.sql
+|   |   |   |   |   |               2a_repeat_0_hinted.sql
+|   |   |   |   |   |               2b_repeat_0_hinted.sql
+|   |   |   |   |   |               2c_repeat_0_hinted.sql
+|   |   |   |   |   |               2d_repeat_0_hinted.sql
+|   |   |   |   |   |               31a_repeat_0_hinted.sql
+|   |   |   |   |   |               31b_repeat_0_hinted.sql
+|   |   |   |   |   |               31c_repeat_0_hinted.sql
+|   |   |   |   |   |               7a_repeat_0_hinted.sql
+|   |   |   |   |   |               7b_repeat_0_hinted.sql
+|   |   |   |   |   |               7c_repeat_0_hinted.sql
+|   |   |   |   |   |               
+|   |   |   |   |   +---milestones
+|   |   |   |   |   |   +---iteration-10
+|   |   |   |   |   |   |       evaluation.pt.json
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   +---iteration-3
+|   |   |   |   |   |   |       evaluation.pt.json
+|   |   |   |   |   |   |       
+|   |   |   |   |   |   \---iteration-5
+|   |   |   |   |   |           evaluation.pt.json
+|   |   |   |   |   |           
+|   |   |   |   |   \---training
+|   |   |   |   |       |   config.txt
+|   |   |   |   |       |   connections.jsonl
+|   |   |   |   |       |   local_metrics.jsonl
+|   |   |   |   |       |   preflight.log
+|   |   |   |   |       |   run_provenance.json
+|   |   |   |   |       |   split.json
+|   |   |   |   |       |   training_summary.json
+|   |   |   |   |       |   
+|   |   |   |   |       +---9ry1hl0h
+|   |   |   |   |       |   |   balsa_results.csv
+|   |   |   |   |       |   |   experiment.log
+|   |   |   |   |       |   |   fit_evidence_0.json
+|   |   |   |   |       |   |   fit_evidence_1.json
+|   |   |   |   |       |   |   fit_evidence_2.json
+|   |   |   |   |       |   |   fit_evidence_3.json
+|   |   |   |   |       |   |   fit_evidence_4.json
+|   |   |   |   |       |   |   fit_evidence_5.json
+|   |   |   |   |       |   |   fit_evidence_6.json
+|   |   |   |   |       |   |   fit_evidence_7.json
+|   |   |   |   |       |   |   fit_evidence_8.json
+|   |   |   |   |       |   |   fit_evidence_9.json
+|   |   |   |   |       |   |   split.json
+|   |   |   |   |       |   |   
+|   |   |   |   |       |   +---checkpoints
+|   |   |   |   |       |   |       evaluation.pt.json
+|   |   |   |   |       |   |       
+|   |   |   |   |       |   +---iterations
+|   |   |   |   |       |   |       value_iter_0000.log
+|   |   |   |   |       |   |       value_iter_0001.log
+|   |   |   |   |       |   |       value_iter_0002.log
+|   |   |   |   |       |   |       value_iter_0003.log
+|   |   |   |   |       |   |       value_iter_0004.log
+|   |   |   |   |       |   |       value_iter_0005.log
+|   |   |   |   |       |   |       value_iter_0006.log
+|   |   |   |   |       |   |       value_iter_0007.log
+|   |   |   |   |       |   |       value_iter_0008.log
+|   |   |   |   |       |   |       value_iter_0009.log
+|   |   |   |   |       |   |       
+|   |   |   |   |       |   \---plans
+|   |   |   |   |       |           15a_iter_0_hinted.sql
+|   |   |   |   |       |           15a_iter_1_hinted.sql
+|   |   |   |   |       |           15a_iter_2_hinted.sql
+|   |   |   |   |       |           15a_iter_3_hinted.sql
+|   |   |   |   |       |           15a_iter_4_hinted.sql
+|   |   |   |   |       |           15a_iter_5_hinted.sql
+|   |   |   |   |       |           15a_iter_6_hinted.sql
+|   |   |   |   |       |           15a_iter_7_hinted.sql
+|   |   |   |   |       |           15a_iter_8_hinted.sql
+|   |   |   |   |       |           15a_iter_9_hinted.sql
+|   |   |   |   |       |           15b_iter_0_hinted.sql
+|   |   |   |   |       |           15b_iter_1_hinted.sql
+|   |   |   |   |       |           15b_iter_2_hinted.sql
+|   |   |   |   |       |           15b_iter_3_hinted.sql
+|   |   |   |   |       |           15b_iter_4_hinted.sql
+|   |   |   |   |       |           15b_iter_5_hinted.sql
+|   |   |   |   |       |           15b_iter_6_hinted.sql
+|   |   |   |   |       |           15b_iter_7_hinted.sql
+|   |   |   |   |       |           15b_iter_8_hinted.sql
+|   |   |   |   |       |           15b_iter_9_hinted.sql
+|   |   |   |   |       |           15c_iter_0_hinted.sql
+|   |   |   |   |       |           15c_iter_1_hinted.sql
+|   |   |   |   |       |           15c_iter_2_hinted.sql
+|   |   |   |   |       |           15c_iter_3_hinted.sql
+|   |   |   |   |       |           15c_iter_4_hinted.sql
+|   |   |   |   |       |           15c_iter_5_hinted.sql
+|   |   |   |   |       |           15c_iter_6_hinted.sql
+|   |   |   |   |       |           15c_iter_7_hinted.sql
+|   |   |   |   |       |           15c_iter_8_hinted.sql
+|   |   |   |   |       |           15c_iter_9_hinted.sql
+|   |   |   |   |       |           15d_iter_0_hinted.sql
+|   |   |   |   |       |           15d_iter_1_hinted.sql
+|   |   |   |   |       |           15d_iter_2_hinted.sql
+|   |   |   |   |       |           15d_iter_3_hinted.sql
+|   |   |   |   |       |           15d_iter_4_hinted.sql
+|   |   |   |   |       |           15d_iter_5_hinted.sql
+|   |   |   |   |       |           15d_iter_6_hinted.sql
+|   |   |   |   |       |           15d_iter_7_hinted.sql
+|   |   |   |   |       |           15d_iter_8_hinted.sql
+|   |   |   |   |       |           15d_iter_9_hinted.sql
+|   |   |   |   |       |           24a_iter_0_hinted.sql
+|   |   |   |   |       |           24a_iter_1_hinted.sql
+|   |   |   |   |       |           24a_iter_2_hinted.sql
+|   |   |   |   |       |           24a_iter_3_hinted.sql
+|   |   |   |   |       |           24a_iter_4_hinted.sql
+|   |   |   |   |       |           24a_iter_5_hinted.sql
+|   |   |   |   |       |           24a_iter_6_hinted.sql
+|   |   |   |   |       |           24a_iter_7_hinted.sql
+|   |   |   |   |       |           24a_iter_8_hinted.sql
+|   |   |   |   |       |           24a_iter_9_hinted.sql
+|   |   |   |   |       |           24b_iter_0_hinted.sql
+|   |   |   |   |       |           24b_iter_1_hinted.sql
+|   |   |   |   |       |           24b_iter_2_hinted.sql
+|   |   |   |   |       |           24b_iter_3_hinted.sql
+|   |   |   |   |       |           24b_iter_4_hinted.sql
+|   |   |   |   |       |           24b_iter_5_hinted.sql
+|   |   |   |   |       |           24b_iter_6_hinted.sql
+|   |   |   |   |       |           24b_iter_7_hinted.sql
+|   |   |   |   |       |           24b_iter_8_hinted.sql
+|   |   |   |   |       |           24b_iter_9_hinted.sql
+|   |   |   |   |       |           25a_iter_0_hinted.sql
+|   |   |   |   |       |           25a_iter_1_hinted.sql
+|   |   |   |   |       |           25a_iter_2_hinted.sql
+|   |   |   |   |       |           25a_iter_3_hinted.sql
+|   |   |   |   |       |           25a_iter_4_hinted.sql
+|   |   |   |   |       |           25a_iter_5_hinted.sql
+|   |   |   |   |       |           25a_iter_6_hinted.sql
+|   |   |   |   |       |           25a_iter_7_hinted.sql
+|   |   |   |   |       |           25a_iter_8_hinted.sql
+|   |   |   |   |       |           25a_iter_9_hinted.sql
+|   |   |   |   |       |           25b_iter_0_hinted.sql
+|   |   |   |   |       |           25b_iter_1_hinted.sql
+|   |   |   |   |       |           25b_iter_2_hinted.sql
+|   |   |   |   |       |           25b_iter_3_hinted.sql
+|   |   |   |   |       |           25b_iter_4_hinted.sql
+|   |   |   |   |       |           25b_iter_5_hinted.sql
+|   |   |   |   |       |           25b_iter_6_hinted.sql
+|   |   |   |   |       |           25b_iter_7_hinted.sql
+|   |   |   |   |       |           25b_iter_8_hinted.sql
+|   |   |   |   |       |           25b_iter_9_hinted.sql
+|   |   |   |   |       |           25c_iter_0_hinted.sql
+|   |   |   |   |       |           25c_iter_1_hinted.sql
+|   |   |   |   |       |           25c_iter_2_hinted.sql
+|   |   |   |   |       |           25c_iter_3_hinted.sql
+|   |   |   |   |       |           25c_iter_4_hinted.sql
+|   |   |   |   |       |           25c_iter_5_hinted.sql
+|   |   |   |   |       |           25c_iter_6_hinted.sql
+|   |   |   |   |       |           25c_iter_7_hinted.sql
+|   |   |   |   |       |           25c_iter_8_hinted.sql
+|   |   |   |   |       |           25c_iter_9_hinted.sql
+|   |   |   |   |       |           2a_iter_0_hinted.sql
+|   |   |   |   |       |           2a_iter_1_hinted.sql
+|   |   |   |   |       |           2a_iter_2_hinted.sql
+|   |   |   |   |       |           2a_iter_3_hinted.sql
+|   |   |   |   |       |           2a_iter_4_hinted.sql
+|   |   |   |   |       |           2a_iter_5_hinted.sql
+|   |   |   |   |       |           2a_iter_6_hinted.sql
+|   |   |   |   |       |           2a_iter_7_hinted.sql
+|   |   |   |   |       |           2a_iter_8_hinted.sql
+|   |   |   |   |       |           2a_iter_9_hinted.sql
+|   |   |   |   |       |           2b_iter_0_hinted.sql
+|   |   |   |   |       |           2b_iter_1_hinted.sql
+|   |   |   |   |       |           2b_iter_2_hinted.sql
+|   |   |   |   |       |           2b_iter_3_hinted.sql
+|   |   |   |   |       |           2b_iter_4_hinted.sql
+|   |   |   |   |       |           2b_iter_5_hinted.sql
+|   |   |   |   |       |           2b_iter_6_hinted.sql
+|   |   |   |   |       |           2b_iter_7_hinted.sql
+|   |   |   |   |       |           2b_iter_8_hinted.sql
+|   |   |   |   |       |           2b_iter_9_hinted.sql
+|   |   |   |   |       |           2c_iter_0_hinted.sql
+|   |   |   |   |       |           2c_iter_1_hinted.sql
+|   |   |   |   |       |           2c_iter_2_hinted.sql
+|   |   |   |   |       |           2c_iter_3_hinted.sql
+|   |   |   |   |       |           2c_iter_4_hinted.sql
+|   |   |   |   |       |           2c_iter_5_hinted.sql
+|   |   |   |   |       |           2c_iter_6_hinted.sql
+|   |   |   |   |       |           2c_iter_7_hinted.sql
+|   |   |   |   |       |           2c_iter_8_hinted.sql
+|   |   |   |   |       |           2c_iter_9_hinted.sql
+|   |   |   |   |       |           2d_iter_0_hinted.sql
+|   |   |   |   |       |           2d_iter_1_hinted.sql
+|   |   |   |   |       |           2d_iter_2_hinted.sql
+|   |   |   |   |       |           2d_iter_3_hinted.sql
+|   |   |   |   |       |           2d_iter_4_hinted.sql
+|   |   |   |   |       |           2d_iter_5_hinted.sql
+|   |   |   |   |       |           2d_iter_6_hinted.sql
+|   |   |   |   |       |           2d_iter_7_hinted.sql
+|   |   |   |   |       |           2d_iter_8_hinted.sql
+|   |   |   |   |       |           2d_iter_9_hinted.sql
+|   |   |   |   |       |           31a_iter_0_hinted.sql
+|   |   |   |   |       |           31a_iter_1_hinted.sql
+|   |   |   |   |       |           31a_iter_2_hinted.sql
+|   |   |   |   |       |           31a_iter_3_hinted.sql
+|   |   |   |   |       |           31a_iter_4_hinted.sql
+|   |   |   |   |       |           31a_iter_5_hinted.sql
+|   |   |   |   |       |           31a_iter_6_hinted.sql
+|   |   |   |   |       |           31a_iter_7_hinted.sql
+|   |   |   |   |       |           31a_iter_8_hinted.sql
+|   |   |   |   |       |           31a_iter_9_hinted.sql
+|   |   |   |   |       |           31b_iter_0_hinted.sql
+|   |   |   |   |       |           31b_iter_1_hinted.sql
+|   |   |   |   |       |           31b_iter_2_hinted.sql
+|   |   |   |   |       |           31b_iter_3_hinted.sql
+|   |   |   |   |       |           31b_iter_4_hinted.sql
+|   |   |   |   |       |           31b_iter_5_hinted.sql
+|   |   |   |   |       |           31b_iter_6_hinted.sql
+|   |   |   |   |       |           31b_iter_7_hinted.sql
+|   |   |   |   |       |           31b_iter_8_hinted.sql
+|   |   |   |   |       |           31b_iter_9_hinted.sql
+|   |   |   |   |       |           31c_iter_0_hinted.sql
+|   |   |   |   |       |           31c_iter_1_hinted.sql
+|   |   |   |   |       |           31c_iter_2_hinted.sql
+|   |   |   |   |       |           31c_iter_3_hinted.sql
+|   |   |   |   |       |           31c_iter_4_hinted.sql
+|   |   |   |   |       |           31c_iter_5_hinted.sql
+|   |   |   |   |       |           31c_iter_6_hinted.sql
+|   |   |   |   |       |           31c_iter_7_hinted.sql
+|   |   |   |   |       |           31c_iter_8_hinted.sql
+|   |   |   |   |       |           31c_iter_9_hinted.sql
+|   |   |   |   |       |           7a_iter_0_hinted.sql
+|   |   |   |   |       |           7a_iter_1_hinted.sql
+|   |   |   |   |       |           7a_iter_2_hinted.sql
+|   |   |   |   |       |           7a_iter_3_hinted.sql
+|   |   |   |   |       |           7a_iter_4_hinted.sql
+|   |   |   |   |       |           7a_iter_5_hinted.sql
+|   |   |   |   |       |           7a_iter_6_hinted.sql
+|   |   |   |   |       |           7a_iter_7_hinted.sql
+|   |   |   |   |       |           7a_iter_8_hinted.sql
+|   |   |   |   |       |           7a_iter_9_hinted.sql
+|   |   |   |   |       |           7b_iter_0_hinted.sql
+|   |   |   |   |       |           7b_iter_1_hinted.sql
+|   |   |   |   |       |           7b_iter_2_hinted.sql
+|   |   |   |   |       |           7b_iter_3_hinted.sql
+|   |   |   |   |       |           7b_iter_4_hinted.sql
+|   |   |   |   |       |           7b_iter_5_hinted.sql
+|   |   |   |   |       |           7b_iter_6_hinted.sql
+|   |   |   |   |       |           7b_iter_7_hinted.sql
+|   |   |   |   |       |           7b_iter_8_hinted.sql
+|   |   |   |   |       |           7b_iter_9_hinted.sql
+|   |   |   |   |       |           7c_iter_0_hinted.sql
+|   |   |   |   |       |           7c_iter_1_hinted.sql
+|   |   |   |   |       |           7c_iter_2_hinted.sql
+|   |   |   |   |       |           7c_iter_3_hinted.sql
+|   |   |   |   |       |           7c_iter_4_hinted.sql
+|   |   |   |   |       |           7c_iter_5_hinted.sql
+|   |   |   |   |       |           7c_iter_6_hinted.sql
+|   |   |   |   |       |           7c_iter_7_hinted.sql
+|   |   |   |   |       |           7c_iter_8_hinted.sql
+|   |   |   |   |       |           7c_iter_9_hinted.sql
+|   |   |   |   |       |           
+|   |   |   |   |       +---simulator
+|   |   |   |   |       |       provenance.json
+|   |   |   |   |       |       
+|   |   |   |   |       \---toemhegr
+|   |   |   |   |               postgres_baseline.csv
+|   |   |   |   |               
+|   |   |   |   \---balsa-v2-run-1308903
+|   |   |   |       |   checkpoint_manifest.csv
+|   |   |   |       |   evaluation_results.csv
+|   |   |   |       |   postgres_results.csv
+|   |   |   |       |   raw_eval.log
+|   |   |   |       |   raw_training.log
+|   |   |   |       |   resource_evidence.json
+|   |   |   |       |   run_manifest.json
+|   |   |   |       |   split_snapshot.csv
+|   |   |   |       |   training_trace.csv
+|   |   |   |       |   
+|   |   |   |       +---artifacts
+|   |   |   |       |       evaluation.pt.json
+|   |   |   |       |       
+|   |   |   |       \---evaluation
+|   |   |   |           |   balsa_results.csv
+|   |   |   |           |   config.txt
+|   |   |   |           |   environment.json
+|   |   |   |           |   evaluation_summary.json
+|   |   |   |           |   experiment.log
+|   |   |   |           |   predictions.json
+|   |   |   |           |   split.json
+|   |   |   |           |   
+|   |   |   |           \---plans
+|   |   |   |                   15a_repeat_0_baseline.json
+|   |   |   |                   15a_repeat_0_explain.json
+|   |   |   |                   15a_repeat_0_hinted.sql
+|   |   |   |                   15b_repeat_0_baseline.json
+|   |   |   |                   15b_repeat_0_explain.json
+|   |   |   |                   15b_repeat_0_hinted.sql
+|   |   |   |                   15c_repeat_0_baseline.json
+|   |   |   |                   15c_repeat_0_explain.json
+|   |   |   |                   15c_repeat_0_hinted.sql
+|   |   |   |                   15d_repeat_0_baseline.json
+|   |   |   |                   15d_repeat_0_explain.json
+|   |   |   |                   15d_repeat_0_hinted.sql
+|   |   |   |                   24a_repeat_0_baseline.json
+|   |   |   |                   24a_repeat_0_explain.json
+|   |   |   |                   24a_repeat_0_hinted.sql
+|   |   |   |                   24b_repeat_0_baseline.json
+|   |   |   |                   24b_repeat_0_explain.json
+|   |   |   |                   24b_repeat_0_hinted.sql
+|   |   |   |                   25a_repeat_0_baseline.json
+|   |   |   |                   25a_repeat_0_explain.json
+|   |   |   |                   25a_repeat_0_hinted.sql
+|   |   |   |                   25b_repeat_0_baseline.json
+|   |   |   |                   25b_repeat_0_explain.json
+|   |   |   |                   25b_repeat_0_hinted.sql
+|   |   |   |                   25c_repeat_0_baseline.json
+|   |   |   |                   25c_repeat_0_explain.json
+|   |   |   |                   25c_repeat_0_hinted.sql
+|   |   |   |                   2a_repeat_0_baseline.json
+|   |   |   |                   2a_repeat_0_explain.json
+|   |   |   |                   2a_repeat_0_hinted.sql
+|   |   |   |                   2b_repeat_0_baseline.json
+|   |   |   |                   2b_repeat_0_explain.json
+|   |   |   |                   2b_repeat_0_hinted.sql
+|   |   |   |                   2c_repeat_0_baseline.json
+|   |   |   |                   2c_repeat_0_explain.json
+|   |   |   |                   2c_repeat_0_hinted.sql
+|   |   |   |                   2d_repeat_0_baseline.json
+|   |   |   |                   2d_repeat_0_explain.json
+|   |   |   |                   2d_repeat_0_hinted.sql
+|   |   |   |                   31a_repeat_0_baseline.json
+|   |   |   |                   31a_repeat_0_explain.json
+|   |   |   |                   31a_repeat_0_hinted.sql
+|   |   |   |                   31b_repeat_0_baseline.json
+|   |   |   |                   31b_repeat_0_explain.json
+|   |   |   |                   31b_repeat_0_hinted.sql
+|   |   |   |                   31c_repeat_0_baseline.json
+|   |   |   |                   31c_repeat_0_explain.json
+|   |   |   |                   31c_repeat_0_hinted.sql
+|   |   |   |                   7a_repeat_0_baseline.json
+|   |   |   |                   7a_repeat_0_explain.json
+|   |   |   |                   7a_repeat_0_hinted.sql
+|   |   |   |                   7b_repeat_0_baseline.json
+|   |   |   |                   7b_repeat_0_explain.json
+|   |   |   |                   7b_repeat_0_hinted.sql
+|   |   |   |                   7c_repeat_0_baseline.json
+|   |   |   |                   7c_repeat_0_explain.json
+|   |   |   |                   7c_repeat_0_hinted.sql
+|   |   |   |                   
+|   |   |   +---LOO-1
+|   |   |   |   \---balsa-v2-run-51121
+|   |   |   |       |   checkpoint_manifest.csv
+|   |   |   |       |   evaluation_results.csv
+|   |   |   |       |   postgres_results.csv
+|   |   |   |       |   raw_eval.log
+|   |   |   |       |   raw_training.log
+|   |   |   |       |   resource_evidence.json
+|   |   |   |       |   run_manifest.json
+|   |   |   |       |   split_snapshot.csv
+|   |   |   |       |   training_trace.csv
+|   |   |   |       |   
+|   |   |   |       +---artifacts
+|   |   |   |       |       evaluation.pt.json
+|   |   |   |       |       
+|   |   |   |       \---evaluation
+|   |   |   |           |   balsa_results.csv
+|   |   |   |           |   config.txt
+|   |   |   |           |   environment.json
+|   |   |   |           |   evaluation_summary.json
+|   |   |   |           |   experiment.log
+|   |   |   |           |   predictions.json
+|   |   |   |           |   split.json
+|   |   |   |           |   
+|   |   |   |           \---plans
+|   |   |   |                   10b_repeat_0_baseline.json
+|   |   |   |                   10b_repeat_0_explain.json
+|   |   |   |                   10b_repeat_0_hinted.sql
+|   |   |   |                   11b_repeat_0_baseline.json
+|   |   |   |                   11b_repeat_0_explain.json
+|   |   |   |                   11b_repeat_0_hinted.sql
+|   |   |   |                   12c_repeat_0_baseline.json
+|   |   |   |                   12c_repeat_0_explain.json
+|   |   |   |                   12c_repeat_0_hinted.sql
+|   |   |   |                   13b_repeat_0_baseline.json
+|   |   |   |                   13b_repeat_0_explain.json
+|   |   |   |                   13b_repeat_0_hinted.sql
+|   |   |   |                   14a_repeat_0_baseline.json
+|   |   |   |                   14a_repeat_0_explain.json
+|   |   |   |                   14a_repeat_0_hinted.sql
+|   |   |   |                   15b_repeat_0_baseline.json
+|   |   |   |                   15b_repeat_0_explain.json
+|   |   |   |                   15b_repeat_0_hinted.sql
+|   |   |   |                   16c_repeat_0_hinted.sql
+|   |   |   |                   17c_repeat_0_baseline.json
+|   |   |   |                   17c_repeat_0_explain.json
+|   |   |   |                   17c_repeat_0_hinted.sql
+|   |   |   |                   18b_repeat_0_baseline.json
+|   |   |   |                   18b_repeat_0_explain.json
+|   |   |   |                   18b_repeat_0_hinted.sql
+|   |   |   |                   19a_repeat_0_baseline.json
+|   |   |   |                   19a_repeat_0_explain.json
+|   |   |   |                   19a_repeat_0_hinted.sql
+|   |   |   |                   1c_repeat_0_baseline.json
+|   |   |   |                   1c_repeat_0_explain.json
+|   |   |   |                   1c_repeat_0_hinted.sql
+|   |   |   |                   20c_repeat_0_baseline.json
+|   |   |   |                   20c_repeat_0_explain.json
+|   |   |   |                   20c_repeat_0_hinted.sql
+|   |   |   |                   21c_repeat_0_baseline.json
+|   |   |   |                   21c_repeat_0_explain.json
+|   |   |   |                   21c_repeat_0_hinted.sql
+|   |   |   |                   22b_repeat_0_baseline.json
+|   |   |   |                   22b_repeat_0_explain.json
+|   |   |   |                   22b_repeat_0_hinted.sql
+|   |   |   |                   23b_repeat_0_baseline.json
+|   |   |   |                   23b_repeat_0_explain.json
+|   |   |   |                   23b_repeat_0_hinted.sql
+|   |   |   |                   24a_repeat_0_baseline.json
+|   |   |   |                   24a_repeat_0_explain.json
+|   |   |   |                   24a_repeat_0_hinted.sql
+|   |   |   |                   25a_repeat_0_baseline.json
+|   |   |   |                   25a_repeat_0_explain.json
+|   |   |   |                   25a_repeat_0_hinted.sql
+|   |   |   |                   26c_repeat_0_baseline.json
+|   |   |   |                   26c_repeat_0_explain.json
+|   |   |   |                   26c_repeat_0_hinted.sql
+|   |   |   |                   27c_repeat_0_baseline.json
+|   |   |   |                   27c_repeat_0_explain.json
+|   |   |   |                   27c_repeat_0_hinted.sql
+|   |   |   |                   28a_repeat_0_baseline.json
+|   |   |   |                   28a_repeat_0_explain.json
+|   |   |   |                   28a_repeat_0_hinted.sql
+|   |   |   |                   29b_repeat_0_baseline.json
+|   |   |   |                   29b_repeat_0_explain.json
+|   |   |   |                   29b_repeat_0_hinted.sql
+|   |   |   |                   2a_repeat_0_baseline.json
+|   |   |   |                   2a_repeat_0_explain.json
+|   |   |   |                   2a_repeat_0_hinted.sql
+|   |   |   |                   30a_repeat_0_baseline.json
+|   |   |   |                   30a_repeat_0_explain.json
+|   |   |   |                   30a_repeat_0_hinted.sql
+|   |   |   |                   31b_repeat_0_baseline.json
+|   |   |   |                   31b_repeat_0_explain.json
+|   |   |   |                   31b_repeat_0_hinted.sql
+|   |   |   |                   32b_repeat_0_baseline.json
+|   |   |   |                   32b_repeat_0_explain.json
+|   |   |   |                   32b_repeat_0_hinted.sql
+|   |   |   |                   33c_repeat_0_baseline.json
+|   |   |   |                   33c_repeat_0_explain.json
+|   |   |   |                   33c_repeat_0_hinted.sql
+|   |   |   |                   3b_repeat_0_baseline.json
+|   |   |   |                   3b_repeat_0_explain.json
+|   |   |   |                   3b_repeat_0_hinted.sql
+|   |   |   |                   4a_repeat_0_baseline.json
+|   |   |   |                   4a_repeat_0_explain.json
+|   |   |   |                   4a_repeat_0_hinted.sql
+|   |   |   |                   5a_repeat_0_baseline.json
+|   |   |   |                   5a_repeat_0_explain.json
+|   |   |   |                   5a_repeat_0_hinted.sql
+|   |   |   |                   6b_repeat_0_hinted.sql
+|   |   |   |                   7c_repeat_0_baseline.json
+|   |   |   |                   7c_repeat_0_explain.json
+|   |   |   |                   7c_repeat_0_hinted.sql
+|   |   |   |                   8c_repeat_0_baseline.json
+|   |   |   |                   8c_repeat_0_explain.json
+|   |   |   |                   8c_repeat_0_hinted.sql
+|   |   |   |                   9c_repeat_0_baseline.json
+|   |   |   |                   9c_repeat_0_explain.json
+|   |   |   |                   9c_repeat_0_hinted.sql
+|   |   |   |                   
+|   |   |   \---Random-1
+|   |   |       \---balsa-v2-run-698900
+|   |   |           |   checkpoint_manifest.csv
+|   |   |           |   evaluation_results.csv
+|   |   |           |   postgres_results.csv
+|   |   |           |   raw_eval.log
+|   |   |           |   raw_training.log
+|   |   |           |   resource_evidence.json
+|   |   |           |   run_manifest.json
+|   |   |           |   split_snapshot.csv
+|   |   |           |   training_trace.csv
+|   |   |           |   
+|   |   |           +---artifacts
+|   |   |           |       evaluation.pt.json
+|   |   |           |       
+|   |   |           \---evaluation
+|   |   |               |   balsa_results.csv
+|   |   |               |   config.txt
+|   |   |               |   environment.json
+|   |   |               |   evaluation_summary.json
+|   |   |               |   experiment.log
+|   |   |               |   predictions.json
+|   |   |               |   split.json
+|   |   |               |   
+|   |   |               \---plans
+|   |   |                       11d_repeat_0_baseline.json
+|   |   |                       11d_repeat_0_explain.json
+|   |   |                       11d_repeat_0_hinted.sql
+|   |   |                       15a_repeat_0_baseline.json
+|   |   |                       15a_repeat_0_explain.json
+|   |   |                       15a_repeat_0_hinted.sql
+|   |   |                       17b_repeat_0_baseline.json
+|   |   |                       17b_repeat_0_explain.json
+|   |   |                       17b_repeat_0_hinted.sql
+|   |   |                       17e_repeat_0_baseline.json
+|   |   |                       17e_repeat_0_explain.json
+|   |   |                       17e_repeat_0_hinted.sql
+|   |   |                       18b_repeat_0_baseline.json
+|   |   |                       18b_repeat_0_explain.json
+|   |   |                       18b_repeat_0_hinted.sql
+|   |   |                       1c_repeat_0_baseline.json
+|   |   |                       1c_repeat_0_explain.json
+|   |   |                       1c_repeat_0_hinted.sql
+|   |   |                       20a_repeat_0_baseline.json
+|   |   |                       20a_repeat_0_explain.json
+|   |   |                       20a_repeat_0_hinted.sql
+|   |   |                       21a_repeat_0_baseline.json
+|   |   |                       21a_repeat_0_explain.json
+|   |   |                       21a_repeat_0_hinted.sql
+|   |   |                       25c_repeat_0_baseline.json
+|   |   |                       25c_repeat_0_explain.json
+|   |   |                       25c_repeat_0_hinted.sql
+|   |   |                       28b_repeat_0_baseline.json
+|   |   |                       28b_repeat_0_explain.json
+|   |   |                       28b_repeat_0_hinted.sql
+|   |   |                       2c_repeat_0_baseline.json
+|   |   |                       2c_repeat_0_explain.json
+|   |   |                       2c_repeat_0_hinted.sql
+|   |   |                       32b_repeat_0_baseline.json
+|   |   |                       32b_repeat_0_explain.json
+|   |   |                       32b_repeat_0_hinted.sql
+|   |   |                       33a_repeat_0_baseline.json
+|   |   |                       33a_repeat_0_explain.json
+|   |   |                       33a_repeat_0_hinted.sql
+|   |   |                       4b_repeat_0_baseline.json
+|   |   |                       4b_repeat_0_explain.json
+|   |   |                       4b_repeat_0_hinted.sql
+|   |   |                       4c_repeat_0_baseline.json
+|   |   |                       4c_repeat_0_explain.json
+|   |   |                       4c_repeat_0_hinted.sql
+|   |   |                       5c_repeat_0_baseline.json
+|   |   |                       5c_repeat_0_explain.json
+|   |   |                       5c_repeat_0_hinted.sql
+|   |   |                       6a_repeat_0_baseline.json
+|   |   |                       6a_repeat_0_explain.json
+|   |   |                       6a_repeat_0_hinted.sql
+|   |   |                       6c_repeat_0_baseline.json
+|   |   |                       6c_repeat_0_explain.json
+|   |   |                       6c_repeat_0_hinted.sql
+|   |   |                       6e_repeat_0_baseline.json
+|   |   |                       6e_repeat_0_explain.json
+|   |   |                       6e_repeat_0_hinted.sql
+|   |   |                       8b_repeat_0_baseline.json
+|   |   |                       8b_repeat_0_explain.json
+|   |   |                       8b_repeat_0_hinted.sql
+|   |   |                       8c_repeat_0_baseline.json
+|   |   |                       8c_repeat_0_explain.json
+|   |   |                       8c_repeat_0_hinted.sql
+|   |   |                       9c_repeat_0_baseline.json
+|   |   |                       9c_repeat_0_explain.json
+|   |   |                       9c_repeat_0_hinted.sql
+|   |   |                       
+|   |   \---source
+|   |       |   experiments.py
+|   |       |   LICENSE
+|   |       |   README.md
+|   |       |   README_BASEQUERY1.md
+|   |       |   requirements.txt
+|   |       |   run.py
+|   |       |   setup.py
+|   |       |   sim.py
+|   |       |   train_utils.py
+|   |       |   
+|   |       +---balsa
+|   |       |   |   card_est.py
+|   |       |   |   costing.py
+|   |       |   |   evaluation_artifacts.py
+|   |       |   |   execution.py
+|   |       |   |   experience.py
+|   |       |   |   explain_parser.py
+|   |       |   |   hyperparams.py
+|   |       |   |   optimizer.py
+|   |       |   |   params_registry.py
+|   |       |   |   plan_analysis.py
+|   |       |   |   run_instrumentation.py
+|   |       |   |   search.py
+|   |       |   |   simulator_restore.py
+|   |       |   |   structured_logging.py
+|   |       |   |   utils.py
+|   |       |   |   v2_split_safety.py
+|   |       |   |   __init__.py
+|   |       |   |   
+|   |       |   +---cluster
+|   |       |   |       check_cluster.py
+|   |       |   |       cluster.yml
+|   |       |   |       warmup_pg_servers.py
+|   |       |   |       
+|   |       |   +---envs
+|   |       |   |       envs.py
+|   |       |   |       __init__.py
+|   |       |   |       
+|   |       |   +---models
+|   |       |   |       models.py
+|   |       |   |       transformer.py
+|   |       |   |       treeconv.py
+|   |       |   |       __init__.py
+|   |       |   |       
+|   |       |   \---util
+|   |       |           dataset.py
+|   |       |           graphs.py
+|   |       |           plans_lib.py
+|   |       |           postgres.py
+|   |       |           simple_sql_parser.py
+|   |       |           __init__.py
+|   |       |           
+|   |       +---conf
+|   |       |       balsa-postgresql.conf
+|   |       |       
+|   |       +---manifests
+|   |       |   |   basequery1.json
+|   |       |   |   job_templates.json
+|   |       |   |   random52.json
+|   |       |   |   smoke.json
+|   |       |   |   
+|   |       |   +---loo_template
+|   |       |   |       fold_01.json
+|   |       |   |       fold_02.json
+|   |       |   |       fold_03.json
+|   |       |   |       fold_04.json
+|   |       |   |       fold_05.json
+|   |       |   |       fold_06.json
+|   |       |   |       fold_07.json
+|   |       |   |       fold_08.json
+|   |       |   |       fold_09.json
+|   |       |   |       fold_10.json
+|   |       |   |       fold_11.json
+|   |       |   |       fold_12.json
+|   |       |   |       fold_13.json
+|   |       |   |       fold_14.json
+|   |       |   |       fold_15.json
+|   |       |   |       fold_16.json
+|   |       |   |       fold_17.json
+|   |       |   |       fold_18.json
+|   |       |   |       fold_19.json
+|   |       |   |       fold_20.json
+|   |       |   |       fold_21.json
+|   |       |   |       fold_22.json
+|   |       |   |       fold_23.json
+|   |       |   |       fold_24.json
+|   |       |   |       fold_25.json
+|   |       |   |       fold_26.json
+|   |       |   |       fold_27.json
+|   |       |   |       fold_28.json
+|   |       |   |       fold_29.json
+|   |       |   |       fold_30.json
+|   |       |   |       fold_31.json
+|   |       |   |       fold_32.json
+|   |       |   |       fold_33.json
+|   |       |   |       
+|   |       |   +---provenance
+|   |       |   |       experiments_original.py
+|   |       |   |       
+|   |       |   \---v2
+|   |       |           basequery1.json
+|   |       |           loo1.json
+|   |       |           random1.json
+|   |       |           source_audit.json
+|   |       |           
+|   |       +---pg_executor
+|   |       |   |   requirements.txt
+|   |       |   |   setup.py
+|   |       |   |   
+|   |       |   \---pg_executor
+|   |       |           dbmsx_executor.py
+|   |       |           pg_executor.py
+|   |       |           __init__.py
+|   |       |           
+|   |       +---queries
+|   |       |   +---join-order-benchmark
+|   |       |   |       10a.sql
+|   |       |   |       10b.sql
+|   |       |   |       10c.sql
+|   |       |   |       11a.sql
+|   |       |   |       11b.sql
+|   |       |   |       11c.sql
+|   |       |   |       11d.sql
+|   |       |   |       12a.sql
+|   |       |   |       12b.sql
+|   |       |   |       12c.sql
+|   |       |   |       13a.sql
+|   |       |   |       13b.sql
+|   |       |   |       13c.sql
+|   |       |   |       13d.sql
+|   |       |   |       14a.sql
+|   |       |   |       14b.sql
+|   |       |   |       14c.sql
+|   |       |   |       15a.sql
+|   |       |   |       15b.sql
+|   |       |   |       15c.sql
+|   |       |   |       15d.sql
+|   |       |   |       16a.sql
+|   |       |   |       16b.sql
+|   |       |   |       16c.sql
+|   |       |   |       16d.sql
+|   |       |   |       17a.sql
+|   |       |   |       17b.sql
+|   |       |   |       17c.sql
+|   |       |   |       17d.sql
+|   |       |   |       17e.sql
+|   |       |   |       17f.sql
+|   |       |   |       18a.sql
+|   |       |   |       18b.sql
+|   |       |   |       18c.sql
+|   |       |   |       19a.sql
+|   |       |   |       19b.sql
+|   |       |   |       19c.sql
+|   |       |   |       19d.sql
+|   |       |   |       1a.sql
+|   |       |   |       1b.sql
+|   |       |   |       1c.sql
+|   |       |   |       1d.sql
+|   |       |   |       20a.sql
+|   |       |   |       20b.sql
+|   |       |   |       20c.sql
+|   |       |   |       21a.sql
+|   |       |   |       21b.sql
+|   |       |   |       21c.sql
+|   |       |   |       22a.sql
+|   |       |   |       22b.sql
+|   |       |   |       22c.sql
+|   |       |   |       22d.sql
+|   |       |   |       23a.sql
+|   |       |   |       23b.sql
+|   |       |   |       23c.sql
+|   |       |   |       24a.sql
+|   |       |   |       24b.sql
+|   |       |   |       25a.sql
+|   |       |   |       25b.sql
+|   |       |   |       25c.sql
+|   |       |   |       26a.sql
+|   |       |   |       26b.sql
+|   |       |   |       26c.sql
+|   |       |   |       27a.sql
+|   |       |   |       27b.sql
+|   |       |   |       27c.sql
+|   |       |   |       28a.sql
+|   |       |   |       28b.sql
+|   |       |   |       28c.sql
+|   |       |   |       29a.sql
+|   |       |   |       29b.sql
+|   |       |   |       29c.sql
+|   |       |   |       2a.sql
+|   |       |   |       2b.sql
+|   |       |   |       2c.sql
+|   |       |   |       2d.sql
+|   |       |   |       30a.sql
+|   |       |   |       30b.sql
+|   |       |   |       30c.sql
+|   |       |   |       31a.sql
+|   |       |   |       31b.sql
+|   |       |   |       31c.sql
+|   |       |   |       32a.sql
+|   |       |   |       32b.sql
+|   |       |   |       33a.sql
+|   |       |   |       33b.sql
+|   |       |   |       33c.sql
+|   |       |   |       3a.sql
+|   |       |   |       3b.sql
+|   |       |   |       3c.sql
+|   |       |   |       4a.sql
+|   |       |   |       4b.sql
+|   |       |   |       4c.sql
+|   |       |   |       5a.sql
+|   |       |   |       5b.sql
+|   |       |   |       5c.sql
+|   |       |   |       6a.sql
+|   |       |   |       6b.sql
+|   |       |   |       6c.sql
+|   |       |   |       6d.sql
+|   |       |   |       6e.sql
+|   |       |   |       6f.sql
+|   |       |   |       7a.sql
+|   |       |   |       7b.sql
+|   |       |   |       7c.sql
+|   |       |   |       8a.sql
+|   |       |   |       8b.sql
+|   |       |   |       8c.sql
+|   |       |   |       8d.sql
+|   |       |   |       9a.sql
+|   |       |   |       9b.sql
+|   |       |   |       9c.sql
+|   |       |   |       9d.sql
+|   |       |   |       README.md
+|   |       |   |       
+|   |       |   \---join-order-benchmark-extended
+|   |       |           10a.sql
+|   |       |           10b.sql
+|   |       |           10c.sql
+|   |       |           11a.sql
+|   |       |           11b.sql
+|   |       |           11c.sql
+|   |       |           11d.sql
+|   |       |           12a.sql
+|   |       |           12b.sql
+|   |       |           12c.sql
+|   |       |           13a.sql
+|   |       |           13b.sql
+|   |       |           13c.sql
+|   |       |           13d.sql
+|   |       |           14a.sql
+|   |       |           14b.sql
+|   |       |           14c.sql
+|   |       |           15a.sql
+|   |       |           15b.sql
+|   |       |           15c.sql
+|   |       |           15d.sql
+|   |       |           16a.sql
+|   |       |           16b.sql
+|   |       |           16c.sql
+|   |       |           16d.sql
+|   |       |           17a.sql
+|   |       |           17b.sql
+|   |       |           17c.sql
+|   |       |           17d.sql
+|   |       |           17e.sql
+|   |       |           17f.sql
+|   |       |           18a.sql
+|   |       |           18b.sql
+|   |       |           18c.sql
+|   |       |           19a.sql
+|   |       |           19b.sql
+|   |       |           19c.sql
+|   |       |           19d.sql
+|   |       |           1a.sql
+|   |       |           1b.sql
+|   |       |           1c.sql
+|   |       |           1d.sql
+|   |       |           20a.sql
+|   |       |           20b.sql
+|   |       |           20c.sql
+|   |       |           21a.sql
+|   |       |           21b.sql
+|   |       |           21c.sql
+|   |       |           22a.sql
+|   |       |           22b.sql
+|   |       |           22c.sql
+|   |       |           22d.sql
+|   |       |           23a.sql
+|   |       |           23b.sql
+|   |       |           23c.sql
+|   |       |           24a.sql
+|   |       |           24b.sql
+|   |       |           25a.sql
+|   |       |           25b.sql
+|   |       |           25c.sql
+|   |       |           26a.sql
+|   |       |           26b.sql
+|   |       |           26c.sql
+|   |       |           27a.sql
+|   |       |           27b.sql
+|   |       |           27c.sql
+|   |       |           28a.sql
+|   |       |           28b.sql
+|   |       |           28c.sql
+|   |       |           29a.sql
+|   |       |           29b.sql
+|   |       |           29c.sql
+|   |       |           2a.sql
+|   |       |           2b.sql
+|   |       |           2c.sql
+|   |       |           2d.sql
+|   |       |           30a.sql
+|   |       |           30b.sql
+|   |       |           30c.sql
+|   |       |           31a.sql
+|   |       |           31b.sql
+|   |       |           31c.sql
+|   |       |           32a.sql
+|   |       |           32b.sql
+|   |       |           33a.sql
+|   |       |           33b.sql
+|   |       |           33c.sql
+|   |       |           3a.sql
+|   |       |           3b.sql
+|   |       |           3c.sql
+|   |       |           4a.sql
+|   |       |           4b.sql
+|   |       |           4c.sql
+|   |       |           5a.sql
+|   |       |           5b.sql
+|   |       |           5c.sql
+|   |       |           6a.sql
+|   |       |           6b.sql
+|   |       |           6c.sql
+|   |       |           6d.sql
+|   |       |           6e.sql
+|   |       |           6f.sql
+|   |       |           7a.sql
+|   |       |           7b.sql
+|   |       |           7c.sql
+|   |       |           8a.sql
+|   |       |           8b.sql
+|   |       |           8c.sql
+|   |       |           8d.sql
+|   |       |           9a.sql
+|   |       |           9b.sql
+|   |       |           9c.sql
+|   |       |           9d.sql
+|   |       |           e10a.sql
+|   |       |           e10b.sql
+|   |       |           e11a.sql
+|   |       |           e11b.sql
+|   |       |           e12a.sql
+|   |       |           e12b.sql
+|   |       |           e1a.sql
+|   |       |           e1b.sql
+|   |       |           e2a.sql
+|   |       |           e2b.sql
+|   |       |           e3a.sql
+|   |       |           e3b.sql
+|   |       |           e4a.sql
+|   |       |           e4b.sql
+|   |       |           e5a.sql
+|   |       |           e5b.sql
+|   |       |           e6a.sql
+|   |       |           e6b.sql
+|   |       |           e7a.sql
+|   |       |           e7b.sql
+|   |       |           e8a.sql
+|   |       |           e8b.sql
+|   |       |           e9a.sql
+|   |       |           e9b.sql
+|   |       |           README.md
+|   |       |           
+|   |       +---scripts
+|   |       |       acceptance_session.py
+|   |       |       collect_submission.py
+|   |       |       evaluate_checkpoint.py
+|   |       |       export_common_results.py
+|   |       |       install_pilot_deadline.py
+|   |       |       make_splits.py
+|   |       |       package_acceptance.py
+|   |       |       pilot_supervisor.py
+|   |       |       preflight_balsa.py
+|   |       |       prepare_fold02_simulator.py
+|   |       |       refresh_postgres_baseline.py
+|   |       |       report_pilot.py
+|   |       |       run_all_splits.sh
+|   |       |       run_basequery1.sh
+|   |       |       run_experiment.py
+|   |       |       run_v2_all_splits.sh
+|   |       |       split_master_adapter.py
+|   |       |       train_split.py
+|   |       |       verify_job_templates.py
+|   |       |       
+|   |       \---tests
+|   |               test_acceptance_contract.py
+|   |               test_basequery1_config.py
+|   |               test_explain_parser.py
+|   |               test_loo_templates.py
+|   |               test_output_contract.py
+|   |               test_pilot_safety.py
+|   |               test_run_experiment.py
+|   |               test_structured_logging.py
+|   |               test_v2_split_master.py
+|   |               
+|   +---bao
+|   |   |   README.md
+|   |   |   
+|   |   +---checkpoints
+|   |   |   |   .gitkeep
+|   |   |   |   LICENSE_BAO
+|   |   |   |   
+|   |   |   +---bao__job__base_query_split_1
+|   |   |   |       channels
+|   |   |   |       n
+|   |   |   |       nn_weights
+|   |   |   |       x_transform
+|   |   |   |       y_transform
+|   |   |   |       
+|   |   |   +---bao__job__leave_one_out_split_1
+|   |   |   |       channels
+|   |   |   |       n
+|   |   |   |       nn_weights
+|   |   |   |       x_transform
+|   |   |   |       y_transform
+|   |   |   |       
+|   |   |   \---bao__job__random_split_1
+|   |   |           channels
+|   |   |           n
+|   |   |           nn_weights
+|   |   |           x_transform
+|   |   |           y_transform
+|   |   |           
+|   |   +---config
+|   |   |       .gitkeep
+|   |   |       bao-postgresql.conf
+|   |   |       docker-compose.yml
+|   |   |       Dockerfile__pg_bao_img
+|   |   |       
+|   |   +---logs
+|   |   |   |   console_evaluation.log
+|   |   |   |   experiment__bq1_ckpt.log
+|   |   |   |   experiment__bq1_ckpt_per_query.csv
+|   |   |   |   experiment__bq1_ckpt_summary.log
+|   |   |   |   experiment__loo1_ckpt.log
+|   |   |   |   experiment__loo1_ckpt_per_query.csv
+|   |   |   |   experiment__loo1_ckpt_summary.log
+|   |   |   |   experiment__rnd1_ckpt.log
+|   |   |   |   experiment__rnd1_ckpt_per_query.csv
+|   |   |   |   experiment__rnd1_ckpt_summary.log
+|   |   |   |   server__bq1_ckpt.txt
+|   |   |   |   server__bq1_run1.txt
+|   |   |   |   server__loo1_ckpt.txt
+|   |   |   |   server__rnd1_ckpt.txt
+|   |   |   |   team_training_attempt_bq1.txt
+|   |   |   |   test__bao__bq1_ckpt.txt
+|   |   |   |   test__bao__loo1_ckpt.txt
+|   |   |   |   test__bao__rnd1_ckpt.txt
+|   |   |   |   test__postgres__bq1_ckpt.txt
+|   |   |   |   test__postgres__loo1_ckpt.txt
+|   |   |   |   test__postgres__rnd1_ckpt.txt
+|   |   |   |   
+|   |   |   \---author
+|   |   |           train__bao__base_query_split_1.txt
+|   |   |           train__bao__leave_one_out_split_1.txt
+|   |   |           train__bao__random_split_1.txt
+|   |   |           
+|   |   +---results
+|   |   |   |   ALL_evaluation_results.csv
+|   |   |   |   ALL_postgres_results.csv
+|   |   |   |   bao_results.csv
+|   |   |   |   experiment__bq1_ckpt_per_query.csv
+|   |   |   |   experiment__loo1_ckpt_per_query.csv
+|   |   |   |   experiment__rnd1_ckpt_per_query.csv
+|   |   |   |   VALIDATION.txt
+|   |   |   |   
+|   |   |   +---BaseQuery-1
+|   |   |   |   \---bao_bq1_run01
+|   |   |   |           checkpoint_manifest.csv
+|   |   |   |           evaluation_results.csv
+|   |   |   |           postgres_results.csv
+|   |   |   |           raw_training.log
+|   |   |   |           run_manifest.json
+|   |   |   |           split_snapshot.csv
+|   |   |   |           training_trace.csv
+|   |   |   |           
+|   |   |   +---LOO-1
+|   |   |   |   \---bao_loo1_run01
+|   |   |   |           checkpoint_manifest.csv
+|   |   |   |           evaluation_results.csv
+|   |   |   |           postgres_results.csv
+|   |   |   |           raw_training.log
+|   |   |   |           run_manifest.json
+|   |   |   |           split_snapshot.csv
+|   |   |   |           training_trace.csv
+|   |   |   |           
+|   |   |   \---Random-1
+|   |   |       \---bao_rnd1_run01
+|   |   |               checkpoint_manifest.csv
+|   |   |               evaluation_results.csv
+|   |   |               postgres_results.csv
+|   |   |               raw_training.log
+|   |   |               run_manifest.json
+|   |   |               split_snapshot.csv
+|   |   |               training_trace.csv
+|   |   |               
+|   |   \---scripts
+|   |           .gitkeep
+|   |           build_bao_outputs.py
+|   |           make_bao_log.py
+|   |           make_summary_log.py
+|   |           run_one.sh
+|   |           test_ckpt.sh
+|   |           
+|   +---demo
+|   |       app.py
+|   |       README.md
+|   |       
+|   +---docs
+|   |       CURRENT_STATUS.md
+|   |       FILE_MANIFEST.sha256
+|   |       RESULT_SCHEMA.md
+|   |       TODO_THANG_BALSA.md
+|   |       TODO_THANG_BALSA_V2.md
+|   |       TODO_TUAN_BAO.md
+|   |       TODO_TUAN_BAO_V2.md
+|   |       
+|   +---scripts
+|   |       repo_status.py
+|   |       
+|   \---splits
+|           README.md
+|           split_master_template.csv
+|           
++---scripts
+|       repo_status.py
+|       
+\---splits
+        README.md
+        split_master_template.csv
+        

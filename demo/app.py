@@ -112,6 +112,8 @@ def format_ratio(value) -> str:
     return f"{float(value):.3f}×"
 
 
+RAW_CSV_LABELS = {'query_id': 'Mã truy vấn', 'checkpoint_id': 'Mốc mô hình', 'planning_ms': 'Lập kế hoạch (ms)', 'execution_ms': 'Thực thi (ms)', 'inference_ms': 'Suy luận (ms)', 'end_to_end_ms': 'Xử lý đầu cuối (ms)', 'status': 'Trạng thái', 'chosen_plan_id': 'Mã kế hoạch được chọn', 'chosen_plan_ids': 'Các mã kế hoạch được chọn', 'timeout_ms': 'Ngưỡng thời gian (ms)'}
+
 # ============================================================
 # LOAD DATA
 # ============================================================
@@ -232,8 +234,8 @@ def calculate_novelty(
         details = query_distance(test_feature, feature_map[train_query])
         records.append(
             {
-                "Train Query": train_query,
-                "Family": feature_map[train_query]["family"],
+                "Truy vấn huấn luyện": train_query,
+                "Nhóm truy vấn gốc": feature_map[train_query]["family"],
                 "d_table": details["d_table"],
                 "d_join": details["d_join"],
                 "d_filter": details["d_filter"],
@@ -242,18 +244,18 @@ def calculate_novelty(
         )
 
     candidate_df = pd.DataFrame(records).sort_values(
-        by=["D(q,h)", "Train Query"],
-        key=lambda col: col if col.name != "Train Query" else col.map(query_sort_key),
+        by=["D(q,h)", "Truy vấn huấn luyện"],
+        key=lambda col: col if col.name != "Truy vấn huấn luyện" else col.map(query_sort_key),
     )
     candidate_df = candidate_df.reset_index(drop=True)
-    candidate_df.insert(0, "Rank", range(1, len(candidate_df) + 1))
+    candidate_df.insert(0, "Thứ hạng", range(1, len(candidate_df) + 1))
 
     nearest = candidate_df.iloc[0]
 
     return {
         "train_size": len(train_queries),
         "test_size": len(test_queries),
-        "nearest": str(nearest["Train Query"]),
+        "nearest": str(nearest["Truy vấn huấn luyện"]),
         "novelty": float(nearest["D(q,h)"]),
         "d_table": float(nearest["d_table"]),
         "d_join": float(nearest["d_join"]),
@@ -332,37 +334,37 @@ def render_experiment_scenario_and_data() -> None:
     with c1:
         st.markdown("#### 1 · Chuẩn bị JOB")
         st.markdown(
-            "**113 truy vấn · 33 query families**\n\n"
-            "Tạo ba Train/Test split: **LOO-1, Random-1, BaseQuery-1**."
+            "**113 truy vấn · 33 nhóm truy vấn gốc**\n\n"
+            "Tạo ba cách chia tập huấn luyện và tập kiểm tra: **LOO-1, Random-1, BaseQuery-1**."
         )
 
     with c2:
         st.markdown("#### 2 · Chuẩn bị mô hình")
         st.markdown(
-            "**Bao:** dùng checkpoint do tác giả cung cấp cho từng Split-1.\n\n"
-            "**Balsa:** nhóm huấn luyện checkpoint riêng theo từng split với cấu hình main 3 iterations."
+            "**Bao:** sử dụng mốc mô hình do tác giả cung cấp cho từng cách chia dữ liệu.\n\n"
+            "**Balsa:** nhóm huấn luyện mô hình riêng cho từng cách chia, với ba vòng lặp huấn luyện."
         )
 
     with c3:
-        st.markdown("#### 3 · Evaluation trên Test")
+        st.markdown("#### 3 · Đánh giá trên tập kiểm tra")
         st.markdown(
-            "**Bao:** chọn hint set → PostgreSQL lập kế hoạch và thực thi.\n\n"
-            "**Balsa:** chọn plan → PostgreSQL lập kế hoạch và thực thi."
+            "**Bao:** chọn bộ gợi ý thực thi → PostgreSQL lập kế hoạch và thực thi.\n\n"
+            "**Balsa:** chọn kế hoạch truy vấn → PostgreSQL lập kế hoạch và thực thi."
         )
 
     with c4:
         st.markdown("#### 4 · Lưu và phân tích")
         st.markdown(
-            "Lưu **planning / inference / execution / E2E** vào CSV.\n\n"
-            "Sau evaluation, nhóm mới tính **Structural Novelty** để phân tích Test ↔ Train."
+            "Lưu **thời gian lập kế hoạch / suy luận / thực thi / xử lý đầu cuối (E2E)** vào CSV.\n\n"
+            "Sau đánh giá, nhóm mới tính **điểm mức độ mới về cấu trúc** để so sánh tập kiểm tra và tập huấn luyện."
         )
 
-    st.markdown("### Dữ liệu Train / Test được dùng trong demo")
+    st.markdown("### Dữ liệu huấn luyện và kiểm tra dùng trong ứng dụng")
     split_cols = st.columns(3)
     split_notes = {
-        "LOO": "Mỗi query family đóng góp một biến thể vào Test.",
-        "Random": "Các query được chia ngẫu nhiên giữa Train và Test.",
-        "BaseQuery": "Các query cùng family được giữ cùng phía Train hoặc Test.",
+        "LOO": "Mỗi nhóm truy vấn gốc có một biến thể truy vấn trong tập kiểm tra.",
+        "Random": "Các truy vấn được phân ngẫu nhiên vào tập huấn luyện và tập kiểm tra.",
+        "BaseQuery": "Các biến thể truy vấn cùng nhóm gốc chỉ nằm trong tập huấn luyện hoặc tập kiểm tra.",
     }
 
     for col, split_type in zip(split_cols, SPLIT_ORDER):
@@ -370,8 +372,8 @@ def render_experiment_scenario_and_data() -> None:
         with col:
             st.markdown(f"#### {SPLIT_LABEL[split_type]}")
             m1, m2 = st.columns(2)
-            m1.metric("Train", len(train_queries))
-            m2.metric("Test", len(test_queries))
+            m1.metric("Huấn luyện", len(train_queries))
+            m2.metric("Kiểm tra", len(test_queries))
             st.caption(split_notes[split_type])
 
     # ---- Fixed example: no query selector here ----
@@ -381,7 +383,7 @@ def render_experiment_scenario_and_data() -> None:
 
     st.markdown("### Từ một câu SQL đến đặc trưng dùng cho phân tích")
     st.caption(
-        f"Ví dụ cố định: {example_query}. Selector query chỉ xuất hiện ở phần Case Study cuối ứng dụng."
+        f"Ví dụ cố định: {example_query}. Bộ chọn truy vấn chỉ xuất hiện trong phần phân tích trường hợp ở cuối ứng dụng."
     )
 
     sql_col, feature_col = st.columns([1.15, 1])
@@ -392,11 +394,11 @@ def render_experiment_scenario_and_data() -> None:
 
     with feature_col:
         n1, n2, n3 = st.columns(3)
-        n1.metric("Tables", example_feature["n_tables"])
-        n2.metric("Joins", example_feature["n_joins"])
-        n3.metric("Filters", example_feature["n_filters"])
+        n1.metric("Bảng dữ liệu", example_feature["n_tables"])
+        n2.metric("Điều kiện kết hợp", example_feature["n_joins"])
+        n3.metric("Điều kiện lọc", example_feature["n_filters"])
 
-        tab_tables, tab_joins, tab_filters = st.tabs(["Tables", "Joins", "Filters"])
+        tab_tables, tab_joins, tab_filters = st.tabs(["Bảng dữ liệu", "Điều kiện kết hợp", "Điều kiện lọc"])
         with tab_tables:
             st.markdown(_feature_list_markdown(example_feature["tables"]))
         with tab_joins:
@@ -409,14 +411,14 @@ def render_experiment_scenario_and_data() -> None:
     with model_col:
         st.markdown("#### Bao / Balsa")
         st.markdown(
-            "SQL và candidate plans được biểu diễn theo **cơ chế riêng của từng optimizer** "
-            "để lựa chọn hint hoặc plan."
+            "SQL và các kế hoạch ứng viên được xử lý theo **cơ chế riêng của từng bộ tối ưu hóa** "
+            "để lựa chọn gợi ý thực thi hoặc kế hoạch truy vấn."
         )
     with analysis_col:
-        st.markdown("#### Structural Novelty")
+        st.markdown("#### Mức độ mới về cấu trúc truy vấn")
         st.markdown(
-            "Nhóm dùng **Tables / Joins / Filters** để đo khoảng cách cấu trúc giữa Test và Train. "
-            "Đây là bước **phân tích sau thực nghiệm**, không phải input được đưa vào Bao/Balsa."
+            "Nhóm dùng **bảng dữ liệu / điều kiện kết hợp / điều kiện lọc** để đo khoảng cách cấu trúc giữa tập kiểm tra và tập huấn luyện. "
+            "Đây là bước **phân tích sau thực nghiệm**, không phải dữ liệu đầu vào của Bao hoặc Balsa."
         )
 
 # ============================================================
@@ -546,7 +548,7 @@ def build_overview_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
                 "split_method": f"{split_label} · PostgreSQL",
                 "split": split_label,
                 "method": "PostgreSQL",
-                "component": "Planning",
+                "component": "Lập kế hoạch",
                 "ratio": 1.0,
             }
         )
@@ -579,7 +581,7 @@ def build_overview_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
                         "split_method": f"{split_label} · {method}",
                         "split": split_label,
                         "method": method,
-                        "component": "Planning",
+                        "component": "Lập kế hoạch",
                         "ratio": float(planning_ratio),
                     }
                 )
@@ -590,7 +592,7 @@ def build_overview_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
                         "split_method": f"{split_label} · {method}",
                         "split": split_label,
                         "method": method,
-                        "component": "Inference",
+                        "component": "Suy luận",
                         "ratio": float(inference_ratio),
                     }
                 )
@@ -640,21 +642,21 @@ def build_e2e_summary() -> pd.DataFrame:
 
             records.append(
                 {
-                    "Split": SPLIT_LABEL[split_type],
-                    "Method": method_label,
-                    "Median E2E / PG": float(ratios.median()),
-                    "Comparable": len(ratios),
+                    "Cách chia": SPLIT_LABEL[split_type],
+                    "Phương pháp": method_label,
+                    "Trung vị tỷ số E2E/PG": float(ratios.median()),
+                    "Số truy vấn so sánh được": len(ratios),
                 }
             )
 
-    # Add PostgreSQL baseline rows.
+    # Add PostgreSQL đối chứng rows.
     for split_type in SPLIT_ORDER:
         records.append(
             {
-                "Split": SPLIT_LABEL[split_type],
-                "Method": "PostgreSQL",
-                "Median E2E / PG": 1.0,
-                "Comparable": None,
+                "Cách chia": SPLIT_LABEL[split_type],
+                "Phương pháp": "PostgreSQL",
+                "Trung vị tỷ số E2E/PG": 1.0,
+                "Số truy vấn so sánh được": None,
             }
         )
 
@@ -662,13 +664,13 @@ def build_e2e_summary() -> pd.DataFrame:
     if result.empty:
         return result
 
-    result["Split"] = pd.Categorical(
-        result["Split"],
+    result["Cách chia"] = pd.Categorical(
+        result["Cách chia"],
         [SPLIT_LABEL[x] for x in SPLIT_ORDER],
         ordered=True,
     )
-    result["Method"] = pd.Categorical(result["Method"], METHOD_ORDER, ordered=True)
-    return result.sort_values(["Split", "Method"]).reset_index(drop=True)
+    result["Phương pháp"] = pd.Categorical(result["Phương pháp"], METHOD_ORDER, ordered=True)
+    return result.sort_values(["Cách chia", "Phương pháp"]).reset_index(drop=True)
 
 
 # ============================================================
@@ -692,12 +694,12 @@ BAO_RUN_DIRS = {
 }
 
 BAO_ARM_HINTS = {
-    "arm_0": "Không vô hiệu hóa thêm join/scan operator (default arm).",
-    "arm_1": "Disable Nested Loop.",
-    "arm_2": "Disable Merge Join + Index Scan.",
-    "arm_3": "Disable Nested Loop + Merge Join + Index Scan.",
-    "arm_4": "Disable Merge Join.",
-    "MULTIPLE": "Bao chọn nhiều arm khác nhau qua các repeat; xem danh sách chosen_plan_ids.",
+    "arm_0": "Giữ nguyên các toán tử kết hợp bảng và quét dữ liệu (phương án mặc định).",
+    "arm_1": "Vô hiệu hóa phép kết hợp vòng lặp lồng nhau (Nested Loop).",
+    "arm_2": "Vô hiệu hóa Merge Join và Index Scan.",
+    "arm_3": "Vô hiệu hóa Nested Loop, Merge Join và Index Scan.",
+    "arm_4": "Vô hiệu hóa Merge Join.",
+    "MULTIPLE": "Bao chọn nhiều phương án qua các lần chạy lặp; xem danh sách chosen_plan_ids.",
 }
 
 
@@ -717,40 +719,40 @@ def split_comparable_rows(df: pd.DataFrame | None, model_key: str, split_type: s
 def build_split_overview_table() -> pd.DataFrame:
     records = []
     for split_type in SPLIT_ORDER:
-        record = {"Split": SPLIT_LABEL[split_type]}
+        record = {"Cách chia": SPLIT_LABEL[split_type]}
 
         bao_rows = split_comparable_rows(bao_df, "bao", split_type)
         if not bao_rows.empty:
             ratios = pd.to_numeric(bao_rows["bao_vs_pg_ratio"], errors="coerce").dropna()
-            record["Bao comparable"] = len(bao_rows)
-            record["Bao median E2E/PG"] = float(ratios.median()) if not ratios.empty else None
-            record["Bao wins"] = int((ratios < 1).sum()) if not ratios.empty else 0
-            record["Bao total E2E (s)"] = pd.to_numeric(bao_rows["bao_end_to_end_ms"], errors="coerce").sum() / 1000.0
-            record["PostgreSQL (Bao eval) total E2E (s)"] = pd.to_numeric(bao_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["Số truy vấn so sánh được (Bao)"] = len(bao_rows)
+            record["Trung vị E2E/PG (Bao)"] = float(ratios.median()) if not ratios.empty else None
+            record["Số truy vấn Bao nhanh hơn"] = int((ratios < 1).sum()) if not ratios.empty else 0
+            record["Tổng E2E của Bao (giây)"] = pd.to_numeric(bao_rows["bao_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["Tổng E2E PostgreSQL khi so sánh Bao (giây)"] = pd.to_numeric(bao_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
         else:
             record.update({
-                "Bao comparable": 0,
-                "Bao median E2E/PG": None,
-                "Bao wins": 0,
-                "Bao total E2E (s)": None,
-                "PostgreSQL (Bao eval) total E2E (s)": None,
+                "Số truy vấn so sánh được (Bao)": 0,
+                "Trung vị E2E/PG (Bao)": None,
+                "Số truy vấn Bao nhanh hơn": 0,
+                "Tổng E2E của Bao (giây)": None,
+                "Tổng E2E PostgreSQL khi so sánh Bao (giây)": None,
             })
 
         balsa_rows = split_comparable_rows(balsa_df, "balsa", split_type)
         if not balsa_rows.empty:
             ratios = pd.to_numeric(balsa_rows["balsa_vs_pg_ratio"], errors="coerce").dropna()
-            record["Balsa comparable"] = len(balsa_rows)
-            record["Balsa median E2E/PG"] = float(ratios.median()) if not ratios.empty else None
-            record["Balsa wins"] = int((ratios < 1).sum()) if not ratios.empty else 0
-            record["Balsa total E2E (s)"] = pd.to_numeric(balsa_rows["balsa_end_to_end_ms"], errors="coerce").sum() / 1000.0
-            record["PostgreSQL (Balsa eval) total E2E (s)"] = pd.to_numeric(balsa_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["Số truy vấn so sánh được (Balsa)"] = len(balsa_rows)
+            record["Trung vị E2E/PG (Balsa)"] = float(ratios.median()) if not ratios.empty else None
+            record["Số truy vấn Balsa nhanh hơn"] = int((ratios < 1).sum()) if not ratios.empty else 0
+            record["Tổng E2E của Balsa (giây)"] = pd.to_numeric(balsa_rows["balsa_end_to_end_ms"], errors="coerce").sum() / 1000.0
+            record["Tổng E2E PostgreSQL khi so sánh Balsa (giây)"] = pd.to_numeric(balsa_rows["pg_end_to_end_ms"], errors="coerce").sum() / 1000.0
         else:
             record.update({
-                "Balsa comparable": 0,
-                "Balsa median E2E/PG": None,
-                "Balsa wins": 0,
-                "Balsa total E2E (s)": None,
-                "PostgreSQL (Balsa eval) total E2E (s)": None,
+                "Số truy vấn so sánh được (Balsa)": 0,
+                "Trung vị E2E/PG (Balsa)": None,
+                "Số truy vấn Balsa nhanh hơn": 0,
+                "Tổng E2E của Balsa (giây)": None,
+                "Tổng E2E PostgreSQL khi so sánh Balsa (giây)": None,
             })
 
         records.append(record)
@@ -767,25 +769,25 @@ def component_totals(df: pd.DataFrame, model_key: str, model_label: str) -> pd.D
     pg_planning = pd.to_numeric(df["pg_planning_ms"], errors="coerce").sum() / 1000.0
     pg_execution = pd.to_numeric(df["pg_execution_ms"], errors="coerce").sum() / 1000.0
     records.extend([
-        {"Method": "PostgreSQL baseline", "Component": "Planning", "Seconds": pg_planning},
-        {"Method": "PostgreSQL baseline", "Component": "Execution", "Seconds": pg_execution},
+        {"Phương pháp": "PostgreSQL đối chứng", "Thành phần": "Lập kế hoạch", "Thời gian (giây)": pg_planning},
+        {"Phương pháp": "PostgreSQL đối chứng", "Thành phần": "Thực thi", "Thời gian (giây)": pg_execution},
     ])
 
     if model_key == "bao":
         planning = pd.to_numeric(df["bao_planning_ms"], errors="coerce").sum() / 1000.0
         execution = pd.to_numeric(df["bao_execution_ms"], errors="coerce").sum() / 1000.0
         records.extend([
-            {"Method": model_label, "Component": "Planning + Bao inference", "Seconds": planning},
-            {"Method": model_label, "Component": "Execution", "Seconds": execution},
+            {"Phương pháp": model_label, "Thành phần": "Lập kế hoạch và suy luận của Bao", "Thời gian (giây)": planning},
+            {"Phương pháp": model_label, "Thành phần": "Thực thi", "Thời gian (giây)": execution},
         ])
     else:
         inference = pd.to_numeric(df["balsa_inference_ms"], errors="coerce").sum() / 1000.0
         planning = pd.to_numeric(df["balsa_planning_ms"], errors="coerce").sum() / 1000.0
         execution = pd.to_numeric(df["balsa_execution_ms"], errors="coerce").sum() / 1000.0
         records.extend([
-            {"Method": model_label, "Component": "Inference / plan search", "Seconds": inference},
-            {"Method": model_label, "Component": "PostgreSQL planning", "Seconds": planning},
-            {"Method": model_label, "Component": "Execution", "Seconds": execution},
+            {"Phương pháp": model_label, "Thành phần": "Suy luận và tìm kế hoạch", "Thời gian (giây)": inference},
+            {"Phương pháp": model_label, "Thành phần": "Lập kế hoạch bằng PostgreSQL", "Thời gian (giây)": planning},
+            {"Phương pháp": model_label, "Thành phần": "Thực thi", "Thời gian (giây)": execution},
         ])
 
     return pd.DataFrame(records)
@@ -799,18 +801,18 @@ def render_component_chart(chart_df: pd.DataFrame) -> None:
     spec = {
         "mark": {"type": "bar"},
         "encoding": {
-            "y": {"field": "Method", "type": "nominal", "title": None},
+            "y": {"field": "Phương pháp", "type": "nominal", "title": None},
             "x": {
                 "aggregate": "sum",
-                "field": "Seconds",
+                "field": "Thời gian (giây)",
                 "type": "quantitative",
-                "title": "Tổng thời gian trên các query comparable (giây)",
+                "title": "Tổng thời gian trên các truy vấn có thể so sánh (giây)",
             },
-            "color": {"field": "Component", "type": "nominal", "title": None},
+            "color": {"field": "Thành phần", "type": "nominal", "title": None},
             "tooltip": [
-                {"field": "Method", "type": "nominal"},
-                {"field": "Component", "type": "nominal"},
-                {"field": "Seconds", "type": "quantitative", "format": ".3f"},
+                {"field": "Phương pháp", "type": "nominal"},
+                {"field": "Thành phần", "type": "nominal"},
+                {"field": "Thời gian (giây)", "type": "quantitative", "format": ".3f"},
             ],
         },
     }
@@ -820,7 +822,7 @@ def render_component_chart(chart_df: pd.DataFrame) -> None:
 def render_model_split_panel(df: pd.DataFrame | None, model_key: str, model_label: str, split_type: str) -> None:
     rows = split_comparable_rows(df, model_key, split_type)
     if rows.empty:
-        st.warning(f"Không có dữ liệu comparable cho {model_label} · {SPLIT_LABEL[split_type]}.")
+        st.warning(f"Không có dữ liệu có thể so sánh cho {model_label} · {SPLIT_LABEL[split_type]}.")
         return
 
     ratio_col = f"{model_key}_vs_pg_ratio"
@@ -832,34 +834,34 @@ def render_model_split_panel(df: pd.DataFrame | None, model_key: str, model_labe
     wins = int((ratios < 1).sum()) if not ratios.empty else 0
 
     if model_key == "bao":
-        st.markdown("**Pipeline được tái hiện:** author checkpoint → Bao chọn hint set → PostgreSQL planning → PostgreSQL execution")
+        st.markdown("**Quy trình được tái hiện:** mô hình do tác giả cung cấp → Bao chọn bộ gợi ý → PostgreSQL lập kế hoạch → PostgreSQL thực thi")
     else:
-        st.markdown("**Pipeline được tái hiện:** team checkpoint → Balsa plan search → chosen plan/hints → PostgreSQL planning → PostgreSQL execution")
+        st.markdown("**Quy trình được tái hiện:** mô hình do nhóm huấn luyện → Balsa tìm kế hoạch → chọn kế hoạch và gợi ý → PostgreSQL lập kế hoạch → PostgreSQL thực thi")
 
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Comparable queries", len(rows))
-    m2.metric(f"{model_label} total E2E", format_seconds_from_ms(model_total))
-    m3.metric("PG baseline total E2E", format_seconds_from_ms(pg_total))
-    m4.metric("Total E2E / PG", "N/A" if total_ratio is None else f"{total_ratio:.3f}×")
+    m1.metric("Số truy vấn so sánh được queries", len(rows))
+    m2.metric(f"{model_label}: tổng E2E", format_seconds_from_ms(model_total))
+    m3.metric("PostgreSQL: tổng E2E đối chứng", format_seconds_from_ms(pg_total))
+    m4.metric("Tỷ số tổng E2E / PostgreSQL", "N/A" if total_ratio is None else f"{total_ratio:.3f}×")
 
     st.caption(
-        f"Median per-query {model_label}/PG = {float(ratios.median()):.3f}× · "
-        f"{model_label} thắng {wins}/{len(rows)} query comparable."
+        f"Trung vị tỷ số theo truy vấn {model_label}/PG = {float(ratios.median()):.3f}× · "
+        f"{model_label} thắng {wins}/{len(rows)} truy vấn có thể so sánh."
     )
     render_component_chart(component_totals(rows, model_key, model_label))
 
     if model_key == "bao":
         checkpoints = sorted(rows.get("bao_checkpoint_id", pd.Series(dtype=str)).dropna().astype(str).unique().tolist())
         if checkpoints:
-            st.caption(f"Checkpoint: {', '.join(checkpoints)} · Bao inference đã nằm trong Bao planning.")
+            st.caption(f"Mốc mô hình: {', '.join(checkpoints)} · Thời gian suy luận của Bao đã nằm trong thời gian lập kế hoạch của Bao.")
     else:
         checkpoints = sorted(rows.get("balsa_checkpoint_id", pd.Series(dtype=str)).dropna().astype(str).unique().tolist())
         if checkpoints:
-            st.caption(f"Checkpoint: {', '.join(checkpoints)} · Main analysis: resource-constrained 3 iterations.")
+            st.caption(f"Mốc mô hình: {', '.join(checkpoints)} · Phân tích chính: huấn luyện ba vòng lặp do giới hạn tài nguyên.")
         if "pg_baseline_session" in rows.columns:
             sessions = sorted(rows["pg_baseline_session"].dropna().astype(str).unique().tolist())
             if sessions:
-                st.caption(f"PG baseline provenance: {', '.join(sessions)}.")
+                st.caption(f"Nguồn dữ liệu PostgreSQL đối chứng: {', '.join(sessions)}.")
 
 
 def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
@@ -875,43 +877,43 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
 
         if not bao_rows.empty:
             rows = [
-                (f"{split_label} · PostgreSQL (Bao eval)", "Planning", pd.to_numeric(bao_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
-                (f"{split_label} · Bao", "Planning + Bao inference", pd.to_numeric(bao_rows["bao_planning_ms"], errors="coerce").sum() / 1000.0),
+                (f"{split_label} · PostgreSQL (đối chứng Bao)", "Lập kế hoạch", pd.to_numeric(bao_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
+                (f"{split_label} · Bao", "Lập kế hoạch và suy luận của Bao", pd.to_numeric(bao_rows["bao_planning_ms"], errors="coerce").sum() / 1000.0),
             ]
             for row_label, component, seconds in rows:
-                planning_records.append({"Row": row_label, "Component": component, "Seconds": float(seconds)})
+                planning_records.append({"Phương pháp và cách chia": row_label, "Thành phần": component, "Thời gian (giây)": float(seconds)})
                 if row_label not in row_order:
                     row_order.append(row_label)
 
             execution_records.extend([
                 {
-                    "Row": f"{split_label} · PostgreSQL (Bao eval)",
-                    "Seconds": float(pd.to_numeric(bao_rows["pg_execution_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": f"{split_label} · PostgreSQL (đối chứng Bao)",
+                    "Thời gian (giây)": float(pd.to_numeric(bao_rows["pg_execution_ms"], errors="coerce").sum() / 1000.0),
                 },
                 {
-                    "Row": f"{split_label} · Bao",
-                    "Seconds": float(pd.to_numeric(bao_rows["bao_execution_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": f"{split_label} · Bao",
+                    "Thời gian (giây)": float(pd.to_numeric(bao_rows["bao_execution_ms"], errors="coerce").sum() / 1000.0),
                 },
             ])
 
         if not balsa_rows.empty:
-            pg_row = f"{split_label} · PostgreSQL (Balsa eval)"
+            pg_row = f"{split_label} · PostgreSQL (đối chứng Balsa)"
             balsa_row = f"{split_label} · Balsa"
             planning_records.extend([
                 {
-                    "Row": pg_row,
-                    "Component": "Planning",
-                    "Seconds": float(pd.to_numeric(balsa_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": pg_row,
+                    "Thành phần": "Lập kế hoạch",
+                    "Thời gian (giây)": float(pd.to_numeric(balsa_rows["pg_planning_ms"], errors="coerce").sum() / 1000.0),
                 },
                 {
-                    "Row": balsa_row,
-                    "Component": "PostgreSQL planning",
-                    "Seconds": float(pd.to_numeric(balsa_rows["balsa_planning_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": balsa_row,
+                    "Thành phần": "Lập kế hoạch bằng PostgreSQL",
+                    "Thời gian (giây)": float(pd.to_numeric(balsa_rows["balsa_planning_ms"], errors="coerce").sum() / 1000.0),
                 },
                 {
-                    "Row": balsa_row,
-                    "Component": "Balsa inference / plan search",
-                    "Seconds": float(pd.to_numeric(balsa_rows["balsa_inference_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": balsa_row,
+                    "Thành phần": "Suy luận và tìm kế hoạch của Balsa",
+                    "Thời gian (giây)": float(pd.to_numeric(balsa_rows["balsa_inference_ms"], errors="coerce").sum() / 1000.0),
                 },
             ])
             for row_label in [pg_row, balsa_row]:
@@ -920,12 +922,12 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
 
             execution_records.extend([
                 {
-                    "Row": pg_row,
-                    "Seconds": float(pd.to_numeric(balsa_rows["pg_execution_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": pg_row,
+                    "Thời gian (giây)": float(pd.to_numeric(balsa_rows["pg_execution_ms"], errors="coerce").sum() / 1000.0),
                 },
                 {
-                    "Row": balsa_row,
-                    "Seconds": float(pd.to_numeric(balsa_rows["balsa_execution_ms"], errors="coerce").sum() / 1000.0),
+                    "Phương pháp và cách chia": balsa_row,
+                    "Thời gian (giây)": float(pd.to_numeric(balsa_rows["balsa_execution_ms"], errors="coerce").sum() / 1000.0),
                 },
             ])
 
@@ -935,11 +937,11 @@ def build_figure4_like_data() -> Tuple[pd.DataFrame, pd.DataFrame, List[str]]:
 def render_figure4_like_overview() -> None:
     planning_df, execution_df, row_order = build_figure4_like_data()
     if planning_df.empty or execution_df.empty:
-        st.warning("Không đủ dữ liệu để dựng Figure-4-like overview.")
+        st.warning("Không đủ dữ liệu để dựng biểu đồ tổng hợp.")
         return
 
     shared_y = {
-        "field": "Row",
+        "field": "Phương pháp và cách chia",
         "type": "nominal",
         "sort": row_order,
         "title": None,
@@ -949,7 +951,7 @@ def render_figure4_like_overview() -> None:
     spec = {
         "hconcat": [
             {
-                "title": "Planning + Inference",
+                "title": "Lập kế hoạch và suy luận",
                 "width": 500,
                 "height": {"step": 25},
                 "data": {"values": planning_df.to_dict(orient="records")},
@@ -958,20 +960,20 @@ def render_figure4_like_overview() -> None:
                     "y": shared_y,
                     "x": {
                         "aggregate": "sum",
-                        "field": "Seconds",
+                        "field": "Thời gian (giây)",
                         "type": "quantitative",
-                        "title": "Tổng thời gian trên query comparable (s)",
+                        "title": "Tổng thời gian trên truy vấn có thể so sánh (s)",
                     },
-                    "color": {"field": "Component", "type": "nominal", "title": None},
+                    "color": {"field": "Thành phần", "type": "nominal", "title": None},
                     "tooltip": [
-                        {"field": "Row", "type": "nominal", "title": "Split / method"},
-                        {"field": "Component", "type": "nominal"},
-                        {"field": "Seconds", "type": "quantitative", "format": ".3f", "title": "Seconds"},
+                        {"field": "Phương pháp và cách chia", "type": "nominal", "title": "Cách chia / phương pháp"},
+                        {"field": "Thành phần", "type": "nominal"},
+                        {"field": "Thời gian (giây)", "type": "quantitative", "format": ".3f", "title": "Thời gian (giây)"},
                     ],
                 },
             },
             {
-                "title": "Execution",
+                "title": "Thực thi",
                 "width": 500,
                 "height": {"step": 25},
                 "data": {"values": execution_df.to_dict(orient="records")},
@@ -979,13 +981,13 @@ def render_figure4_like_overview() -> None:
                 "encoding": {
                     "y": shared_y,
                     "x": {
-                        "field": "Seconds",
+                        "field": "Thời gian (giây)",
                         "type": "quantitative",
-                        "title": "Tổng thời gian trên query comparable (s)",
+                        "title": "Tổng thời gian trên truy vấn có thể so sánh (s)",
                     },
                     "tooltip": [
-                        {"field": "Row", "type": "nominal", "title": "Split / method"},
-                        {"field": "Seconds", "type": "quantitative", "format": ".3f", "title": "Seconds"},
+                        {"field": "Phương pháp và cách chia", "type": "nominal", "title": "Cách chia / phương pháp"},
+                        {"field": "Thời gian (giây)", "type": "quantitative", "format": ".3f", "title": "Thời gian (giây)"},
                     ],
                 },
             },
@@ -1054,20 +1056,20 @@ def build_execution_evidence_summary() -> pd.DataFrame:
 
         eval_isolation = []
         if balsa_manifest.get("train_called_during_eval") is False:
-            eval_isolation.append("no-train")
+            eval_isolation.append("không huấn luyện lại")
         if balsa_manifest.get("weights_unchanged") is True:
-            eval_isolation.append("weights unchanged")
+            eval_isolation.append("trọng số không thay đổi")
 
         rows.append({
-            "Split": split_label,
-            "Train / Test": f"{len(train_queries)} / {len(test_queries)}",
-            "Bao checkpoint": bao_checkpoint,
-            "Bao eval": _status_summary(bao_rows),
-            "PostgreSQL (Bao eval)": _status_summary(bao_pg_rows),
-            "Balsa checkpoint": balsa_checkpoint,
-            "Balsa eval": _status_summary(balsa_rows),
-            "PostgreSQL (Balsa eval)": _status_summary(balsa_pg_rows),
-            "Balsa eval isolation": " · ".join(eval_isolation) if eval_isolation else "N/A",
+            "Cách chia": split_label,
+            "Huấn luyện / Kiểm tra": f"{len(train_queries)} / {len(test_queries)}",
+            "Mốc mô hình Bao": bao_checkpoint,
+            "Đánh giá Bao": _status_summary(bao_rows),
+            "PostgreSQL (đối chứng Bao)": _status_summary(bao_pg_rows),
+            "Mốc mô hình Balsa": balsa_checkpoint,
+            "Đánh giá Balsa": _status_summary(balsa_rows),
+            "PostgreSQL (đối chứng Balsa)": _status_summary(balsa_pg_rows),
+            "Tách biệt huấn luyện và đánh giá Balsa": " · ".join(eval_isolation) if eval_isolation else "N/A",
         })
 
     return pd.DataFrame(rows)
@@ -1078,41 +1080,41 @@ def render_execution_evidence() -> None:
     evidence = build_execution_evidence_summary()
     st.dataframe(evidence, hide_index=True, width="stretch")
     st.caption(
-        "Bao: author checkpoint + team evaluation · "
-        "Balsa: team-trained checkpoint + independent evaluation · "
-        "Nguồn timing: evaluation CSV và PostgreSQL baseline CSV trong repo."
+        "Bao: mô hình do tác giả cung cấp, nhóm thực hiện đánh giá · "
+        "Balsa: mô hình do nhóm huấn luyện, đánh giá độc lập · "
+        "Nguồn số liệu thời gian: các tệp CSV đánh giá và PostgreSQL đối chứng trong kho mã nguồn."
     )
 
 
 def render_experiment_csv_evidence() -> None:
-    with st.expander("Dữ liệu chi tiết: checkpoint · planning · inference · execution · E2E", expanded=False):
+    with st.expander("Dữ liệu chi tiết: mốc mô hình · lập kế hoạch · suy luận · thực thi · E2E", expanded=False):
         selected_split = st.selectbox(
-            "Split",
+            "Cách chia",
             SPLIT_ORDER,
             format_func=lambda x: SPLIT_LABEL[x],
             key="csv_evidence_split",
         )
 
-        bao_tab, balsa_tab = st.tabs(["Bao output", "Balsa output"])
+        bao_tab, balsa_tab = st.tabs(["Kết quả Bao", "Kết quả Balsa"])
 
         with bao_tab:
             raw_bao = _read_csv_if_exists(BAO_RAW_EVAL_PATH)
             raw_pg = _read_csv_if_exists(BAO_RAW_PG_PATH)
             st.caption(f"Bao: {BAO_RAW_EVAL_PATH.relative_to(REPO_ROOT)}")
-            st.caption(f"PostgreSQL baseline: {BAO_RAW_PG_PATH.relative_to(REPO_ROOT)}")
+            st.caption(f"PostgreSQL đối chứng: {BAO_RAW_PG_PATH.relative_to(REPO_ROOT)}")
 
             if not raw_bao.empty:
                 rows = raw_bao[(raw_bao["split_type"] == selected_split) & (pd.to_numeric(raw_bao["split_id"], errors="coerce") == 1)].copy()
                 cols = [c for c in ["query_id", "checkpoint_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "chosen_plan_id", "chosen_plan_ids"] if c in rows.columns]
-                st.dataframe(rows[cols], hide_index=True, width="stretch")
+                st.dataframe(rows[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
             else:
-                st.warning("Không tìm thấy Bao evaluation CSV.")
+                st.warning("Không tìm thấy Đánh giá Baouation CSV.")
 
             if not raw_pg.empty:
-                with st.expander("PostgreSQL baseline tương ứng của Bao", expanded=False):
+                with st.expander("PostgreSQL đối chứng tương ứng của Bao", expanded=False):
                     rows = raw_pg[(raw_pg["split_type"] == selected_split) & (pd.to_numeric(raw_pg["split_id"], errors="coerce") == 1)].copy()
                     cols = [c for c in ["query_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms"] if c in rows.columns]
-                    st.dataframe(rows[cols], hide_index=True, width="stretch")
+                    st.dataframe(rows[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
 
         with balsa_tab:
             run_dir = BALSA_RUN_DIRS[selected_split]
@@ -1121,52 +1123,52 @@ def render_experiment_csv_evidence() -> None:
             raw_eval = _read_csv_if_exists(raw_eval_path)
             raw_pg = _read_csv_if_exists(raw_pg_path)
             st.caption(f"Balsa: {raw_eval_path.relative_to(REPO_ROOT)}")
-            st.caption(f"PostgreSQL baseline: {raw_pg_path.relative_to(REPO_ROOT)}")
+            st.caption(f"PostgreSQL đối chứng: {raw_pg_path.relative_to(REPO_ROOT)}")
 
             if not raw_eval.empty:
                 cols = [c for c in ["query_id", "checkpoint_id", "inference_ms", "planning_ms", "execution_ms", "end_to_end_ms", "status", "chosen_plan_id"] if c in raw_eval.columns]
-                st.dataframe(raw_eval[cols], hide_index=True, width="stretch")
+                st.dataframe(raw_eval[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
             else:
-                st.warning("Không tìm thấy Balsa evaluation CSV.")
+                st.warning("Không tìm thấy Đánh giá Balsauation CSV.")
 
             if not raw_pg.empty:
-                with st.expander("PostgreSQL baseline tương ứng của Balsa", expanded=False):
+                with st.expander("PostgreSQL đối chứng tương ứng của Balsa", expanded=False):
                     cols = [c for c in ["query_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms"] if c in raw_pg.columns]
                     st.dataframe(raw_pg[cols], hide_index=True, width="stretch")
 
 
 def render_paper_protocol_replay() -> None:
-    st.markdown("## ① Tái hiện thực nghiệm theo protocol đánh giá của paper")
-    st.caption("JOB · LOO-1 · Random-1 · BaseQuery-1 · Split-level evaluation")
+    st.markdown("## ① Tái hiện thực nghiệm theo quy trình đánh giá của bài báo")
+    st.caption("JOB · LOO-1 · Random-1 · BaseQuery-1 · Đánh giá theo cách chia dữ liệu")
 
     # 1) Provenance / artifacts first
     render_execution_evidence()
 
     # 2) Numeric results before visualization
-    st.markdown("### Kết quả chạy theo split")
+    st.markdown("### Kết quả theo từng cách chia dữ liệu")
     overview = build_split_overview_table()
     st.dataframe(
         overview,
         hide_index=True,
         width="stretch",
         column_config={
-            "Bao median E2E/PG": st.column_config.NumberColumn(format="%.3f×"),
-            "Balsa median E2E/PG": st.column_config.NumberColumn(format="%.3f×"),
-            "Bao total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
-            "PostgreSQL (Bao eval) total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
-            "Balsa total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
-            "PostgreSQL (Balsa eval) total E2E (s)": st.column_config.NumberColumn(format="%.3f"),
+            "Trung vị E2E/PG (Bao)": st.column_config.NumberColumn(format="%.3f×"),
+            "Trung vị E2E/PG (Balsa)": st.column_config.NumberColumn(format="%.3f×"),
+            "Tổng E2E của Bao (giây)": st.column_config.NumberColumn(format="%.3f"),
+            "Tổng E2E PostgreSQL khi so sánh Bao (giây)": st.column_config.NumberColumn(format="%.3f"),
+            "Tổng E2E của Balsa (giây)": st.column_config.NumberColumn(format="%.3f"),
+            "Tổng E2E PostgreSQL khi so sánh Balsa (giây)": st.column_config.NumberColumn(format="%.3f"),
         },
     )
 
     render_experiment_csv_evidence()
 
     # 3) One combined Figure-4-like visualization
-    st.markdown("### Figure tổng hợp — Planning / Inference và Execution")
+    st.markdown("### Biểu đồ tổng hợp — thời gian lập kế hoạch, suy luận và thực thi")
     st.caption(
-        "Bao: inference được tính trong planning · "
-        "Balsa: inference/plan-search tách riêng trước PostgreSQL planning · "
-        "PostgreSQL (Bao eval) và PostgreSQL (Balsa eval): baseline tương ứng của từng evaluation pipeline."
+        "Bao: thời gian suy luận được tính trong thời gian lập kế hoạch · "
+        "Balsa: thời gian suy luận và tìm kế hoạch được tính riêng trước thời gian lập kế hoạch bằng PostgreSQL · "
+        "PostgreSQL đối chứng được ghi nhận riêng cho từng quy trình đánh giá Bao và Balsa."
     )
     render_figure4_like_overview()
 
@@ -1190,12 +1192,12 @@ def build_novelty_split_summary() -> pd.DataFrame:
             == rows["nearest_train_family"].astype(str).str.lower()
         )
         records.append({
-            "Split": SPLIT_LABEL[split_type],
-            "Test queries": len(rows),
-            "Median Novelty": float(vals.median()),
-            "Mean Novelty": float(vals.mean()),
-            "Max Novelty": float(vals.max()),
-            "Nearest Train cùng family": float(same_family.mean() * 100.0),
+            "Cách chia": SPLIT_LABEL[split_type],
+            "Số truy vấn kiểm tra": len(rows),
+            "Trung vị điểm mức độ mới": float(vals.median()),
+            "Trung bình điểm mức độ mới": float(vals.mean()),
+            "Điểm mức độ mới lớn nhất": float(vals.max()),
+            "Truy vấn gần nhất cùng nhóm (%)": float(same_family.mean() * 100.0),
         })
     return pd.DataFrame(records)
 
@@ -1203,7 +1205,7 @@ def build_novelty_split_summary() -> pd.DataFrame:
 def render_novelty_distribution() -> None:
     summary = build_novelty_split_summary()
     if summary.empty:
-        st.warning("Không có novelty.csv để tổng hợp theo split.")
+        st.warning("Không tìm thấy novelty.csv để tổng hợp theo cách chia dữ liệu.")
         return
 
     left, right = st.columns([1.1, 1])
@@ -1213,22 +1215,22 @@ def render_novelty_distribution() -> None:
             hide_index=True,
             width="stretch",
             column_config={
-                "Median Novelty": st.column_config.NumberColumn(format="%.6f"),
-                "Mean Novelty": st.column_config.NumberColumn(format="%.6f"),
-                "Max Novelty": st.column_config.NumberColumn(format="%.6f"),
-                "Nearest Train cùng family": st.column_config.NumberColumn(format="%.1f%%"),
+                "Trung vị điểm mức độ mới": st.column_config.NumberColumn(format="%.6f"),
+                "Trung bình điểm mức độ mới": st.column_config.NumberColumn(format="%.6f"),
+                "Điểm mức độ mới lớn nhất": st.column_config.NumberColumn(format="%.6f"),
+                "Truy vấn gần nhất cùng nhóm (%)": st.column_config.NumberColumn(format="%.1f%%"),
             },
         )
     with right:
-        chart_df = summary[["Split", "Median Novelty"]].copy()
+        chart_df = summary[["Cách chia", "Trung vị điểm mức độ mới"]].copy()
         spec = {
             "mark": {"type": "bar"},
             "encoding": {
-                "x": {"field": "Split", "type": "nominal", "sort": [SPLIT_LABEL[x] for x in SPLIT_ORDER], "title": None},
-                "y": {"field": "Median Novelty", "type": "quantitative", "title": "Median Structural Novelty"},
+                "x": {"field": "Cách chia", "type": "nominal", "sort": [SPLIT_LABEL[x] for x in SPLIT_ORDER], "title": None},
+                "y": {"field": "Trung vị điểm mức độ mới", "type": "quantitative", "title": "Trung vị điểm mức độ mới về cấu trúc"},
                 "tooltip": [
-                    {"field": "Split", "type": "nominal"},
-                    {"field": "Median Novelty", "type": "quantitative", "format": ".6f"},
+                    {"field": "Cách chia", "type": "nominal"},
+                    {"field": "Trung vị điểm mức độ mới", "type": "quantitative", "format": ".6f"},
                 ],
             },
         }
@@ -1275,17 +1277,17 @@ def render_split_scatter(df: pd.DataFrame | None, model_key: str, model_label: s
             {
                 "mark": {"type": "point", "filled": True, "size": 80},
                 "encoding": {
-                    "x": {"field": "novelty", "type": "quantitative", "title": "Structural Novelty"},
+                    "x": {"field": "novelty", "type": "quantitative", "title": "Điểm mức độ mới về cấu trúc"},
                     "y": {
                         "field": "ratio",
                         "type": "quantitative",
                         "scale": {"type": "log"},
-                        "title": f"{model_label} / PostgreSQL · E2E",
+                        "title": f"Tỷ số thời gian E2E: {model_label}/PostgreSQL",
                     },
                     "tooltip": [
-                        {"field": "query_id", "type": "nominal", "title": "Query"},
-                        {"field": "novelty", "type": "quantitative", "format": ".6f", "title": "Novelty"},
-                        {"field": "ratio", "type": "quantitative", "format": ".3f", "title": f"{model_label}/PG"},
+                        {"field": "query_id", "type": "nominal", "title": "Truy vấn"},
+                        {"field": "novelty", "type": "quantitative", "format": ".6f", "title": "Điểm mức độ mới"},
+                        {"field": "ratio", "type": "quantitative", "format": ".3f", "title": f"Tỷ số E2E của {model_label}/PostgreSQL"},
                     ],
                 },
             },
@@ -1294,7 +1296,7 @@ def render_split_scatter(df: pd.DataFrame | None, model_key: str, model_label: s
     st.vega_lite_chart(rows, spec, use_container_width=True)
     text = spearman_text(spearman_df, split_type)
     if text:
-        st.caption(f"Spearman: {text} · Đường 1× là PostgreSQL baseline.")
+        st.caption(f"Spearman: {text} · Đường 1× là PostgreSQL đối chứng.")
 
 
 def _group_row(df: pd.DataFrame | None, split_type: str, group: str) -> pd.Series | None:
@@ -1325,13 +1327,13 @@ def build_group_comparison_table() -> pd.DataFrame:
         balsa_high_ratio = _value(balsa_high, "median_balsa_pg_ratio")
 
         records.append({
-            "Split": SPLIT_LABEL[split_type],
-            "Bao Low": bao_low_ratio,
-            "Bao High": bao_high_ratio,
-            "Bao High/Low": (bao_high_ratio / bao_low_ratio) if bao_low_ratio and bao_high_ratio else None,
-            "Balsa Low": balsa_low_ratio,
-            "Balsa High": balsa_high_ratio,
-            "Balsa High/Low": (balsa_high_ratio / balsa_low_ratio) if balsa_low_ratio and balsa_high_ratio else None,
+            "Cách chia": SPLIT_LABEL[split_type],
+            "Bao: mức thấp": bao_low_ratio,
+            "Bao: mức cao": bao_high_ratio,
+            "Bao: cao/thấp": (bao_high_ratio / bao_low_ratio) if bao_low_ratio and bao_high_ratio else None,
+            "Balsa: mức thấp": balsa_low_ratio,
+            "Balsa: mức cao": balsa_high_ratio,
+            "Balsa: cao/thấp": (balsa_high_ratio / balsa_low_ratio) if balsa_low_ratio and balsa_high_ratio else None,
         })
     return pd.DataFrame(records)
 
@@ -1343,44 +1345,45 @@ def build_group_chart_data(df: pd.DataFrame | None, model_key: str) -> pd.DataFr
     if ratio_col not in df.columns:
         return pd.DataFrame()
     rows = df[df["split_type"].isin(SPLIT_ORDER)].copy()
-    rows["Split"] = rows["split_type"].map(SPLIT_LABEL)
-    rows["Median ratio"] = pd.to_numeric(rows[ratio_col], errors="coerce")
-    return rows[["Split", "novelty_group", "Median ratio"]].dropna()
+    rows["Cách chia"] = rows["split_type"].map(SPLIT_LABEL)
+    rows["Trung vị tỷ số E2E/PG"] = pd.to_numeric(rows[ratio_col], errors="coerce")
+    rows["novelty_group"] = rows["novelty_group"].map({"Low": "Thấp", "Medium": "Trung bình", "High": "Cao"})
+    return rows[["Cách chia", "novelty_group", "Trung vị tỷ số E2E/PG"]].dropna()
 
 
 def render_group_ratio_chart(df: pd.DataFrame | None, model_key: str, label: str) -> None:
     rows = build_group_chart_data(df, model_key)
     if rows.empty:
-        st.warning(f"Không có group summary cho {label}.")
+        st.warning(f"Không có dữ liệu tổng hợp theo nhóm cho {label}.")
         return
     spec = {
         "mark": {"type": "bar"},
         "encoding": {
             "x": {
-                "field": "Split",
+                "field": "Cách chia",
                 "type": "nominal",
                 "sort": [SPLIT_LABEL[x] for x in SPLIT_ORDER],
                 "title": None,
             },
             "xOffset": {
                 "field": "novelty_group",
-                "sort": ["Low", "Medium", "High"],
+                "sort": ["Thấp", "Trung bình", "Cao"],
             },
             "y": {
-                "field": "Median ratio",
+                "field": "Trung vị tỷ số E2E/PG",
                 "type": "quantitative",
-                "title": f"Median {label}/PG · E2E",
+                "title": f"Trung vị tỷ số E2E của {label}/PostgreSQL",
             },
             "color": {
                 "field": "novelty_group",
                 "type": "nominal",
-                "sort": ["Low", "Medium", "High"],
-                "title": "Novelty group",
+                "sort": ["Thấp", "Trung bình", "Cao"],
+                "title": "Nhóm mức độ mới",
             },
             "tooltip": [
-                {"field": "Split", "type": "nominal"},
-                {"field": "novelty_group", "type": "nominal", "title": "Group"},
-                {"field": "Median ratio", "type": "quantitative", "format": ".3f"},
+                {"field": "Cách chia", "type": "nominal"},
+                {"field": "novelty_group", "type": "nominal", "title": "Mức độ mới"},
+                {"field": "Trung vị tỷ số E2E/PG", "type": "quantitative", "format": ".3f"},
             ],
         },
     }
@@ -1390,21 +1393,21 @@ def render_group_ratio_chart(df: pd.DataFrame | None, model_key: str, label: str
 def build_spearman_comparison_table() -> pd.DataFrame:
     records = []
     for split_type in SPLIT_ORDER:
-        record = {"Split": SPLIT_LABEL[split_type]}
+        record = {"Cách chia": SPLIT_LABEL[split_type]}
         for label, df in [("Bao", bao_spearman_df), ("Balsa", balsa_spearman_df)]:
             if df is None or df.empty:
                 record[f"{label} ρ"] = None
-                record[f"{label} p"] = None
+                record[f"{label} (p-value)"] = None
                 continue
             key = "split_type" if "split_type" in df.columns else "group"
             rows = df[df[key] == split_type]
             if rows.empty:
                 record[f"{label} ρ"] = None
-                record[f"{label} p"] = None
+                record[f"{label} (p-value)"] = None
             else:
                 row = rows.iloc[0]
                 record[f"{label} ρ"] = float(row["rho"])
-                record[f"{label} p"] = float(row["p_value"])
+                record[f"{label} (p-value)"] = float(row["p_value"])
         records.append(record)
     return pd.DataFrame(records)
 
@@ -1413,26 +1416,26 @@ def build_extension_evidence_table() -> pd.DataFrame:
     evidence = []
     summary = build_novelty_split_summary()
     if not summary.empty:
-        bq = summary[summary["Split"] == "BaseQuery-1"]
+        bq = summary[summary["Cách chia"] == "BaseQuery-1"]
         if not bq.empty:
             row = bq.iloc[0]
             evidence.append({
-                "Evidence": "Structural gap",
-                "Observed result": (
-                    f"BaseQuery-1 median Novelty = {row['Median Novelty']:.3f}; "
-                    f"nearest Train cùng family = {row['Nearest Train cùng family']:.1f}%"
+                "Bằng chứng": "Khác biệt cấu trúc",
+                "Kết quả quan sát": (
+                    f"BaseQuery-1 trung vị điểm mức độ mới = {row['Trung vị điểm mức độ mới']:.3f}; "
+                    f"truy vấn huấn luyện gần nhất cùng nhóm = {row['Truy vấn gần nhất cùng nhóm (%)']:.1f}%"
                 ),
             })
 
     group_table = build_group_comparison_table()
-    rnd = group_table[group_table["Split"] == "Random-1"] if not group_table.empty else pd.DataFrame()
+    rnd = group_table[group_table["Cách chia"] == "Random-1"] if not group_table.empty else pd.DataFrame()
     if not rnd.empty:
         row = rnd.iloc[0]
         evidence.append({
-            "Evidence": "High-vs-Low on Random-1",
-            "Observed result": (
-                f"Bao High/Low = {row['Bao High/Low']:.2f}×; "
-                f"Balsa High/Low = {row['Balsa High/Low']:.2f}×"
+            "Bằng chứng": "So sánh mức cao và thấp ở Random-1",
+            "Kết quả quan sát": (
+                f"Bao: cao/thấp = {row['Bao: cao/thấp']:.2f}×; "
+                f"Balsa: cao/thấp = {row['Balsa: cao/thấp']:.2f}×"
             ),
         })
 
@@ -1441,8 +1444,8 @@ def build_extension_evidence_table() -> pd.DataFrame:
         if len(same) == 2:
             parts = []
             for _, row in same.sort_values("query_id").iterrows():
-                parts.append(f"{row['query_id']}: Novelty {float(row['novelty']):.3f}, Bao/PG {float(row['bao_vs_pg_ratio']):.2f}×")
-            evidence.append({"Evidence": "Same Novelty, different outcome", "Observed result": " · ".join(parts)})
+                parts.append(f"{row['query_id']}: điểm mức độ mới {float(row['novelty']):.3f}, Bao/PG {float(row['bao_vs_pg_ratio']):.2f}×")
+            evidence.append({"Bằng chứng": "Cùng mức độ mới, khác hiệu năng", "Kết quả quan sát": " · ".join(parts)})
 
     if balsa_cases_df is not None and not balsa_cases_df.empty:
         rows = balsa_cases_df[balsa_cases_df["case_type"].isin(["LOW_NOVELTY_WORST_SLOWDOWN", "BALSA_TIMEOUT"])]
@@ -1451,20 +1454,20 @@ def build_extension_evidence_table() -> pd.DataFrame:
             ratio = row.get("balsa_vs_pg_ratio")
             ratio_text = f"{float(ratio):.2f}×" if pd.notna(ratio) else str(row.get("balsa_status", "N/A"))
             evidence.append({
-                "Evidence": "Low/Medium Novelty counterexample",
-                "Observed result": f"{row['query_id']}: Novelty {float(row['novelty']):.3f}, Balsa result = {ratio_text}",
+                "Bằng chứng": "Trường hợp ngoại lệ ở mức độ mới thấp/trung bình",
+                "Kết quả quan sát": f"{row['query_id']}: điểm mức độ mới {float(row['novelty']):.3f}, kết quả Balsa = {ratio_text}",
             })
 
     return pd.DataFrame(evidence)
 
 
 def render_structural_novelty_extension() -> None:
-    st.markdown("## ② Structural Novelty — phân tích generalization theo split")
+    st.markdown("## ② Mức độ mới về cấu trúc truy vấn — phân tích khả năng khái quát hóa")
 
-    st.markdown("### 2.1 Structural Train–Test gap")
+    st.markdown("### 2.1 Khác biệt cấu trúc giữa tập huấn luyện và tập kiểm tra")
     render_novelty_distribution()
 
-    st.markdown("### 2.2 Performance theo Low / Medium / High Novelty")
+    st.markdown("### 2.2 Hiệu năng theo các mức độ mới về cấu trúc")
     left, right = st.columns(2)
     with left:
         st.markdown("#### Bao")
@@ -1480,16 +1483,16 @@ def render_structural_novelty_extension() -> None:
             hide_index=True,
             width="stretch",
             column_config={
-                "Bao Low": st.column_config.NumberColumn(format="%.3f×"),
-                "Bao High": st.column_config.NumberColumn(format="%.3f×"),
-                "Bao High/Low": st.column_config.NumberColumn(format="%.2f×"),
-                "Balsa Low": st.column_config.NumberColumn(format="%.3f×"),
-                "Balsa High": st.column_config.NumberColumn(format="%.3f×"),
-                "Balsa High/Low": st.column_config.NumberColumn(format="%.2f×"),
+                "Bao: mức thấp": st.column_config.NumberColumn(format="%.3f×"),
+                "Bao: mức cao": st.column_config.NumberColumn(format="%.3f×"),
+                "Bao: cao/thấp": st.column_config.NumberColumn(format="%.2f×"),
+                "Balsa: mức thấp": st.column_config.NumberColumn(format="%.3f×"),
+                "Balsa: mức cao": st.column_config.NumberColumn(format="%.3f×"),
+                "Balsa: cao/thấp": st.column_config.NumberColumn(format="%.2f×"),
             },
         )
 
-    st.markdown("### 2.3 Spearman: Novelty ↔ E2E ratio")
+    st.markdown("### 2.3 Tương quan Spearman giữa mức độ mới và tỷ số thời gian E2E")
     spearman_table = build_spearman_comparison_table()
     st.dataframe(
         spearman_table,
@@ -1497,13 +1500,13 @@ def render_structural_novelty_extension() -> None:
         width="stretch",
         column_config={
             "Bao ρ": st.column_config.NumberColumn(format="%.3f"),
-            "Bao p": st.column_config.NumberColumn(format="%.3f"),
+            "Bao (p-value)": st.column_config.NumberColumn(format="%.3f"),
             "Balsa ρ": st.column_config.NumberColumn(format="%.3f"),
-            "Balsa p": st.column_config.NumberColumn(format="%.3f"),
+            "Balsa (p-value)": st.column_config.NumberColumn(format="%.3f"),
         },
     )
 
-    with st.expander("Xem scatter theo từng split", expanded=False):
+    with st.expander("Xem biểu đồ phân tán theo từng cách chia dữ liệu", expanded=False):
         tabs = st.tabs([SPLIT_LABEL[x] for x in SPLIT_ORDER])
         for tab, split_type in zip(tabs, SPLIT_ORDER):
             with tab:
@@ -1548,16 +1551,16 @@ def extract_hint_block(sql_text: str | None) -> str | None:
 
 
 def render_query_case_study() -> None:
-    st.markdown("## ③ Query Case Study — drill-down sau khi đã hiểu kết quả theo split")
+    st.markdown("## ③ Phân tích trường hợp truy vấn — xem chi tiết theo từng cách chia")
     st.caption(
-        "Selector chỉ xuất hiện ở đây. Phần này không dùng để tổng hợp cả split; "
-        "nó minh họa một query cụ thể để giải thích quyết định Bao/Balsa và Structural Novelty."
+        "Bộ chọn truy vấn chỉ xuất hiện ở đây. Phần này không dùng để tổng hợp toàn bộ cách chia; "
+        "phần này minh họa một truy vấn cụ thể để giải thích quyết định của Bao/Balsa và điểm mức độ mới về cấu trúc."
     )
 
     control1, control2 = st.columns(2)
     with control1:
         selected_split_type = st.selectbox(
-            "Chọn split cho case study",
+            "Chọn cách chia dữ liệu",
             SPLIT_ORDER,
             format_func=lambda x: SPLIT_LABEL.get(x, x),
             key="case_split",
@@ -1571,7 +1574,7 @@ def render_query_case_study() -> None:
 
     with control2:
         selected_query = st.selectbox(
-            "Chọn Test Query",
+            "Chọn truy vấn kiểm tra",
             test_queries,
             index=default_idx,
             key="case_query",
@@ -1585,15 +1588,15 @@ def render_query_case_study() -> None:
     bao_row = selected_performance_row(bao_df, selected_split_type, selected_split_id, selected_query)
     balsa_row = selected_performance_row(balsa_df, selected_split_type, selected_split_id, selected_query)
 
-    st.markdown("### 3.1 Query và vị trí của nó so với Training Set")
+    st.markdown("### 3.1 Truy vấn kiểm tra và mức độ tương đồng với tập huấn luyện")
     m1, m2, m3, m4, m5 = st.columns(5)
-    m1.metric("Query", selected_query)
-    m2.metric("Tables", query_feature["n_tables"])
-    m3.metric("Joins", query_feature["n_joins"])
-    m4.metric("Filters", query_feature["n_filters"])
-    m5.metric("Novelty", f"{result['novelty']:.6f}")
+    m1.metric("Truy vấn", selected_query)
+    m2.metric("Bảng dữ liệu", query_feature["n_tables"])
+    m3.metric("Điều kiện kết hợp", query_feature["n_joins"])
+    m4.metric("Điều kiện lọc", query_feature["n_filters"])
+    m5.metric("Điểm mức độ mới", f"{result['novelty']:.6f}")
 
-    st.caption(f"Nearest Train Query: {result['nearest']} · Novelty level: {level}")
+    st.caption(f"Truy vấn huấn luyện gần nhất: {result['nearest']} · Mức độ mới: {level}")
     with st.expander("Xem SQL gốc", expanded=False):
         st.code(query_sql, language="sql")
         st.caption(query_sql_path)
@@ -1603,59 +1606,59 @@ def render_query_case_study() -> None:
         hide_index=True,
         width="stretch",
         column_config={
-            "d_table": st.column_config.NumberColumn(format="%.6f"),
-            "d_join": st.column_config.NumberColumn(format="%.6f"),
-            "d_filter": st.column_config.NumberColumn(format="%.6f"),
-            "D(q,h)": st.column_config.NumberColumn(format="%.6f"),
+            "d_table": st.column_config.NumberColumn("Khoảng cách bảng dữ liệu", format="%.6f"),
+            "d_join": st.column_config.NumberColumn("Khoảng cách kết hợp bảng", format="%.6f"),
+            "d_filter": st.column_config.NumberColumn("Khoảng cách điều kiện lọc", format="%.6f"),
+            "D(q,h)": st.column_config.NumberColumn("Khoảng cách tổng hợp D(q,h)", format="%.6f"),
         },
     )
 
-    st.markdown("### 3.2 Bao và Balsa đã quyết định gì với query này?")
+    st.markdown("### 3.2 Bao và Balsa lựa chọn phương án nào cho truy vấn này?")
     left, right = st.columns(2)
 
     with left:
         st.markdown("#### Bao")
         if bao_row is None:
-            st.warning("Không có Bao artifact cho query này.")
+            st.warning("Không có dữ liệu thực nghiệm Bao cho truy vấn này.")
         else:
             chosen = str(bao_row.get("bao_chosen_plan_id", "N/A"))
             chosen_ids = str(bao_row.get("bao_chosen_plan_ids", ""))
-            st.metric("Chosen hint arm", chosen)
-            st.markdown(f"**Ý nghĩa hint:** {BAO_ARM_HINTS.get(chosen, 'Không có mapping mô tả trong app.')} ")
+            st.metric("Phương án gợi ý được Bao chọn", chosen)
+            st.markdown(f"**Ý nghĩa phương án gợi ý:** {BAO_ARM_HINTS.get(chosen, 'Không có mapping mô tả trong app.')} ")
             if chosen_ids and chosen_ids.lower() != "nan":
-                st.caption(f"Arms qua các repeat: {chosen_ids}")
+                st.caption(f"Các phương án qua những lần chạy lặp: {chosen_ids}")
             p1, p2, p3 = st.columns(3)
-            p1.metric("Planning + inference", format_ms(bao_row.get("bao_planning_ms")))
-            p2.metric("Execution", format_ms(bao_row.get("bao_execution_ms")))
+            p1.metric("Lập kế hoạch và suy luận", format_ms(bao_row.get("bao_planning_ms")))
+            p2.metric("Thực thi", format_ms(bao_row.get("bao_execution_ms")))
             p3.metric("E2E / PG", format_ratio(bao_row.get("bao_vs_pg_ratio")))
 
     with right:
         st.markdown("#### Balsa")
         if balsa_row is None:
-            st.warning("Không có Balsa artifact cho query này.")
+            st.warning("Không có dữ liệu thực nghiệm Balsa cho truy vấn này.")
         else:
             plan_id = str(balsa_row.get("balsa_chosen_plan_id", "N/A"))
             run_id = str(balsa_row.get("balsa_run_id", ""))
-            st.metric("Chosen plan id", plan_id)
+            st.metric("Mã kế hoạch được chọn", plan_id)
             p1, p2, p3 = st.columns(3)
-            p1.metric("Inference / plan search", format_ms(balsa_row.get("balsa_inference_ms")))
-            p2.metric("PG planning", format_ms(balsa_row.get("balsa_planning_ms")))
+            p1.metric("Suy luận và tìm kế hoạch", format_ms(balsa_row.get("balsa_inference_ms")))
+            p2.metric("PostgreSQL lập kế hoạch", format_ms(balsa_row.get("balsa_planning_ms")))
             p3.metric("E2E / PG", format_ratio(balsa_row.get("balsa_vs_pg_ratio")))
 
             hinted_sql, hinted_path = load_balsa_hinted_sql(selected_split_type, run_id, selected_query)
             hint_block = extract_hint_block(hinted_sql)
             if hint_block:
-                with st.expander("Xem physical-plan hints Balsa chọn", expanded=False):
+                with st.expander("Xem gợi ý cho kế hoạch thực thi do Balsa chọn", expanded=False):
                     st.code(hint_block, language="text")
                     if hinted_path:
                         st.caption(hinted_path)
             elif hinted_sql:
-                with st.expander("Xem hinted SQL của Balsa", expanded=False):
+                with st.expander("Xem truy vấn SQL có gợi ý thực thi của Balsa", expanded=False):
                     st.code(hinted_sql, language="sql")
                     if hinted_path:
                         st.caption(hinted_path)
             else:
-                st.caption("Không tìm thấy hinted SQL artifact trong repo hiện tại.")
+                st.caption("Không tìm thấy tệp SQL có gợi ý thực thi trong kho mã nguồn hiện tại.")
 
 
 
@@ -1667,13 +1670,13 @@ st.title("Đánh giá tối ưu hóa truy vấn bằng học máy")
 st.caption("Bao · Balsa · PostgreSQL trên JOB")
 
 st.info(
-    "**Chế độ xem lại kết quả:** ứng dụng đọc dữ liệu và artifact thực nghiệm đã lưu trong repo; "
-    "thao tác chọn truy vấn không huấn luyện mô hình hoặc thực thi lại benchmark."
+    "**Chế độ xem lại kết quả:** ứng dụng đọc dữ liệu và tệp kết quả thực nghiệm đã lưu trong kho mã nguồn; "
+    "thao tác chọn truy vấn không huấn luyện mô hình hoặc chạy lại phép đánh giá."
 )
 
 st.markdown(
-    "**Luồng demo:** dữ liệu và kịch bản chạy → đánh giá theo protocol của paper → "
-    "Structural Novelty extension → query case study."
+    "**Trình tự nội dung:** dữ liệu và kịch bản thực nghiệm → đánh giá theo quy trình của bài báo → "
+    "phân tích mức độ mới về cấu trúc → phân tích trường hợp truy vấn."
 )
 
 render_experiment_scenario_and_data()
@@ -1687,4 +1690,4 @@ render_structural_novelty_extension()
 st.divider()
 render_query_case_study()
 
-st.caption("Team14 · JOB · Data preparation → Paper-oriented evaluation → Structural Novelty → Case study")
+st.caption("Nhóm 14 · JOB · Chuẩn bị dữ liệu → Đánh giá theo bài báo → Mức độ mới về cấu trúc → Phân tích trường hợp")

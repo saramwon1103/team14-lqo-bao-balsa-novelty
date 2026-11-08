@@ -1,0 +1,63 @@
+{
+  "run_id": "balsa-v2-run-51121",
+  "model": "Balsa",
+  "split_type": "LOO",
+  "split_id": 1,
+  "model_source": "team_trained",
+  "simulator_source": "fresh_split_local_simulator",
+  "train_query_count": 80,
+  "test_query_count": 33,
+  "seed": 0,
+  "git_repo": "https://github.com/saramwon1103/team14-lqo-bao-balsa-novelty",
+  "git_commit": "1335ff20fd20a84f2101c5284dfb2a7e8b0e8efd",
+  "training_command": "<runtime>/team14-balsa-v2/balsa/source/scripts/train_split.py --split-master <runtime>/team14-balsa-v2/analysis/data/split_master.csv --split-type LOO-1 --output-dir <runtime>/bp51121/training --allow-full --iterations 3 --seed 0 --initial-timeout-ms 30000 --isolated-runtime --fresh-simulator --simulator-integration-epochs 1",
+  "postgres_version": "PostgreSQL 12.5 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit",
+  "start_time": 1793541935.7010853,
+  "end_time": 1793544066.8321912,
+  "checkpoint_path": "artifacts/evaluation.pt",
+  "checkpoint_sha256": "24ff5f2ba7635bcd00494eff9b371461dbb240c60644abb7d37a7360265057e8",
+  "status": "COMPLETED_WITH_QUERY_ERRORS_OR_TIMEOUTS",
+  "split_source": "analysis/data/split_master.csv",
+  "split_source_commit": "5c9d6403089289a3188aa05ea75ef33c62b50177",
+  "split_source_sha256": "804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880",
+  "membership_sha256": "8fa5085ab4b750f7d3e037aa56bb6328ab31d43d29b5c2f80a213e32445590ba",
+  "split_manifest_sha256": "0cdf5bb0c6922eea73e7781aa0f62e11f7b730545312340efccf10d5d806e9c2",
+  "evaluation_pid": 633356,
+  "train_called_during_eval": false,
+  "weights_unchanged": true,
+  "training_trace_source": "team_run",
+  "timing_contract": "V2: inference + hinted PostgreSQL planning + execution",
+  "novelty_join_audit": {
+    "novelty_rows": 74,
+    "unique_novelty_keys": 74,
+    "matched_rows": 33,
+    "join_key": [
+      "query_id",
+      "family",
+      "split_type",
+      "split_id"
+    ],
+    "merge_cardinality": "one_to_one"
+  },
+  "evaluation_status_counts": {
+    "OK": 31,
+    "TIMEOUT": 2
+  },
+  "postgres_status_counts": {
+    "NOT_RUN": 2,
+    "OK": 31
+  },
+  "output_validation": {
+    "snapshot_rows": 113,
+    "evaluation_rows": 33,
+    "postgres_rows": 33,
+    "statuses": {
+      "OK": 31,
+      "TIMEOUT": 2
+    }
+  },
+  "postgres_baseline_session": {
+    "connection": "legacy_same_session",
+    "note": "This published run predates Stage-A baseline isolation. Native PostgreSQL baseline was measured after Balsa session overrides in the same evaluator cursor; re-evaluation/refresh is required before claiming a fully isolated native PostgreSQL baseline."
+  }
+}

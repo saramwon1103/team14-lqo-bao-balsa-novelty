@@ -1,0 +1,38 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Credentials
+.env
+*.pem
+*.key
+.pgpass
+
+# Local DB / large data
+*.dump
+*.sql.gz
+
+# W&B local data
+wandb/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Large checkpoints - use Git LFS or external storage
+*.pt
+*.pth
+*.ckpt

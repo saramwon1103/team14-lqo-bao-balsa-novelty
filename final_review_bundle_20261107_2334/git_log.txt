@@ -1,0 +1,15 @@
+﻿1c3f95c feat: redesign demo around paper evaluation and novelty insights
+f6b1ff7 chore: snapshot demo before paper-first redesign
+417fd15 fix: align LQO evaluation provenance and novelty analysis
+2760c43 docs(balsa): clarify milestone timing contract
+b6a11bd artifacts(balsa): include BaseQuery-1 milestone checkpoints
+7f74fed results(balsa): add BaseQuery-1 10-iteration milestones
+f596e88 feat(balsa): evaluate 10-iteration milestone bundles
+a593c56 fix(bao): resolve paths from bao/scripts, add author train logs for regeneration
+b80cbbf feat(demo): add Bao and Balsa data mining presentation
+fa4e1ba feat(analysis): add Balsa novelty performance analysis
+50bc329 feat(demo): integrate Bao novelty performance analysis
+a27c5e4 feat(analysis): add Bao novelty performance analysis
+ea33953 feat(bao): V2 outputs - split_master source, artifact checkpoint paths, warning/chosen_plan_ids
+8d8d1fb Include Balsa V2 evaluation checkpoints
+98e1b12 Publish Balsa V2 split results and evidence

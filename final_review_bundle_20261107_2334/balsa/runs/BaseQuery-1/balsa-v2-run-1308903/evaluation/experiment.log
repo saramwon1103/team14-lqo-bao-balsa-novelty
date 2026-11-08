@@ -1,0 +1,313 @@
+===== EXPERIMENT START =====
+Model: Balsa
+Run: balsa-v2-run-1308903
+Split: 1
+Fold: None
+Seed: 0
+Training status: EVAL_ONLY
+
+[4] LQO EVALUATION
+Test query: 15a
+Repeat: 0
+Balsa inference/planning: 430.44200700023794
+PostgreSQL hinted planning: 3.645
+Execution time: 1456.133
+End-to-End: 1890.220007000238
+Wall clock: 1893.532056001277
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/15a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 7.752
+Execution: 331.448
+End-to-End: 339.2
+
+[4] LQO EVALUATION
+Test query: 15b
+Repeat: 0
+Balsa inference/planning: 611.4921909993427
+PostgreSQL hinted planning: 3.171
+Execution time: 1526.563
+End-to-End: 2141.226190999343
+Wall clock: 2147.573108999495
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/15b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.294
+Execution: 12.758
+End-to-End: 16.052
+
+[4] LQO EVALUATION
+Test query: 15c
+Repeat: 0
+Balsa inference/planning: 284.42044100120256
+PostgreSQL hinted planning: 2.529
+Execution time: 3341.152
+End-to-End: 3628.1014410012026
+Wall clock: 3631.7685670001083
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/15c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.206
+Execution: 631.427
+End-to-End: 634.633
+
+[4] LQO EVALUATION
+Test query: 15d
+Repeat: 0
+Balsa inference/planning: 328.5246579998784
+PostgreSQL hinted planning: 3.029
+Execution time: 3442.456
+End-to-End: 3774.0096579998785
+Wall clock: 3781.7750590002106
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/15d_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.305
+Execution: 696.204
+End-to-End: 699.5089999999999
+
+[4] LQO EVALUATION
+Test query: 24a
+Repeat: 0
+Balsa inference/planning: 392.61498599989864
+PostgreSQL hinted planning: 14.473
+Execution time: 4874.998
+End-to-End: 5282.085985999898
+Wall clock: 5288.42455800077
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/24a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 25.726
+Execution: 199.565
+End-to-End: 225.291
+
+[4] LQO EVALUATION
+Test query: 24b
+Repeat: 0
+Balsa inference/planning: 287.45139300008304
+PostgreSQL hinted planning: 11.326
+Execution time: 4818.171
+End-to-End: 5116.948393000083
+Wall clock: 5120.098289999078
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/24b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 21.184
+Execution: 131.426
+End-to-End: 152.60999999999999
+
+[4] LQO EVALUATION
+Test query: 25a
+Repeat: 0
+Balsa inference/planning: 101.85663699849101
+PostgreSQL hinted planning: 3.433
+Execution time: 4151.486
+End-to-End: 4256.775636998491
+Wall clock: 4262.129971999457
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/25a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 2.851
+Execution: 1154.963
+End-to-End: 1157.814
+
+[4] LQO EVALUATION
+Test query: 25b
+Repeat: 0
+Balsa inference/planning: 273.16295499986154
+PostgreSQL hinted planning: 3.28
+Execution time: 3690.753
+End-to-End: 3967.195954999862
+Wall clock: 3970.6363690002036
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/25b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 2.926
+Execution: 106.547
+End-to-End: 109.473
+
+[4] LQO EVALUATION
+Test query: 25c
+Repeat: 0
+Balsa inference/planning: 110.44563599898538
+PostgreSQL hinted planning: 2.048
+Execution time: 4571.113
+End-to-End: 4683.606635998985
+Wall clock: 4688.0242160004855
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/25c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 3.914
+Execution: 2823.107
+End-to-End: 2827.021
+
+[4] LQO EVALUATION
+Test query: 2a
+Repeat: 0
+Balsa inference/planning: 84.53127100074198
+PostgreSQL hinted planning: 0.692
+Execution time: 1990.994
+End-to-End: 2076.2172710007417
+Wall clock: 2081.991349999953
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/2a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.435
+Execution: 202.42
+End-to-End: 202.855
+
+[4] LQO EVALUATION
+Test query: 2b
+Repeat: 0
+Balsa inference/planning: 31.61740799987456
+PostgreSQL hinted planning: 0.608
+Execution time: 1838.997
+End-to-End: 1871.2224079998746
+Wall clock: 1876.956672000233
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/2b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.644
+Execution: 187.47
+End-to-End: 188.114
+
+[4] LQO EVALUATION
+Test query: 2c
+Repeat: 0
+Balsa inference/planning: 31.886456001302577
+PostgreSQL hinted planning: 1.098
+Execution time: 1862.932
+End-to-End: 1895.9164560013025
+Wall clock: 1902.25358600037
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/2c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.429
+Execution: 178.647
+End-to-End: 179.076
+
+[4] LQO EVALUATION
+Test query: 2d
+Repeat: 0
+Balsa inference/planning: 34.09348100103671
+PostgreSQL hinted planning: 1.055
+Execution time: 1310.247
+End-to-End: 1345.3954810010368
+Wall clock: 1351.7022100004397
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/2d_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 0.427
+Execution: 252.323
+End-to-End: 252.75
+
+[4] LQO EVALUATION
+Test query: 31a
+Repeat: 0
+Balsa inference/planning: 196.29963700026565
+PostgreSQL hinted planning: 11.101
+Execution time: 4672.35
+End-to-End: 4879.750637000266
+Wall clock: 4884.980272001485
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/31a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 11.479
+Execution: 874.479
+End-to-End: 885.9580000000001
+
+[4] LQO EVALUATION
+Test query: 31b
+Repeat: 0
+Balsa inference/planning: 284.92975999870396
+PostgreSQL hinted planning: 6.126
+Execution time: 3849.182
+End-to-End: 4140.237759998704
+Wall clock: 4143.184730999565
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/31b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 11.639
+Execution: 133.895
+End-to-End: 145.53400000000002
+
+[4] LQO EVALUATION
+Test query: 31c
+Repeat: 0
+Balsa inference/planning: 119.90448399956222
+PostgreSQL hinted planning: 6.687
+Execution time: 4001.535
+End-to-End: 4128.126483999562
+Wall clock: 4132.953402999192
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/31c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 11.458
+Execution: 876.776
+End-to-End: 888.2339999999999
+
+[4] LQO EVALUATION
+Test query: 7a
+Repeat: 0
+Balsa inference/planning: 62.60175299939874
+PostgreSQL hinted planning: 2.398
+Execution time: 3727.581
+End-to-End: 3792.580752999399
+Wall clock: 3796.0907899996528
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/7a_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 1.973
+Execution: 390.702
+End-to-End: 392.675
+
+[4] LQO EVALUATION
+Test query: 7b
+Repeat: 0
+Balsa inference/planning: 60.592443000132334
+PostgreSQL hinted planning: 1.811
+Execution time: 3347.111
+End-to-End: 3409.5144430001324
+Wall clock: 3413.0439849996037
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/7b_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 1.472
+Execution: 75.788
+End-to-End: 77.25999999999999
+
+[4] LQO EVALUATION
+Test query: 7c
+Repeat: 0
+Balsa inference/planning: 67.30482100101653
+PostgreSQL hinted planning: 2.324
+Execution time: 4031.407
+End-to-End: 4101.035821001016
+Wall clock: 4106.547269000657
+Status: COMPLETED
+Result source: MEASURED
+Plan: evaluation/plans/7c_repeat_0_explain.json
+[POSTGRESQL]
+Planning: 1.48
+Execution: 1300.962
+End-to-End: 1302.442
+Weight hash unchanged: YES
+===== EXPERIMENT END =====

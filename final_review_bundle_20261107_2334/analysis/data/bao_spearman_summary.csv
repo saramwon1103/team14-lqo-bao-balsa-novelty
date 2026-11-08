@@ -1,0 +1,4 @@
+split_type,n,rho,p_value,strength,direction
+LOO,32,0.15798428674307743,0.387818933756759,weak,positive
+Random,20,0.4715046778328535,0.03584324167061519,moderate,positive
+BaseQuery,17,-0.26404062603749184,0.3058046434274287,weak,negative

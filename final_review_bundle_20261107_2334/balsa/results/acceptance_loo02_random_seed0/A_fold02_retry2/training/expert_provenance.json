@@ -1,0 +1,6 @@
+{
+  "source": "/tmp/opencode/ai1366378/training/expert.pkl",
+  "sha256": "7c004cfecc7ee577ba42a014339ff79655dea2df85b8ca65d0237b86b2781e7b",
+  "result_source": "CACHE",
+  "purpose": "expert initialization, not fresh baseline benchmark"
+}

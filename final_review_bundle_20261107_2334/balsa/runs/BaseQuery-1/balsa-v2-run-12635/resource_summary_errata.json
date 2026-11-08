@@ -1,0 +1,5 @@
+{
+  "recorded_configuration_val_iters": 3,
+  "actual_requested_training_iterations": 10,
+  "explanation": "The supervisor summary configuration field was hardcoded at 3; the captured training command, config.txt and completed value_iteration events confirm 10. Supervisor exit condition also used the previous 3-iteration status literal, so the wrapper returned 1 although status and all services show completion."
+}

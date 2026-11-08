@@ -1,0 +1,31 @@
+{
+  "training_command": [
+    "/tmp/opencode/team14-balsa-v2/balsa/source/scripts/train_split.py",
+    "--split-master",
+    "/tmp/opencode/team14-balsa-v2/analysis/data/split_master.csv",
+    "--split-type",
+    "BaseQuery-1",
+    "--output-dir",
+    "/tmp/opencode/bp12635/training",
+    "--allow-full",
+    "--iterations",
+    "10",
+    "--seed",
+    "0",
+    "--initial-timeout-ms",
+    "30000",
+    "--isolated-runtime",
+    "--fresh-simulator",
+    "--simulator-integration-epochs",
+    "1"
+  ],
+  "code_commit": "f596e88129fc1d92b74240f0dbf6e6192da74545",
+  "split_source": "analysis/data/split_master.csv",
+  "split_source_commit": "5c9d6403089289a3188aa05ea75ef33c62b50177",
+  "split_source_sha256": "804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880",
+  "membership_sha256": "1b42b3cb41f6d63dea6df8cae657d60eb127b1f53c82fb49f8c9c1f2e318cb41",
+  "split_manifest_sha256": "6cc7dadb036e85db609ebda0a25931f89c4e838101ea381245a19a218a4b94a7",
+  "seed": 0,
+  "model_source": "team_trained",
+  "simulator_initialization": "fresh per split; no cross-split checkpoint/cache"
+}

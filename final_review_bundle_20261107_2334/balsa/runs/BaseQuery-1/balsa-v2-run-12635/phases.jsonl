@@ -1,0 +1,135 @@
+{"stage": "baseline_initialization", "event": "START", "monotonic": 4704.021525126, "timestamp": 1793758348.0619035, "pid": 12691}
+{"stage": "baseline_initialization", "event": "END", "monotonic": 4709.680586855, "timestamp": 1793758353.720965, "pid": 12691, "seconds": 5.659057242999552, "completed": true}
+{"stage": "postgres_expert_baseline", "event": "START", "monotonic": 4709.680713637, "timestamp": 1793758353.7210913, "pid": 12691}
+{"stage": "postgres_expert_baseline", "event": "END", "monotonic": 4796.852299428, "timestamp": 1793758440.8926773, "pid": 12691, "seconds": 87.17157790199963, "completed": true}
+{"stage": "agent_and_simulator_initialization", "event": "START", "monotonic": 4799.307932646, "timestamp": 1793758443.3483117, "pid": 12691}
+{"stage": "simulator_data_collection", "event": "START", "monotonic": 4804.761307814, "timestamp": 1793758448.801686, "pid": 12691}
+{"stage": "simulator_data_collection", "event": "END", "monotonic": 5010.495079599, "timestamp": 1793758654.5354576, "pid": 12691, "seconds": 205.7337673459997, "completed": true}
+{"stage": "simulator_training_and_featurization", "event": "START", "monotonic": 5010.495437938, "timestamp": 1793758654.5358157, "pid": 12691}
+{"stage": "simulator_featurization", "event": "START", "monotonic": 5016.416387798, "timestamp": 1793758660.4567657, "pid": 12691, "num_points": 438112}
+{"stage": "simulator_featurization", "event": "END", "monotonic": 5081.783159766, "timestamp": 1793758725.8235376, "pid": 12691, "seconds": 65.36676931900001, "completed": true, "num_points": 438112}
+{"stage": "simulator_neural_training", "event": "START", "monotonic": 5112.959951969, "timestamp": 1793758757.00033, "pid": 12691}
+{"stage": "simulator_epoch", "event": "END", "monotonic": 5447.130388135, "timestamp": 1793759091.170766, "pid": 12691, "epoch": 0, "global_step": 385, "training_batches": 386, "completed": true}
+{"stage": "simulator_neural_training", "event": "END", "monotonic": 5447.136382824, "timestamp": 1793759091.176761, "pid": 12691, "seconds": 334.17643186400073, "completed": true}
+{"stage": "simulator_training_and_featurization", "event": "END", "monotonic": 5447.259668978, "timestamp": 1793759091.300047, "pid": 12691, "seconds": 436.7642217800003, "completed": true}
+{"stage": "agent_and_simulator_initialization", "event": "END", "monotonic": 5447.525565474, "timestamp": 1793759091.5659435, "pid": 12691, "seconds": 648.2176572549997, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 5447.576306136, "timestamp": 1793759091.6166842, "pid": 12691, "value_iter": 0}
+{"stage": "train", "event": "START", "monotonic": 5447.576609356, "timestamp": 1793759091.6169872, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 5447.658770492, "timestamp": 1793759091.6991482, "pid": 12691, "seconds": 0.08215546607971191, "completed": true, "sample": 0}
+{"stage": "plan", "event": "START", "monotonic": 5447.659244575, "timestamp": 1793759091.6996224, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 5465.292321395, "timestamp": 1793759109.332699, "pid": 12691, "seconds": 17.63307213783264, "completed": true, "sample": 0}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 5465.292497147, "timestamp": 1793759109.332875, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 5678.664760441, "timestamp": 1793759322.7051382, "pid": 12691, "seconds": 213.37225985527039, "completed": true, "sample": 0}
+{"stage": "plan_test_set", "event": "START", "monotonic": 5679.350313175, "timestamp": 1793759323.390691, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 5683.010323946, "timestamp": 1793759327.0507019, "pid": 12691, "seconds": 3.6600115299224854, "completed": true, "sample": 0}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 5683.010478276, "timestamp": 1793759327.050856, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 5726.15499749, "timestamp": 1793759370.1953754, "pid": 12691, "seconds": 43.14451479911804, "completed": true, "sample": 0}
+{"stage": "value_iteration", "event": "END", "monotonic": 5726.210263921, "timestamp": 1793759370.2506416, "pid": 12691, "value_iter": 0, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 5726.215839235, "timestamp": 1793759370.256217, "pid": 12691, "value_iter": 1}
+{"stage": "train", "event": "START", "monotonic": 5726.215932879, "timestamp": 1793759370.2563107, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 5801.06910695, "timestamp": 1793759445.109485, "pid": 12691, "seconds": 74.85316824913025, "completed": true, "sample": 1}
+{"stage": "plan", "event": "START", "monotonic": 5801.069616484, "timestamp": 1793759445.1099942, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 5828.234949764, "timestamp": 1793759472.2753274, "pid": 12691, "seconds": 27.16533064842224, "completed": true, "sample": 1}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 5828.235139336, "timestamp": 1793759472.2755172, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 6085.751690735, "timestamp": 1793759729.7920687, "pid": 12691, "seconds": 257.5165457725525, "completed": true, "sample": 1}
+{"stage": "plan_test_set", "event": "START", "monotonic": 6086.510462733, "timestamp": 1793759730.5508406, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 6090.281506687, "timestamp": 1793759734.3218844, "pid": 12691, "seconds": 3.7710444927215576, "completed": true, "sample": 1}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 6090.281630746, "timestamp": 1793759734.3220086, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 6119.502663151, "timestamp": 1793759763.543041, "pid": 12691, "seconds": 29.221028089523315, "completed": true, "sample": 1}
+{"stage": "value_iteration", "event": "END", "monotonic": 6119.555513136, "timestamp": 1793759763.595891, "pid": 12691, "value_iter": 1, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 6119.564055264, "timestamp": 1793759763.604433, "pid": 12691, "value_iter": 2}
+{"stage": "train", "event": "START", "monotonic": 6119.564220865, "timestamp": 1793759763.6045988, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 6197.311301407, "timestamp": 1793759841.3516793, "pid": 12691, "seconds": 77.74707436561584, "completed": true, "sample": 2}
+{"stage": "plan", "event": "START", "monotonic": 6197.312015863, "timestamp": 1793759841.3523936, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 6218.992706874, "timestamp": 1793759863.0330846, "pid": 12691, "seconds": 21.680691242218018, "completed": true, "sample": 2}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 6218.992813816, "timestamp": 1793759863.0331917, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 6393.467834358, "timestamp": 1793760037.5082123, "pid": 12691, "seconds": 174.47501754760742, "completed": true, "sample": 2}
+{"stage": "plan_test_set", "event": "START", "monotonic": 6394.318706551, "timestamp": 1793760038.3590844, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 6398.220785108, "timestamp": 1793760042.261163, "pid": 12691, "seconds": 3.9020791053771973, "completed": true, "sample": 2}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 6398.220942155, "timestamp": 1793760042.2613199, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 6429.009386501, "timestamp": 1793760073.0497644, "pid": 12691, "seconds": 30.788442373275757, "completed": true, "sample": 2}
+{"stage": "value_iteration", "event": "END", "monotonic": 6429.05526166, "timestamp": 1793760073.0956395, "pid": 12691, "value_iter": 2, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 6429.063180471, "timestamp": 1793760073.1035583, "pid": 12691, "value_iter": 3}
+{"stage": "train", "event": "START", "monotonic": 6429.063632869, "timestamp": 1793760073.1040108, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 6508.083504448, "timestamp": 1793760152.1238823, "pid": 12691, "seconds": 79.01986503601074, "completed": true, "sample": 3}
+{"stage": "plan", "event": "START", "monotonic": 6508.08464054, "timestamp": 1793760152.1250184, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 6532.97951154, "timestamp": 1793760177.0198894, "pid": 12691, "seconds": 24.89486575126648, "completed": true, "sample": 3}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 6532.979679133, "timestamp": 1793760177.0200567, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 6739.169395802, "timestamp": 1793760383.2097735, "pid": 12691, "seconds": 206.189715385437, "completed": true, "sample": 3}
+{"stage": "plan_test_set", "event": "START", "monotonic": 6739.947812437, "timestamp": 1793760383.9881902, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 6744.955857561, "timestamp": 1793760388.9962354, "pid": 12691, "seconds": 5.008045673370361, "completed": true, "sample": 3}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 6744.95603358, "timestamp": 1793760388.9964113, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 6793.49960209, "timestamp": 1793760437.5399797, "pid": 12691, "seconds": 48.54356408119202, "completed": true, "sample": 3}
+{"stage": "value_iteration", "event": "END", "monotonic": 6793.538669346, "timestamp": 1793760437.5790472, "pid": 12691, "value_iter": 3, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 6793.548522413, "timestamp": 1793760437.5889003, "pid": 12691, "value_iter": 4}
+{"stage": "train", "event": "START", "monotonic": 6793.54872183, "timestamp": 1793760437.5891, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 6871.447816701, "timestamp": 1793760515.4881945, "pid": 12691, "seconds": 77.89908862113953, "completed": true, "sample": 4}
+{"stage": "plan", "event": "START", "monotonic": 6871.44836845, "timestamp": 1793760515.4887462, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 6885.94808863, "timestamp": 1793760529.9884665, "pid": 12691, "seconds": 14.49971866607666, "completed": true, "sample": 4}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 6885.948212093, "timestamp": 1793760529.9885898, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 7072.405689396, "timestamp": 1793760716.446067, "pid": 12691, "seconds": 186.4574749469757, "completed": true, "sample": 4}
+{"stage": "plan_test_set", "event": "START", "monotonic": 7073.359841353, "timestamp": 1793760717.4002192, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 7076.412303369, "timestamp": 1793760720.4526813, "pid": 12691, "seconds": 3.052464008331299, "completed": true, "sample": 4}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 7076.412464054, "timestamp": 1793760720.452842, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 7117.154734247, "timestamp": 1793760761.195112, "pid": 12691, "seconds": 40.7422661781311, "completed": true, "sample": 4}
+{"stage": "value_iteration", "event": "END", "monotonic": 7117.20609235, "timestamp": 1793760761.2464702, "pid": 12691, "value_iter": 4, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 7117.211719439, "timestamp": 1793760761.2520974, "pid": 12691, "value_iter": 5}
+{"stage": "train", "event": "START", "monotonic": 7117.211886188, "timestamp": 1793760761.252264, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 7193.589927585, "timestamp": 1793760837.6303053, "pid": 12691, "seconds": 76.37803506851196, "completed": true, "sample": 5}
+{"stage": "plan", "event": "START", "monotonic": 7193.590472934, "timestamp": 1793760837.6308508, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 7208.480140502, "timestamp": 1793760852.5205183, "pid": 12691, "seconds": 14.889666080474854, "completed": true, "sample": 5}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 7208.480253027, "timestamp": 1793760852.5206308, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 7355.208195184, "timestamp": 1793760999.2485728, "pid": 12691, "seconds": 146.72793841362, "completed": true, "sample": 5}
+{"stage": "plan_test_set", "event": "START", "monotonic": 7355.946746876, "timestamp": 1793760999.9871247, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 7359.781418181, "timestamp": 1793761003.8217962, "pid": 12691, "seconds": 3.834672451019287, "completed": true, "sample": 5}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 7359.781552459, "timestamp": 1793761003.8219302, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 7391.897164446, "timestamp": 1793761035.9375422, "pid": 12691, "seconds": 32.11560773849487, "completed": true, "sample": 5}
+{"stage": "value_iteration", "event": "END", "monotonic": 7391.95127954, "timestamp": 1793761035.9916575, "pid": 12691, "value_iter": 5, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 7391.96024563, "timestamp": 1793761036.0006237, "pid": 12691, "value_iter": 6}
+{"stage": "train", "event": "START", "monotonic": 7391.960401375, "timestamp": 1793761036.0007792, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 7467.373732637, "timestamp": 1793761111.4141104, "pid": 12691, "seconds": 75.413325548172, "completed": true, "sample": 6}
+{"stage": "plan", "event": "START", "monotonic": 7467.37438388, "timestamp": 1793761111.4147618, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 7488.481622868, "timestamp": 1793761132.5220006, "pid": 12691, "seconds": 21.107237339019775, "completed": true, "sample": 6}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 7488.481745391, "timestamp": 1793761132.5221233, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 7675.319830689, "timestamp": 1793761319.3602083, "pid": 12691, "seconds": 186.83808207511902, "completed": true, "sample": 6}
+{"stage": "plan_test_set", "event": "START", "monotonic": 7676.197418946, "timestamp": 1793761320.2377968, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 7683.571450809, "timestamp": 1793761327.6118288, "pid": 12691, "seconds": 7.374032258987427, "completed": true, "sample": 6}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 7683.571578752, "timestamp": 1793761327.6119566, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 7699.010035148, "timestamp": 1793761343.0504131, "pid": 12691, "seconds": 15.438451528549194, "completed": true, "sample": 6}
+{"stage": "value_iteration", "event": "END", "monotonic": 7699.056691873, "timestamp": 1793761343.0970697, "pid": 12691, "value_iter": 6, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 7699.063884978, "timestamp": 1793761343.1042628, "pid": 12691, "value_iter": 7}
+{"stage": "train", "event": "START", "monotonic": 7699.064322386, "timestamp": 1793761343.1047, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 7774.379013778, "timestamp": 1793761418.4193914, "pid": 12691, "seconds": 75.31468677520752, "completed": true, "sample": 7}
+{"stage": "plan", "event": "START", "monotonic": 7774.379535248, "timestamp": 1793761418.419913, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 7805.644503812, "timestamp": 1793761449.6848817, "pid": 12691, "seconds": 31.26496458053589, "completed": true, "sample": 7}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 7805.64463128, "timestamp": 1793761449.6850092, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 7949.077396482, "timestamp": 1793761593.1177742, "pid": 12691, "seconds": 143.43276190757751, "completed": true, "sample": 7}
+{"stage": "plan_test_set", "event": "START", "monotonic": 7949.887928812, "timestamp": 1793761593.9283066, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 7956.113946187, "timestamp": 1793761600.154324, "pid": 12691, "seconds": 6.226020097732544, "completed": true, "sample": 7}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 7956.114141201, "timestamp": 1793761600.154519, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 8015.707335155, "timestamp": 1793761659.747713, "pid": 12691, "seconds": 59.593188762664795, "completed": true, "sample": 7}
+{"stage": "value_iteration", "event": "END", "monotonic": 8015.762255305, "timestamp": 1793761659.8026333, "pid": 12691, "value_iter": 7, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 8015.77230916, "timestamp": 1793761659.8126872, "pid": 12691, "value_iter": 8}
+{"stage": "train", "event": "START", "monotonic": 8015.772407864, "timestamp": 1793761659.8127856, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 8092.673294042, "timestamp": 1793761736.713672, "pid": 12691, "seconds": 76.90087866783142, "completed": true, "sample": 8}
+{"stage": "plan", "event": "START", "monotonic": 8092.673862558, "timestamp": 1793761736.7142403, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 8115.287485787, "timestamp": 1793761759.3278635, "pid": 12691, "seconds": 22.613620281219482, "completed": true, "sample": 8}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 8115.287626597, "timestamp": 1793761759.3280044, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 8256.492070551, "timestamp": 1793761900.5324483, "pid": 12691, "seconds": 141.20444107055664, "completed": true, "sample": 8}
+{"stage": "plan_test_set", "event": "START", "monotonic": 8257.245852707, "timestamp": 1793761901.2862306, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 8260.969064678, "timestamp": 1793761905.0094426, "pid": 12691, "seconds": 3.723212718963623, "completed": true, "sample": 8}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 8260.969209763, "timestamp": 1793761905.0095875, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 8279.717916723, "timestamp": 1793761923.7582946, "pid": 12691, "seconds": 18.74870228767395, "completed": true, "sample": 8}
+{"stage": "value_iteration", "event": "END", "monotonic": 8279.76107745, "timestamp": 1793761923.8014553, "pid": 12691, "value_iter": 8, "completed": true}
+{"stage": "value_iteration", "event": "START", "monotonic": 8279.768319613, "timestamp": 1793761923.8086977, "pid": 12691, "value_iter": 9}
+{"stage": "train", "event": "START", "monotonic": 8279.768718062, "timestamp": 1793761923.8090959, "pid": 12691}
+{"stage": "train", "event": "END", "monotonic": 8356.770839757, "timestamp": 1793762000.8112175, "pid": 12691, "seconds": 77.00211572647095, "completed": true, "sample": 9}
+{"stage": "plan", "event": "START", "monotonic": 8356.771414807, "timestamp": 1793762000.8117926, "pid": 12691}
+{"stage": "plan", "event": "END", "monotonic": 8386.723594691, "timestamp": 1793762030.7639725, "pid": 12691, "seconds": 29.95217728614807, "completed": true, "sample": 9}
+{"stage": "wait_for_executions", "event": "START", "monotonic": 8386.723711878, "timestamp": 1793762030.7640896, "pid": 12691}
+{"stage": "wait_for_executions", "event": "END", "monotonic": 8514.346662551, "timestamp": 1793762158.3870401, "pid": 12691, "seconds": 127.62294864654541, "completed": true, "sample": 9}
+{"stage": "plan_test_set", "event": "START", "monotonic": 8515.244117063, "timestamp": 1793762159.2844949, "pid": 12691}
+{"stage": "plan_test_set", "event": "END", "monotonic": 8521.347548867, "timestamp": 1793762165.3879268, "pid": 12691, "seconds": 6.103432893753052, "completed": true, "sample": 9}
+{"stage": "wait_for_executions_test_set", "event": "START", "monotonic": 8521.347725177, "timestamp": 1793762165.3881032, "pid": 12691}
+{"stage": "wait_for_executions_test_set", "event": "END", "monotonic": 8562.312686893, "timestamp": 1793762206.3530648, "pid": 12691, "seconds": 40.964959383010864, "completed": true, "sample": 9}
+{"stage": "value_iteration", "event": "END", "monotonic": 8562.359118731, "timestamp": 1793762206.3994968, "pid": 12691, "value_iter": 9, "completed": true}

@@ -1,0 +1,60 @@
+{
+  "split": "LOO-1",
+  "run_id": "balsa-v2-run-51121",
+  "supervisor_status": "STOPPED_OR_FAILED_PARTIAL",
+  "common_export_status": "COMPLETED_WITH_QUERY_ERRORS_OR_TIMEOUTS",
+  "recovery_note": "Recovered export from retained artifacts; evaluator wrote all 33 rows and reported 2 TIMEOUT rows. Independent weights remained unchanged and train_called was false.",
+  "elapsed_seconds": 2356.3460761780007,
+  "completed_value_iterations": [
+    0,
+    1,
+    2
+  ],
+  "train_service": {
+    "exit_code": "0",
+    "result": "success",
+    "stop_reason": null
+  },
+  "eval_service": {
+    "exit_code": "1",
+    "result": "exit-code",
+    "stop_reason": null
+  },
+  "ml_memory_hard_limit_bytes": 25769803776,
+  "ml_memory_peak_bytes": 17472917504,
+  "machine_available_min_bytes": 12187140096,
+  "postgres_growth_peak_bytes": 10770890752,
+  "postgres_live_temp_peak_bytes": 10773741568,
+  "artifact_limit_bytes": 21474836480,
+  "new_artifact_allocated_bytes": 6070775808,
+  "limits": {
+    "ray_object_store_bytes": 2147483648,
+    "filesystem": "19 GiB FUSE ext2; disk I/O timing affected",
+    "graceful_stop_memory_bytes": 24696061952,
+    "machine_min_available_bytes": 3221225472,
+    "postgres_growth_stop_bytes": 21474836480,
+    "live_temp_stop_bytes": 17179869184,
+    "train_stop_for_eval_reserve_seconds": 600
+  },
+  "output_validation": {
+    "snapshot_rows": 113,
+    "evaluation_rows": 33,
+    "postgres_rows": 33,
+    "statuses": {
+      "OK": 31,
+      "TIMEOUT": 2
+    }
+  },
+  "novelty_join_audit": {
+    "novelty_rows": 74,
+    "unique_novelty_keys": 74,
+    "matched_rows": 33,
+    "join_key": [
+      "query_id",
+      "family",
+      "split_type",
+      "split_id"
+    ],
+    "merge_cardinality": "one_to_one"
+  }
+}

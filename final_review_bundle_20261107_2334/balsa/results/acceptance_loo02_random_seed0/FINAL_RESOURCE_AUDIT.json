@@ -1,0 +1,25 @@
+{
+  "peak_cgroup_kernel_gib": 21.976459503173828,
+  "min_machine_available_gib": 7.608707427978516,
+  "pg_growth_peak_gib": 5.9569549560546875,
+  "live_temp_peak_gib": 5.957763671875,
+  "per_phase_peak_gib": {
+    "A_": 19.261619567871094,
+    "B_": 21.976459503173828
+  },
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+  "elapsed_through_packaging_seconds": 3308.8281075954437,
+  "note": "Overall machine minimum recomputed across all attempts; supervisor continuation summary had lost the first-attempt minimum. Values here come from append-only resource samples.",
+  "session_usage": {
+    "allocated_bytes": 18291646464,
+    "logical_bytes": 18289294287,
+    "files": 880
+  },
+  "submission_usage": {
+    "allocated_bytes": 36741120,
+    "logical_bytes": 34531225,
+    "files": 800
+  },
+  "combined_allocated_gib": 17.06964111328125,
+  "elapsed_including_final_audit_seconds": 3335.0045824050903
+}

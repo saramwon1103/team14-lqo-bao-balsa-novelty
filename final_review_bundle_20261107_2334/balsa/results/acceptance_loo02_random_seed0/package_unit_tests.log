@@ -1,0 +1,61 @@
+test_default_featurization_does_not_clear_caller_metadata (test_acceptance_contract.AcceptanceTests) ... /home/wings/Balsa_BaseQuery1_NguyenVanThang/results/acceptance_loo02_random_seed0_v1_submission/source/balsa/util/plans_lib.py:159: DeprecationWarning: invalid escape sequence \d
+  pattern = re.compile('[a-z][\da-z_]*\.[\da-z_]*\ = [\da-z_]+')
+/home/wings/Balsa_BaseQuery1_NguyenVanThang/results/acceptance_loo02_random_seed0_v1_submission/source/balsa/util/plans_lib.py:174: DeprecationWarning: invalid escape sequence \d
+  pattern = re.compile('[a-z][\da-z_]*\.[\da-z_]+')
+/home/wings/Balsa_BaseQuery1_NguyenVanThang/results/acceptance_loo02_random_seed0_v1_submission/source/balsa/util/postgres.py:249: DeprecationWarning: invalid escape sequence \(
+  pattern = re.compile('.*\(?\\b{}\\b\..*\)?'.format(table_alias))
+ok
+test_eval_contains_no_training_calls_and_installs_fail_closed_guards (test_acceptance_contract.AcceptanceTests) ... ok
+test_random_membership_is_exact_locked_upstream (test_acceptance_contract.AcceptanceTests) ... ok
+test_simulator_restore_rejects_cross_split_before_loading (test_acceptance_contract.AcceptanceTests) ... /home/wings/miniconda3/envs/balsa/lib/python3.7/site-packages/pytorch_lightning/overrides/data_parallel.py:17: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated since Python 3.3,and in 3.9 it will stop working
+  from collections import Mapping, Iterable
+ok
+test_skipped_expert_round_has_no_optimizer_steps (test_acceptance_contract.AcceptanceTests) ... ok
+test_streaming_hash_matches_bytes (test_acceptance_contract.AcceptanceTests) ... ok
+test_split_is_valid (test_basequery1_config.BaseQuery1ConfigTests) ... ok
+test_real_shapes (test_explain_parser.ExplainParserTests) ... ok
+test_reject_invalid_and_multiple_documents (test_explain_parser.ExplainParserTests) ... ok
+test_full_33_fold_coverage_and_no_group_leakage (test_loo_templates.LeaveTemplateOutTests) ... ok
+test_pinned_sql_hashes_and_real_graphs (test_loo_templates.LeaveTemplateOutTests) ... ok
+test_rehashed_cross_template_swap_rejected (test_loo_templates.LeaveTemplateOutTests) ... ok
+test_renamed_aliases_not_false_templates (test_loo_templates.LeaveTemplateOutTests) ... ok
+test_complete_timing_boundary (test_output_contract.OutputContractTests) ... ok
+test_locked_manifests_and_tamper (test_output_contract.OutputContractTests) ... ok
+test_no_run_overwrite (test_output_contract.OutputContractTests) ... ok
+test_timeout_missing_measurements_not_fabricated (test_output_contract.OutputContractTests) ... ok
+test_atomic_summary_preserves_previous_on_rename_failure (test_pilot_safety.PilotSafetyTests) ... ok
+test_chunked_tree_featurization_bit_identical_and_no_node_leak (test_pilot_safety.PilotSafetyTests) ... ok
+test_export_keeps_completed_bundle_not_partial_temp (test_pilot_safety.PilotSafetyTests) ... ok
+test_memory_limit_is_forwarded_to_worker_service (test_pilot_safety.PilotSafetyTests) ... ok
+test_train_failure_does_not_launch_eval (test_run_experiment.ExperimentOrchestrationTests) ... ok
+test_train_returns_before_fresh_evaluation_process (test_run_experiment.ExperimentOrchestrationTests) ... ok
+test_exact_sections_and_model_name (test_structured_logging.StructuredLoggingTests) ... ok
+test_extract_postgres_metrics (test_structured_logging.StructuredLoggingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.702s
+
+OK
+Spent 0.0s
+Calling make_and_featurize_trees()...
+took 0.0s
+query=5.0 plan=tensor([[0., 1., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 1., 1., 0.],
+        [0., 1., 0., 1.]]) cost=12
+{
+  "status": "FAILED",
+  "seed": 0,
+  "manifest": "/home/wings/Balsa_BaseQuery1_NguyenVanThang/fixture.json",
+  "train_exit_code": 7,
+  "wall_clock_seconds": 6.456999835791066e-05
+}
+{
+  "status": "COMPLETED",
+  "seed": 0,
+  "manifest": "/home/wings/Balsa_BaseQuery1_NguyenVanThang/fixture.json",
+  "train_exit_code": 0,
+  "checkpoint": "trusted.pt",
+  "eval_exit_code": 0,
+  "wall_clock_seconds": 0.00012330099707469344
+}

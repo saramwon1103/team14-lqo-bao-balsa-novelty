@@ -1,0 +1,2 @@
+run_id,model,split_type,split_id,checkpoint_id,step,metric_name,metric_value,path,is_final,status
+bao_bq1_run01,Bao,BaseQuery,1,bao_bq1_final,19,,,bao/checkpoints/bao__job__base_query_split_1,true,OK

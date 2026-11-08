@@ -1,0 +1,5 @@
+query_id,repeat_id,planning_ms,execution_ms,end_to_end_ms,status
+2a,0,0.485,232.848,233.33300000000003,COMPLETED
+2b,0,0.4,186.462,186.862,COMPLETED
+2c,0,0.41,180.822,181.232,COMPLETED
+2d,0,0.429,239.865,240.294,COMPLETED

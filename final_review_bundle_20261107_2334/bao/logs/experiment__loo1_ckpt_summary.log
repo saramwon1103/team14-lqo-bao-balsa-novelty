@@ -1,0 +1,39 @@
+===== EXPERIMENT START =====
+
+Split: LOO-1
+Model: Bao
+
+[1] TRAINING DATA GENERATION
+Train query: 80 train queries
+Plan collected: YES (80/80)
+Cost: 41589.8 (trung bình)
+Cardinality: 1.0 (trung bình)
+Execution time: 1585.0 ms (trung bình)
+
+[2] QUERY & PLAN ENCODING
+Query: 80 train queries
+Query/Plan encoded: YES (80/80)
+Model input generated: YES (80/80)
+
+[3] LQO TRAINING
+Model: Bao
+Split: LOO-1
+Training status: COMPLETED (author checkpoint, paper hardware)
+Training time: 4933.7 s (82.2 min) (author checkpoint, paper hardware)
+Model/state: bao_server/bao__job__leave_one_out_split_1
+
+[4] LQO EVALUATION
+Test query: 33 test queries (so sánh trên 32 query cả 2 cùng chạy xong)
+Bao inference/planning: 4236.0 ms
+Execution time: 180750.1 ms
+End-to-End: 184986.1 ms
+Status: COMPLETED 33/33
+
+[POSTGRESQL]
+Planning: 786.0 ms
+Execution: 293383.9 ms
+End-to-End: 294170.3 ms
+Status: COMPLETED 32/33 (TIMEOUT: q26c)
+Speedup (PostgreSQL / Bao): 1.59x
+
+===== EXPERIMENT END =====

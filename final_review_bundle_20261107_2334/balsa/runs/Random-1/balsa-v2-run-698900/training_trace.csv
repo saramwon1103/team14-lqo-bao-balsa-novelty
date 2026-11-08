@@ -1,0 +1,61 @@
+run_id,model,split_type,split_id,phase,step,current,total,metric_name,metric_value,metric_unit,status,message,timestamp
+balsa-v2-run-698900,Balsa,Random,1,baseline_initialization,1,,,duration,,s,START,START,1793544291.2530692
+balsa-v2-run-698900,Balsa,Random,1,baseline_initialization,2,,,duration,5.884097021000343,s,OK,END,1793544297.137172
+balsa-v2-run-698900,Balsa,Random,1,postgres_expert_baseline,3,,,duration,,s,START,START,1793544297.1373584
+balsa-v2-run-698900,Balsa,Random,1,postgres_expert_baseline,4,,,duration,76.40180439699907,s,OK,END,1793544373.5391717
+balsa-v2-run-698900,Balsa,Random,1,agent_and_simulator_initialization,5,,,duration,,s,START,START,1793544375.9282064
+balsa-v2-run-698900,Balsa,Random,1,simulator_data_collection,6,,,duration,,s,START,START,1793544381.4970365
+balsa-v2-run-698900,Balsa,Random,1,simulator_data_collection,7,,,duration,263.5005799999999,s,OK,END,1793544644.9976146
+balsa-v2-run-698900,Balsa,Random,1,simulator_training_and_featurization,8,,,duration,,s,START,START,1793544644.9981225
+balsa-v2-run-698900,Balsa,Random,1,simulator_featurization,9,,,duration,,s,START,START,1793544652.5088649
+balsa-v2-run-698900,Balsa,Random,1,simulator_featurization,10,,,duration,100.32801323700005,s,OK,END,1793544752.83688
+balsa-v2-run-698900,Balsa,Random,1,simulator_neural_training,11,,,duration,,s,START,START,1793544782.7225547
+balsa-v2-run-698900,Balsa,Random,1,simulator_epoch,12,,,duration,,s,OK,END,1793545203.8841963
+balsa-v2-run-698900,Balsa,Random,1,simulator_neural_training,13,,,duration,421.16763102500045,s,OK,END,1793545203.8901863
+balsa-v2-run-698900,Balsa,Random,1,simulator_training_and_featurization,14,,,duration,559.114752902,s,OK,END,1793545204.1128845
+balsa-v2-run-698900,Balsa,Random,1,agent_and_simulator_initialization,15,,,duration,828.624610750001,s,OK,END,1793545204.5528045
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,16,0,,duration,,s,START,START,1793545204.6048248
+balsa-v2-run-698900,Balsa,Random,1,train,17,,,duration,,s,START,START,1793545204.6051223
+balsa-v2-run-698900,Balsa,Random,1,train,18,,,duration,0.0931694507598877,s,OK,END,1793545204.698299
+balsa-v2-run-698900,Balsa,Random,1,plan,19,,,duration,,s,START,START,1793545204.6988401
+balsa-v2-run-698900,Balsa,Random,1,plan,20,,,duration,22.48552370071411,s,OK,END,1793545227.1843643
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,21,,,duration,,s,START,START,1793545227.1844888
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,22,,,duration,311.3049509525299,s,OK,END,1793545538.4894445
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,23,,,duration,,s,START,START,1793545539.3636346
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,24,,,duration,5.22702169418335,s,OK,END,1793545544.5906558
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,25,,,duration,,s,START,START,1793545544.5907876
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,26,,,duration,69.18432807922363,s,OK,END,1793545613.7751212
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,27,0,,duration,,s,OK,END,1793545613.8279085
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,28,1,,duration,,s,START,START,1793545613.835444
+balsa-v2-run-698900,Balsa,Random,1,train,29,,,duration,,s,START,START,1793545613.8356068
+balsa-v2-run-698900,Balsa,Random,1,train,30,,,duration,75.84655499458313,s,OK,END,1793545689.6821685
+balsa-v2-run-698900,Balsa,Random,1,plan,31,,,duration,,s,START,START,1793545689.6827312
+balsa-v2-run-698900,Balsa,Random,1,plan,32,,,duration,20.58942461013794,s,OK,END,1793545710.2721572
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,33,,,duration,,s,START,START,1793545710.272263
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,34,,,duration,226.5272195339203,s,OK,END,1793545936.7994869
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,35,,,duration,,s,START,START,1793545937.434133
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,36,,,duration,3.1185333728790283,s,OK,END,1793545940.5526667
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,37,,,duration,,s,START,START,1793545940.5528011
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,38,,,duration,38.5028350353241,s,OK,END,1793545979.0556417
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,39,1,,duration,,s,OK,END,1793545979.108596
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,40,2,,duration,,s,START,START,1793545979.1160386
+balsa-v2-run-698900,Balsa,Random,1,train,41,,,duration,,s,START,START,1793545979.1161716
+balsa-v2-run-698900,Balsa,Random,1,train,42,,,duration,77.46192026138306,s,OK,END,1793546056.578103
+balsa-v2-run-698900,Balsa,Random,1,plan,43,,,duration,,s,START,START,1793546056.5787687
+balsa-v2-run-698900,Balsa,Random,1,plan,44,,,duration,32.77459454536438,s,OK,END,1793546089.353366
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,45,,,duration,,s,START,START,1793546089.3534865
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions,46,,,duration,191.9677803516388,s,OK,END,1793546281.3212717
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,47,,,duration,,s,START,START,1793546281.7510252
+balsa-v2-run-698900,Balsa,Random,1,plan_test_set,48,,,duration,4.861729145050049,s,OK,END,1793546286.6127532
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,49,,,duration,,s,START,START,1793546286.6128945
+balsa-v2-run-698900,Balsa,Random,1,wait_for_executions_test_set,50,,,duration,34.74612212181091,s,OK,END,1793546321.3590207
+balsa-v2-run-698900,Balsa,Random,1,value_iteration,51,2,,duration,,s,OK,END,1793546321.4049191
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,52,0,,optimizer_steps,0,steps,SKIPPED_EXPERT_INIT,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,53,0,,training_batches,0,batches,SKIPPED_EXPERT_INIT,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,54,0,,changed_tensors,0,tensors,SKIPPED_EXPERT_INIT,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,55,1,,optimizer_steps,100,steps,COMPLETED,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,56,1,,training_batches,100,batches,COMPLETED,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,57,1,,changed_tensors,26,tensors,COMPLETED,weights_before=0c9c8a53ef7890b5c80f8ab36f1d1ab2a7d6da7f4e8384cd2209fd0257d95fde weights_after=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,58,2,,optimizer_steps,100,steps,COMPLETED,weights_before=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56 weights_after=4e8787a6891b544ae5a68ac10ec0248fb311df2f4631cfb86418c3a24c7b1b02,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,59,2,,training_batches,100,batches,COMPLETED,weights_before=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56 weights_after=4e8787a6891b544ae5a68ac10ec0248fb311df2f4631cfb86418c3a24c7b1b02,
+balsa-v2-run-698900,Balsa,Random,1,agent_fit,60,2,,changed_tensors,26,tensors,COMPLETED,weights_before=d2c068108d10f73fa1a8f761e615832afe266edcfe3c2875a912958749922e56 weights_after=4e8787a6891b544ae5a68ac10ec0248fb311df2f4631cfb86418c3a24c7b1b02,

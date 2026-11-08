@@ -1,0 +1,55 @@
+{
+  "split": "Random-1",
+  "run_id": "balsa-v2-run-698900",
+  "supervisor_status": "SUPERVISOR_ERROR",
+  "common_export_status": "COMPLETED",
+  "recovery_note": "Recovered export from retained artifacts after fixing multiline Balsa hint hash parsing; train/eval both exited successfully.",
+  "elapsed_seconds": 2123.9580280259997,
+  "completed_value_iterations": [],
+  "train_service": {
+    "exit_code": "0",
+    "result": "success",
+    "stop_reason": null
+  },
+  "eval_service": {
+    "exit_code": "0",
+    "result": "success",
+    "stop_reason": null
+  },
+  "ml_memory_hard_limit_bytes": 25769803776,
+  "ml_memory_peak_bytes": 20104589312,
+  "machine_available_min_bytes": 11574759424,
+  "postgres_growth_peak_bytes": 6108622848,
+  "postgres_live_temp_peak_bytes": 6109548544,
+  "artifact_limit_bytes": 21474836480,
+  "new_artifact_allocated_bytes": 7799005184,
+  "limits": {
+    "ray_object_store_bytes": 2147483648,
+    "filesystem": "19 GiB FUSE ext2; disk I/O timing affected",
+    "graceful_stop_memory_bytes": 24696061952,
+    "machine_min_available_bytes": 3221225472,
+    "postgres_growth_stop_bytes": 21474836480,
+    "live_temp_stop_bytes": 17179869184,
+    "train_stop_for_eval_reserve_seconds": 600
+  },
+  "output_validation": {
+    "snapshot_rows": 113,
+    "evaluation_rows": 22,
+    "postgres_rows": 22,
+    "statuses": {
+      "OK": 22
+    }
+  },
+  "novelty_join_audit": {
+    "novelty_rows": 74,
+    "unique_novelty_keys": 74,
+    "matched_rows": 22,
+    "join_key": [
+      "query_id",
+      "family",
+      "split_type",
+      "split_id"
+    ],
+    "merge_cardinality": "one_to_one"
+  }
+}

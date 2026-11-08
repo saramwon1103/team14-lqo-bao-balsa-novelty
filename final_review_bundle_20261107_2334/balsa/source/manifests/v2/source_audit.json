@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/saramwon1103/team14-lqo-bao-balsa-novelty",
+  "remote_branch": "origin/main",
+  "remote_head": "fa6e7b8d779d5d78a1efd9adb5c413cd6e530f3d",
+  "analysis_source_commit": "70061bad5969e34b999dc0cf0364801d56060c45",
+  "split_master_source_commit": "5c9d6403089289a3188aa05ea75ef33c62b50177",
+  "split_master_path": "analysis/data/split_master.csv",
+  "split_master_sha256": "804cc4ff7d764173670b65d7b0655037b398356171adcb9555df73e3fa3f8880",
+  "novelty_path": "analysis/data/novelty.csv",
+  "novelty_sha256": "cdf406532ef7e506f557cd8ffaac3c6bf754a13e9a740eb402fee38b82e58be1",
+  "novelty_rows": 74,
+  "novelty_unique_composite_keys": 74,
+  "novelty_join_key": [
+    "query_id",
+    "family",
+    "split_type",
+    "split_id"
+  ],
+  "split_manifests": {
+    "BaseQuery-1": {
+      "path": "balsa/source/manifests/v2/basequery1.json",
+      "manifest_sha256": "6cc7dadb036e85db609ebda0a25931f89c4e838101ea381245a19a218a4b94a7",
+      "membership_sha256": "1b42b3cb41f6d63dea6df8cae657d60eb127b1f53c82fb49f8c9c1f2e318cb41",
+      "train_count": 94,
+      "test_count": 19
+    },
+    "LOO-1": {
+      "path": "balsa/source/manifests/v2/loo1.json",
+      "manifest_sha256": "0cdf5bb0c6922eea73e7781aa0f62e11f7b730545312340efccf10d5d806e9c2",
+      "membership_sha256": "8fa5085ab4b750f7d3e037aa56bb6328ab31d43d29b5c2f80a213e32445590ba",
+      "train_count": 80,
+      "test_count": 33
+    },
+    "Random-1": {
+      "path": "balsa/source/manifests/v2/random1.json",
+      "manifest_sha256": "4df050b5b3e14900164dcc760bb6f4ab9b1f14a59da36621b559cc862bec9ae5",
+      "membership_sha256": "cb28b448d8aeb6c665defd41a3e5f572617dd5bfef873c218ccd13b9eb4571bf",
+      "train_count": 91,
+      "test_count": 22
+    }
+  },
+  "validation": "source membership and 113 canonical JOB SQL names checked; 80/33, 91/22, 94/19; disjoint complete membership; novelty coverage 33+22+19; no training/evaluation performed"
+}

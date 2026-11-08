@@ -1,0 +1,11 @@
+{
+  "checkpoint_sha256": "5b033ed201606ec1c88f9f5672673760cbd0eccafe68a01a7ae62e36b3d97902",
+  "weight_sha256": "311b8ae4fa32dee52cb52bb2e47690ea7b23645b292cb830975776328ef914e2",
+  "value_iter": 2,
+  "seed": 0,
+  "upstream_commit": "a0b45f2371c8c569bb90ad611f39911e5b850852",
+  "local_code_commit": null,
+  "run_py_sha256": "f336d4b99286219d5cfd736a339d525d3c8a82a1a32d4b3a4ad5b9c30887e3df",
+  "type": "evaluation only; not an exact resume checkpoint",
+  "split_sha256": "967e4bba4096a5d54021ec6f8850dcd8f2c43cda680dc895ffbefc182e139330"
+}

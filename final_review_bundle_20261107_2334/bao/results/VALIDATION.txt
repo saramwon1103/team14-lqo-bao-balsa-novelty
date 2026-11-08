@@ -1,0 +1,6 @@
+[LOO-1] bao_loo1_run01: train/test=80/33 | eval rows=33 (Bao OK=33, TIMEOUT=0; PG OK=32, TIMEOUT=1) | trace rows=519 | checkpoint=OK
+[Random-1] bao_rnd1_run01: train/test=91/22 | eval rows=22 (Bao OK=21, TIMEOUT=1; PG OK=20, TIMEOUT=2) | trace rows=519 | checkpoint=OK
+[BaseQuery-1] bao_bq1_run01: train/test=94/19 | eval rows=19 (Bao OK=17, TIMEOUT=2; PG OK=17, TIMEOUT=2) | trace rows=519 | checkpoint=OK
+TOTAL evaluation rows = 74 (mong đợi 74)
+MERGE novelty.csv on (split_type, split_id, query_id): 74/74 khớp
+chosen_plan_id = MULTIPLE: 12 query ['LOO-q4a:arm_0|arm_4|arm_4', 'LOO-q6b:arm_4|arm_0|arm_0', 'LOO-q13b:arm_0|arm_4|arm_4', 'LOO-q17c:arm_2|arm_0|arm_0', 'LOO-q18b:arm_2|arm_0|arm_0', 'LOO-q20c:arm_0|arm_0|arm_4', 'LOO-q30a:arm_4|arm_0|arm_0', 'LOO-q32b:arm_0|arm_4|arm_4', 'Random-q2c:arm_0|arm_4|arm_4', 'Random-q4b:arm_4|arm_0|arm_0', 'Random-q4c:arm_0|arm_4|arm_4', 'Random-q18b:arm_0|arm_2|arm_2']

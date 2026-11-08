@@ -1,0 +1,2 @@
+run_id,model,split_type,split_id,checkpoint_id,step,metric_name,metric_value,path,is_final,status
+bao_rnd1_run01,Bao,Random,1,bao_rnd1_final,19,,,bao/checkpoints/bao__job__random_split_1,true,OK

@@ -14,7 +14,7 @@ import streamlit as st
 # ============================================================
 
 st.set_page_config(
-    page_title="Paper → Team Evaluation → Structural Novelty",
+    page_title="Đánh giá tối ưu hóa truy vấn bằng học máy",
     page_icon="🔎",
     layout="wide",
 )
@@ -307,6 +307,117 @@ def load_query_sql(query_id: str) -> Tuple[str, str]:
 
     return path.read_text(encoding="utf-8"), str(path)
 
+
+
+# ============================================================
+# EXPERIMENT SCENARIO + DATA PREPARATION
+# ============================================================
+
+def _feature_list_markdown(values: Set[str], empty_text: str = "Không có") -> str:
+    if not values:
+        return f"- {empty_text}"
+    return "\n".join(f"- `{value}`" for value in sorted(values))
+
+
+def render_experiment_scenario_and_data() -> None:
+    st.markdown("## ⓪ Kịch bản thực nghiệm và dữ liệu đầu vào")
+    st.caption(
+        "Phần này mô tả dữ liệu đi qua các bước nào trước khi xuất hiện ở kết quả thực nghiệm phía dưới."
+    )
+
+    # ---- Experiment workflow ----
+    st.markdown("### Kịch bản chạy của nhóm")
+    c1, c2, c3, c4 = st.columns(4)
+
+    with c1:
+        st.markdown("#### 1 · Chuẩn bị JOB")
+        st.markdown(
+            "**113 truy vấn · 33 query families**\n\n"
+            "Tạo ba Train/Test split: **LOO-1, Random-1, BaseQuery-1**."
+        )
+
+    with c2:
+        st.markdown("#### 2 · Chuẩn bị mô hình")
+        st.markdown(
+            "**Bao:** dùng checkpoint do tác giả cung cấp cho từng Split-1.\n\n"
+            "**Balsa:** nhóm huấn luyện checkpoint riêng theo từng split với cấu hình main 3 iterations."
+        )
+
+    with c3:
+        st.markdown("#### 3 · Evaluation trên Test")
+        st.markdown(
+            "**Bao:** chọn hint set → PostgreSQL lập kế hoạch và thực thi.\n\n"
+            "**Balsa:** chọn plan → PostgreSQL lập kế hoạch và thực thi."
+        )
+
+    with c4:
+        st.markdown("#### 4 · Lưu và phân tích")
+        st.markdown(
+            "Lưu **planning / inference / execution / E2E** vào CSV.\n\n"
+            "Sau evaluation, nhóm mới tính **Structural Novelty** để phân tích Test ↔ Train."
+        )
+
+    st.markdown("### Dữ liệu Train / Test được dùng trong demo")
+    split_cols = st.columns(3)
+    split_notes = {
+        "LOO": "Mỗi query family đóng góp một biến thể vào Test.",
+        "Random": "Các query được chia ngẫu nhiên giữa Train và Test.",
+        "BaseQuery": "Các query cùng family được giữ cùng phía Train hoặc Test.",
+    }
+
+    for col, split_type in zip(split_cols, SPLIT_ORDER):
+        train_queries, test_queries = get_split_queries(split_type, 1)
+        with col:
+            st.markdown(f"#### {SPLIT_LABEL[split_type]}")
+            m1, m2 = st.columns(2)
+            m1.metric("Train", len(train_queries))
+            m2.metric("Test", len(test_queries))
+            st.caption(split_notes[split_type])
+
+    # ---- Fixed example: no query selector here ----
+    example_query = "q1a" if "q1a" in feature_map else sorted(feature_map, key=query_sort_key)[0]
+    example_feature = feature_map[example_query]
+    example_sql, example_sql_path = load_query_sql(example_query)
+
+    st.markdown("### Từ một câu SQL đến đặc trưng dùng cho phân tích")
+    st.caption(
+        f"Ví dụ cố định: {example_query}. Selector query chỉ xuất hiện ở phần Case Study cuối ứng dụng."
+    )
+
+    sql_col, feature_col = st.columns([1.15, 1])
+    with sql_col:
+        st.markdown(f"#### SQL · {example_query}")
+        st.code(example_sql, language="sql")
+        st.caption(example_sql_path)
+
+    with feature_col:
+        n1, n2, n3 = st.columns(3)
+        n1.metric("Tables", example_feature["n_tables"])
+        n2.metric("Joins", example_feature["n_joins"])
+        n3.metric("Filters", example_feature["n_filters"])
+
+        tab_tables, tab_joins, tab_filters = st.tabs(["Tables", "Joins", "Filters"])
+        with tab_tables:
+            st.markdown(_feature_list_markdown(example_feature["tables"]))
+        with tab_joins:
+            st.markdown(_feature_list_markdown(example_feature["joins"]))
+        with tab_filters:
+            st.markdown(_feature_list_markdown(example_feature["filters"]))
+
+    st.markdown("### Hai nhánh sử dụng dữ liệu")
+    model_col, analysis_col = st.columns(2)
+    with model_col:
+        st.markdown("#### Bao / Balsa")
+        st.markdown(
+            "SQL và candidate plans được biểu diễn theo **cơ chế riêng của từng optimizer** "
+            "để lựa chọn hint hoặc plan."
+        )
+    with analysis_col:
+        st.markdown("#### Structural Novelty")
+        st.markdown(
+            "Nhóm dùng **Tables / Joins / Filters** để đo khoảng cách cấu trúc giữa Test và Train. "
+            "Đây là bước **phân tích sau thực nghiệm**, không phải input được đưa vào Bao/Balsa."
+        )
 
 # ============================================================
 # PERFORMANCE HELPERS
@@ -1422,11 +1533,9 @@ def load_balsa_hinted_sql(split_type: str, run_id: str, query_id: str) -> Tuple[
     if preferred.exists():
         return preferred.read_text(encoding="utf-8"), str(preferred)
 
-    matches = list(split_dir.glob(f"*/evaluation/plans/{stem}_repeat_0_hinted.sql")) if split_dir.exists() else []
-    if matches:
-        path = matches[0]
-        return path.read_text(encoding="utf-8"), str(path)
-    return None, None
+    # Không fallback sang run khác: case study phải truy xuất đúng artifact
+    # của run_id đang được hiển thị.
+    return None, str(preferred)
 
 
 def extract_hint_block(sql_text: str | None) -> str | None:
@@ -1554,16 +1663,22 @@ def render_query_case_study() -> None:
 # MAIN
 # ============================================================
 
-st.title("Bao · Balsa · PostgreSQL — Tái hiện benchmark và mở rộng Structural Novelty")
-st.caption("JOB · Paper benchmark → kết quả tái hiện theo split → Structural Novelty → query case study")
+st.title("Đánh giá tối ưu hóa truy vấn bằng học máy")
+st.caption("Bao · Balsa · PostgreSQL trên JOB")
 
-st.markdown(
-    """
-**Luồng trình bày:** nhóm bắt đầu từ cách paper benchmark LQO ở cấp split, tái hiện bằng output thực nghiệm của Bao/Balsa/PostgreSQL;
-sau đó mới đặt câu hỏi mở rộng về structural generalization gap và dùng Structural Novelty để phân tích.
-"""
+st.info(
+    "**Chế độ xem lại kết quả:** ứng dụng đọc dữ liệu và artifact thực nghiệm đã lưu trong repo; "
+    "thao tác chọn truy vấn không huấn luyện mô hình hoặc thực thi lại benchmark."
 )
 
+st.markdown(
+    "**Luồng demo:** dữ liệu và kịch bản chạy → đánh giá theo protocol của paper → "
+    "Structural Novelty extension → query case study."
+)
+
+render_experiment_scenario_and_data()
+
+st.divider()
 render_paper_protocol_replay()
 
 st.divider()
@@ -1572,4 +1687,4 @@ render_structural_novelty_extension()
 st.divider()
 render_query_case_study()
 
-st.caption("Team14 · JOB · Paper protocol → Team evaluation → Structural Novelty → Case study")
+st.caption("Team14 · JOB · Data preparation → Paper-oriented evaluation → Structural Novelty → Case study")

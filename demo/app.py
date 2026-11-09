@@ -322,13 +322,13 @@ def _feature_list_markdown(values: Set[str], empty_text: str = "Không có") -> 
 
 
 def render_experiment_scenario_and_data() -> None:
-    st.markdown("## ⓪ Kịch bản thực nghiệm và dữ liệu đầu vào")
+    st.markdown("## Dữ liệu đầu vào và quy trình thực nghiệm")
     st.caption(
         "Phần này mô tả dữ liệu đi qua các bước nào trước khi xuất hiện ở kết quả thực nghiệm phía dưới."
     )
 
     # ---- Experiment workflow ----
-    st.markdown("### Kịch bản chạy của nhóm")
+    st.markdown("### Quy trình đánh giá")
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
@@ -339,27 +339,27 @@ def render_experiment_scenario_and_data() -> None:
         )
 
     with c2:
-        st.markdown("#### 2 · Chuẩn bị mô hình")
+        st.markdown("#### 2 · Huấn luyện và mô hình")
         st.markdown(
-            "**Bao:** sử dụng mốc mô hình do tác giả cung cấp cho từng cách chia dữ liệu.\n\n"
+            "**Bao:** dùng mô hình đã huấn luyện do tác giả cung cấp theo từng cách chia dữ liệu.\n\n"
             "**Balsa:** nhóm huấn luyện mô hình riêng cho từng cách chia, với ba vòng lặp huấn luyện."
         )
 
     with c3:
-        st.markdown("#### 3 · Đánh giá trên tập kiểm tra")
+        st.markdown("#### 3 · Kiểm tra truy vấn")
         st.markdown(
             "**Bao:** chọn bộ gợi ý thực thi → PostgreSQL lập kế hoạch và thực thi.\n\n"
             "**Balsa:** chọn kế hoạch truy vấn → PostgreSQL lập kế hoạch và thực thi."
         )
 
     with c4:
-        st.markdown("#### 4 · Lưu và phân tích")
+        st.markdown("#### 4 · Ghi nhận kết quả")
         st.markdown(
-            "Lưu **thời gian lập kế hoạch / suy luận / thực thi / xử lý đầu cuối (E2E)** vào CSV.\n\n"
-            "Sau đánh giá, nhóm mới tính **điểm mức độ mới về cấu trúc** để so sánh tập kiểm tra và tập huấn luyện."
+            "Ghi nhận **thời gian lập kế hoạch, suy luận, thực thi và xử lý đầu cuối (E2E)** vào các tệp CSV. "
+            "Những kết quả này được trình bày ở phần tái lập thực nghiệm."
         )
 
-    st.markdown("### Dữ liệu huấn luyện và kiểm tra dùng trong ứng dụng")
+    st.markdown("### Dữ liệu huấn luyện")
     split_cols = st.columns(3)
     split_notes = {
         "LOO": "Mỗi nhóm truy vấn gốc có một biến thể truy vấn trong tập kiểm tra.",
@@ -376,50 +376,42 @@ def render_experiment_scenario_and_data() -> None:
             m2.metric("Kiểm tra", len(test_queries))
             st.caption(split_notes[split_type])
 
-    # ---- Fixed example: no query selector here ----
-    example_query = "q1a" if "q1a" in feature_map else sorted(feature_map, key=query_sort_key)[0]
-    example_feature = feature_map[example_query]
-    example_sql, example_sql_path = load_query_sql(example_query)
 
-    st.markdown("### Từ một câu SQL đến đặc trưng dùng cho phân tích")
-    st.caption(
-        f"Ví dụ cố định: {example_query}. Bộ chọn truy vấn chỉ xuất hiện trong phần phân tích trường hợp ở cuối ứng dụng."
-    )
 
-    sql_col, feature_col = st.columns([1.15, 1])
-    with sql_col:
-        st.markdown(f"#### SQL · {example_query}")
-        st.code(example_sql, language="sql")
-        st.caption(example_sql_path)
 
-    with feature_col:
-        n1, n2, n3 = st.columns(3)
-        n1.metric("Bảng dữ liệu", example_feature["n_tables"])
-        n2.metric("Điều kiện kết hợp", example_feature["n_joins"])
-        n3.metric("Điều kiện lọc", example_feature["n_filters"])
+def render_paper_encoding_and_pipeline() -> None:
+    """Trình bày ngắn gọn đường đi của một truy vấn khi đánh giá Bao/Balsa.
 
-        tab_tables, tab_joins, tab_filters = st.tabs(["Bảng dữ liệu", "Điều kiện kết hợp", "Điều kiện lọc"])
-        with tab_tables:
-            st.markdown(_feature_list_markdown(example_feature["tables"]))
-        with tab_joins:
-            st.markdown(_feature_list_markdown(example_feature["joins"]))
-        with tab_filters:
-            st.markdown(_feature_list_markdown(example_feature["filters"]))
+    Chỉ minh họa quy trình theo bài báo; các phép đo nằm ở phần Kết quả bên dưới.
+    """
+    st.markdown("### Xử lý truy vấn trên tập kiểm tra")
+    st.caption("Hai LQO sử dụng mô hình đã chuẩn bị ở bước huấn luyện để lựa chọn phương án cho truy vấn kiểm tra.")
 
-    st.markdown("### Hai nhánh sử dụng dữ liệu")
-    model_col, analysis_col = st.columns(2)
-    with model_col:
-        st.markdown("#### Bao / Balsa")
-        st.markdown(
-            "SQL và các kế hoạch ứng viên được xử lý theo **cơ chế riêng của từng bộ tối ưu hóa** "
-            "để lựa chọn gợi ý thực thi hoặc kế hoạch truy vấn."
-        )
-    with analysis_col:
-        st.markdown("#### Mức độ mới về cấu trúc truy vấn")
-        st.markdown(
-            "Nhóm dùng **bảng dữ liệu / điều kiện kết hợp / điều kiện lọc** để đo khoảng cách cấu trúc giữa tập kiểm tra và tập huấn luyện. "
-            "Đây là bước **phân tích sau thực nghiệm**, không phải dữ liệu đầu vào của Bao hoặc Balsa."
-        )
+    bao_col, balsa_col = st.columns(2)
+    with bao_col:
+        with st.container(border=True):
+            st.markdown("#### Bao · Chọn bộ gợi ý")
+            st.markdown(
+                "**Truy vấn SQL** → PostgreSQL tạo kế hoạch ứng viên  \n"
+                "↓  \n"
+                "**Bao suy luận:** đánh giá biểu diễn kế hoạch, chọn bộ gợi ý  \n"
+                "↓  \n"
+                "**PostgreSQL:** lập kế hoạch theo gợi ý → thực thi truy vấn"
+            )
+            st.caption("Đo thời gian: lập kế hoạch (gồm suy luận Bao) + thực thi.")
+
+    with balsa_col:
+        with st.container(border=True):
+            st.markdown("#### Balsa · Tìm kiếm kế hoạch")
+            st.markdown(
+                "**Truy vấn SQL** → biểu diễn truy vấn và kế hoạch  \n"
+                "↓  \n"
+                "**Balsa suy luận:** tìm kiếm, chọn kế hoạch thực thi  \n"
+                "↓  \n"
+                "**PostgreSQL:** lập kế hoạch tương ứng → thực thi truy vấn"
+            )
+            st.caption("Đo thời gian: suy luận/tìm kiếm + lập kế hoạch + thực thi.")
+
 
 # ============================================================
 # PERFORMANCE HELPERS
@@ -1087,65 +1079,101 @@ def render_execution_evidence() -> None:
 
 
 def render_experiment_csv_evidence() -> None:
+    """Hiển thị cả ba cách chia trong từng bảng Bao và Balsa."""
     with st.expander("Dữ liệu chi tiết: mốc mô hình · lập kế hoạch · suy luận · thực thi · E2E", expanded=False):
-        selected_split = st.selectbox(
-            "Cách chia",
-            SPLIT_ORDER,
-            format_func=lambda x: SPLIT_LABEL[x],
-            key="csv_evidence_split",
-        )
-
+        st.caption("Các bảng hiển thị đồng thời LOO-1, Random-1 và BaseQuery-1 (lần chia số 1).")
         bao_tab, balsa_tab = st.tabs(["Kết quả Bao", "Kết quả Balsa"])
 
+        def show_rows(data: pd.DataFrame, columns: list[str]) -> None:
+            if data.empty:
+                st.warning("Không tìm thấy dữ liệu thực nghiệm tương ứng.")
+                return
+            visible = [col for col in columns if col in data.columns]
+            result = data[visible].rename(columns={"_split_label": "Cách chia", **RAW_CSV_LABELS})
+            st.dataframe(result, hide_index=True, width="stretch")
+
+        def all_bao_splits(path: Path) -> pd.DataFrame:
+            data = _read_csv_if_exists(path)
+            if data.empty or not {"split_type", "split_id"}.issubset(data.columns):
+                return pd.DataFrame()
+            data = data[
+                data["split_type"].isin(SPLIT_ORDER)
+                & (pd.to_numeric(data["split_id"], errors="coerce") == 1)
+            ].copy()
+            data["_split_label"] = data["split_type"].map(SPLIT_LABEL)
+            data["_split_order"] = data["split_type"].map({name: i for i, name in enumerate(SPLIT_ORDER)})
+            if "query_id" in data.columns:
+                data["_query_order"] = data["query_id"].astype(str).map(query_sort_key)
+                data = data.sort_values(["_split_order", "_query_order"], kind="stable")
+            return data
+
+        def all_balsa_splits(filename: str) -> pd.DataFrame:
+            frames = []
+            for split_type in SPLIT_ORDER:
+                path = BALSA_RUN_DIRS[split_type] / filename
+                data = _read_csv_if_exists(path)
+                if data.empty:
+                    continue
+                # Các tệp của Balsa nằm trong thư mục riêng của từng cách chia.
+                if "split_type" in data.columns:
+                    data = data[data["split_type"] == split_type].copy()
+                if "split_id" in data.columns:
+                    data = data[pd.to_numeric(data["split_id"], errors="coerce") == 1].copy()
+                if data.empty:
+                    continue
+                data["_split_label"] = SPLIT_LABEL[split_type]
+                frames.append(data)
+            if not frames:
+                return pd.DataFrame()
+            result = pd.concat(frames, ignore_index=True)
+            result["_split_order"] = result["_split_label"].map(
+                {SPLIT_LABEL[name]: i for i, name in enumerate(SPLIT_ORDER)}
+            )
+            if "query_id" in result.columns:
+                result["_query_order"] = result["query_id"].astype(str).map(query_sort_key)
+                result = result.sort_values(["_split_order", "_query_order"], kind="stable")
+            return result
+
         with bao_tab:
-            raw_bao = _read_csv_if_exists(BAO_RAW_EVAL_PATH)
-            raw_pg = _read_csv_if_exists(BAO_RAW_PG_PATH)
-            st.caption(f"Bao: {BAO_RAW_EVAL_PATH.relative_to(REPO_ROOT)}")
-            st.caption(f"PostgreSQL đối chứng: {BAO_RAW_PG_PATH.relative_to(REPO_ROOT)}")
-
-            if not raw_bao.empty:
-                rows = raw_bao[(raw_bao["split_type"] == selected_split) & (pd.to_numeric(raw_bao["split_id"], errors="coerce") == 1)].copy()
-                cols = [c for c in ["query_id", "checkpoint_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "chosen_plan_id", "chosen_plan_ids"] if c in rows.columns]
-                st.dataframe(rows[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
-            else:
-                st.warning("Không tìm thấy Đánh giá Baouation CSV.")
-
-            if not raw_pg.empty:
-                with st.expander("PostgreSQL đối chứng tương ứng của Bao", expanded=False):
-                    rows = raw_pg[(raw_pg["split_type"] == selected_split) & (pd.to_numeric(raw_pg["split_id"], errors="coerce") == 1)].copy()
-                    cols = [c for c in ["query_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms"] if c in rows.columns]
-                    st.dataframe(rows[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
+            st.caption(f"Nguồn Bao: {BAO_RAW_EVAL_PATH.relative_to(REPO_ROOT)}")
+            show_rows(
+                all_bao_splits(BAO_RAW_EVAL_PATH),
+                ["_split_label", "query_id", "checkpoint_id", "planning_ms", "execution_ms",
+                 "end_to_end_ms", "status", "chosen_plan_id", "chosen_plan_ids"],
+            )
+            with st.expander("PostgreSQL đối chứng của Bao", expanded=False):
+                st.caption(str(BAO_RAW_PG_PATH.relative_to(REPO_ROOT)))
+                show_rows(
+                    all_bao_splits(BAO_RAW_PG_PATH),
+                    ["_split_label", "query_id", "planning_ms", "execution_ms",
+                     "end_to_end_ms", "status", "timeout_ms"],
+                )
 
         with balsa_tab:
-            run_dir = BALSA_RUN_DIRS[selected_split]
-            raw_eval_path = run_dir / "evaluation_results.csv"
-            raw_pg_path = run_dir / "postgres_results.csv"
-            raw_eval = _read_csv_if_exists(raw_eval_path)
-            raw_pg = _read_csv_if_exists(raw_pg_path)
-            st.caption(f"Balsa: {raw_eval_path.relative_to(REPO_ROOT)}")
-            st.caption(f"PostgreSQL đối chứng: {raw_pg_path.relative_to(REPO_ROOT)}")
-
-            if not raw_eval.empty:
-                cols = [c for c in ["query_id", "checkpoint_id", "inference_ms", "planning_ms", "execution_ms", "end_to_end_ms", "status", "chosen_plan_id"] if c in raw_eval.columns]
-                st.dataframe(raw_eval[cols].rename(columns=RAW_CSV_LABELS), hide_index=True, width="stretch")
-            else:
-                st.warning("Không tìm thấy Đánh giá Balsauation CSV.")
-
-            if not raw_pg.empty:
-                with st.expander("PostgreSQL đối chứng tương ứng của Balsa", expanded=False):
-                    cols = [c for c in ["query_id", "planning_ms", "execution_ms", "end_to_end_ms", "status", "timeout_ms"] if c in raw_pg.columns]
-                    st.dataframe(raw_pg[cols], hide_index=True, width="stretch")
+            st.caption("Nguồn Balsa: tệp evaluation_results.csv trong thư mục chạy của từng cách chia")
+            show_rows(
+                all_balsa_splits("evaluation_results.csv"),
+                ["_split_label", "query_id", "checkpoint_id", "inference_ms",
+                 "planning_ms", "execution_ms", "end_to_end_ms", "status", "chosen_plan_id"],
+            )
+            with st.expander("PostgreSQL đối chứng của Balsa", expanded=False):
+                st.caption("Nguồn: postgres_results.csv trong thư mục chạy tương ứng")
+                show_rows(
+                    all_balsa_splits("postgres_results.csv"),
+                    ["_split_label", "query_id", "planning_ms", "execution_ms",
+                     "end_to_end_ms", "status", "timeout_ms"],
+                )
 
 
 def render_paper_protocol_replay() -> None:
-    st.markdown("## ① Tái hiện thực nghiệm theo quy trình đánh giá của bài báo")
+    st.markdown("## Tái lập thực nghiệm")
     st.caption("JOB · LOO-1 · Random-1 · BaseQuery-1 · Đánh giá theo cách chia dữ liệu")
 
     # 1) Provenance / artifacts first
     render_execution_evidence()
 
     # 2) Numeric results before visualization
-    st.markdown("### Kết quả theo từng cách chia dữ liệu")
+    st.markdown("### Kết quả")
     overview = build_split_overview_table()
     st.dataframe(
         overview,
@@ -1164,7 +1192,8 @@ def render_paper_protocol_replay() -> None:
     render_experiment_csv_evidence()
 
     # 3) One combined Figure-4-like visualization
-    st.markdown("### Biểu đồ tổng hợp — thời gian lập kế hoạch, suy luận và thực thi")
+    st.markdown("### Trực quan hóa kết quả")
+    st.caption("Biểu đồ phân rã thời gian lập kế hoạch, suy luận và thực thi theo từng cách chia dữ liệu.")
     st.caption(
         "Bao: thời gian suy luận được tính trong thời gian lập kế hoạch · "
         "Balsa: thời gian suy luận và tìm kế hoạch được tính riêng trước thời gian lập kế hoạch bằng PostgreSQL · "
@@ -1462,12 +1491,12 @@ def build_extension_evidence_table() -> pd.DataFrame:
 
 
 def render_structural_novelty_extension() -> None:
-    st.markdown("## ② Mức độ mới về cấu trúc truy vấn — phân tích khả năng khái quát hóa")
+    st.markdown("## 5. Kết quả tổng hợp")
 
-    st.markdown("### 2.1 Khác biệt cấu trúc giữa tập huấn luyện và tập kiểm tra")
+    st.markdown("### 5.1. Độ mới theo cách chia dữ liệu (RQ1)")
     render_novelty_distribution()
 
-    st.markdown("### 2.2 Hiệu năng theo các mức độ mới về cấu trúc")
+    st.markdown("### 5.2. Hiệu năng theo mức độ mới")
     left, right = st.columns(2)
     with left:
         st.markdown("#### Bao")
@@ -1492,7 +1521,7 @@ def render_structural_novelty_extension() -> None:
             },
         )
 
-    st.markdown("### 2.3 Tương quan Spearman giữa mức độ mới và tỷ số thời gian E2E")
+    st.markdown("### 5.3. Tương quan với hiệu năng (RQ2)")
     spearman_table = build_spearman_comparison_table()
     st.dataframe(
         spearman_table,
@@ -1518,7 +1547,7 @@ def render_structural_novelty_extension() -> None:
                     st.markdown("#### Balsa")
                     render_split_scatter(balsa_df, "balsa", "Balsa", split_type, balsa_spearman_df)
 
-    st.markdown("### 2.4 Tóm tắt bằng chứng")
+    st.markdown("### 5.4. Tóm tắt")
     evidence = build_extension_evidence_table()
     if not evidence.empty:
         st.dataframe(evidence, hide_index=True, width="stretch")
@@ -1551,16 +1580,22 @@ def extract_hint_block(sql_text: str | None) -> str | None:
 
 
 def render_query_case_study() -> None:
-    st.markdown("## ③ Phân tích trường hợp truy vấn — xem chi tiết theo từng cách chia")
+    """Luồng minh họa một truy vấn trong phần nghiên cứu mở rộng.
+
+    Các đặc trưng SQL được đọc từ CSV đã xử lý; chỉ khoảng cách
+    đến tập huấn luyện được tính lại khi người dùng chọn truy vấn.
+    """
+    st.markdown("## Phân tích truy vấn")
     st.caption(
-        "Bộ chọn truy vấn chỉ xuất hiện ở đây. Phần này không dùng để tổng hợp toàn bộ cách chia; "
-        "phần này minh họa một truy vấn cụ thể để giải thích quyết định của Bao/Balsa và điểm mức độ mới về cấu trúc."
+        "Chọn truy vấn kiểm tra để xem đặc trưng cấu trúc, cách tính điểm mức độ mới "
+        "và kết quả Bao/Balsa đã ghi nhận."
     )
 
+    st.markdown("### 1. Chọn dữ liệu")
     control1, control2 = st.columns(2)
     with control1:
         selected_split_type = st.selectbox(
-            "Chọn cách chia dữ liệu",
+            "Cách chia dữ liệu",
             SPLIT_ORDER,
             format_func=lambda x: SPLIT_LABEL.get(x, x),
             key="case_split",
@@ -1568,17 +1603,25 @@ def render_query_case_study() -> None:
 
     selected_split_id = 1
     train_queries, test_queries = get_split_queries(selected_split_type, selected_split_id)
+    if not test_queries:
+        st.warning("Không tìm thấy truy vấn kiểm tra trong cách chia đã chọn.")
+        return
     defaults = {"LOO": "q11b", "Random": "q6c", "BaseQuery": "q15b"}
     preferred = defaults.get(selected_split_type)
     default_idx = test_queries.index(preferred) if preferred in test_queries else 0
 
     with control2:
+        # Khóa riêng theo cách chia tránh lưu lựa chọn không còn thuộc tập kiểm tra.
         selected_query = st.selectbox(
-            "Chọn truy vấn kiểm tra",
+            "Truy vấn kiểm tra",
             test_queries,
             index=default_idx,
-            key="case_query",
+            key=f"case_query_{selected_split_type}",
         )
+    st.caption(
+        f"{SPLIT_LABEL[selected_split_type]}: {len(train_queries)} truy vấn huấn luyện, "
+        f"{len(test_queries)} truy vấn kiểm tra."
+    )
 
     result = calculate_novelty(selected_query, selected_split_type, selected_split_id)
     q33, q67 = novelty_thresholds(selected_split_type, selected_split_id)
@@ -1588,78 +1631,201 @@ def render_query_case_study() -> None:
     bao_row = selected_performance_row(bao_df, selected_split_type, selected_split_id, selected_query)
     balsa_row = selected_performance_row(balsa_df, selected_split_type, selected_split_id, selected_query)
 
-    st.markdown("### 3.1 Truy vấn kiểm tra và mức độ tương đồng với tập huấn luyện")
-    m1, m2, m3, m4, m5 = st.columns(5)
-    m1.metric("Truy vấn", selected_query)
-    m2.metric("Bảng dữ liệu", query_feature["n_tables"])
-    m3.metric("Điều kiện kết hợp", query_feature["n_joins"])
-    m4.metric("Điều kiện lọc", query_feature["n_filters"])
-    m5.metric("Điểm mức độ mới", f"{result['novelty']:.6f}")
-
-    st.caption(f"Truy vấn huấn luyện gần nhất: {result['nearest']} · Mức độ mới: {level}")
-    with st.expander("Xem SQL gốc", expanded=False):
+    st.markdown("### 2. Đặc trưng truy vấn")
+    st.caption(
+        "Ba tập đặc trưng được trích xuất trước và lưu trong query_features.csv. "
+        "Việc chọn truy vấn chỉ hiển thị kết quả đã trích xuất, không phân tích lại SQL."
+    )
+    sql_col, feature_col = st.columns([1.15, 1])
+    with sql_col:
+        st.markdown(f"#### SQL · {selected_query}")
         st.code(query_sql, language="sql")
         st.caption(query_sql_path)
-
-    st.dataframe(
-        result["candidate_df"].head(5),
-        hide_index=True,
-        width="stretch",
-        column_config={
-            "d_table": st.column_config.NumberColumn("Khoảng cách bảng dữ liệu", format="%.6f"),
-            "d_join": st.column_config.NumberColumn("Khoảng cách kết hợp bảng", format="%.6f"),
-            "d_filter": st.column_config.NumberColumn("Khoảng cách điều kiện lọc", format="%.6f"),
-            "D(q,h)": st.column_config.NumberColumn("Khoảng cách tổng hợp D(q,h)", format="%.6f"),
-        },
+    with feature_col:
+        n1, n2, n3 = st.columns(3)
+        n1.metric("Bảng dữ liệu", query_feature["n_tables"])
+        n2.metric("Điều kiện kết hợp", query_feature["n_joins"])
+        n3.metric("Điều kiện lọc", query_feature["n_filters"])
+        tables_tab, joins_tab, filters_tab = st.tabs(
+            ["Bảng dữ liệu", "Điều kiện kết hợp", "Điều kiện lọc"]
+        )
+        with tables_tab:
+            st.markdown(_feature_list_markdown(query_feature["tables"]))
+        with joins_tab:
+            st.markdown(_feature_list_markdown(query_feature["joins"]))
+        with filters_tab:
+            st.markdown(_feature_list_markdown(query_feature["filters"]))
+    st.caption(
+        "Nhóm sử dụng các đặc trưng này để phân tích sau thực nghiệm; "
+        "chúng không phải bộ đặc trưng đầu vào chung của Bao và Balsa."
     )
 
-    st.markdown("### 3.2 Bao và Balsa lựa chọn phương án nào cho truy vấn này?")
-    left, right = st.columns(2)
+    st.markdown("### 3. Tính điểm mức độ mới")
+    st.caption(
+        "So sánh truy vấn đã chọn với từng truy vấn huấn luyện bằng khoảng cách Jaccard "
+        "trên ba tập đặc trưng. Khoảng cách trung bình nhỏ nhất là điểm mức độ mới."
+    )
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Điểm mức độ mới", f"{result['novelty']:.6f}")
+    m2.metric("Mức độ mới", level)
+    m3.metric("Truy vấn huấn luyện gần nhất", result["nearest"])
+    d1, d2, d3 = st.columns(3)
+    d1.metric("Khoảng cách bảng", f"{result['d_table']:.6f}")
+    d2.metric("Khoảng cách kết hợp", f"{result['d_join']:.6f}")
+    d3.metric("Khoảng cách lọc", f"{result['d_filter']:.6f}")
+    with st.expander("Xem 5 truy vấn huấn luyện gần nhất", expanded=False):
+        st.dataframe(
+            result["candidate_df"].head(5),
+            hide_index=True,
+            width="stretch",
+            column_config={
+                "d_table": st.column_config.NumberColumn("Khoảng cách bảng", format="%.6f"),
+                "d_join": st.column_config.NumberColumn("Khoảng cách kết hợp", format="%.6f"),
+                "d_filter": st.column_config.NumberColumn("Khoảng cách lọc", format="%.6f"),
+                "D(q,h)": st.column_config.NumberColumn("Khoảng cách trung bình", format="%.6f"),
+            },
+        )
 
-    with left:
-        st.markdown("#### Bao")
-        if bao_row is None:
-            st.warning("Không có dữ liệu thực nghiệm Bao cho truy vấn này.")
-        else:
-            chosen = str(bao_row.get("bao_chosen_plan_id", "N/A"))
-            chosen_ids = str(bao_row.get("bao_chosen_plan_ids", ""))
-            st.metric("Phương án gợi ý được Bao chọn", chosen)
-            st.markdown(f"**Ý nghĩa phương án gợi ý:** {BAO_ARM_HINTS.get(chosen, 'Không có mapping mô tả trong app.')} ")
-            if chosen_ids and chosen_ids.lower() != "nan":
-                st.caption(f"Các phương án qua những lần chạy lặp: {chosen_ids}")
-            p1, p2, p3 = st.columns(3)
-            p1.metric("Lập kế hoạch và suy luận", format_ms(bao_row.get("bao_planning_ms")))
-            p2.metric("Thực thi", format_ms(bao_row.get("bao_execution_ms")))
-            p3.metric("E2E / PG", format_ratio(bao_row.get("bao_vs_pg_ratio")))
+    st.markdown("### 4. Đối chiếu mức độ mới và hiệu năng")
+    st.caption("Điểm mức độ mới được tính từ cấu trúc SQL; tỷ số E2E lấy từ kết quả thực nghiệm đã lưu.")
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Điểm mức độ mới", f"{result['novelty']:.6f}")
+    m2.metric("Bao / PostgreSQL (E2E)", format_ratio(bao_row.get("bao_vs_pg_ratio")) if bao_row is not None else "N/A")
+    m3.metric("Balsa / PostgreSQL (E2E)", format_ratio(balsa_row.get("balsa_vs_pg_ratio")) if balsa_row is not None else "N/A")
+    st.caption(
+        "Mỗi tỷ số dùng kết quả PostgreSQL đối chứng của chính thực nghiệm Bao hoặc Balsa. "
+        "Giá trị nhỏ hơn 1× nghĩa là LQO nhanh hơn PostgreSQL; lớn hơn 1× nghĩa là chậm hơn. "
+        "Điểm mức độ mới không được dùng để lựa chọn kế hoạch thực thi."
+    )
 
-    with right:
-        st.markdown("#### Balsa")
-        if balsa_row is None:
-            st.warning("Không có dữ liệu thực nghiệm Balsa cho truy vấn này.")
-        else:
-            plan_id = str(balsa_row.get("balsa_chosen_plan_id", "N/A"))
-            run_id = str(balsa_row.get("balsa_run_id", ""))
-            st.metric("Mã kế hoạch được chọn", plan_id)
-            p1, p2, p3 = st.columns(3)
-            p1.metric("Suy luận và tìm kế hoạch", format_ms(balsa_row.get("balsa_inference_ms")))
-            p2.metric("PostgreSQL lập kế hoạch", format_ms(balsa_row.get("balsa_planning_ms")))
-            p3.metric("E2E / PG", format_ratio(balsa_row.get("balsa_vs_pg_ratio")))
 
-            hinted_sql, hinted_path = load_balsa_hinted_sql(selected_split_type, run_id, selected_query)
-            hint_block = extract_hint_block(hinted_sql)
-            if hint_block:
-                with st.expander("Xem gợi ý cho kế hoạch thực thi do Balsa chọn", expanded=False):
-                    st.code(hint_block, language="text")
-                    if hinted_path:
-                        st.caption(hinted_path)
-            elif hinted_sql:
-                with st.expander("Xem truy vấn SQL có gợi ý thực thi của Balsa", expanded=False):
-                    st.code(hinted_sql, language="sql")
-                    if hinted_path:
-                        st.caption(hinted_path)
+
+def render_model_provenance(split_type: str) -> None:
+    """Nguồn huấn luyện và đánh giá theo cách chia đang chọn; không chạy mô hình."""
+    split_label = SPLIT_LABEL[split_type]
+    train_queries, test_queries = get_split_queries(split_type, 1)
+
+    bao_manifest_path = BAO_RUN_DIRS[split_type] / "run_manifest.json"
+    balsa_manifest_path = BALSA_RUN_DIRS[split_type] / "run_manifest.json"
+    bao_manifest = _load_json_if_exists(bao_manifest_path)
+    balsa_manifest = _load_json_if_exists(balsa_manifest_path)
+
+    st.caption(
+        f"**Nguồn dữ liệu:** `analysis/data/split_master.csv` · "
+        f"{split_label}: **{len(train_queries)} truy vấn huấn luyện**, "
+        f"**{len(test_queries)} truy vấn kiểm tra**."
+    )
+
+    with st.expander("Nguồn mô hình và mã đánh giá", expanded=False):
+        bao_col, balsa_col = st.columns(2)
+        with bao_col:
+            st.markdown("**Bao**")
+            st.write("**Huấn luyện:** dùng mô hình đã huấn luyện do tác giả cung cấp; nhóm không huấn luyện lại Bao.")
+            checkpoint_path = bao_manifest.get("checkpoint_path")
+            if checkpoint_path:
+                st.caption(f"Mô hình: `{checkpoint_path}`")
+            st.caption(f"Nhật ký thực nghiệm: `{bao_manifest_path.relative_to(REPO_ROOT)}`")
+            st.caption(
+                f"Kết quả đánh giá: `{(BAO_RUN_DIRS[split_type] / 'evaluation_results.csv').relative_to(REPO_ROOT)}`"
+            )
+            st.caption("Mã chạy đánh giá: `bao/scripts/test_ckpt.sh`")
+            st.caption("Mã tổng hợp kết quả lựa chọn: `bao/scripts/build_bao_outputs.py`")
+
+        with balsa_col:
+            st.markdown("**Balsa**")
+            st.write("**Huấn luyện:** nhóm huấn luyện theo cách chia đang chọn (cấu hình 3 vòng lặp).")
+            st.caption("Mã huấn luyện: `balsa/source/scripts/train_split.py`")
+            checkpoint_path = balsa_manifest.get("checkpoint_path")
+            if checkpoint_path:
+                st.caption(f"Mốc mô hình theo nhật ký: `{checkpoint_path}`")
+            st.caption(f"Nhật ký thực nghiệm: `{balsa_manifest_path.relative_to(REPO_ROOT)}`")
+            st.caption(
+                f"Kết quả đánh giá: `{(BALSA_RUN_DIRS[split_type] / 'evaluation_results.csv').relative_to(REPO_ROOT)}`"
+            )
+            st.caption("Mã đánh giá và ghi nhận kế hoạch: `balsa/source/scripts/evaluate_checkpoint.py`")
+
+        st.caption(
+            "Các tệp đánh giá ghi nhận phương án được mô hình chọn và thời gian xử lý. "
+            "Giao diện chỉ đọc kết quả đã lưu; không thể suy ra đầy đủ lý do nội bộ "
+            "mô hình chọn phương án đó chỉ từ mã phương án."
+        )
+
+
+def render_paper_query_decisions() -> None:
+    """Xem phương án thực tế Bao/Balsa đã chọn, không chạy lại mô hình."""
+    st.markdown("### Phương án thực thi được lựa chọn")
+    split_col, query_col = st.columns(2)
+    with split_col:
+        split_type = st.selectbox(
+            "Cách chia dữ liệu", SPLIT_ORDER,
+            format_func=lambda x: SPLIT_LABEL[x], key="paper_decision_split",
+        )
+    _, test_queries = get_split_queries(split_type, 1)
+    if not test_queries:
+        st.warning("Không có truy vấn kiểm tra cho cách chia này.")
+        return
+    defaults = {"LOO": "q11b", "Random": "q6c", "BaseQuery": "q15b"}
+    default_query = defaults.get(split_type)
+    idx = test_queries.index(default_query) if default_query in test_queries else 0
+    with query_col:
+        query_id = st.selectbox(
+            "Truy vấn kiểm tra", test_queries, index=idx,
+            key=f"paper_decision_query_{split_type}",
+        )
+
+    bao_row = selected_performance_row(bao_df, split_type, 1, query_id)
+    balsa_row = selected_performance_row(balsa_df, split_type, 1, query_id)
+    with st.expander("Xem truy vấn SQL", expanded=False):
+        sql, source_path = load_query_sql(query_id)
+        st.code(sql, language="sql")
+        st.caption(source_path)
+
+    render_model_provenance(split_type)
+
+    bao_col, balsa_col = st.columns(2)
+    with bao_col:
+        with st.container(border=True):
+            st.markdown("#### Bao · Bộ gợi ý thực thi")
+            if bao_row is None:
+                st.warning("Không có kết quả Bao cho truy vấn này.")
             else:
-                st.caption("Không tìm thấy tệp SQL có gợi ý thực thi trong kho mã nguồn hiện tại.")
+                chosen = str(bao_row.get("bao_chosen_plan_id", "N/A"))
+                chosen_ids = str(bao_row.get("bao_chosen_plan_ids", ""))
+                st.metric("Bộ gợi ý được chọn", chosen)
+                st.caption(BAO_ARM_HINTS.get(chosen, "Không có mô tả cho bộ gợi ý này."))
+                if chosen_ids and chosen_ids.lower() != "nan":
+                    st.caption(f"Các lần chạy lặp: {chosen_ids}")
+                a, b, c = st.columns(3)
+                a.metric("Lập kế hoạch + suy luận", format_ms(bao_row.get("bao_planning_ms")))
+                b.metric("Thực thi", format_ms(bao_row.get("bao_execution_ms")))
+                c.metric("E2E / PostgreSQL", format_ratio(bao_row.get("bao_vs_pg_ratio")))
 
+    with balsa_col:
+        with st.container(border=True):
+            st.markdown("#### Balsa · Kế hoạch thực thi")
+            if balsa_row is None:
+                st.warning("Không có kết quả Balsa cho truy vấn này.")
+            else:
+                plan_id = str(balsa_row.get("balsa_chosen_plan_id", "N/A"))
+                run_id = str(balsa_row.get("balsa_run_id", ""))
+                st.metric("Mã kế hoạch được chọn", plan_id)
+                a, b, c = st.columns(3)
+                a.metric("Suy luận / tìm kế hoạch", format_ms(balsa_row.get("balsa_inference_ms")))
+                b.metric("PostgreSQL lập kế hoạch", format_ms(balsa_row.get("balsa_planning_ms")))
+                c.metric("E2E / PostgreSQL", format_ratio(balsa_row.get("balsa_vs_pg_ratio")))
+                hinted_sql, hinted_path = load_balsa_hinted_sql(split_type, run_id, query_id)
+                hint_block = extract_hint_block(hinted_sql)
+                if hint_block:
+                    with st.expander("Xem gợi ý thực thi Balsa chọn", expanded=False):
+                        st.code(hint_block, language="text")
+                        st.caption(hinted_path)
+                elif hinted_sql:
+                    with st.expander("Xem SQL có gợi ý thực thi", expanded=False):
+                        st.code(hinted_sql, language="sql")
+                        st.caption(hinted_path)
+                else:
+                    st.caption("Không tìm thấy tệp gợi ý thực thi trong dữ liệu đã lưu.")
+    st.caption("Đây là kết quả thực nghiệm đã lưu; thay đổi lựa chọn không chạy lại Bao, Balsa hoặc PostgreSQL.")
 
 
 # ============================================================
@@ -1675,19 +1841,28 @@ st.info(
 )
 
 st.markdown(
-    "**Trình tự nội dung:** dữ liệu và kịch bản thực nghiệm → đánh giá theo quy trình của bài báo → "
-    "phân tích mức độ mới về cấu trúc → phân tích trường hợp truy vấn."
+    "**Hai phần của ứng dụng:** tái lập quy trình và đánh giá trong bài báo gốc; "
+    "sau đó phân tích phần nghiên cứu mở rộng do nhóm thực hiện."
 )
 
-render_experiment_scenario_and_data()
+tab_paper, tab_extension = st.tabs([
+    "Tab 1 · Tái lập thực nghiệm bài báo gốc",
+    "Tab 2 · Nghiên cứu mở rộng",
+])
 
-st.divider()
-render_paper_protocol_replay()
+with tab_paper:
+    render_experiment_scenario_and_data()
+    render_paper_encoding_and_pipeline()
+    render_paper_query_decisions()
+    st.divider()
+    render_paper_protocol_replay()
 
-st.divider()
-render_structural_novelty_extension()
+with tab_extension:
+    render_query_case_study()
+    st.divider()
+    render_structural_novelty_extension()
 
-st.divider()
-render_query_case_study()
-
-st.caption("Nhóm 14 · JOB · Chuẩn bị dữ liệu → Đánh giá theo bài báo → Mức độ mới về cấu trúc → Phân tích trường hợp")
+st.caption(
+    "Nhóm 14 · JOB · Tab 1: tái lập thực nghiệm bài báo · "
+    "Tab 2: nghiên cứu mở rộng về mức độ mới cấu trúc"
+)
